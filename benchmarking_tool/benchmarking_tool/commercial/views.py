@@ -443,7 +443,11 @@ def updateexteriorwall(id):
             destination = '/'.join([target, file_name])
             exteriorwall.photo_id = file_name
             db.session.commit()
-        return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
+            return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
+        elif request.method == 'GET':
+                exteriorwall.material.data = exteriorwall.fixture_count
+                exteriorwall.rvalue.data = exteriorwall.hours
+                return render_template('addexteriorwall.html', form = form, building = building, exteriorwall = exteriorwall)
     else:
         abort(403)
 @commercial.route('/addroof/<int:id>/update', methods=['GET', 'POST'])
@@ -462,7 +466,11 @@ def updateroof(id):
             destination = '/'.join([target, file_name])
             roof.photo_id = file_name
             db.session.commit()
-        return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
+            return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
+        elif request.method == 'GET':
+                roof.material.data = roof.fixture_count
+                roof.rvalue.data = roof.hours
+                return render_template('addroof.html', form = form, building = building, roof = roof)
     else:
         abort(403)
 @commercial.route('/addrooffinish/<int:id>/update', methods=['GET', 'POST'])
@@ -481,7 +489,12 @@ def updaterooffinish(id):
             destination = '/'.join([target, file_name])
             rooffinish.photo_id = file_name
             db.session.commit()
-        return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
+            return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
+        elif request.method == 'GET':
+                rooffinish.material.data = rooffinish.fixture_count
+                rooffinish.rvalue.data = rooffinish.hours
+                return render_template('addrooffinish.html', form = form, building = building, rooffinish = rooffinish)
+          
     else:
         abort(403)
 @commercial.route('/addfoundation/<int:id>/update', methods=['GET', 'POST'])
@@ -500,7 +513,15 @@ def updatefoundation(id):
             destination = '/'.join([target, file_name])
             foundation.photo_id = file_name
             db.session.commit()
-        return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
+            return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
+        
+        elif request.method == 'GET':
+                form.foundation_type.dat = foundation.foundation_type
+                form.material.data = foundation.fixture_count
+                form.rvalue.data = foundation.hours
+                form.rx.data = foundation.rx
+                return render_template('addfoundation.html', form = form, building = building, foundation = foundation)
+           
     else:
         abort(403)
 @commercial.route('/addroof/<int:id>', methods=['GET', 'POST'])
