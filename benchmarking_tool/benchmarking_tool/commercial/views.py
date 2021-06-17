@@ -434,7 +434,7 @@ def updateexteriorwall(id):
         exteriorwall = ExteriorWall.query.get(id)
         buidling = Building.query.filter_by(id=exteriorwall.building_id).first()
         form = ExteriorWallForm()
-        if form.validate_on_submit():
+        if request.method == 'POST':
             exteriorwall.material = form.material.data
             exteriorwall.rvalue = form.rvalue.data
             chiller_photo = request.files.get('chiller_photo', None)
@@ -445,8 +445,8 @@ def updateexteriorwall(id):
             db.session.commit()
             return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
         elif request.method == 'GET':
-                exteriorwall.material.data = exteriorwall.fixture_count
-                exteriorwall.rvalue.data = exteriorwall.hours
+                exteriorwall.material.data = exteriorwall.material
+                exteriorwall.rvalue.data = exteriorwall.rvalue
                 return render_template('addexteriorwall.html', form = form, building = building, exteriorwall = exteriorwall)
     else:
         abort(403)
@@ -457,7 +457,7 @@ def updateroof(id):
         roof = Roof.query.get(id)
         buidling = Building.query.filter_by(id=roof.building_id).first()
         form = RoofForm()
-        if form.validate_on_submit():
+        if request.method == 'POST':
             roof.material = form.material.data
             roof.rvalue = form.rvalue.data
             chiller_photo = request.files.get('chiller_photo', None)
@@ -468,8 +468,8 @@ def updateroof(id):
             db.session.commit()
             return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
         elif request.method == 'GET':
-                roof.material.data = roof.fixture_count
-                roof.rvalue.data = roof.hours
+                roof.material.data = roof.material
+                roof.rvalue.data = roof.rvalue
                 return render_template('addroof.html', form = form, building = building, roof = roof)
     else:
         abort(403)
@@ -480,7 +480,7 @@ def updaterooffinish(id):
         rooffinish = RoofFinish.query.get(id)
         buidling = Building.query.filter_by(id=rooffinish.building_id).first()
         form = RoofFinish()
-        if form.validate_on_submit():
+        if request.method == 'POST':
             rooffinish.material = form.material.data
             rooffinish.rvalue = form.rvalue.data
             chiller_photo = request.files.get('chiller_photo', None)
@@ -491,8 +491,8 @@ def updaterooffinish(id):
             db.session.commit()
             return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
         elif request.method == 'GET':
-                rooffinish.material.data = rooffinish.fixture_count
-                rooffinish.rvalue.data = rooffinish.hours
+                rooffinish.material.data = rooffinish.material
+                rooffinish.rvalue.data = rooffinish.rvalue
                 return render_template('addrooffinish.html', form = form, building = building, rooffinish = rooffinish)
           
     else:
@@ -504,7 +504,7 @@ def updatefoundation(id):
         foundation = Foundation.query.get(id)
         buidling = Building.query.filter_by(id=foundation.building_id).first()
         form = FoundationForm()
-        if form.validate_on_submit():
+        if request.method == 'POST':
             foundation.material = form.material.data
             foundation.rvalue = form.rvalue.data
             chiller_photo = request.files.get('chiller_photo', None)
@@ -517,8 +517,8 @@ def updatefoundation(id):
         
         elif request.method == 'GET':
                 form.foundation_type.dat = foundation.foundation_type
-                form.material.data = foundation.fixture_count
-                form.rvalue.data = foundation.hours
+                form.material.data = foundation.material
+                form.rvalue.data = foundation.rvalue
                 form.rx.data = foundation.rx
                 return render_template('addfoundation.html', form = form, building = building, foundation = foundation)
            
