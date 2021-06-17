@@ -519,7 +519,7 @@ def updatearea(id):
 
         elif request.method == 'GET':
             form.name.data = area.name
-        return render_template('update_area.html', form = form, building = building)
+        return render_template('add_area.html', form = form, building = building)
     else:
         abort(403)
 
