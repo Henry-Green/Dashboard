@@ -353,7 +353,7 @@ def addexteriorwall(id):
         exteriorwall_id = id
         exteriorwalls = ExteriorWall.query.filter_by(building_id=exteriorwall_id).all()
         form = ExteriorWallForm()
-
+        photo = "temp"
         if request.method == 'POST':
             material = request.form["material"]
             rvalue = request.form["rvalue"]
@@ -375,11 +375,11 @@ def addroof(id):
         roof_id = id
         roofs = Roof.query.filter_by(building_id=roof_id).all()
         form = RoofForm()
-
+        photo = "temp"
         if request.method == 'POST':
             material = request.form["material"]
             rvalue = request.form["rvalue"]
-            new_roof = Roof(photo=photo,material=material, rvalue=rvalue, building_id = building.id)
+            new_roof = Roof(photo_id=photo,material=material, rvalue=rvalue, building_id = building.id)
             db.session.add(new_roof)
             db.session.commit()
             return redirect('/constructionindex/'+str(id))
@@ -397,7 +397,7 @@ def addrooffinish(id):
         rooffinish_id = id
         rooffinishs = RoofFinish.query.filter_by(building_id=rooffinish_id).all()
         form = RoofFinishForm()
-
+        photo = "temp"
         if request.method == 'POST':
             material = request.form["material"]
             rvalue = request.form["rvalue"]
@@ -419,7 +419,7 @@ def addfoundation(id):
         foundation_id = id
         foundations = Foundation.query.filter_by(building_id=foundation_id).all()
         form = FoundationForm()
-
+        photo = "temp"
         if request.method == 'POST':
             foundation_type = request.form["foundation_type"]
             material = request.form["material"]
