@@ -432,7 +432,7 @@ def deletefoundation(id):
 def updateexteriorwall(id):
     if(current_user.is_authenticated and current_user.is_admin()):
         exteriorwall = ExteriorWall.query.get(id)
-        buidling = Building.query.filter_by(id=exteriorwall.area_id).first()
+        buidling = Building.query.filter_by(id=exteriorwall.building_id).first()
         form = ExteriorWallForm()
         if form.validate_on_submit():
             exteriorwall.material = form.material.data
@@ -450,7 +450,7 @@ def updateexteriorwall(id):
 def updateroof(id):
     if(current_user.is_authenticated and current_user.is_admin()):
         roof = Roof.query.get(id)
-        buidling = Building.query.filter_by(id=roof.area_id).first()
+        buidling = Building.query.filter_by(id=roof.building_id).first()
         form = RoofForm()
         if form.validate_on_submit():
             roof.material = form.material.data
@@ -468,7 +468,7 @@ def updateroof(id):
 def updaterooffinish(id):
     if(current_user.is_authenticated and current_user.is_admin()):
         rooffinish = RoofFinish.query.get(id)
-        buidling = Building.query.filter_by(id=rooffinish.area_id).first()
+        buidling = Building.query.filter_by(id=rooffinish.building_id).first()
         form = RoofFinish()
         if form.validate_on_submit():
             rooffinish.material = form.material.data
@@ -480,12 +480,12 @@ def updaterooffinish(id):
             rooffinish.photo_id = file_name
             db.session.commit()
             return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
-@commercial.route('/addexteriorwall/<int:id>/update', methods=['GET', 'POST'])
+@commercial.route('/addfoundation/<int:id>/update', methods=['GET', 'POST'])
 @login_required
 def updatefoundation(id):
     if(current_user.is_authenticated and current_user.is_admin()):
         foundation = Foundation.query.get(id)
-        buidling = Building.query.filter_by(id=exteriorwall.area_id).first()
+        buidling = Building.query.filter_by(id=foundation.building_id).first()
         form = FoundationForm()
         if form.validate_on_submit():
             foundation.material = form.material.data
@@ -504,7 +504,7 @@ def addroof(id):
     if(current_user.is_authenticated and current_user.is_admin()):
         building = Building.query.get(id)
         roof_id = id
-        roofs = Roof.query.filter_by(building_id=roof_id).all()
+        roofs = Roof.query.filter_by(building_id=buidling_id).all()
         form = RoofForm()
         photo = "temp"
         if request.method == 'POST':
