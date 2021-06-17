@@ -426,6 +426,78 @@ def deletefoundation(id):
         return redirect(url_for('commercial.construction',buidling = buidling, id = buidling))
     else:
         abort(403)
+
+@commercial.route('/addexteriorwall/<int:id>/update', methods=['GET', 'POST'])
+@login_required
+def updateexteriorwall(id):
+    if(current_user.is_authenticated and current_user.is_admin()):
+        exteriorwall = ExteriorWall.query.get(id)
+        buidling = Building.query.filter_by(id=exteriorwall.area_id).first()
+        form = ExteriorWallForm()
+        if form.validate_on_submit():
+            exteriorwall.material = form.material.data
+            exteriorwall.rvalue = form.rvalue.data
+            chiller_photo = request.files.get('chiller_photo', None)
+            target = os.path.join(app_root, 'static/appliance_photos/img')
+            file_name = save_picture_appliance(chiller_photo,'appliance_photos/img/')
+            destination = '/'.join([target, file_name])
+            exteriorwall.photo_id = file_name
+            db.session.commit()
+            return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
+
+@commercial.route('/addroof/<int:id>/update', methods=['GET', 'POST'])
+@login_required
+def updateroof(id):
+    if(current_user.is_authenticated and current_user.is_admin()):
+        roof = Roof.query.get(id)
+        buidling = Building.query.filter_by(id=roof.area_id).first()
+        form = RoofForm()
+        if form.validate_on_submit():
+            roof.material = form.material.data
+            roof.rvalue = form.rvalue.data
+            chiller_photo = request.files.get('chiller_photo', None)
+            target = os.path.join(app_root, 'static/appliance_photos/img')
+            file_name = save_picture_appliance(chiller_photo,'appliance_photos/img/')
+            destination = '/'.join([target, file_name])
+            roof.photo_id = file_name
+            db.session.commit()
+            return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
+
+@commercial.route('/addrooffinish/<int:id>/update', methods=['GET', 'POST'])
+@login_required
+def updaterooffinish(id):
+    if(current_user.is_authenticated and current_user.is_admin()):
+        rooffinish = RoofFinish.query.get(id)
+        buidling = Building.query.filter_by(id=rooffinish.area_id).first()
+        form = RoofFinish()
+        if form.validate_on_submit():
+            rooffinish.material = form.material.data
+            rooffinish.rvalue = form.rvalue.data
+            chiller_photo = request.files.get('chiller_photo', None)
+            target = os.path.join(app_root, 'static/appliance_photos/img')
+            file_name = save_picture_appliance(chiller_photo,'appliance_photos/img/')
+            destination = '/'.join([target, file_name])
+            rooffinish.photo_id = file_name
+            db.session.commit()
+            return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
+@commercial.route('/addexteriorwall/<int:id>/update', methods=['GET', 'POST'])
+@login_required
+def updatefoundation(id):
+    if(current_user.is_authenticated and current_user.is_admin()):
+        foundation = Foundation.query.get(id)
+        buidling = Building.query.filter_by(id=exteriorwall.area_id).first()
+        form = FoundationForm()
+        if form.validate_on_submit():
+            foundation.material = form.material.data
+            foundation.rvalue = form.rvalue.data
+            chiller_photo = request.files.get('chiller_photo', None)
+            target = os.path.join(app_root, 'static/appliance_photos/img')
+            file_name = save_picture_appliance(chiller_photo,'appliance_photos/img/')
+            destination = '/'.join([target, file_name])
+            foundation.photo_id = file_name
+            db.session.commit()
+            return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
+
 @commercial.route('/addroof/<int:id>', methods=['GET', 'POST'])
 @login_required
 def addroof(id): 
