@@ -360,7 +360,7 @@ def addexteriorwall(id):
             new_exteriorwall = ExteriorWall(photo_id=photo,material=material, rvalue=rvalue, building_id = building.id)
             db.session.add(new_exteriorwall)
             db.session.commit()
-            return redirect('/constructionindex/'+str(id))
+            return redirect('/commercial/constructionindex/'+str(id))
             # except:
             #   return "There was an error adding light"
         else:
@@ -382,7 +382,7 @@ def addroof(id):
             new_roof = Roof(photo_id=photo,material=material, rvalue=rvalue, building_id = building.id)
             db.session.add(new_roof)
             db.session.commit()
-            return redirect('/constructionindex/'+str(id))
+            return redirect('/commercial/constructionindex/'+str(id))
             # except:
             #   return "There was an error adding light"
         else:
@@ -404,7 +404,7 @@ def addrooffinish(id):
             new_rooffinish = RoofFinish(photo_id=photo,material=material, rvalue=rvalue, building_id = building.id)
             db.session.add(new_rooffinish)
             db.session.commit()
-            return redirect('/constructionindex/'+str(id))
+            return redirect('/commercial/constructionindex/'+str(id))
             # except:
             #   return "There was an error adding light"
         else:
@@ -428,7 +428,7 @@ def addfoundation(id):
             new_foundation = Foundation(photo_id=photo,material=material, rvalue=rvalue, foundationtype = foundation_type, rx=rx, building_id = building.id)
             db.session.add(new_foundation)
             db.session.commit()
-            return redirect('/constructionindex/'+str(id))
+            return redirect('/commercial/constructionindex/'+str(id))
             # except:
             #   return "There was an error adding light"
         else:
