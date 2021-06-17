@@ -492,3 +492,59 @@
   font-style: normal;
   font-weight: 500;
 }
+:root {
+  --cerulean-frost: #6e9ac0;
+  --chateau-green: #3ab54a;
+  --chathams-blue: #1d5280;
+  --mystic: #e7e9f5;
+  --white: #ffffff;
+
+  --font-size-l: 11px;
+  --font-size-m: 10px;
+  --font-size-xl: 16px;
+  --font-size-xxl: 19px;
+
+  --font-family-core_sans_c-55medium: "Core Sans C-55Medium", Helvetica;
+  --font-family-core_sans_c-65bold: "Core Sans C-65Bold", Helvetica;
+}
+.coresansc-65-bold-cerulean-frost-11px {
+  color: var(--cerulean-frost);
+  font-family: var(--font-family-core_sans_c-65bold);
+  font-size: var(--font-size-l);
+  font-style: normal;
+  font-weight: 700;
+}
+.coresansc-65-bold-white-16px {
+  color: var(--white);
+  font-family: var(--font-family-core_sans_c-65bold);
+  font-size: var(--font-size-xl);
+  font-style: normal;
+  font-weight: 700;
+}
+.coresansc-65-bold-chathams-blue-19px {
+  color: var(--chathams-blue);
+  font-family: var(--font-family-core_sans_c-65bold);
+  font-size: var(--font-size-xxl);
+  font-style: normal;
+  font-weight: 700;
+}
+.coresansc-55-medium-white-10px {
+  color: var(--white);
+  font-family: var(--font-family-core_sans_c-55medium);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 500;
+}
+.coresansc-55-medium-cerulean-frost-10px {
+  color: var(--cerulean-frost);
+  font-family: var(--font-family-core_sans_c-55medium);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 500;
+}
+.border-1px-mystic {
+  border: 1px solid var(--mystic);
+}
+.border-1-5px-cerulean-frost {
+  border: 1.5px solid var(--cerulean-frost);
+}

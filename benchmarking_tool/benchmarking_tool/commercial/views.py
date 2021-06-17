@@ -342,7 +342,21 @@ def construction(id):
         foundations = Foundation.query.filter_by(building_id=construction_id).all()
         roofs = Roof.query.filter_by(building_id=construction_id).all()
         rooffinishs = RoofFinish.query.filter_by(building_id=construction_id).all()
-        return render_template('constructionindex.html', building=building.id, building_id = id, exteriorwalls=exteriorwalls, foundations=foundations,roofs=roofs,rooffinishs = rooffinishs)
+        return render_template('constructionindex.html', building=building, building_id = id, exteriorwalls=exteriorwalls, foundations=foundations,roofs=roofs,rooffinishs = rooffinishs)
+    else:
+        abort(403)
+
+@commercial.route('/addconstruction/<int:id>', methods=['GET', 'POST'])
+@login_required
+def addconstruction(id):
+    if(current_user.is_authenticated and current_user.is_admin()):
+        building = Building.query.get(id)
+        construction_id = id
+        exteriorwalls = ExteriorWall.query.filter_by(building_id=construction_id).all()
+        foundations = Foundation.query.filter_by(building_id=construction_id).all()
+        roofs = Roof.query.filter_by(building_id=construction_id).all()
+        rooffinishs = RoofFinish.query.filter_by(building_id=construction_id).all()
+        return render_template('addconstruction.html', building=building, building_id = id, exteriorwalls=exteriorwalls, foundations=foundations,roofs=roofs,rooffinishs = rooffinishs)
     else:
         abort(403)
 @commercial.route('/addexteriorwall/<int:id>', methods=['GET', 'POST'])
@@ -365,6 +379,51 @@ def addexteriorwall(id):
             #   return "There was an error adding light"
         else:
             return render_template('addexteriorwall.html', building=building, exteriorwalls=exteriorwalls,form=form)
+    else:
+        abort(403)
+
+@commercial.route('/addexteriorwall/<int:id>/delete', methods=['Get','POST'])
+@login_required
+def deleteexteriorwall(id):
+    if(current_user.is_authenticated and current_user.is_admin()):
+        exteriorwall = ExteriorWall.query.get_or_404(id)
+        buidling = exteriorwall.building_id
+        db.session.delete(exteriorwall)
+        db.session.commit()
+        return redirect(url_for('commercial.construction',buidling = buidling, id = buidling))
+    else:
+        abort(403)
+@commercial.route('/addroof/<int:id>/delete', methods=['Get','POST'])
+@login_required
+def deleteroof(id):
+    if(current_user.is_authenticated and current_user.is_admin()):
+        roof = Roof.query.get_or_404(id)
+        buidling = roof.building_id
+        db.session.delete(roof)
+        db.session.commit()
+        return redirect(url_for('commercial.construction',buidling = buidling, id = buidling))
+    else:
+        abort(403)
+@commercial.route('/addrooffinish/<int:id>/delete', methods=['Get','POST'])
+@login_required
+def deleterooffinish(id):
+    if(current_user.is_authenticated and current_user.is_admin()):
+        rooffinish = RoofFinish.query.get_or_404(id)
+        buidling = rooffinish.building_id
+        db.session.delete(rooffinish)
+        db.session.commit()
+        return redirect(url_for('commercial.construction',buidling = buidling, id = buidling))
+    else:
+        abort(403)
+@commercial.route('/addfoundation/<int:id>/delete', methods=['Get','POST'])
+@login_required
+def deletefoundation(id):
+    if(current_user.is_authenticated and current_user.is_admin()):
+        foundation = Foundation.query.get_or_404(id)
+        buidling = foundation.building_id
+        db.session.delete(foundation)
+        db.session.commit()
+        return redirect(url_for('commercial.construction',buidling = buidling, id = buidling))
     else:
         abort(403)
 @commercial.route('/addroof/<int:id>', methods=['GET', 'POST'])
@@ -397,11 +456,14 @@ def addrooffinish(id):
         rooffinish_id = id
         rooffinishs = RoofFinish.query.filter_by(building_id=rooffinish_id).all()
         form = RoofFinishForm()
-        photo = "temp"
         if request.method == 'POST':
             material = request.form["material"]
             rvalue = request.form["rvalue"]
-            new_rooffinish = RoofFinish(photo_id=photo,material=material, rvalue=rvalue, building_id = building.id)
+            chiller_photo = request.files.get('chiller_photo', None)
+            target = os.path.join(app_root, 'static/appliance_photos/img')
+            file_name = save_picture_appliance(chiller_photo,'appliance_photos/img/')
+            destination = '/'.join([target, file_name])
+            new_rooffinish = RoofFinish(photo_id=file_name,material=material, rvalue=rvalue, building_id = building.id)
             db.session.add(new_rooffinish)
             db.session.commit()
             return redirect('/commercial/constructionindex/'+str(id))

@@ -24,7 +24,7 @@
         <div class="some-address-C61RwL coresansc-55-medium-cerulean-frost-11px">{{ building.address }}</div>
         <div class="x0800-1600-C61RwL coresansc-55-medium-cerulean-frost-11px">08:00 - 16:00</div>
         <div class="group-6911-C61RwL">
-          <img class="pexels-pixabay-269077-2-nFnupU" src="img/pexels-pixabay-269077-2@2x.png" />
+          <img class="pexels-pixabay-269077-2-nFnupU" src="{{ url_for('static', filename='appliance_photos/img/' + building.photo_id) }}" />
           <div class="rectangle-2767-nFnupU"></div>
         </div>
         <a href = "{{url_for('commercial.construction', id = building.id)}}"><div class="rectangle-2775-C61RwL"></div></a>
