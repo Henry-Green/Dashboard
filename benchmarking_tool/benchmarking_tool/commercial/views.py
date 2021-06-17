@@ -443,8 +443,9 @@ def updateexteriorwall(id):
             destination = '/'.join([target, file_name])
             exteriorwall.photo_id = file_name
             db.session.commit()
-            return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
-
+        return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
+    else:
+        abort(403)
 @commercial.route('/addroof/<int:id>/update', methods=['GET', 'POST'])
 @login_required
 def updateroof(id):
@@ -461,8 +462,9 @@ def updateroof(id):
             destination = '/'.join([target, file_name])
             roof.photo_id = file_name
             db.session.commit()
-            return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
-
+        return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
+    else:
+        abort(403)
 @commercial.route('/addrooffinish/<int:id>/update', methods=['GET', 'POST'])
 @login_required
 def updaterooffinish(id):
@@ -479,7 +481,9 @@ def updaterooffinish(id):
             destination = '/'.join([target, file_name])
             rooffinish.photo_id = file_name
             db.session.commit()
-            return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
+        return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
+    else:
+        abort(403)
 @commercial.route('/addfoundation/<int:id>/update', methods=['GET', 'POST'])
 @login_required
 def updatefoundation(id):
@@ -496,8 +500,9 @@ def updatefoundation(id):
             destination = '/'.join([target, file_name])
             foundation.photo_id = file_name
             db.session.commit()
-            return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
-
+        return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
+    else:
+        abort(403)
 @commercial.route('/addroof/<int:id>', methods=['GET', 'POST'])
 @login_required
 def addroof(id): 
