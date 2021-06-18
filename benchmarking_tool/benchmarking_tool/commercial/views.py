@@ -367,11 +367,14 @@ def addexteriorwall(id):
         exteriorwall_id = id
         exteriorwalls = ExteriorWall.query.filter_by(building_id=exteriorwall_id).all()
         form = ExteriorWallForm()
-        photo = "temp"
         if request.method == 'POST':
             material = request.form["material"]
             rvalue = request.form["rvalue"]
-            new_exteriorwall = ExteriorWall(photo_id=photo,material=material, rvalue=rvalue, building_id = building.id)
+            chiller_photo = request.files.get('chiller_photo', None)
+            target = os.path.join(app_root, 'static/appliance_photos/img')
+            file_name = save_picture_appliance(chiller_photo,'appliance_photos/img/')
+            destination = '/'.join([target, file_name])
+            new_exteriorwall = ExteriorWall(photo_id=file_name,material=material, rvalue=rvalue, building_id = building.id)
             db.session.add(new_exteriorwall)
             db.session.commit()
             return redirect('/commercial/constructionindex/'+str(id))
@@ -445,8 +448,8 @@ def updateexteriorwall(id):
             db.session.commit()
             return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
         elif request.method == 'GET':
-                exteriorwall.material.data = exteriorwall.material
-                exteriorwall.rvalue.data = exteriorwall.rvalue
+                form.material.data = exteriorwall.material
+                form.rvalue.data = exteriorwall.rvalue
                 return render_template('addexteriorwall.html', form = form, building = building, exteriorwall = exteriorwall)
     else:
         abort(403)
@@ -468,8 +471,8 @@ def updateroof(id):
             db.session.commit()
             return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
         elif request.method == 'GET':
-                roof.material.data = roof.material
-                roof.rvalue.data = roof.rvalue
+                form.material.data = roof.material
+                form.rvalue.data = roof.rvalue
                 return render_template('addroof.html', form = form, building = building, roof = roof)
     else:
         abort(403)
@@ -479,7 +482,7 @@ def updaterooffinish(id):
     if(current_user.is_authenticated and current_user.is_admin()):
         rooffinish = RoofFinish.query.get(id)
         buidling = Building.query.filter_by(id=rooffinish.building_id).first()
-        form = RoofFinish()
+        form = RoofFinishForm()
         if request.method == 'POST':
             rooffinish.material = form.material.data
             rooffinish.rvalue = form.rvalue.data
@@ -491,8 +494,8 @@ def updaterooffinish(id):
             db.session.commit()
             return redirect(url_for('commercial.construction', buidling = buidling, id = buidling.id))
         elif request.method == 'GET':
-                rooffinish.material.data = rooffinish.material
-                rooffinish.rvalue.data = rooffinish.rvalue
+                form.material.data = rooffinish.material
+                form.rvalue.data = rooffinish.rvalue
                 return render_template('addrooffinish.html', form = form, building = building, rooffinish = rooffinish)
           
     else:
@@ -532,11 +535,14 @@ def addroof(id):
         roof_id = id
         roofs = Roof.query.filter_by(building_id=buidling_id).all()
         form = RoofForm()
-        photo = "temp"
         if request.method == 'POST':
             material = request.form["material"]
             rvalue = request.form["rvalue"]
-            new_roof = Roof(photo_id=photo,material=material, rvalue=rvalue, building_id = building.id)
+            chiller_photo = request.files.get('chiller_photo', None)
+            target = os.path.join(app_root, 'static/appliance_photos/img')
+            file_name = save_picture_appliance(chiller_photo,'appliance_photos/img/')
+            destination = '/'.join([target, file_name])
+            new_roof = Roof(photo_id=file_name,material=material, rvalue=rvalue, building_id = building.id)
             db.session.add(new_roof)
             db.session.commit()
             return redirect('/commercial/constructionindex/'+str(id))
@@ -579,13 +585,16 @@ def addfoundation(id):
         foundation_id = id
         foundations = Foundation.query.filter_by(building_id=foundation_id).all()
         form = FoundationForm()
-        photo = "temp"
         if request.method == 'POST':
             foundation_type = request.form["foundation_type"]
             material = request.form["material"]
             rx = request.form["rx"]
             rvalue = request.form["rvalue"]
-            new_foundation = Foundation(photo_id=photo,material=material, rvalue=rvalue, foundationtype = foundation_type, rx=rx, building_id = building.id)
+            chiller_photo = request.files.get('chiller_photo', None)
+            target = os.path.join(app_root, 'static/appliance_photos/img')
+            file_name = save_picture_appliance(chiller_photo,'appliance_photos/img/')
+            destination = '/'.join([target, file_name])
+            new_foundation = Foundation(photo_id=file_name,material=material, rvalue=rvalue, foundationtype = foundation_type, rx=rx, building_id = building.id)
             db.session.add(new_foundation)
             db.session.commit()
             return redirect('/commercial/constructionindex/'+str(id))

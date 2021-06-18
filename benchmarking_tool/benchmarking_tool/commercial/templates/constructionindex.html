@@ -54,7 +54,7 @@
                 <a href="{{ url_for('commercial.updateexteriorwall', id=exteriorwall.id)  }}"><div class="update-K2Koio coresansc-55-medium-white-11px">Update</div></a>
                 <a href="{{ url_for('commercial.deleteexteriorwall', id=exteriorwall.id)  }}"><div class="delete-K2Koio coresansc-55-medium-white-11px">Delete</div></a>
               </div>
-              <img class="chiller-1-Ssxxdq" src="" />
+              <img class="chiller-1-Ssxxdq" src="{{ url_for('static', filename='appliance_photos/img/' + exteriorwall.photo_id) }}" />
           </div>
           {% endfor %}
         <a href = "{{ url_for('commercial.addexteriorwall',id=building.id)  }}"><div class="rectangle-2778-C61RwL"></div></a>
@@ -100,7 +100,7 @@
                 <a href="{{ url_for('commercial.updateroof', id=roof.id)  }}"><div class="update-K2Koio coresansc-55-medium-white-11px">Update</div></a>
                 <a href="{{ url_for('commercial.deleteroof', id=roof.id)  }}"><div class="delete-K2Koio coresansc-55-medium-white-11px">Delete</div></a>
               </div>
-              <img class="chiller-1-Ssxxdq" src="" />
+              <img class="chiller-1-Ssxxdq" src="{{ url_for('static', filename='appliance_photos/img/' + roof.photo_id) }}" />
           </div>
           {% endfor %}
                   <a href = "{{ url_for('commercial.addroof',id=building.id)  }}"><div class="rectangle-2778-C61RwL"></div></a>
@@ -146,7 +146,7 @@
                 <a href="{{ url_for('commercial.updaterooffinish', id=rooffinish.id)  }}"><div class="update-K2Koio coresansc-55-medium-white-11px">Update</div></a>
                 <a href="{{ url_for('commercial.deleterooffinish', id=rooffinish.id)  }}"><div class="delete-K2Koio coresansc-55-medium-white-11px">Delete</div></a>
               </div>
-              <img class="chiller-1-Ssxxdq" src="" />
+              <img class="chiller-1-Ssxxdq" src="{{ url_for('static', filename='appliance_photos/img/' + rooffinish.photo_id) }}" />
           </div>
           {% endfor %}
                   <a href = "{{ url_for('commercial.addrooffinish',id=building.id)  }}"><div class="rectangle-2778-C61RwL"></div></a>
@@ -192,7 +192,7 @@
                 <a href="{{ url_for('commercial.updatefoundation', id=foundation.id)  }}"><div class="update-K2Koio coresansc-55-medium-white-11px">Update</div></a>
                 <a href="{{ url_for('commercial.deletefoundation', id=foundation.id)  }}"><div class="delete-K2Koio coresansc-55-medium-white-11px">Delete</div></a>
               </div>
-              <img class="chiller-1-Ssxxdq" src="" />
+              <img class="chiller-1-Ssxxdq" src="{{ url_for('static', filename='appliance_photos/img/' + foundation.photo_id) }}" />
           </div>
           {% endfor %}
                   <a href = "{{ url_for('commercial.addfoundation',id=building.id)  }}"><div class="rectangle-2778-C61RwL"></div></a>
