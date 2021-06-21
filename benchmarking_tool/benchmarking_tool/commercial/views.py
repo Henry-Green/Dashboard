@@ -86,9 +86,10 @@ root_path = os.path.dirname(os.path.abspath(__file__))
 @commercial.route('/clients', methods=['GET', 'POST'])
 @login_required
 def clients():
+    form = ClientForm()
     if(current_user.is_authenticated and current_user.is_admin()):
         clients = Client.query.order_by(Client.created_at).all()
-        return render_template('index.html', clients=clients)
+        return render_template('index.html', clients=clients, form = form)
     else:
         abort(403)
 
@@ -404,7 +405,7 @@ def deleteroof(id):
         buidling = roof.building_id
         db.session.delete(roof)
         db.session.commit()
-        return redirect(url_for('commercial.construction',buidling = buidling, id = buidling))
+        return redirect(url_for('commercial.construction',buidling = building, id = buidling))
     else:
         abort(403)
 @commercial.route('/addrooffinish/<int:id>/delete', methods=['Get','POST'])

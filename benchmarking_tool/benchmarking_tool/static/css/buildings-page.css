@@ -802,15 +802,10 @@
   width: auto;
 }
 .your-utility-rates-listview .group-6883-C61RwL {
-  align-items: center;
   background-color: transparent;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  flex-shrink: 1;
   height: 24px;
-  justify-content: flex-start;
-  margin-left: 21px;
+  bottom: 20px;
+  right: 13px;
   min-width: 244px;
   position: relative;
   width: auto;
@@ -896,15 +891,10 @@
   width: auto;
 }
 .your-utility-rates-listview .group-6890-UyvNxx {
-  align-items: flex-start;
   background-color: transparent;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  flex-shrink: 1;
   height: 18px;
-  justify-content: flex-start;
   min-width: 73px;
+  left: 29px;
   position: relative;
   width: auto;
 }
@@ -916,20 +906,13 @@
   font-style: normal;
   font-weight: 700;
   background-color: transparent;
-  margin-left: 150px;
   position: relative;
-  top: 7px;
+  left: 120px;
+  bottom: 9px;
 }
 .your-utility-rates-listview .group-6892-C61RwL {
-  align-items: center;
-  align-self: center;
   background-color: transparent;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  flex-shrink: 1;
   height: 18px;
-  justify-content: flex-start;
   margin-top: 30px;
   min-width: 315px;
   position: relative;
@@ -1460,7 +1443,7 @@
   background-color: #3ab54a;
   border-radius: 5px;
   height: 26px;
-  left: 30px;
+  left: 40%;
   mix-blend-mode: normal;
   position: fixed;
   top: 724px;
@@ -1470,7 +1453,7 @@
 .your-utility-rates-listview .add-area-C61RwL {
   background-color: transparent;
   height: auto;
-  left: 162px;
+  left: 48%;
   letter-spacing: 0.00px;
   line-height: 14px;
   mix-blend-mode: normal;
@@ -1479,4 +1462,32 @@
   top: 731px;
   white-space: nowrap;
   width: auto;
+}
+
+
+@media (max-width: 1000px) {
+
+  .your-utility-rates-listview .rectangle-2778-C61RwL {
+  background-color: #3ab54a;
+  border-radius: 5px;
+  height: 26px;
+  left: 30px;
+  mix-blend-mode: normal;
+  position: fixed;
+  top: 724px;
+  width: 315px;
+}
+.your-utility-rates-listview .add-area-C61RwL {
+  background-color: transparent;
+  height: auto;
+  left: 40%;
+  letter-spacing: 0.00px;
+  line-height: 14px;
+  mix-blend-mode: normal;
+  position: fixed;
+  text-align: left;
+  top: 731px;
+  white-space: nowrap;
+  width: auto;
+}
 }

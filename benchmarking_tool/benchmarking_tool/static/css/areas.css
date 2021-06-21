@@ -25,13 +25,13 @@
 .areas .add-area-C61RwL {
   background-color: transparent;
   height: auto;
-  left: 162px;
+  left: 48%;
   letter-spacing: 0.00px;
   line-height: 14px;
   mix-blend-mode: normal;
   position: fixed;
   text-align: left;
-  top: 760px;
+  top: 731px;
   white-space: nowrap;
   width: auto;
 }
@@ -241,12 +241,14 @@
   background-color: #3ab54a;
   border-radius: 5px;
   height: 26px;
-  left: 30px;
+  left: 40%;
   mix-blend-mode: normal;
   position: fixed;
-  top: 754px;
+  top: 724px;
   width: 315px;
 }
+
+
 .areas .rectangle-2779-C61RwL {
   background-color: #ff3030;
   border-radius: 5px;
@@ -402,4 +404,33 @@
   top: 106px;
   white-space: nowrap;
   width: auto;
+}
+
+
+
+@media (max-width: 1000px) {
+
+  .areas .rectangle-2778-C61RwL {
+  background-color: #3ab54a;
+  border-radius: 5px;
+  height: 26px;
+  left: 30px;
+  mix-blend-mode: normal;
+  position: fixed;
+  top: 724px;
+  width: 315px;
+}
+.areas .add-area-C61RwL {
+  background-color: transparent;
+  height: auto;
+  left: 40%;
+  letter-spacing: 0.00px;
+  line-height: 14px;
+  mix-blend-mode: normal;
+  position: fixed;
+  text-align: left;
+  top: 731px;
+  white-space: nowrap;
+  width: auto;
+}
 }
