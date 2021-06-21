@@ -405,7 +405,7 @@ def deleteroof(id):
         buidling = roof.building_id
         db.session.delete(roof)
         db.session.commit()
-        return redirect(url_for('commercial.construction',buidling = building, id = buidling))
+        return redirect(url_for('commercial.construction',building = building, id = buidling))
     else:
         abort(403)
 @commercial.route('/addrooffinish/<int:id>/delete', methods=['Get','POST'])
