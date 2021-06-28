@@ -11,6 +11,7 @@ from .main.views import main
 from dotenv import load_dotenv
 from .admin import *
 from .models import base
+from .PartnerApiClient import get_data
 from flask_wtf.csrf import CSRFProtect
 # from flask_login_multi.login_manager import LoginManager
 

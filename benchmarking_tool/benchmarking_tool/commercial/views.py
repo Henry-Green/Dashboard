@@ -78,10 +78,51 @@ import sys
 import os
 import pandas as pd
 from flask_mail import Mail, Message
+from ..PartnerApiClient import get_data
 #for photo upload
 commercial = Blueprint('commercial',__name__,template_folder='templates', url_prefix='/commercial')
 app_root = Path(__file__).parents[1]
 root_path = os.path.dirname(os.path.abspath(__file__))
+
+@commercial.route('/testapi', methods=['GET', 'POST'])
+@login_required
+def testapi():
+    if(current_user.is_authenticated and current_user.is_admin()):
+        serial_number = 'A2107A04B4B8F009A6CEC4'
+
+        l = get_data(serial_number)
+
+        min = l[0]
+        fivmin = l[1]
+        hour = l[2]
+        #min fivmin and hour are all data frames to show what the data looks like adn the graphs show how it will be shown 
+        # to convert the dataframes to anything that makes it easiest use these commands 
+        # min = min.to_dict() # to a dictionary 
+        # min = min.values.tolist() # to a list of lists 
+        # the list one can look a bit messy that is why i have left it like this so it is easy to see
+
+        print(min)
+        print(fivmin)
+        print(hour)
+        return render_template('testapi.html')
+    else:
+        abort(403)
+
+@commercial.route('/usage', methods=['GET', 'POST'])
+@login_required
+def usage():
+    if(current_user.is_authenticated and current_user.is_admin()):
+        exteriorwalls =[]
+        roofs = []
+        rooffinishs = []
+        foundations = []
+        home_upgrades = [33.734618 ,46.467022,1.718880, 0.000000,0.000000,32.402797,47.187153,0.000000,33.573044,48.275098,1.716960,0.000000,0.000000]
+        user_home = [60, 50]
+        average_home = [75,62]
+        return render_template('usage-day-on-hours.html',user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
+    else:
+        abort(403)
+
 
 @commercial.route('/clients', methods=['GET', 'POST'])
 @login_required

@@ -548,3 +548,27 @@
 .border-1-5px-cerulean-frost {
   border: 1.5px solid var(--cerulean-frost);
 }
+:root {
+  --black: #000000;
+  --cerulean-frost: #6e9ac0;
+  --gulf-blue: #0d1758;
+  --porcelain: #f0f1f5;
+  --white: #ffffff;
+
+  --font-size-l: 20px;
+  --font-size-m: 17px;
+  --font-size-s: 13px;
+  --font-size-xl: 24px;
+  --font-size-xs: 11px;
+
+  --font-family-core_sans_c-55medium: "Core Sans C-55Medium", Helvetica;
+  --font-family-core_sans_c-65bold: "Core Sans C-65Bold", Helvetica;
+  --font-family-core_sans_c-bold: "Core Sans C-Bold", Helvetica;
+}
+.coresansc-bold-black-20px {
+  color: var(--black);
+  font-family: var(--font-family-core_sans_c-bold);
+  font-size: var(--font-size-l);
+  font-style: normal;
+  font-weight: 700;
+}
