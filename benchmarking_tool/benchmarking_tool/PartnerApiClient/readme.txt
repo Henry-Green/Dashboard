@@ -1,3 +1,26 @@
+-----------------------------------------------------------------------------------------------------------
+update: jun 29 2021
+Jayden Geiser
+
+talking with the developer at emporia we have figured out that channels 1 2 3 are the mains (power going in)
+	and the other channels are individual circuits 
+
+i have update how call the get_data function so we can input a serial number, as of writing this it has not been tested as we only have one emporia device on our account
+
+i have made a clean data function to get the date and time into the proper format and it is easier to access and read in the data frames 
+
+made a schedual builder that show what channels have been on or off over the last x about of days. 
+
+Can also completly ignore the emporia_class if needed 
+
+look at demo.py to see how it runs and more details about the structure 
+
+-----------------------------------------------------------------------------------------------------------
+
+
+
+
+
 # Demo client for Emporia Energy's partner API
 # Additional documentation and information available at: http://partner.emporiaenergy.com/
 # Contact your Emporia sales representative or email us at support@emporiaenergy.com
@@ -70,12 +93,6 @@ df = df.values.tolist() to a list
 
 this is a good start to the api but we will need to update it at a later date
 
-updates:
-	java file:
-		need to see more channels on all the time limits 
-		probably need to get more data points 
-		keep the same output always tho for the rest of the python files 
-	after java update:
-		need to then add inputs to the java call on line 36 in get_data.py 
+
 	
 

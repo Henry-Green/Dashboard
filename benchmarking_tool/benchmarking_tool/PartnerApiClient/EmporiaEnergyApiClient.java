@@ -39,7 +39,7 @@ public class EmporiaEnergyApiClient
 	  blockingStub = PartnerApiGrpc.newBlockingStub(channel);
 	}
 
-	public void apiCalls( final String partnerEmail, final String partnerPw )
+	public void apiCalls( final String partnerEmail, final String partnerPw, final int days, final String serial_number)
 	{
 	  try
 	  {
@@ -105,11 +105,12 @@ public class EmporiaEnergyApiClient
 		  long endEpochSeconds = Instant.now().getEpochSecond();
 		  DeviceUsageRequest.Builder usageRequestBuilder = DeviceUsageRequest.newBuilder().
 				  setAuthToken(authToken).
-				  setStartEpochSeconds(endEpochSeconds - TimeUnit.MINUTES.toSeconds(15)).
+				  setStartEpochSeconds(endEpochSeconds - TimeUnit.DAYS.toSeconds(days)).
 				  setEndEpochSeconds(endEpochSeconds).
 				  setScale("1MIN").
-				  setChannels(UsageChannel.MAINS).
-				  addAllManufacturerDeviceId(inventoryResponse.getDevicesList().stream().map( d->d.getManufacturerDeviceId() ).collect(Collectors.toList()));
+				  setChannels(UsageChannel.ALL).
+				  //addAllManufacturerDeviceId(inventoryResponse.getDevicesList().stream().map( d->d.getManufacturerDeviceId() ).collect(Collectors.toList()));
+		  		  addManufacturerDeviceId(serial_number);
 		  DeviceUsageResponse usageResponse = blockingStub.getUsageData(usageRequestBuilder.build());
 		  if( ResultStatus.VALID != usageResponse.getResultStatus() )
 		  {
@@ -133,7 +134,7 @@ public class EmporiaEnergyApiClient
 		  endEpochSeconds = Instant.now().getEpochSecond();
 		  usageRequestBuilder = DeviceUsageRequest.newBuilder().
 				  setAuthToken(authToken).
-				  setStartEpochSeconds(endEpochSeconds - TimeUnit.HOURS.toSeconds(4)).
+				  setStartEpochSeconds(endEpochSeconds - TimeUnit.DAYS.toSeconds(days)).
 				  setEndEpochSeconds(endEpochSeconds).
 				  setScale("15MIN").
 				  setChannels(UsageChannel.ALL).
@@ -161,10 +162,10 @@ public class EmporiaEnergyApiClient
 		  endEpochSeconds = Instant.now().getEpochSecond();
 		  usageRequestBuilder = DeviceUsageRequest.newBuilder().
 				  setAuthToken(authToken).
-				  setStartEpochSeconds(endEpochSeconds - TimeUnit.DAYS.toSeconds(4)).
+				  setStartEpochSeconds(endEpochSeconds - TimeUnit.DAYS.toSeconds(days)).
 				  setEndEpochSeconds(endEpochSeconds).
 				  setScale("1H").
-				  setChannels(UsageChannel.MAINS).
+				  setChannels(UsageChannel.ALL).
 				  addAllManufacturerDeviceId(inventoryResponse.getDevicesList().stream().map( d->d.getManufacturerDeviceId() ).collect(Collectors.toList()));
 		  usageResponse = blockingStub.getUsageData(usageRequestBuilder.build());
 		  if( ResultStatus.VALID != usageResponse.getResultStatus() )
@@ -204,8 +205,9 @@ public class EmporiaEnergyApiClient
 	{
 	  String partnerEmail = "";
 	  String partnerPw = "";
+	  String serial_number = "";
 	  // Access a service running on the local machine on port 50051
-	  String host = "localhost";
+	  String host = "partner-api.emporiaenergy.com";
 	  int port = 50051;
 	  if (args.length < 2 || "--help".equals(args[0]))
 	  {
@@ -217,10 +219,12 @@ public class EmporiaEnergyApiClient
 	  }
 	  partnerEmail = args[0];
 	  partnerPw = args[1];
-	  if (args.length > 2)
-		  host = args[2];
-	  if (args.length > 3)
-		  port = Integer.parseInt(args[3]);
+	  serial_number = args[2];
+	  int days = Integer.parseInt(args[3]);
+	  //if (args.length > 2)
+	  //	  host = args[2];
+	  //if (args.length > 3)
+	  //	  port = Integer.parseInt(args[3]);
 
 	  // Create a communication channel to the server, known as a Channel. Channels are thread-safe
 	  // and reusable. It is common to create channels at the beginning of your application and reuse
@@ -234,7 +238,7 @@ public class EmporiaEnergyApiClient
 	  try
 	  {
 		EmporiaEnergyApiClient client = new EmporiaEnergyApiClient(channel);
-		client.apiCalls( partnerEmail, partnerPw );
+		client.apiCalls( partnerEmail, partnerPw, days, serial_number);
 	  }
 	  finally
 	  {

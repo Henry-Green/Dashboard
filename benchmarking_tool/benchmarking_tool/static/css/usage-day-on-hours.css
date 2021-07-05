@@ -47,6 +47,96 @@
   min-width: 31px;
   position: relative;
   width: auto;
+
+}
+.equipment-area .xday-tsxGPL {
+  color: #0D1758;
+  opacity: 0.75;
+  font-family: var(--font-family-core_sans_c-65bold);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  background-color: transparent;
+  flex-shrink: 1;
+  height: auto;
+  letter-spacing: 0.00px;
+  line-height: 10px;
+  min-height: 10px;
+  min-width: 9px;
+  left: 70px;
+  top: 100px;
+  position: absolute;
+  text-align: left;
+  white-space: nowrap;
+  vertical-align: bottom;
+  width: auto;
+  z-index: 99999;
+}
+.equipment-area .xweek-tsxGPL {
+  color: #0D1758;
+  opacity: 0.75;
+  font-family: var(--font-family-core_sans_c-65bold);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  background-color: transparent;
+  height: auto;
+  letter-spacing: 0.00px;
+  line-height: 10px;
+  left: 140px;
+  top: 100px;
+  min-height: 10px;
+  min-width: 20px;
+  position: absolute;
+  text-align: left;
+  white-space: nowrap;
+  vertical-align: bottom;
+  width: auto;
+  z-index: 99999;
+}
+.equipment-area .xmonth-tsxGPL {
+  color: #0D1758;
+  opacity: 0.75;
+  font-family: var(--font-family-core_sans_c-65bold);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  background-color: transparent;
+  height: auto;
+  letter-spacing: 0.00px;
+  line-height: 10px;
+  left: 215px;
+  top: 100px;
+  min-height: 10px;
+  min-width: 31px;
+  position: absolute;
+  vertical-align: bottom;
+  width: auto;
+  z-index: 99999;
+}
+.equipment-area .xyear-tsxGPL {
+  color: #0D1758;
+  opacity: 0.75;
+  font-family: var(--font-family-core_sans_c-65bold);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  background-color: transparent;
+  height: auto;
+  letter-spacing: 0.00px;
+  line-height: 10px;
+  left: 290px;
+  top: 100px;
+  min-height: 10px;
+  min-width: 31px;
+  position: absolute;
+  vertical-align: bottom;
+  width: auto;
+  z-index: 99999;
+}
+
+.equipment-area .active {
+    color: #000000
 }
 .equipment-area .always-on-xQrq6B {
   background-color: transparent;
@@ -83,6 +173,22 @@
   top: 695px;
   white-space: nowrap;
   width: auto;
+}
+
+.equipment-area .you-VFPxsv {
+  background-color: transparent;
+  letter-spacing: 0.00px;
+  line-height: 18px;
+  position: absolute;
+  width: auto;
+  top: 340px;
+  left: 43px;
+  color: var(--chathams-blue);
+  font-family: var(--font-family-core_sans_c-65bold);
+  font-size: var(--font-size-xl);
+  font-style: normal;
+  font-weight: 700;
+  white-space: nowrap;
 }
 .equipment-area .chevron-down-67RVEr {
   background-color: transparent;
@@ -188,6 +294,15 @@
   position: absolute;
   top: 613px;
   width: 14px;
+}
+
+.equipment-area .vector-DxLbh3 {
+  background-color: transparent;
+  height: 14px;
+  top: 58px;
+  left: 30px;
+  position: absolute;
+  width: 8px;
 }
 .equipment-area .group-7157-xQrq6B {
   background-color: transparent;
@@ -684,8 +799,6 @@
   flex-shrink: 1;
   height: 24px;
   justify-content: flex-start;
-  overflow: hidden;
-  padding: 5.0px 8px;
   position: relative;
   width: 24px;
 }
@@ -1019,6 +1132,14 @@
   background-color: transparent;
   height: 17px;
   left: 298px;
+  position: absolute;
+  top: -0px;
+  width: 17px;
+}
+.equipment-area .group-7190-bwW810 {
+  background-color: transparent;
+  height: 17px;
+  left: 250px;
   position: absolute;
   top: -0px;
   width: 17px;
@@ -1948,13 +2069,13 @@
 }
 .equipment-area .view-hvac-equipment-C61RwL {
   background-color: transparent;
-  color: var(--chathams-blue);
+  color: #0D1758;
   font-family: var(--font-family-core_sans_c-65bold);
   font-size: var(--font-size-xl);
   font-style: normal;
   font-weight: 700;
   height: auto;
-  left: 140px;
+  left: 150px;
   letter-spacing: 0.00px;
   line-height: 14px;
   mix-blend-mode: normal;
@@ -2164,15 +2285,32 @@ details {
   z-index: 100;
 }
 
-
+.details2 {
+  width: 300px;
+  background-color: white;
+  min-height: 4px;
+  max-width: 700px;
+  padding: 13px;
+  margin: 0 auto;
+  margin-top: 20px;
+  position: relative;
+  font-size: 15px;
+  border-radius: 19px;
+  box-sizing: border-box;
+  transition: all .3s;
+  display: flex;
+  transition: all .3s;
+  top: 1px;
+  z-index: 100;
+}
 
 details + details {
   margin-top: 20px;
 }
 
-details[open] {
+.details2[open] {
   min-height: 350px;
-  background-color: var(--porcelain);
+  background-color: white;
   box-shadow: 2px 2px 20px rgba(0,0,0,.2);
 }
 
@@ -2188,7 +2326,6 @@ summary {
   font-weight: 50;
   cursor: pointer;
 }
-
 summary:focus {
   outline: none;
   
@@ -2335,7 +2472,7 @@ section for charts
   
 }
 .m{
-  width: calc(100% / 24);
+  width: calc(100% / 35);
   background: #6E9AC0;
   position: absolute;
   bottom: 0;
