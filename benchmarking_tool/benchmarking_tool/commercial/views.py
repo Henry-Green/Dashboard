@@ -178,31 +178,78 @@ def usagemonth():
         return render_template('usage-day-on-month.html',user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
-@commercial.route('/usageyear', methods=['GET', 'POST'])
+@commercial.route('/usagedayline', methods=['GET', 'POST'])
 @login_required
-def usageyear():
+def usagedayline():
     if(current_user.is_authenticated and current_user.is_admin()):
         serial_number = 'A2107A04B4B8F009A6CEC4'
-        d = 1
-
-        # new way of using the new data
         customer = Emporia_Customer(serial_number)
 
-        customer.get_data(days= d)
-        # customer.get_schedual()
+        customer.get_data(days= 1)
+        customer.get_schedule()
+
+        customer.save_channels()
         exteriorwalls =[]
         roofs = []
         rooffinishs = []
         foundations = []
-        home_upgrades = [10,23,30,33,40,50,60,66,56,40,39,34,29]
+        home_upgrades = customer.channel7.data_hour
+        home_upgrades1 = customer.channel8.data_hour
+        print(customer.channel7.data_hour)
+        user_home = [60, 50]
+        average_home = [75,62]
+        return render_template('usage-day-on-hours-line.html',home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
+    else:
+        abort(403)
+
+@commercial.route('/usageweekline', methods=['GET', 'POST'])
+@login_required
+def usageweekline():
+    if(current_user.is_authenticated and current_user.is_admin()):
+        serial_number = 'A2107A04B4B8F009A6CEC4'
+        customer = Emporia_Customer(serial_number)
+
+        customer.get_data(days= 1)
+        customer.get_schedule()
+
+        customer.save_channels()
+        exteriorwalls =[]
+        roofs = []
+        rooffinishs = []
+        foundations = []
+        home_upgrades = customer.channel7.data_hour
+        home_upgrades1 = customer.channel8.data_hour
         print('hours')
         print(customer.chan_hours)
         user_home = [60, 50]
         average_home = [75,62]
-        return render_template('usage-day-on-year.html',user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
+        return render_template('usage-day-on-week-line.html',home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
+@commercial.route('/usagemonthline', methods=['GET', 'POST'])
+@login_required
+def usagemonthline():
+    if(current_user.is_authenticated and current_user.is_admin()):
+        serial_number = 'A2107A04B4B8F009A6CEC4'
+        customer = Emporia_Customer(serial_number)
 
+        customer.get_data(days= 1)
+        customer.get_schedule()
+
+        customer.save_channels()
+        exteriorwalls =[]
+        roofs = []
+        rooffinishs = []
+        foundations = []
+        home_upgrades = customer.channel7.data_hour
+        home_upgrades1 = customer.channel8.data_hour
+        print('hours')
+        print(customer.chan_hours)
+        user_home = [60, 50]
+        average_home = [75,62]
+        return render_template('usage-day-on-month-line.html',home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
+    else:
+        abort(403)
 @commercial.route('/clients', methods=['GET', 'POST'])
 @login_required
 def clients():

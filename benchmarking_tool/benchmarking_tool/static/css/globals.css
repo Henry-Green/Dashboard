@@ -406,3 +406,59 @@
   flex-direction: column;
   justify-content: center;
 }
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+@font-face {
+  font-family: "Averta CY-Bold";
+  font-style: normal;
+  font-weight: 700;
+  src: url("fonts/Averta Cyrillic Bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Core Sans C-65Bold";
+  font-style: normal;
+  font-weight: 700;
+  src: url("fonts/CoreSansC65.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Averta CY-Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("fonts/Intelligent Design - AvertaCY-Regular.otf") format("opentype");
+}
+
+* {
+  box-sizing: border-box;
+}
+.container-center-horizontal {
+  pointer-events: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+.container-center-horizontal > * {
+  pointer-events: auto;
+  flex-shrink: 0;
+}
+.screen * {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+.screen a {
+  text-decoration: none;
+  display: contents;
+}
+.screen div {
+  -webkit-text-size-adjust: none;
+}
+.screen textarea:focus,
+.screen input:focus {
+  outline: none;
+}
+.valign-text-middle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

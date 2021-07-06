@@ -6,8 +6,10 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/dashboard-day.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/styleguide.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
+      <script src="https://cdn.jsdelivr.net/npm/apexcharts" type="text/javascript"></script>
   </head>
   <body style="margin: 0; background: #ffffff">
+        {% set active_page = "week" %}
     <input type="hidden" id="anPageName" name="page" value="dashboard-day" />
     <div class="container-center-horizontal">
       <div class="dashboard-day screen">
@@ -36,7 +38,7 @@
         <div class="utilities-F7L3xZ avertacy-bold-cerulean-frost-11px">Utilities</div>
         <div class="group-7196-F7L3xZ">
           <div class="rectangle-2316-RzOHL3"></div>
-          <div class="chevron-down-RzOHL3"><img class="vector-EXosiZ" src="{{ url_for('static', filename='img/vector-9@2x.svg')}}" /></div>
+          <div class="chevron-down-RzOHL3"><img class="vector-EXosiZ" src="{{ url_for('static',filename='img/vector-9@2x.svg')}}" /></div>
         </div>
         <div class="group-7235-F7L3xZ">
           <img class="x3-c-path-x3-e-IyLOPt" src="{{ url_for('static',filename='img/x3c-path-x3e@2x.svg')}}" />
@@ -143,73 +145,106 @@
           Potential Savings
         </div>
         <img class="vector-xljW3G" src="{{ url_for('static',filename='img/vector-1@2x.svg')}}" />
-        <div class="rectangle-2901-F7L3xZ"><div class="box">
-                <div class="graph">
-                    
-                    <div class="m"style="height: {{ home_upgrades[0] }}%; left: 0%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[1] }}%; left: 4.16666666667%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[2] }}%; left: 8.33333333334%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[3] }}%; left: 12.5%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[4] }}%; left: 16.6666666667%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[5] }}%; left: 20.8333333334%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[6] }}%; left: 25.0000000001%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[7] }}%; left: 29.1666666668%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[8] }}%; left: 33.3333333335%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[9] }}%; left: 37.5000000002%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[10] }}%; left: 41.6666666669%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[11] }}%; left: 45.8333333336%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[12] }}%; left: 50.0000000003%;"></div>
-                     <div class="m"style="height: {{ home_upgrades[13] }}%; left: 54.166666667%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[14] }}%; left: 58.3333333337%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[15] }}%; left: 62.5000000004%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[16] }}%; left: 66.6666666671%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[17] }}%; left: 70.8333333338%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[18] }}%; left: 75.0000000005%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[19] }}%; left: 79.1666666672%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[20] }}%; left: 83.3333333339%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[21] }}%; left: 87.5000000006%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[22] }}%; left: 91.6666666673%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[23] }}%; left: 95.833333334%;"></div>
-                    <div class="a"style="height: 90%; left: 0%;"></div>
+        <div class="rectangle-2901-F7L3xZ"><div class="card-body d-flex justify-content-center">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12 " style ="bottom:90px;" >
+                            <div id="chart"></div>
+                        </div>
+                          <script>
+                            var options = {
+                                  series: [
+                                  {
+                                    name: "Panel 1",
+                                    data: [{{home_upgrades[0]}},{{home_upgrades[1]}},{{home_upgrades[2]}},{{home_upgrades[3]}},{{home_upgrades[4]}},{{home_upgrades[5]}},{{home_upgrades[6]}},{{home_upgrades[7]}},{{home_upgrades[8]}},{{home_upgrades[9]}},{{home_upgrades[10]}},{{home_upgrades[11]}},{{home_upgrades[12]}},{{home_upgrades[13]}},{{home_upgrades[14]}},{{home_upgrades[15]}},{{home_upgrades[16]}},{{home_upgrades[17]}},{{home_upgrades[18]}},{{home_upgrades[19]}},{{home_upgrades[20]}},{{home_upgrades[21]}},{{home_upgrades[22]}},{{home_upgrades[23]}}]
+                                  },
+                                  {
+                                    name: "Panel 2",
+                                    data: [{{home_upgrades1[0]}},{{home_upgrades1[1]}},{{home_upgrades1[2]}},{{home_upgrades1[3]}},{{home_upgrades1[4]}},{{home_upgrades1[5]}},{{home_upgrades1[6]}},{{home_upgrades1[7]}},{{home_upgrades1[8]}},{{home_upgrades1[9]}},{{home_upgrades1[10]}},{{home_upgrades1[11]}},{{home_upgrades1[12]}},{{home_upgrades1[13]}},{{home_upgrades1[14]}},{{home_upgrades1[15]}},{{home_upgrades1[16]}},{{home_upgrades1[17]}},{{home_upgrades1[18]}},{{home_upgrades1[19]}},{{home_upgrades1[20]}},{{home_upgrades1[21]}},{{home_upgrades1[22]}},{{home_upgrades1[23]}}]
+                                  }
+                                ],
+                                  chart: {
+                                  height: 399,
+                                  type: 'line',
+                                  zoom: {
+                                    enabled: false
+                                  }
+                                },
+                                dataLabels: {
+                                  enabled: false
+                                },
+                                legend:{
+                                  show: false
+                                },
+                                stroke: {
+                                  curve: 'smooth'
+                                },
+                                title: {
+                                  text: 'Product Trends by Month',
+                                  align: 'left'
+                                },
+                                grid: {
+                                  row: {
+                                    colors: ['transparent', 'transparent'], // takes an array which will be repeated on columns
+                                    opacity: 0.5
+                                  },
+                                },
+                                xaxis: {
+                                  labels:{
+                                    show: false
+                                  },
+                                  axisBorder:{
+                                    show: false
+                                  },
+                                  axisTicks:{
+                                    show: false
+                                  },
+                                },
+                                yaxis:{
+                                  labels:{
+                                  style:{
+                                      colors: 'DarkBlue',
+                                      fontFamily: " Helvetica, Averta CY-Bold",
+                                      fontSize: '10px',
+                                      fontWeight: 700,
+                                  },
+                                   "formatter": function (val) {
+                                    return val.toFixed(2)
+                                },
+                                },
+                                },
+                                };
+
+                                var chart = new ApexCharts(document.querySelector("#chart"), options);
+                                chart.render();
+                        </script>
+                    </div>
+                  </div>
                 </div>
-              </div></div>
-        <div class="x20-F7L3xZ valign-text-middle avertacy-bold-chathams-blue-10px">-20</div>
-        <div class="x0-F7L3xZ valign-text-middle avertacy-bold-chathams-blue-10px">0</div>
-        <div class="x20-ukLjjV valign-text-middle avertacy-bold-chathams-blue-10px">20</div>
-        <div class="x40-F7L3xZ valign-text-middle avertacy-bold-chathams-blue-10px">40</div>
-        <div class="x60-F7L3xZ valign-text-middle avertacy-bold-chathams-blue-10px">60</div>
-        <div class="x80-ukLjjV valign-text-middle avertacy-bold-chathams-blue-10px">80</div>
-        <div class="x100-wxjJ07 valign-text-middle avertacy-bold-chathams-blue-10px">100</div>
-        <div class="x120-F7L3xZ valign-text-middle avertacy-bold-chathams-blue-10px">120</div>
         <div class="x12-am-F7L3xZ valign-text-middle avertacy-bold-chathams-blue-10px">12 AM</div>
         <div class="noon-F7L3xZ valign-text-middle avertacy-bold-chathams-blue-10px">Noon</div>
         <div class="x12-am-ukLjjV valign-text-middle avertacy-bold-chathams-blue-10px">12 AM</div>
       
-        <a href = "{{url_for('commercial.usagemonth')}}"><div class="group-7241-F7L3xZ">
-          <div class="rectangle-2902-EtKQpN"></div>
+        <a href = "{{url_for('commercial.usageday')}}"><div class="group-7241-F7L3xZ">
+          <div class="rectangle-2903-nhfG4r"></div>
           <div class="group-7237-EtKQpN">
             <div class="group-XGvAba">
               <img class="vector-zYxvdP" src="{{ url_for('static',filename='img/vector-10@2x.svg')}}" /><img
-                class="vector-IAfFlb"
-                src="{{ url_for('static',filename='img/vector-11@2x.svg')}}"
+                class="vector-IAfFlbb"
+                src="{{ url_for('static',filename='img/758692407d5cc2b3d1bcecb1ba094166.png')}}"
               />
             </div>
-            <div class="rectangle-2895-XGvAba"></div>
-            <div class="rectangle-2896-XGvAba"></div>
-            <div class="rectangle-2897-XGvAba"></div>
-            <div class="rectangle-2898-XGvAba"></div>
           </div>
         </div></a>
-        <a href = "{{url_for('commercial.usagemonthline')}}"><div class="group-7240-F7L3xZ">
-          <div class="rectangle-2903-nhfG4r"></div>
+        <a href = "{{url_for('commercial.usagedayline')}}"><div class="group-7240-F7L3xZ">
+          <div class="rectangle-2902-EtKQpN"></div>
           <div class="group-nhfG4r">
-            <div class="group-1CHTP6"><img class="group-2e3U8y" src="{{ url_for('static',filename='img/group@2x.svg')}}" /></div>
+            <div class="group-1CHTP6"><img class="group-2e3U8y" src="{{ url_for('static',filename='img/group@2xxx.svg')}}" /></div>
           </div>
         </div></a>
         <div class="view-by-F7L3xZ avertacy-bold-chathams-blue-20px">View by:</div>
-        <a href = "{{url_for('commercial.usageday')}}"><div class="day-F7L3xZ avertacy-regular-chathams-blue-16px">Day</div></a>
-        <a href = "{{url_for('commercial.usageweek')}}"><div class="week-F7L3xZ avertacy-regular-chathams-blue-16px">Week</div>
-        <a href = "{{url_for('commercial.usagemonth')}} avertacy-regular-chathams-blue-16px"><div class="month-F7L3xZ avertacy-bold-chathams-blue-16px">Month</div>
+        <a href = "{{url_for('commercial.usagedayline')}}"><div class="day-F7L3xZ avertacy-regular-chathams-blue-16px">Day</div></a>
+        <a href = "{{url_for('commercial.usageweekline')}} avertacy-regular-chathams-blue-16px"><div class="week-F7L3xZ {{ 'avertacy-bold-chathams-blue-16px' if active_page == 'week' else '' }}">Week</div>
+        <a href = "{{url_for('commercial.usagemonthline')}}"><div class="month-F7L3xZ avertacy-regular-chathams-blue-16px">Month</div>
         <div class="from-F7L3xZ">From:</div>
         <div class="to-F7L3xZ">To:</div>
         <div class="rectangle-2889-F7L3xZ"></div>

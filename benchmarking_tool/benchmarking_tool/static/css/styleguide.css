@@ -572,3 +572,60 @@
   font-style: normal;
   font-weight: 700;
 }
+.avertacy-bold-black-16px {
+  color: var(--black);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 700;
+}
+.avertacy-bold-chathams-blue-10px {
+  color: var(--chathams-blue-2);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: var(--font-size-xxxs);
+  font-style: normal;
+  font-weight: 700;
+}
+.avertacy-bold-chathams-blue-16px {
+  color: var(--chathams-blue);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.avertacy-bold-chathams-blue-16px {
+  color: var(--chathams-blue);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 700;
+}
+.avertacy-regular-chathams-blue-16px {
+  color: var(--cerulean-frost);
+  font-family: var(--font-family-averta_cy-regular);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 400;
+}
+.avertacy-bold-chathams-blue-20px {
+  color: var(--chathams-blue);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: var(--font-size-l);
+  font-style: normal;
+  font-weight: 700;
+}
+.avertacy-bold-cerulean-frost-10px {
+  color: var(--cerulean-frost);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: var(--font-size-xxxs);
+  font-style: normal;
+  font-weight: 700;
+}
+.avertacy-bold-cerulean-frost-11px {
+  color: var(--cerulean-frost);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: var(--font-size-xxs);
+  font-style: normal;
+  font-weight: 700;
+}
