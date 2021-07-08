@@ -2,11 +2,10 @@
 
 .dashboard-day {
   background-color: var(--white);
-  height: 768px;
+  height: 100%;
   mix-blend-mode: normal;
-  overflow-x: hidden;
   position: relative;
-  width: 1360px;
+  width: 100%;
 }
 .dashboard-day .address-F7L3xZ {
   background-color: transparent;
@@ -200,25 +199,25 @@
 .dashboard-day .day-month-year-F7L3xZ {
   background-color: transparent;
   height: auto;
-  left: 988px;
+  left: 995px;
   letter-spacing: 0.20px;
   line-height: normal;
   mix-blend-mode: normal;
   position: absolute;
   text-align: left;
-  top: 46px;
+  top: 33px;
   width: auto;
 }
 .dashboard-day .day-month-year-ukLjjV {
   background-color: transparent;
   height: auto;
-  left: 1192px;
+  left: 1200px;
   letter-spacing: 0.20px;
   line-height: normal;
   mix-blend-mode: normal;
   position: absolute;
   text-align: left;
-  top: 46px;
+  top: 33px;
   width: auto;
 }
 .dashboard-day .ellipse-437-IyLOPt {
@@ -1172,44 +1171,145 @@
   width: auto;
 }
 .dashboard-day .page-10-F7L3xZ {
-  background-color: transparent;
+  background-color: #F2A047;
   height: 12px;
-  left: 325px;
+  left: 320px;
   position: absolute;
-  top: 535px;
+  top: 533px;
   width: 12px;
+}
+.dashboard-day .page-10-F7L3xZ:checked {
+  background-color: #F2A047;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 2px;
+  height: 12px;
+  left: 320px;
+  position: absolute;
+  top: 533px;
+  width: 12px;
+}
+
+.dashboard-day .page-10-F7L3xZ:checked:after {
+  content: '\2714';
+  font-size: 10px;
+  position: absolute;
+  bottom: .2px;
+  left: 2px;
+  color: white;
 }
 .dashboard-day .page-11-F7L3xZ {
   background-color: transparent;
   height: 12px;
-  left: 325px;
+  left: 320px;
   position: absolute;
-  top: 573px;
+  top: 570px;
   width: 12px;
+}
+
+.dashboard-day .page-11-F7L3xZ:checked {
+  background-color: #9C5CA6;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 2px;
+  height: 12px;
+  left: 320px;
+  position: absolute;
+  top: 570px;
+  width: 12px;
+}
+
+.dashboard-day .page-11-F7L3xZ:checked:after {
+  content: '\2714';
+  font-size: 10px;
+  position: absolute;
+  bottom: .2px;
+  left: 2px;
+  color: white;
 }
 .dashboard-day .page-12-F7L3xZ {
   background-color: transparent;
   height: 12px;
-  left: 325px;
+  left: 320px;
   position: absolute;
-  top: 611px;
+  top: 608px;
   width: 12px;
+}
+.dashboard-day .page-12-F7L3xZ:checked {
+  background-color: #FF5744;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 2px;
+  height: 12px;
+  left: 320px;
+  position: absolute;
+  top: 608px;
+  width: 12px;
+}
+
+.dashboard-day .page-12-F7L3xZ:checked:after {
+  content: '\2714';
+  font-size: 10px;
+  position: absolute;
+  bottom: .2px;
+  left: 2px;
+  color: white;
 }
 .dashboard-day .page-13-F7L3xZ {
   background-color: transparent;
   height: 12px;
-  left: 325px;
+  left: 320px;
   position: absolute;
-  top: 649px;
+  top: 645px;
   width: 12px;
+}
+.dashboard-day .page-13-F7L3xZ:checked {
+  background-color: #249369;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 2px;
+  height: 12px;
+  left: 320px;
+  position: absolute;
+  top: 645px;
+  width: 12px;
+}
+
+.dashboard-day .page-13-F7L3xZ:checked:after {
+  content: '\2714';
+  font-size: 10px;
+  position: absolute;
+  bottom: .2px;
+  left: 2px;
+  color: white;
 }
 .dashboard-day .page-14-F7L3xZ {
   background-color: transparent;
   height: 12px;
-  left: 324px;
+  left: 320px;
   position: absolute;
-  top: 687px;
+  top: 684px;
   width: 12px;
+}
+.dashboard-day .page-14-F7L3xZ:checked {
+  background-color: #253EA5;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 2px;
+  height: 12px;
+  left: 320px;
+  position: absolute;
+  top: 684px;
+  width: 12px;
+}
+
+.dashboard-day .page-14-F7L3xZ:checked:after {
+  content: '\2714';
+  font-size: 10px;
+  position: absolute;
+  bottom: .2px;
+  left: 2px;
+  color: white;
 }
 .dashboard-day .page-8-F7L3xZ {
   background-color: transparent;
@@ -1220,12 +1320,31 @@
   width: 12px;
 }
 .dashboard-day .page-9-F7L3xZ {
-  background-color: transparent;
+  background-color: #4A75FF;
   height: 12px;
-  left: 325px;
+  left: 320px;
   position: absolute;
-  top: 497px;
+  top: 494px;
   width: 12px;
+}
+.dashboard-day .page-9-F7L3xZ:checked {
+  background-color: #4A75FF;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 2px;
+  height: 12px;
+  left: 320px;
+  position: absolute;
+  top: 494px;
+  width: 12px;
+}
+.dashboard-day .page-9-F7L3xZ:checked:after {
+  content: '\2714';
+  font-size: 10px;
+  position: absolute;
+  bottom: .2px;
+  left: 2px;
+  color: white;
 }
 .dashboard-day .panel-1-F7L3xZ {
   background-color: transparent;
@@ -1422,7 +1541,7 @@
 }
 .dashboard-day .rectangle-2893-F7L3xZ {
   background-color: #eeeeee;
-  height: 768px;
+  height: 1068px;
   left: 0px;
   mix-blend-mode: normal;
   position: absolute;
@@ -1471,6 +1590,7 @@
   left: 304px;
   mix-blend-mode: normal;
   position: absolute;
+  overflow: hidden;
   top: 92px;
   width: 1022px;
 }

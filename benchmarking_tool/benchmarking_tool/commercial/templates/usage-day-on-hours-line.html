@@ -101,36 +101,12 @@
             <div class="check-box-emX9G9"><img class="shape-wYz10z" src="{{ url_for('static',filename='img/shape@2x.svg')}}" /></div>
           </div>
         </div>
-        <div class="page-9-F7L3xZ">
-          <div class="core-nF35u9">
-            <div class="check-box-YHFrrG"><img class="shape-P7ogs2" src="{{ url_for('static',filename='img/shape-1@2x.svg')}}" /></div>
-          </div>
-        </div>
-        <div class="page-10-F7L3xZ">
-          <div class="core-MxaQ2P">
-            <div class="check-box-nvmx2w"><img class="shape-7T3bBN" src="{{ url_for('static',filename='img/shape-2@2x.svg')}}" /></div>
-          </div>
-        </div>
-        <div class="page-11-F7L3xZ">
-          <div class="core-xisoQU">
-            <div class="check-box-hQJbpr"><img class="shape-ArtG4u" src="{{ url_for('static',filename='img/shape-3@2x.svg')}}" /></div>
-          </div>
-        </div>
-        <div class="page-12-F7L3xZ">
-          <div class="core-oZFjaO">
-            <div class="check-box-RrkSCX"><img class="shape-bY5u4x" src="{{ url_for('static',filename='img/shape-4@2x.svg')}}" /></div>
-          </div>
-        </div>
-        <div class="page-13-F7L3xZ">
-          <div class="core-KjgQwk">
-            <div class="check-box-wddhkk"><img class="shape-p4jLjj" src="{{ url_for('static',filename='img/shape-5@2x.svg')}}" /></div>
-          </div>
-        </div>
-        <div class="page-14-F7L3xZ">
-          <div class="core-mqdi27">
-            <div class="check-box-lMLyh6"><img class="shape-a2wxIZ" src="{{ url_for('static',filename='img/shape-6@2x.svg')}}" /></div>
-          </div>
-        </div>
+        <input type= 'checkbox' class="page-9-F7L3xZ" id= 'panel1check' onclick= "chart.toggleSeries('Panel 1');" checked/><label for = 'panel1check'></label>
+          <input type= 'checkbox' class="page-10-F7L3xZ" id= 'panel2check' onclick= "chart.toggleSeries('Panel 2');" checked/><label for = 'panel2check'></label>
+       <input type= 'checkbox' class="page-11-F7L3xZ" id= 'panel1check' onclick= "chart.toggleSeries('Panel 3');" checked/><label for = 'panel1check'></label>
+        <input type= 'checkbox' class="page-12-F7L3xZ" id= 'panel1check' onclick= "chart.toggleSeries('Panel 4');" checked/><label for = 'panel1check'></label>
+        <input type= 'checkbox' class="page-13-F7L3xZ" id= 'panel1check' onclick= "chart.toggleSeries('Panel 5');" checked/><label for = 'panel1check'></label>
+        <input type= 'checkbox' class="page-14-F7L3xZ" id= 'panel1check' onclick= "chart.toggleSeries('Panel 6');" checked/><label for = 'panel1check'></label>
         <img class="vector-ukLjjV" src="{{ url_for('static',filename='img/vector-1@2x.svg')}}" />
         <div class="k-wh-total-F7L3xZ valign-text-middle avertacy-bold-chathams-blue-16px">kWh Total</div>
         <img class="vector-wxjJ07" src="{{ url_for('static',filename='img/vector-1@2x.svg')}}" />
@@ -151,6 +127,7 @@
                         </div>
                           <script>
                             var options = {
+                                  colors: ['#4A75FF', '#F2A047', '#9C5CA6', '#FF5744', '#249369','#253EA5'],
                                   series: [
                                   {
                                     name: "Panel 1",
@@ -166,7 +143,7 @@
                                   type: 'line',
                                   zoom: {
                                     enabled: false
-                                  }
+                                  },
                                 },
                                 dataLabels: {
                                   enabled: false
@@ -243,7 +220,7 @@
         <div class="view-by-F7L3xZ avertacy-bold-chathams-blue-20px">View by:</div>
         <a href = "{{url_for('commercial.usagedayline')}}"><div class="day-F7L3xZ avertacy-bold-chathams-blue-16px">Day</div></a>
         <a href = "{{url_for('commercial.usageweekline')}}"><div class="week-F7L3xZ avertacy-regular-chathams-blue-16px">Week</div>
-        <a href = "{{url_for('commercial.usagemonthline')}}"><div class="month-F7L3xZ avertacy-regular-chathams-blue-16px">Month</div>
+        <a href = "{{url_for('commercial.usagemonthline')}}"><div class="month-F7L3xZ avertacy-regular-chathams-blue-16px">Month</div></a>
         <div class="from-F7L3xZ">From:</div>
         <div class="to-F7L3xZ">To:</div>
         <div class="rectangle-2889-F7L3xZ"></div>
