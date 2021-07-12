@@ -1,7 +1,7 @@
 import os,shutil,glob,random,string,secrets
 from pdf2image import convert_from_path
 from pathlib import Path
-from .models import *
+from models import *
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
 
