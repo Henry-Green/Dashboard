@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask_admin import Admin, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 from flask_login import login_user, current_user, logout_user, login_required
-from ..models import *
+from models import *
  
 admin = Admin(name='admin')
 
