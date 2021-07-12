@@ -11,7 +11,7 @@ import cv2
 import googleapiclient.discovery
 from apiclient import discovery
 from google.api_core.client_options import ClientOptions
-from .furnace_detect import *
+from furnace_detect import *
 import os
 
 root_path = os.path.dirname(os.path.abspath(__file__))
