@@ -28,8 +28,7 @@ import sys
 import os
 import pandas as pd
 from flask_mail import Mail, Message
-from admin import *
-from utility_comparison.test import get_new_bills
+
 
 
 main = Blueprint('main',__name__,template_folder='templates')
