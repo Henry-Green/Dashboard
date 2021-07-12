@@ -50,7 +50,7 @@ import math
 from sqlalchemy import desc
 from flask import Blueprint,render_template,request,redirect,url_for,flash, abort
 from flask_login import login_user, current_user, logout_user, login_required
-from ..models import *
+from .models import *
 from pathlib import Path
 import requests
 from benchmarking_tool.helper import *
@@ -78,10 +78,10 @@ import sys
 import os
 import pandas as pd
 from flask_mail import Mail, Message
-from ..PartnerApiClient import *
+from .PartnerApiClient import *
 import matplotlib.pyplot as plt
 import pandas as pd
-from ..PartnerApiClient.Emporia_Customer import Emporia_Customer
+from .PartnerApiClient.Emporia_Customer import Emporia_Customer
 
 #for photo upload
 commercial = Blueprint('commercial',__name__,template_folder='templates', url_prefix='/commercial')
