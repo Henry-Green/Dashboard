@@ -7,7 +7,6 @@ from forms import *
 from helper import *
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail, Message
-from app import app
 from methods import *
 from decorators import *
 from dotenv import load_dotenv
