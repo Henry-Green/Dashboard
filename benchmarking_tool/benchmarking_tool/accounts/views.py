@@ -7,15 +7,15 @@ from forms import *
 from helper import *
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail, Message
-from benchmarking_tool.app import * 
-from benchmarking_tool.methods import *
-from benchmarking_tool.decorators import *
+from app import app
+from methods import *
+from decorators import *
 from dotenv import load_dotenv
 from sqlalchemy import or_
-from benchmarking_tool.image_reckognition.bill_detection import *
-from benchmarking_tool.image_reckognition.bill_detection import detect_electrical_bill
-from benchmarking_tool.methods import *
-from benchmarking_tool.methods import *
+from image_reckognition.bill_detection import *
+from image_reckognition.bill_detection import detect_electrical_bill
+from methods import *
+from methods import *
 from difflib import get_close_matches
 import re
 load_dotenv()
