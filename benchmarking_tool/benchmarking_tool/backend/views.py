@@ -2,7 +2,7 @@ import math
 from sqlalchemy import desc
 from flask import Blueprint,render_template,request,redirect,url_for,flash, abort
 from flask_login import login_user, current_user, logout_user, login_required
-from ..models import *
+from .models import *
 from pathlib import Path
 import requests
 from benchmarking_tool.helper import *
