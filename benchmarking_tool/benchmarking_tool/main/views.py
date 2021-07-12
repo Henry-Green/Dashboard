@@ -2,7 +2,7 @@ import math
 from sqlalchemy import desc
 from flask import Blueprint,render_template,request,redirect,url_for,flash
 from flask_login import login_user, current_user, logout_user, login_required
-from .models import *
+from models import *
 from pathlib import Path
 import requests
 from benchmarking_tool.helper import *
@@ -28,8 +28,8 @@ import sys
 import os
 import pandas as pd
 from flask_mail import Mail, Message
-from .admin import *
-from .utility_comparison.test import get_new_bills
+from admin import *
+from utility_comparison.test import get_new_bills
 
 
 main = Blueprint('main',__name__,template_folder='templates')
