@@ -53,18 +53,18 @@ from flask_login import login_user, current_user, logout_user, login_required
 from models import *
 from pathlib import Path
 import requests
-from benchmarking_tool.helper import *
-from benchmarking_tool.forms import *
-from benchmarking_tool.decorators import *
-from benchmarking_tool.functions import *
+from helper import *
+from forms import *
+from decorators import *
+from functions import *
 import secrets
 from PIL import Image
 from difflib import get_close_matches
-from benchmarking_tool.furnace_detect import *
-from benchmarking_tool.pvc_steel_detect import *
-from benchmarking_tool.image_reckognition.aws_rek import *
-from benchmarking_tool.image_reckognition.bill_detection import *
-from benchmarking_tool.methods import *
+from furnace_detect import *
+from pvc_steel_detect import *
+from image_reckognition.aws_rek import *
+from image_reckognition.bill_detection import *
+from methods import *
 from datetime import datetime,timedelta
 from sqlalchemy import and_
 from sqlalchemy.sql.expression import func
