@@ -1,11 +1,11 @@
 import os
 from flask import Flask
-from .accounts.views import accounts
-from .main.views import main
-from .fitters.views import fitters
-from .backend.views import backend
-from .commercial.views import commercial
-from .clientcommercial.views import clientcommercial
+from accounts.views import accounts
+from main.views import main
+from fitters.views import fitters
+from backend.views import backend
+from commercial.views import commercial
+from clientcommercial.views import clientcommercial
 def create_app():
 	app = Flask(__name__,template_folder="templates")
 	app.config["DEBUG"] = True
