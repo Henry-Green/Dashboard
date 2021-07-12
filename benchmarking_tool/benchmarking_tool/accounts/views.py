@@ -7,7 +7,7 @@ from forms import *
 from helper import *
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail, Message
-from benchmarking_tool import app
+from benchmarking_tool.app import * 
 from benchmarking_tool.methods import *
 from benchmarking_tool.decorators import *
 from dotenv import load_dotenv
