@@ -5,9 +5,9 @@ from models import *
 from flask_bcrypt import Bcrypt
 import requests
 from helper import *
-from benchmarking_tool.forms import *
-from benchmarking_tool.decorators import *
-from benchmarking_tool.methods import *
+from forms import *
+from decorators import *
+from methods import *
 import secrets
 from PIL import Image
 from difflib import get_close_matches
