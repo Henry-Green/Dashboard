@@ -1,8 +1,8 @@
 from functools import wraps
 from flask import g,request,redirect, url_for ,flash,render_template
 from flask_login import current_user
-from .models import *
-from .forms import *
+from models import *
+from forms import *
 
 def survey_required(f):
     @wraps(f)
