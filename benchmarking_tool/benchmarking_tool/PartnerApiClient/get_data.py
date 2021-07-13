@@ -10,12 +10,11 @@ def get_data(serial_number, days):
     usage = ['1MIN','15MIN','1H']
     # first thing to do is call api and update the Output.txt file 
     # no api takes in a serial number and number of days to get past data. 
-    line_list = call_api(serial_number, days)
-    #line_list = []
-    #with open("Output.txt", 'r') as text_file:
-    #    for line in text_file:
-    #        line_list.append(line)
-            
+    #line_list = call_api(serial_number, days)
+    line_list = []
+    with open("Output.txt", 'r') as text_file:
+       for line in text_file:
+           line_list.append(line)
     usage_list1 = get_usage(line_list, usage[0], serial_number)
     usage_list2 = get_usage(line_list, usage[1], serial_number)
     usage_list3 = get_usage(line_list, usage[2], serial_number)
