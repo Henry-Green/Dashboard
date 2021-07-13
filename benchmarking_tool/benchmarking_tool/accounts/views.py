@@ -176,6 +176,7 @@ def login():
                 return redirect(url_for('accounts.login'))
     else:
         form = LoginForm(email="")
+    return redirect(url_for('accounts.commerciallogin'))	
     return render_template('login.html', title='Login', form=form,last_updated=dir_last_updated())
 
 @accounts.route('/commerciallogin', methods=['GET', 'POST'])
