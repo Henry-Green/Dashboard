@@ -146,7 +146,7 @@ def register():
 def login():
     print("in login")
     if current_user.is_authenticated:
-        return redirect(url_for('main.overview'))
+        return redirect(url_for('commercial.usagedayline'))
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
