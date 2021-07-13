@@ -84,7 +84,7 @@ import pandas as pd
 from PartnerApiClient.Emporia_Customer import Emporia_Customer
 
 #for photo upload
-commercial = Blueprint('commercial',__name__,template_folder='templates', url_prefix='/commercial')
+commercial = Blueprint('commercial',__name__,template_folder='templates')
 app_root = Path(__file__).parents[1]
 root_path = os.path.dirname(os.path.abspath(__file__))
 
