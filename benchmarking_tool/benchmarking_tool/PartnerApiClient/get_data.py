@@ -39,7 +39,7 @@ def call_api(serial_number, days ):
     # this runs on the command line to run the EmporiaEnergyApiClient.java 
     # this file is compiled in the mains folder 
     str_days = str(days)
-    string1 = "java -cp lib\*;. mains.EmporiaEnergyApiClient phart@sustainergy.ca hello12345 "+serial_number+" "+str_days+" partner-api.emporiaenergy.com"
+    string1 = "java -cp .:lib/\* mains.EmporiaEnergyApiClient phart@sustainergy.ca hello12345 "+serial_number+" "+str_days+" partner-api.emporiaenergy.com"
     output = subprocess.Popen(string1, shell=True,stdout=subprocess.PIPE)
     #date_proc.stdout.close()
 
