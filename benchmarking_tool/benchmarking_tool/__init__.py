@@ -33,7 +33,7 @@ with app.test_request_context():
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'accounts.commerciallogin'
+login_manager.login_view = 'accounts.login'
 login_manager.login_message_category = 'info'
 mail = Mail(app)
 mail.init_app(app)
