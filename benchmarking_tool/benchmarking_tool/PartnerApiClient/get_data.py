@@ -10,11 +10,11 @@ def get_data(serial_number, days):
     usage = ['1MIN','15MIN','1H']
     # first thing to do is call api and update the Output.txt file 
     # no api takes in a serial number and number of days to get past data. 
-    # line_list = call_api(serial_number, days)
-    line_list = []
-    with open("Output.txt", 'r') as text_file:
-       for line in text_file:
-           line_list.append(line)
+    line_list = call_api(serial_number, days)
+    #line_list = []
+    #with open("Output.txt", 'r') as text_file:
+    #    for line in text_file:
+    #        line_list.append(line)
             
     usage_list1 = get_usage(line_list, usage[0], serial_number)
     usage_list2 = get_usage(line_list, usage[1], serial_number)
@@ -38,7 +38,7 @@ def call_api(serial_number, days ):
     # this runs on the command line to run the EmporiaEnergyApiClient.java 
     # this file is compiled in the mains folder 
     str_days = str(days)
-    string1 = "java -cp lib\*;. mains.EmporiaEnergyApiClient phart@sustainergy.ca hello12345 "+serial_number+" "+str_days+" partner-api.emporiaenergy.com"
+    string1 = "java -cp .:lib/\* mains.EmporiaEnergyApiClient phart@sustainergy.ca hello12345 "+serial_number+" "+str_days+" partner-api.emporiaenergy.com"
     output = subprocess.Popen(string1, shell=True,stdout=subprocess.PIPE)
     #date_proc.stdout.close()
 
