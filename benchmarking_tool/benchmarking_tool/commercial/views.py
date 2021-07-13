@@ -106,7 +106,7 @@ def testapi():
         return render_template('testapi.html')
     else:
         abort(403)
-@main.route('/')
+@commercial.route('/')
 @commercial.route('/usageday', methods=['GET', 'POST'])
 @login_required
 def usageday():
