@@ -1,6 +1,6 @@
 from .emporia_structure import ave_channel_usage, Channel, clean_data,get_channels,on_off_usage,UTC_MTN
 
-from get_data import get_data
+from .get_data import get_data
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
