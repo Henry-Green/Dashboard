@@ -135,7 +135,7 @@ def usageday():
 def usageweek():
     if(current_user.is_authenticated and current_user.is_admin()):
         serial_number = 'A2107A04B4B8F009A6CEC4'
-        d = 1
+        d = 7
 
         # new way of using the new data
         customer = Emporia_Customer(serial_number)
@@ -159,7 +159,7 @@ def usageweek():
 def usagemonth():
     if(current_user.is_authenticated and current_user.is_admin()):
         serial_number = 'A2107A04B4B8F009A6CEC4'
-        d = 1
+        d = 30
 
         # new way of using the new data
         customer = Emporia_Customer(serial_number)
@@ -213,7 +213,7 @@ def usageweekline():
         serial_number = 'A2107A04B4B8F009A6CEC4'
         customer = Emporia_Customer(serial_number)
 
-        customer.get_data(days= 1)
+        customer.get_data(days= 7)
         customer.get_schedule()
 
         customer.save_channels()
@@ -241,7 +241,7 @@ def usagemonthline():
         serial_number = 'A2107A04B4B8F009A6CEC4'
         customer = Emporia_Customer(serial_number)
 
-        customer.get_data(days= 1)
+        customer.get_data(days= 30)
         customer.get_schedule()
 
         customer.save_channels()
