@@ -40,7 +40,7 @@ root_path = os.path.dirname(os.path.abspath(__file__))
 def testmodelnumber():
         return render_template('compare-my-home.html')
 
-@main.route('/')
+
 @main.route('/overview/',methods=['GET', 'POST'])
 @login_required
 @type_required
