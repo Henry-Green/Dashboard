@@ -11,15 +11,16 @@ def get_data(serial_number, days):
     # first thing to do is call api and update the Output.txt file 
     # no api takes in a serial number and number of days to get past data. 
     line_list = call_api(serial_number, days)
-    #line_list = []
-    #with open("Output.txt", 'r') as text_file:
-       #for line in text_file:
-          #line_list.append(line)
+    # line_list = []
+    # with open("Output.txt", 'r') as text_file:
+    #    for line in text_file:
+    #        line_list.append(line)
             
     usage_list1 = get_usage(line_list, usage[0], serial_number)
     usage_list2 = get_usage(line_list, usage[1], serial_number)
     usage_list3 = get_usage(line_list, usage[2], serial_number)
-
+    print('usage_list1')
+    print(usage_list1)
     data1 = make_df(usage_list1)
     data2 = make_df(usage_list2)
     data3 = make_df(usage_list3)
@@ -56,7 +57,7 @@ def call_api(serial_number, days ):
             text_file.write(line)
     with open("Output.txt", "r") as f:
         list_of_lines = [line.strip() for line in f]
-        
+
     list_of_lines = [x.replace("\\r","") for x in list_of_lines]
     return list_of_lines
 
@@ -80,6 +81,10 @@ def get_usage(line_list, usage, serial_number):
                         break
                     else:
                         r.append(s2_list)
+            if s_list[0] =='Usage':
+                print('worked')
+            else:
+                print("no Work")
         except:
             continue
     return r
