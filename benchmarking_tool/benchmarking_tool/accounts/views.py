@@ -29,7 +29,7 @@ app_root = Path(__file__).parents[1]
 @accounts.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('main.overview'))
+        return redirect(url_for('commercial.usagedayline'))
     if request.method == "POST":
         email = request.form["email"]
         phone_number = request.form["phone_number"]
