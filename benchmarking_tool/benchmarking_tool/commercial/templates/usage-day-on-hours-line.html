@@ -122,7 +122,7 @@
         <img class="vector-xljW3G" src="{{ url_for('static',filename='img/vector-1@2x.svg')}}" />
         <div class="rectangle-2901-F7L3xZ"><div class="card-body d-flex justify-content-center">
                     <div class="row">
-                        <div class="col-lg-6 col-md-12 col-sm-12 " style ="bottom:90px;" >
+                        <div class="col-lg-6 col-md-12 col-sm-12 " style ="bottom:0px;" >
                             <div id="chart"></div>
                         </div>
                           <script>
@@ -155,7 +155,7 @@
                                   }
                                 ],
                                   chart: {
-                                  height: 399,
+                                  height: '332px',
                                   type: 'line',
                                   zoom: {
                                     enabled: false
@@ -169,10 +169,6 @@
                                 },
                                 stroke: {
                                   curve: 'smooth'
-                                },
-                                title: {
-                                  text: 'Product Trends by Month',
-                                  align: 'left'
                                 },
                                 grid: {
                                   row: {
@@ -199,6 +195,7 @@
                                       fontSize: '10px',
                                       fontWeight: 700,
                                   },
+                                  maxHeight: undefined,
                                    "formatter": function (val) {
                                     return val.toFixed(2)
                                 },
