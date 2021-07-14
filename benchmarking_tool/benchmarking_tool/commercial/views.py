@@ -122,11 +122,16 @@ def usageday():
         roofs = []
         rooffinishs = []
         foundations = []
-        home_upgrades = customer.channel4.data_hour
+        home_upgrades = customer.channel7.data_hour
+        home_upgrades1 = customer.channel8.data_hour
+        home_upgrades3 = customer.channel6.data_hour
+        home_upgrades4 = customer.channel10.data_hour
+        home_upgrades5 = customer.channel5.data_hour
+        home_upgrades6 = customer.channel12.data_hour
         print(customer.channel4.data_hour)
         user_home = [60, 50]
         average_home = [75,62]
-        return render_template('usage-day-on-hours.html',user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
+        return render_template('usage-day-on-hours.html',home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
 
@@ -135,23 +140,25 @@ def usageday():
 def usageweek():
     if(current_user.is_authenticated and current_user.is_admin()):
         serial_number = 'A2107A04B4B8F009A6CEC4'
-        d = 1
-
-        # new way of using the new data
         customer = Emporia_Customer(serial_number)
 
-        customer.get_data(days= d)
-        # customer.get_schedual()
+        customer.get_data(days= 1)
+        customer.get_schedule()
+
+        customer.save_channels()
         exteriorwalls =[]
         roofs = []
         rooffinishs = []
         foundations = []
-        home_upgrades = [10,23,30,33,40,50,60,66,56,40,39,34,29]
-        print('hours')
-        print(customer.chan_hours)
+        home_upgrades = customer.channel7.data_hour
+        home_upgrades1 = customer.channel8.data_hour
+        home_upgrades3 = customer.channel6.data_hour
+        home_upgrades4 = customer.channel10.data_hour
+        home_upgrades5 = customer.channel5.data_hour
+        home_upgrades6 = customer.channel12.data_hour
         user_home = [60, 50]
         average_home = [75,62]
-        return render_template('usage-day-on-week.html',user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
+        return render_template('usage-day-on-week.html',home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
 @commercial.route('/usagemonth', methods=['GET', 'POST'])
@@ -159,23 +166,25 @@ def usageweek():
 def usagemonth():
     if(current_user.is_authenticated and current_user.is_admin()):
         serial_number = 'A2107A04B4B8F009A6CEC4'
-        d = 1
-
-        # new way of using the new data
         customer = Emporia_Customer(serial_number)
 
-        customer.get_data(days= d)
-        # customer.get_schedual()
+        customer.get_data(days= 1)
+        customer.get_schedule()
+
+        customer.save_channels()
         exteriorwalls =[]
         roofs = []
         rooffinishs = []
         foundations = []
-        home_upgrades = [10,23,30,33,40,50,60,66,56,40,39,34,29]
-        print('hours')
-        print(customer.chan_hours)
+        home_upgrades = customer.channel7.data_hour
+        home_upgrades1 = customer.channel8.data_hour
+        home_upgrades3 = customer.channel6.data_hour
+        home_upgrades4 = customer.channel10.data_hour
+        home_upgrades5 = customer.channel5.data_hour
+        home_upgrades6 = customer.channel12.data_hour
         user_home = [60, 50]
         average_home = [75,62]
-        return render_template('usage-day-on-month.html',user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
+        return render_template('usage-day-on-month.html',home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
 @commercial.route('/usagedayline', methods=['GET', 'POST'])
