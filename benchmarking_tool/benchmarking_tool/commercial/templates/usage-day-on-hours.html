@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/dashboard-day.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/styleguide.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts" type="text/javascript"></script>
   </head>
   <body style="margin: 0; background: #ffffff">
     <input type="hidden" id="anPageName" name="page" value="dashboard-day" />
@@ -100,36 +101,12 @@
             <div class="check-box-emX9G9"><img class="shape-wYz10z" src="{{ url_for('static',filename='img/shape@2x.svg')}}" /></div>
           </div>
         </div>
-        <div class="page-9-F7L3xZ">
-          <div class="core-nF35u9">
-            <div class="check-box-YHFrrG"><img class="shape-P7ogs2" src="{{ url_for('static',filename='img/shape-1@2x.svg')}}" /></div>
-          </div>
-        </div>
-        <div class="page-10-F7L3xZ">
-          <div class="core-MxaQ2P">
-            <div class="check-box-nvmx2w"><img class="shape-7T3bBN" src="{{ url_for('static',filename='img/shape-2@2x.svg')}}" /></div>
-          </div>
-        </div>
-        <div class="page-11-F7L3xZ">
-          <div class="core-xisoQU">
-            <div class="check-box-hQJbpr"><img class="shape-ArtG4u" src="{{ url_for('static',filename='img/shape-3@2x.svg')}}" /></div>
-          </div>
-        </div>
-        <div class="page-12-F7L3xZ">
-          <div class="core-oZFjaO">
-            <div class="check-box-RrkSCX"><img class="shape-bY5u4x" src="{{ url_for('static',filename='img/shape-4@2x.svg')}}" /></div>
-          </div>
-        </div>
-        <div class="page-13-F7L3xZ">
-          <div class="core-KjgQwk">
-            <div class="check-box-wddhkk"><img class="shape-p4jLjj" src="{{ url_for('static',filename='img/shape-5@2x.svg')}}" /></div>
-          </div>
-        </div>
-        <div class="page-14-F7L3xZ">
-          <div class="core-mqdi27">
-            <div class="check-box-lMLyh6"><img class="shape-a2wxIZ" src="{{ url_for('static',filename='img/shape-6@2x.svg')}}" /></div>
-          </div>
-        </div>
+        <input type= 'checkbox' class="page-9-F7L3xZ" id= 'panel1check' onclick= "chart.toggleSeries('Panel 1');" checked/><label for = 'panel1check'></label>
+        <input type= 'checkbox' class="page-10-F7L3xZ" id= 'panel2check' onclick= "chart.toggleSeries('Panel 2');" checked/><label for = 'panel2check'></label>
+       <input type= 'checkbox' class="page-11-F7L3xZ" id= 'panel1check' onclick= "chart.toggleSeries('Panel 3');" checked/><label for = 'panel1check'></label>
+        <input type= 'checkbox' class="page-12-F7L3xZ" id= 'panel1check' onclick= "chart.toggleSeries('Panel 4');" checked/><label for = 'panel1check'></label>
+        <input type= 'checkbox' class="page-13-F7L3xZ" id= 'panel1check' onclick= "chart.toggleSeries('Panel 5');" checked/><label for = 'panel1check'></label>
+        <input type= 'checkbox' class="page-14-F7L3xZ" id= 'panel1check' onclick= "chart.toggleSeries('Panel 6');" checked/><label for = 'panel1check'></label>
         <img class="vector-ukLjjV" src="{{ url_for('static',filename='img/vector-1@2x.svg')}}" />
         <div class="k-wh-total-F7L3xZ valign-text-middle avertacy-bold-chathams-blue-16px">kWh Total</div>
         <img class="vector-wxjJ07" src="{{ url_for('static',filename='img/vector-1@2x.svg')}}" />
@@ -143,47 +120,101 @@
           Potential Savings
         </div>
         <img class="vector-xljW3G" src="{{ url_for('static',filename='img/vector-1@2x.svg')}}" />
-        <div class="rectangle-2901-F7L3xZ"><div class="box">
-                <div class="graph">
-                    
-                    <div class="m"style="height: {{ home_upgrades[0] }}%; left: 0%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[1] }}%; left: 4.16666666667%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[2] }}%; left: 8.33333333334%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[3] }}%; left: 12.5%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[4] }}%; left: 16.6666666667%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[5] }}%; left: 20.8333333334%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[6] }}%; left: 25.0000000001%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[7] }}%; left: 29.1666666668%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[8] }}%; left: 33.3333333335%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[9] }}%; left: 37.5000000002%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[10] }}%; left: 41.6666666669%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[11] }}%; left: 45.8333333336%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[12] }}%; left: 50.0000000003%;"></div>
-                     <div class="m"style="height: {{ home_upgrades[13] }}%; left: 54.166666667%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[14] }}%; left: 58.3333333337%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[15] }}%; left: 62.5000000004%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[16] }}%; left: 66.6666666671%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[17] }}%; left: 70.8333333338%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[18] }}%; left: 75.0000000005%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[19] }}%; left: 79.1666666672%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[20] }}%; left: 83.3333333339%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[21] }}%; left: 87.5000000006%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[22] }}%; left: 91.6666666673%;"></div>
-                    <div class="m"style="height: {{ home_upgrades[23] }}%; left: 95.833333334%;"></div>
-                    <div class="a"style="height: 90%; left: 0%;"></div>
+               <div class="rectangle-2901-F7L3xZ"><div class="card-body d-flex justify-content-center">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12 " style ="bottom:0px;" >
+                            <div id="chart"></div>
+                        </div>
+                          <script>
+                            var options = {
+                                  colors: ['#4A75FF', '#F2A047', '#9C5CA6', '#FF5744', '#249369','#253EA5'],
+                                  series: [
+                                  {
+                                    name: "Panel 1",
+                                    data: [{{home_upgrades[0]}},{{home_upgrades[1]}},{{home_upgrades[2]}},{{home_upgrades[3]}},{{home_upgrades[4]}},{{home_upgrades[5]}},{{home_upgrades[6]}},{{home_upgrades[7]}},{{home_upgrades[8]}},{{home_upgrades[9]}},{{home_upgrades[10]}},{{home_upgrades[11]}},{{home_upgrades[12]}},{{home_upgrades[13]}},{{home_upgrades[14]}},{{home_upgrades[15]}},{{home_upgrades[16]}},{{home_upgrades[17]}},{{home_upgrades[18]}},{{home_upgrades[19]}},{{home_upgrades[20]}},{{home_upgrades[21]}},{{home_upgrades[22]}},{{home_upgrades[23]}}]
+                                  },
+                                  {
+                                    name: "Panel 2",
+                                    data: [{{home_upgrades1[0]}},{{home_upgrades1[1]}},{{home_upgrades1[2]}},{{home_upgrades1[3]}},{{home_upgrades1[4]}},{{home_upgrades1[5]}},{{home_upgrades1[6]}},{{home_upgrades1[7]}},{{home_upgrades1[8]}},{{home_upgrades1[9]}},{{home_upgrades1[10]}},{{home_upgrades1[11]}},{{home_upgrades1[12]}},{{home_upgrades1[13]}},{{home_upgrades1[14]}},{{home_upgrades1[15]}},{{home_upgrades1[16]}},{{home_upgrades1[17]}},{{home_upgrades1[18]}},{{home_upgrades1[19]}},{{home_upgrades1[20]}},{{home_upgrades1[21]}},{{home_upgrades1[22]}},{{home_upgrades1[23]}}]
+                                  },
+                                  {
+                                    name: "Panel 3",
+                                    data: [{{home_upgrades3[0]}},{{home_upgrades3[1]}},{{home_upgrades3[2]}},{{home_upgrades3[3]}},{{home_upgrades3[4]}},{{home_upgrades3[5]}},{{home_upgrades3[6]}},{{home_upgrades3[7]}},{{home_upgrades3[8]}},{{home_upgrades3[9]}},{{home_upgrades3[10]}},{{home_upgrades3[11]}},{{home_upgrades3[12]}},{{home_upgrades3[13]}},{{home_upgrades3[14]}},{{home_upgrades3[15]}},{{home_upgrades3[16]}},{{home_upgrades3[17]}},{{home_upgrades3[18]}},{{home_upgrades3[19]}},{{home_upgrades3[20]}},{{home_upgrades3[21]}},{{home_upgrades3[22]}},{{home_upgrades3[23]}}]
+                                  },
+                                  {
+                                    name: "Panel 4",
+                                    data: [{{home_upgrades4[0]}},{{home_upgrades4[1]}},{{home_upgrades4[2]}},{{home_upgrades4[3]}},{{home_upgrades4[4]}},{{home_upgrades4[5]}},{{home_upgrades4[6]}},{{home_upgrades4[7]}},{{home_upgrades4[8]}},{{home_upgrades4[9]}},{{home_upgrades4[10]}},{{home_upgrades4[11]}},{{home_upgrades4[12]}},{{home_upgrades4[13]}},{{home_upgrades4[14]}},{{home_upgrades4[15]}},{{home_upgrades4[16]}},{{home_upgrades4[17]}},{{home_upgrades4[18]}},{{home_upgrades4[19]}},{{home_upgrades4[20]}},{{home_upgrades4[21]}},{{home_upgrades4[22]}},{{home_upgrades4[23]}}]
+                                  },
+                                  {
+                                    name: "Panel 5",
+                                    data: [{{home_upgrades5[0]}},{{home_upgrades5[1]}},{{home_upgrades5[2]}},{{home_upgrades5[3]}},{{home_upgrades5[4]}},{{home_upgrades5[5]}},{{home_upgrades5[6]}},{{home_upgrades5[7]}},{{home_upgrades5[8]}},{{home_upgrades5[9]}},{{home_upgrades5[10]}},{{home_upgrades5[11]}},{{home_upgrades5[12]}},{{home_upgrades5[13]}},{{home_upgrades5[14]}},{{home_upgrades5[15]}},{{home_upgrades5[16]}},{{home_upgrades5[17]}},{{home_upgrades5[18]}},{{home_upgrades5[19]}},{{home_upgrades5[20]}},{{home_upgrades5[21]}},{{home_upgrades5[22]}},{{home_upgrades5[23]}}]
+                                  },
+                                  {
+                                    name: "Panel 6",
+                                    data: [{{home_upgrades6[0]}},{{home_upgrades6[1]}},{{home_upgrades6[2]}},{{home_upgrades6[3]}},{{home_upgrades6[4]}},{{home_upgrades6[5]}},{{home_upgrades6[6]}},{{home_upgrades6[7]}},{{home_upgrades6[8]}},{{home_upgrades6[9]}},{{home_upgrades6[10]}},{{home_upgrades6[11]}},{{home_upgrades6[12]}},{{home_upgrades6[13]}},{{home_upgrades6[14]}},{{home_upgrades6[15]}},{{home_upgrades6[16]}},{{home_upgrades6[17]}},{{home_upgrades6[18]}},{{home_upgrades6[19]}},{{home_upgrades6[20]}},{{home_upgrades6[21]}},{{home_upgrades6[22]}},{{home_upgrades6[23]}}]
+                                  }
+                                ],
+                                  chart: {
+                                  height: '332px',
+                                  type: 'bar',
+                                  zoom: {
+                                    enabled: false
+                                  },
+                                },
+                                dataLabels: {
+                                  enabled: false
+                                },
+                                legend:{
+                                  show: false
+                                },
+                                stroke: {
+                                  show: true,
+                                },
+                                grid: {
+                                  row: {
+                                    colors: ['transparent', 'transparent'], // takes an array which will be repeated on columns
+                                    opacity: 0.5
+                                  },
+                                },
+                                plotOptions: {
+                                  bar: {
+                                    horizontal: false,
+                                    columnWidth: '55%',
+                                    endingShape: 'rounded'
+                                  },
+                                },
+                                xaxis: {
+                                  labels:{
+                                    show: false
+                                  },
+                                  axisBorder:{
+                                    show: false
+                                  },
+                                  axisTicks:{
+                                    show: false
+                                  },
+                                },
+                                yaxis:{
+                                  labels:{
+                                  style:{
+                                      colors: 'DarkBlue',
+                                      fontFamily: " Helvetica, Averta CY-Bold",
+                                      fontSize: '10px',
+                                      fontWeight: 700,
+                                  },
+                                   "formatter": function (val) {
+                                    return val.toFixed(2)
+                                },
+                                },
+                                },
+                                };
+
+                                var chart = new ApexCharts(document.querySelector("#chart"), options);
+                                chart.render();
+                        </script>
+                    </div>
+                  </div>
                 </div>
-              </div></div>
-        <div class="x20-F7L3xZ valign-text-middle avertacy-bold-chathams-blue-10px">-20</div>
-        <div class="x0-F7L3xZ valign-text-middle avertacy-bold-chathams-blue-10px">0</div>
-        <div class="x20-ukLjjV valign-text-middle avertacy-bold-chathams-blue-10px">20</div>
-        <div class="x40-F7L3xZ valign-text-middle avertacy-bold-chathams-blue-10px">40</div>
-        <div class="x60-F7L3xZ valign-text-middle avertacy-bold-chathams-blue-10px">60</div>
-        <div class="x80-ukLjjV valign-text-middle avertacy-bold-chathams-blue-10px">80</div>
-        <div class="x100-wxjJ07 valign-text-middle avertacy-bold-chathams-blue-10px">100</div>
-        <div class="x120-F7L3xZ valign-text-middle avertacy-bold-chathams-blue-10px">120</div>
-        <div class="x12-am-F7L3xZ valign-text-middle avertacy-bold-chathams-blue-10px">12 AM</div>
-        <div class="noon-F7L3xZ valign-text-middle avertacy-bold-chathams-blue-10px">Noon</div>
-        <div class="x12-am-ukLjjV valign-text-middle avertacy-bold-chathams-blue-10px">12 AM</div>
       
         <a href = "{{url_for('commercial.usageday')}}"><div class="group-7241-F7L3xZ">
           <div class="rectangle-2902-EtKQpN"></div>
