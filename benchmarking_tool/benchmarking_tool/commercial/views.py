@@ -127,8 +127,6 @@ def usageday():
         home_upgrades3 = [42,29,140,139,138,137,136,136,135,135,134,217,131,134,133,131,56,1,109,134,132,132,65]
         home_upgrades4 = [52,39,173,145,143,144,142,142,141,141,140,140,221,137,140,138,137,65,11,116,140,138,180,67]
         home_upgrades5 = [215,222,229,199,186,195,186,185,185,185,185,185,185,184,257,231,258,224,220,214,217,106,106,107]
-        home_upgrades6 = [42,29,140,139,138,137,136,136,135,135,134,217,131,134,133,131,56,1,109,134,132,132,65]
-        print(customer.channel8.data_hour)
         user_home = [60, 50]
         average_home = [75,62]
         return render_template('usage-day-on-hours.html',home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
@@ -208,8 +206,6 @@ def usagedayline():
         home_upgrades4 = [52,39,173,145,143,144,142,142,141,141,140,140,221,137,140,138,137,65,11,116,140,138,180,67]
         home_upgrades5 = [215,222,229,199,186,195,186,185,185,185,185,185,185,184,257,231,258,224,220,214,217,106,106,107]
         home_upgrades6 = [42,29,140,139,138,137,136,136,135,135,134,217,131,134,133,131,56,1,109,134,132,132,65]
-        print(customer.channel7.data_hour)
-        print(customer.channel8.data_hour)
         user_home = [60, 50]
         average_home = [75,62]
         return render_template('usage-day-on-hours-line.html',home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
@@ -237,8 +233,6 @@ def usageweekline():
         home_upgrades4 = [52,39,173,145,143,144,142,142,141,141,140,140,221,137,140,138,137,65,11,116,140,138,180,67]
         home_upgrades5 = [215,222,229,199,186,195,186,185,185,185,185,185,185,184,257,231,258,224,220,214,217,106,106,107]
         home_upgrades6 = [42,29,140,139,138,137,136,136,135,135,134,217,131,134,133,131,56,1,109,134,132,132,65]
-        print('hours')
-        print(customer.chan_hours)
         user_home = [60, 50]
         average_home = [75,62]
         return render_template('usage-day-on-week-line.html',home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
