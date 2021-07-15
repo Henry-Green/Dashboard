@@ -127,7 +127,7 @@ def usageday():
         home_upgrades3 = customer.channel6.data_hour
         home_upgrades4 = customer.channel10.data_hour
         home_upgrades5 = customer.channel5.data_hour
-        home_upgrades6 = customer.channel12.data_hour
+        home_upgrades6 = customer.channel8.data_hour
         print(customer.channel4.data_hour)
         user_home = [60, 50]
         average_home = [75,62]
@@ -155,7 +155,7 @@ def usageweek():
         home_upgrades3 = customer.channel6.data_hour
         home_upgrades4 = customer.channel10.data_hour
         home_upgrades5 = customer.channel5.data_hour
-        home_upgrades6 = customer.channel12.data_hour
+        home_upgrades6 = customer.channel8.data_hour
         user_home = [60, 50]
         average_home = [75,62]
         return render_template('usage-day-on-week.html',home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
@@ -181,7 +181,7 @@ def usagemonth():
         home_upgrades3 = customer.channel6.data_hour
         home_upgrades4 = customer.channel10.data_hour
         home_upgrades5 = customer.channel5.data_hour
-        home_upgrades6 = customer.channel12.data_hour
+        home_upgrades6 = customer.channel8.data_hour
         user_home = [60, 50]
         average_home = [75,62]
         return render_template('usage-day-on-month.html',home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
@@ -207,7 +207,7 @@ def usagedayline():
         home_upgrades3 = customer.channel6.data_hour
         home_upgrades4 = customer.channel10.data_hour
         home_upgrades5 = customer.channel5.data_hour
-        home_upgrades6 = customer.channel12.data_hour
+        home_upgrades6 = customer.channel8.data_hour
         print(customer.channel7.data_hour)
         user_home = [60, 50]
         average_home = [75,62]
@@ -235,7 +235,7 @@ def usageweekline():
         home_upgrades3 = customer.channel6.data_hour
         home_upgrades4 = customer.channel10.data_hour
         home_upgrades5 = customer.channel5.data_hour
-        home_upgrades6 = customer.channel12.data_hour
+        home_upgrades6 = customer.channel8.data_hour
         print('hours')
         print(customer.chan_hours)
         user_home = [60, 50]
@@ -263,7 +263,7 @@ def usagemonthline():
         home_upgrades3 = customer.channel6.data_hour
         home_upgrades4 = customer.channel10.data_hour
         home_upgrades5 = customer.channel5.data_hour
-        home_upgrades6 = customer.channel12.data_hour
+        home_upgrades6 = customer.channel8.data_hour
         print('hours')
         print(customer.chan_hours)
         user_home = [60, 50]
