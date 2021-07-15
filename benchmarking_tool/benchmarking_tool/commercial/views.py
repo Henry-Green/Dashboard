@@ -128,7 +128,7 @@ def usageday():
         home_upgrades4 = customer.channel10.data_hour
         home_upgrades5 = customer.channel5.data_hour
         home_upgrades6 = customer.channel8.data_hour
-        print(customer.channel5.data_hour)
+        print(customer.channel8.data_hour)
         user_home = [60, 50]
         average_home = [75,62]
         return render_template('usage-day-on-hours.html',home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
