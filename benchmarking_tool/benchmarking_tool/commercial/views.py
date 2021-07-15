@@ -123,11 +123,11 @@ def usageday():
         rooffinishs = []
         foundations = []
         home_upgrades = customer.channel7.data_hour
-        home_upgrades1 = customer.channel8.data_hour
+        home_upgrades1 = customer.channel7.data_hour
         home_upgrades3 = customer.channel6.data_hour
         home_upgrades4 = customer.channel10.data_hour
         home_upgrades5 = customer.channel5.data_hour
-        home_upgrades6 = customer.channel8.data_hour
+        home_upgrades6 = customer.channel7.data_hour
         print(customer.channel8.data_hour)
         user_home = [60, 50]
         average_home = [75,62]
