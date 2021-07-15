@@ -96,17 +96,13 @@
           class="line-169-F7L3xZ"
           src="{{ url_for('static',filename='img/line-156@1x.svg')}}"
         />
-        <div class="page-8-F7L3xZ">
-          <div class="core-lSQlBt">
-            <div class="check-box-emX9G9"><img class="shape-wYz10z" src="{{ url_for('static',filename='img/shape@2x.svg')}}" /></div>
-          </div>
-        </div>
-        <input type= 'checkbox' class="page-9-F7L3xZ" id= 'panel1check' onclick= "chart.toggleSeries('Panel 1');" checked/><label for = 'panel1check'></label>
-        <input type= 'checkbox' class="page-10-F7L3xZ" id= 'panel2check' onclick= "chart.toggleSeries('Panel 2');" checked/><label for = 'panel2check'></label>
-       <input type= 'checkbox' class="page-11-F7L3xZ" id= 'panel1check' onclick= "chart.toggleSeries('Panel 3');" checked/><label for = 'panel1check'></label>
-        <input type= 'checkbox' class="page-12-F7L3xZ" id= 'panel1check' onclick= "chart.toggleSeries('Panel 4');" checked/><label for = 'panel1check'></label>
-        <input type= 'checkbox' class="page-13-F7L3xZ" id= 'panel1check' onclick= "chart.toggleSeries('Panel 5');" checked/><label for = 'panel1check'></label>
-        <input type= 'checkbox' class="page-14-F7L3xZ" id= 'panel1check' onclick= "chart.toggleSeries('Panel 6');" checked/><label for = 'panel1check'></label>
+        <input type= 'checkbox' class="page-8-F7L3xZ" id= 'panel1check' onclick= "chart.toggleSeries('Panel 1'), chart.toggleSeries('Panel 2'), chart.toggleSeries('Panel 3'), chart.toggleSeries('Panel 4'), chart.toggleSeries('Panel 5'), chart.toggleSeries('Panel 6'), toggle(this);" checked/><label for = 'panel1check'></label>
+        <input type= 'checkbox' class="page-9-F7L3xZ" id= 'panel1check' name = 'panel1check' onclick= "chart.toggleSeries('Panel 1');" checked/><label for = 'panel1check'></label>
+        <input type= 'checkbox' class="page-10-F7L3xZ" id= 'panel1check' name = 'panel1check' onclick= "chart.toggleSeries('Panel 2');" checked/><label for = 'panel1check'></label>
+       <input type= 'checkbox' class="page-11-F7L3xZ" id= 'panel1check' name = 'panel1check' onclick= "chart.toggleSeries('Panel 3');" checked/><label for = 'panel1check'></label>
+        <input type= 'checkbox' class="page-12-F7L3xZ" id= 'panel1check' name = 'panel1check' onclick= "chart.toggleSeries('Panel 4');" checked/><label for = 'panel1check'></label>
+        <input type= 'checkbox' class="page-13-F7L3xZ" id= 'panel1check'name = 'panel1check' onclick= "chart.toggleSeries('Panel 5');" checked/><label for = 'panel1check'></label>
+        <input type= 'checkbox' class="page-14-F7L3xZ" id= 'panel1check' name = 'panel1check' onclick= "chart.toggleSeries('Panel 6');" checked/><label for = 'panel1check'></label>
         <img class="vector-ukLjjV" src="{{ url_for('static',filename='img/vector-1@2x.svg')}}" />
         <div class="k-wh-total-F7L3xZ valign-text-middle avertacy-bold-chathams-blue-16px">kWh Total</div>
         <img class="vector-wxjJ07" src="{{ url_for('static',filename='img/vector-1@2x.svg')}}" />
@@ -251,4 +247,12 @@
       </div>
     </div>
   </body>
+  <script>
+      function toggle(source) {
+      checkboxes = document.getElementsByName('panel1check');
+      for(var i=0, n=checkboxes.length;i<n;i++) {
+        checkboxes[i].checked = source.checked;
+      }
+    }
+  </script>
 </html>
