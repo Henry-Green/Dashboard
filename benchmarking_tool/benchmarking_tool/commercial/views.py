@@ -266,7 +266,7 @@ def usagemonthline():
     else:
         abort(403)
         
- @commercial.route('/energycost', methods=['GET', 'POST'])
+@commercial.route('/energycost', methods=['GET', 'POST'])
 @login_required
 def energycost():
     if(current_user.is_authenticated and current_user.is_admin()):
