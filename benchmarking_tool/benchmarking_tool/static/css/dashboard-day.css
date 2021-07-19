@@ -1350,7 +1350,7 @@
   background-color: transparent;
   color: #4a75ff;
   font-family: var(--font-family-averta_cy-bold);
-  font-size: var(--font-size-m);
+  font-size: 16px;
   font-style: normal;
   font-weight: 700;
   height: 20px;
@@ -1368,7 +1368,7 @@
   background-color: transparent;
   color: #f2a047;
   font-family: var(--font-family-averta_cy-bold);
-  font-size: var(--font-size-m);
+  font-size: 16px;
   font-style: normal;
   font-weight: 700;
   height: 20px;
@@ -1386,7 +1386,7 @@
   background-color: transparent;
   color: #9c5ca6;
   font-family: var(--font-family-averta_cy-bold);
-  font-size: var(--font-size-m);
+  font-size: 16px;
   font-style: normal;
   font-weight: 700;
   height: 20px;
@@ -1404,7 +1404,7 @@
   background-color: transparent;
   color: #ff5744;
   font-family: var(--font-family-averta_cy-bold);
-  font-size: var(--font-size-m);
+  font-size: 16px;
   font-style: normal;
   font-weight: 700;
   height: 20px;
@@ -1422,7 +1422,7 @@
   background-color: transparent;
   color: #249369;
   font-family: var(--font-family-averta_cy-bold);
-  font-size: var(--font-size-m);
+  font-size: 16px;
   font-style: normal;
   font-weight: 700;
   height: 20px;
@@ -1440,7 +1440,7 @@
   background-color: transparent;
   color: #253ea5;
   font-family: var(--font-family-averta_cy-bold);
-  font-size: var(--font-size-m);
+  font-size: 16px;
   font-style: normal;
   font-weight: 700;
   height: 20px;
@@ -1590,7 +1590,6 @@
   left: 304px;
   mix-blend-mode: normal;
   position: absolute;
-  overflow: hidden;
   top: 92px;
   width: 1022px;
 }
