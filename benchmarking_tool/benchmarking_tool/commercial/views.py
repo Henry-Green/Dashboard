@@ -265,6 +265,114 @@ def usagemonthline():
         return render_template('usage-day-on-month-line.html',home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
+        
+ @commercial.route('/energycost', methods=['GET', 'POST'])
+@login_required
+def energycost():
+    if(current_user.is_authenticated and current_user.is_admin()):
+        heating_usage = 40
+        current_regress = 0
+        light_usage = 20
+        appliance_usage = 10
+        ventilation_usage = 50
+        dhw_usage = 30
+        total = heating_usage + light_usage + appliance_usage + ventilation_usage + dhw_usage
+        return render_template('energycost.html',light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,total = total)
+    else:
+        abort(403)
+@commercial.route('/energycostlighting', methods=['GET', 'POST'])
+@login_required
+def energycostlighting():
+    if(current_user.is_authenticated and current_user.is_admin()):
+        heating_usage = 40
+        current_regress = 0
+        light_usage = 20
+        appliance_usage = 10
+        ventilation_usage = 50
+        dhw_usage = 30
+        total = heating_usage + light_usage + appliance_usage + ventilation_usage + dhw_usage
+        return render_template('energycostlighting.html',light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,total = total)
+    else:
+        abort(403)
+
+@commercial.route('/energycosthighbays', methods=['GET', 'POST'])
+@login_required
+def energycosthighbays():
+    if(current_user.is_authenticated and current_user.is_admin()):
+        heating_usage = 40
+        current_regress = 0
+        light_usage = 20
+        appliance_usage = 10
+        ventilation_usage = 50
+        dhw_usage = 30
+        total = heating_usage + light_usage + appliance_usage + ventilation_usage + dhw_usage
+        return render_template('energycosthighbays.html',light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,total = total)
+    else:
+        abort(403)
+@commercial.route('/energycostlinears', methods=['GET', 'POST'])
+@login_required
+def energycostlinears():
+    if(current_user.is_authenticated and current_user.is_admin()):
+        heating_usage = 40
+        current_regress = 0
+        light_usage = 20
+        appliance_usage = 10
+        ventilation_usage = 50
+        dhw_usage = 30
+        total = heating_usage + light_usage + appliance_usage + ventilation_usage + dhw_usage
+        return render_template('energycostlinears.html',light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,total = total)
+    else:
+        abort(403)
+@commercial.route('/energycosttroffers1x4', methods=['GET', 'POST'])
+@login_required
+def energycosttroffers1x4():
+    if(current_user.is_authenticated and current_user.is_admin()):
+        heating_usage = 40
+        current_regress = 0
+        light_usage = 20
+        appliance_usage = 10
+        ventilation_usage = 50
+        dhw_usage = 30
+        total = heating_usage + light_usage + appliance_usage + ventilation_usage + dhw_usage
+        return render_template('energycosttroffers1x4.html',light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,total = total)
+    else:
+        abort(403)
+
+@commercial.route('/energycosttroffers2x4', methods=['GET', 'POST'])
+@login_required
+def energycosttroffers2x4():
+    if(current_user.is_authenticated and current_user.is_admin()):
+        heating_usage = 40
+        current_regress = 0
+        light_usage = 20
+        appliance_usage = 10
+        ventilation_usage = 50
+        dhw_usage = 30
+        total = heating_usage + light_usage + appliance_usage + ventilation_usage + dhw_usage
+        return render_template('energycosttroffers2x4.html',light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,total = total)
+    else:
+        abort(403)
+@commercial.route('/energycostspotlights', methods=['GET', 'POST'])
+@login_required
+def energycostspotlights():
+    if(current_user.is_authenticated and current_user.is_admin()):
+        heating_usage = 40
+        current_regress = 0
+        light_usage = 20
+        appliance_usage = 10
+        ventilation_usage = 50
+        dhw_usage = 30
+        total = heating_usage + light_usage + appliance_usage + ventilation_usage + dhw_usage
+        return render_template('energycostspotlights.html',light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,total = total)
+    else:
+        abort(403)
 @commercial.route('/clients', methods=['GET', 'POST'])
 @login_required
 def clients():
