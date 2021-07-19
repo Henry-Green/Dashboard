@@ -234,13 +234,6 @@
   --white: #ffffff;
   --zircon: #f7f9fe;
 
-  --font-size-l: 24px;
-  --font-size-m: 20px;
-  --font-size-s: 18px;
-  --font-size-xs: 15px;
-  --font-size-xxs: 14px;
-  --font-size-xxxs: 11px;
-  --font-size-xxxxs: 8px;
 
   --font-family-averta_cy-bold: "Averta CY-Bold", Helvetica;
   --font-family-averta_cy-semibold: "Averta CY-Semibold", Helvetica;
@@ -461,12 +454,6 @@
   --white: #ffffff;
   --zircon: #f7f9fe;
 
-  --font-size-l: 16px;
-  --font-size-m: 13px;
-  --font-size-s: 12px;
-  --font-size-xl: 19px;
-  --font-size-xs: 11px;
-
   --font-family-core_sans_c-55medium: "Core Sans C-55Medium", Helvetica;
   --font-family-core_sans_c-65bold: "Core Sans C-65Bold", Helvetica;
   --font-family-core_sans_c-75extrabold: "Core Sans C-75ExtraBold", Helvetica;
@@ -498,11 +485,6 @@
   --chathams-blue: #1d5280;
   --mystic: #e7e9f5;
   --white: #ffffff;
-
-  --font-size-l: 11px;
-  --font-size-m: 10px;
-  --font-size-xl: 16px;
-  --font-size-xxl: 19px;
 
   --font-family-core_sans_c-55medium: "Core Sans C-55Medium", Helvetica;
   --font-family-core_sans_c-65bold: "Core Sans C-65Bold", Helvetica;
@@ -555,12 +537,6 @@
   --porcelain: #f0f1f5;
   --white: #ffffff;
 
-  --font-size-l: 20px;
-  --font-size-m: 17px;
-  --font-size-s: 13px;
-  --font-size-xl: 24px;
-  --font-size-xs: 11px;
-
   --font-family-core_sans_c-55medium: "Core Sans C-55Medium", Helvetica;
   --font-family-core_sans_c-65bold: "Core Sans C-65Bold", Helvetica;
   --font-family-core_sans_c-bold: "Core Sans C-Bold", Helvetica;
@@ -568,28 +544,28 @@
 .coresansc-bold-black-20px {
   color: var(--black);
   font-family: var(--font-family-core_sans_c-bold);
-  font-size: var(--font-size-l);
+  font-size: 20px;
   font-style: normal;
   font-weight: 700;
 }
 .avertacy-bold-black-16px {
   color: var(--black);
   font-family: var(--font-family-averta_cy-bold);
-  font-size: var(--font-size-m);
+  font-size: 16px;
   font-style: normal;
   font-weight: 700;
 }
 .avertacy-bold-chathams-blue-10px {
   color: var(--chathams-blue-2);
   font-family: var(--font-family-averta_cy-bold);
-  font-size: var(--font-size-xxxs);
+  font-size: 10px;
   font-style: normal;
   font-weight: 700;
 }
 .avertacy-bold-chathams-blue-16px {
   color: var(--chathams-blue);
   font-family: var(--font-family-averta_cy-bold);
-  font-size: var(--font-size-m);
+  font-size: 16px;
   font-style: normal;
   font-weight: 700;
 }
@@ -597,50 +573,44 @@
 .avertacy-bold-chathams-blue-16px {
   color: var(--chathams-blue);
   font-family: var(--font-family-averta_cy-bold);
-  font-size: var(--font-size-m);
+  font-size: 16px;
   font-style: normal;
   font-weight: 700;
 }
 .avertacy-regular-chathams-blue-16px {
   color: var(--cerulean-frost);
   font-family: var(--font-family-averta_cy-regular);
-  font-size: var(--font-size-m);
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
 }
 .avertacy-bold-chathams-blue-20px {
   color: var(--chathams-blue);
   font-family: var(--font-family-averta_cy-bold);
-  font-size: var(--font-size-l);
+  font-size: 20px;
   font-style: normal;
   font-weight: 700;
 }
 .avertacy-bold-cerulean-frost-10px {
   color: var(--cerulean-frost);
   font-family: var(--font-family-averta_cy-bold);
-  font-size: var(--font-size-xxxs);
+  font-size: 10px;
   font-style: normal;
   font-weight: 700;
 }
 .avertacy-bold-cerulean-frost-11px {
   color: var(--cerulean-frost);
   font-family: var(--font-family-averta_cy-bold);
-  font-size: var(--font-size-xxs);
+  font-size: 11px;
   font-style: normal;
   font-weight: 700;
 }
+
 :root { 
   --cerulean-frost: #6e9ac0;
   --chathams-blue: #1d5381;
   --white: #ffffff;
  
-  --font-size-l: 30px;
-  --font-size-m: 20px;
-  --font-size-s: 18px;
-  --font-size-xs: 15px;
-  --font-size-xxs: 14px;
-  --font-size-xxxs: 11px;
-  --font-size-xxxxs: 10px;
  
   --font-family-averta_cy-bold: "Averta CY-Bold", Helvetica;
   --font-family-averta_cy-semibold: "Averta CY-Semibold", Helvetica;
@@ -648,7 +618,7 @@
 .avertacy-normal-chathams-blue-14px {
   color: var(--chathams-blue);
   font-family: var(--font-family-averta_cy-semibold);
-  font-size: var(--font-size-xxs);
+  font-size: 14px;
   font-style: normal;
   font-weight: 400;
 }
@@ -656,7 +626,7 @@
 .avertacy-bold-chathams-blue-15px {
   color: var(--chathams-blue);
   font-family: var(--font-family-averta_cy-bold);
-  font-size: var(--font-size-xs);
+  font-size: 15px;
   font-style: normal;
   font-weight: 700;
 }
@@ -664,7 +634,7 @@
 .avertacy-bold-chathams-blue-20px {
   color: var(--chathams-blue);
   font-family: var(--font-family-averta_cy-bold);
-  font-size: var(--font-size-m);
+  font-size: 20px;
   font-style: normal;
   font-weight: 700;
 }
@@ -672,7 +642,7 @@
 .avertacy-bold-cerulean-frost-11px {
   color: var(--cerulean-frost);
   font-family: var(--font-family-averta_cy-bold);
-  font-size: var(--font-size-xxxs);
+  font-size: 11px;
   font-style: normal;
   font-weight: 700;
 }
