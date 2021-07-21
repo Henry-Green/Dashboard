@@ -373,6 +373,22 @@ def energycostspotlights():
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,total = total)
     else:
         abort(403)
+@commercial.route('/facilitylist', methods=['GET', 'POST'])
+@login_required
+def facilitylist():
+    if(current_user.is_authenticated and current_user.is_admin()):
+        heating_usage = 40
+        current_regress = 0
+        light_usage = 20
+        appliance_usage = 10
+        ventilation_usage = 50
+        dhw_usage = 30
+        buildings = Building.query.filter_by(client_id = 1).all() 
+        total = heating_usage + light_usage + appliance_usage + ventilation_usage + dhw_usage
+        return render_template('facilitylist.html',buildings = buildings,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,total = total)
+    else:
+        abort(403)
 @commercial.route('/clients', methods=['GET', 'POST'])
 @login_required
 def clients():
