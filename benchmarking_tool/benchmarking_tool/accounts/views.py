@@ -184,7 +184,7 @@ def commerciallogin():
     hashed_password = bcrypt.generate_password_hash('password').decode('utf-8')
     print(hashed_password)
     if current_user.is_authenticated:
-        return redirect(url_for('commercial.clients'))
+        return redirect(url_for('commercial.usageday'))
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
