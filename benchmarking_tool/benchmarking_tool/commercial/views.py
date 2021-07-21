@@ -383,7 +383,7 @@ def facilitylist():
         appliance_usage = 10
         ventilation_usage = 50
         dhw_usage = 30
-        buildings = Building.query.filter_by(client_id = 1).all() 
+        buildings = Building.query.filter_by(client_id = 2).all() 
         total = heating_usage + light_usage + appliance_usage + ventilation_usage + dhw_usage
         return render_template('facilitylist.html',buildings = buildings,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,total = total)
