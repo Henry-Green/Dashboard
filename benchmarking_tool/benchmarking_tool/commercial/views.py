@@ -389,6 +389,138 @@ def facilitylist():
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,total = total)
     else:
         abort(403)
+ @commercial.route('/facilityoverview', methods=['GET', 'POST'])
+@login_required
+def facilityoverview():
+    if(current_user.is_authenticated and current_user.is_admin()):
+        heating_usage = 40
+        current_regress = 0
+        light_usage = 20
+        appliance_usage = 10
+        ventilation_usage = 50
+        dhw_usage = 30
+        buildings = Building.query.filter_by(client_id = 1).all() 
+        total = heating_usage + light_usage + appliance_usage + ventilation_usage + dhw_usage
+        heating_percent = int(heating_usage / total * 100)
+        light_percent = int(light_usage / total * 100)
+        appliance_percent = int(appliance_usage / total * 100)
+        ventilation_percent = int(ventilation_usage / total * 100)
+        dhw_percent = int(dhw_usage / total * 100)
+        return render_template('facilityoverview.html',heating_percent = heating_percent, appliance_percent = appliance_percent, ventilation_percent = ventilation_percent, dhw_percent = dhw_percent, light_percent = light_percent, buildings = buildings,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,total = total)
+    else:
+        abort(403)
+@commercial.route('/historicalusage', methods=['GET', 'POST'])
+@login_required
+def historicalusage():
+    if(current_user.is_authenticated and current_user.is_admin()):
+        serial_number = 'A2107A04B4B8F009A6CEC4'
+        exteriorwalls =[]
+        roofs = []
+        rooffinishs = []
+        foundations = []
+        heating_usage = 40
+        current_regress = 0
+        light_usage = 20
+        appliance_usage = 10
+        ventilation_usage = 50
+        dhw_usage = 30
+        home_upgrades = [52,39,173,145,143,144,142,142,141,141,140,140,221,137,140,138,137,65,11,116,140,138,180,67]
+        home_upgrades1 = [215,222,229,199,186,195,186,185,185,185,185,185,185,184,257,231,258,224,220,214,217,106,106,107]
+        home_upgrades3 = [42,29,140,139,138,137,136,136,135,135,134,217,131,134,133,131,56,1,109,134,132,132,65]
+        home_upgrades4 = [52,39,173,145,143,144,142,142,141,141,140,140,221,137,140,138,137,65,11,116,140,138,180,67]
+        home_upgrades5 = [215,222,229,199,186,195,186,185,185,185,185,185,185,184,257,231,258,224,220,214,217,106,106,107]
+        home_upgrades6 = [42,29,140,139,138,137,136,136,135,135,134,217,131,134,133,131,56,1,109,134,132,132,65]
+        user_home = [60, 50]
+        average_home = [75,62]
+        return render_template('historicalusage.html',light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
+    else:
+        abort(403)
+
+@commercial.route('/historicalusageline', methods=['GET', 'POST'])
+@login_required
+def historicalusageline():
+    if(current_user.is_authenticated and current_user.is_admin()):
+        serial_number = 'A2107A04B4B8F009A6CEC4'
+        exteriorwalls =[]
+        roofs = []
+        rooffinishs = []
+        foundations = []
+        heating_usage = 40
+        current_regress = 0
+        light_usage = 20
+        appliance_usage = 10
+        ventilation_usage = 50
+        dhw_usage = 30
+        home_upgrades = [52,39,173,145,143,144,142,142,141,141,140,140,221,137,140,138,137,65,11,116,140,138,180,67]
+        home_upgrades1 = [215,222,229,199,186,195,186,185,185,185,185,185,185,184,257,231,258,224,220,214,217,106,106,107]
+        home_upgrades3 = [42,29,140,139,138,137,136,136,135,135,134,217,131,134,133,131,56,1,109,134,132,132,65]
+        home_upgrades4 = [52,39,173,145,143,144,142,142,141,141,140,140,221,137,140,138,137,65,11,116,140,138,180,67]
+        home_upgrades5 = [215,222,229,199,186,195,186,185,185,185,185,185,185,184,257,231,258,224,220,214,217,106,106,107]
+        home_upgrades6 = [42,29,140,139,138,137,136,136,135,135,134,217,131,134,133,131,56,1,109,134,132,132,65]
+        user_home = [60, 50]
+        average_home = [75,62]
+        return render_template('historicalusageline.html',light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
+    else:
+        abort(403)
+
+@commercial.route('/historicalusageweek', methods=['GET', 'POST'])
+@login_required
+def historicalusageweek():
+    if(current_user.is_authenticated and current_user.is_admin()):
+        serial_number = 'A2107A04B4B8F009A6CEC4'
+        exteriorwalls =[]
+        roofs = []
+        rooffinishs = []
+        foundations = []
+        heating_usage = 40
+        current_regress = 0
+        light_usage = 20
+        appliance_usage = 10
+        ventilation_usage = 50
+        dhw_usage = 30
+        home_upgrades = [52,39,173,145,143,144,142,142,141,141,140,140,221,137,140,138,137,65,11,116,140,138,180,67]
+        home_upgrades1 = [215,222,229,199,186,195,186,185,185,185,185,185,185,184,257,231,258,224,220,214,217,106,106,107]
+        home_upgrades3 = [42,29,140,139,138,137,136,136,135,135,134,217,131,134,133,131,56,1,109,134,132,132,65]
+        home_upgrades4 = [52,39,173,145,143,144,142,142,141,141,140,140,221,137,140,138,137,65,11,116,140,138,180,67]
+        home_upgrades5 = [215,222,229,199,186,195,186,185,185,185,185,185,185,184,257,231,258,224,220,214,217,106,106,107]
+        home_upgrades6 = [42,29,140,139,138,137,136,136,135,135,134,217,131,134,133,131,56,1,109,134,132,132,65]
+        user_home = [60, 50]
+        average_home = [75,62]
+        return render_template('historicalusageweek.html',light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
+    else:
+        abort(403)
+
+@commercial.route('/historicalusageweekline', methods=['GET', 'POST'])
+@login_required
+def historicalusageweekline():
+    if(current_user.is_authenticated and current_user.is_admin()):
+        serial_number = 'A2107A04B4B8F009A6CEC4'
+        exteriorwalls =[]
+        roofs = []
+        rooffinishs = []
+        foundations = []
+        heating_usage = 40
+        current_regress = 0
+        light_usage = 20
+        appliance_usage = 10
+        ventilation_usage = 50
+        dhw_usage = 30
+        home_upgrades = [52,39,173,145,143,144,142,142,141,141,140,140,221,137,140,138,137,65,11,116,140,138,180,67]
+        home_upgrades1 = [215,222,229,199,186,195,186,185,185,185,185,185,185,184,257,231,258,224,220,214,217,106,106,107]
+        home_upgrades3 = [42,29,140,139,138,137,136,136,135,135,134,217,131,134,133,131,56,1,109,134,132,132,65]
+        home_upgrades4 = [52,39,173,145,143,144,142,142,141,141,140,140,221,137,140,138,137,65,11,116,140,138,180,67]
+        home_upgrades5 = [215,222,229,199,186,195,186,185,185,185,185,185,185,184,257,231,258,224,220,214,217,106,106,107]
+        home_upgrades6 = [42,29,140,139,138,137,136,136,135,135,134,217,131,134,133,131,56,1,109,134,132,132,65]
+        user_home = [60, 50]
+        average_home = [75,62]
+        return render_template('historicalusageweekline.html',light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
+    else:
+        abort(403)
 @commercial.route('/clients', methods=['GET', 'POST'])
 @login_required
 def clients():
