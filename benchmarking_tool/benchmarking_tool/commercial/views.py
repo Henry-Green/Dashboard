@@ -389,7 +389,7 @@ def facilitylist():
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,total = total)
     else:
         abort(403)
- @commercial.route('/facilityoverview', methods=['GET', 'POST'])
+@commercial.route('/facilityoverview', methods=['GET', 'POST'])
 @login_required
 def facilityoverview():
     if(current_user.is_authenticated and current_user.is_admin()):
