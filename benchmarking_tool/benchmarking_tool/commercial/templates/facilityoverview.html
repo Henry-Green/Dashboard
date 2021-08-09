@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1360, maximum-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="{{url_for('static',filename='https://animaproject.s3.amazonaws.com/home/favicon.png')}}" />
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/overview-main.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/styleguide.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts" type="text/javascript"></script>
+  </head>
+  <body style="margin: 0; background: #ffffff">
+    <input type="hidden" id="anPageName" name="page" value="overview-main" />
+    <div class="container-center-horizontal">
+      <div class="overview-main screen">
+        <div class="rectangle-2893-l6cqYc"></div>
+        <div class="header-l6cqYc"><img class="pollen-2-7QcJ16" src="{{url_for('static',filename='img/pollen-2@2x.png')}}" /></div>
+        <div class="welcome-john-l6cqYc avertacy-bold-sapphire-20px">Welcome John,</div>
+        <div class="overview-l6cqYc avertacy-bold-sapphire-20px">Live Usage</div>
+        <div class="kpis-l6cqYc avertacy-bold-sapphire-13px">KPI’S</div>
+        <div class="historical-l6cqYc avertacy-bold-sapphire-13px">Historical</div>
+        <div class="inventory-l6cqYc avertacy-bold-sapphire-13px">Inventory</div>
+        <div class="utilities-l6cqYc avertacy-bold-sapphire-13px">Utilities</div>
+        <div class="group-7235-l6cqYc">
+          <img class="x3-c-path-x3-e-Hra7rU" src="{{url_for('static',filename='img/x3c-path-x3e@22x.svg')}}" />
+          <div class="ellipse-437-Hra7rU"></div>
+        </div>
+        <img class="rectangle-2938-l6cqYc" src="{{url_for('static',filename='img/rectangle-2938@22x.svg')}}" />
+        <img class="kaltire-256-2-l6cqYc" src="{{url_for('static',filename='img/kaltire--256-2@22x.png')}}" />
+        <div class="store-087-l6cqYc">Store #087</div>
+        <p class="x4720-yellowhead-on-ab-t5-l-3-cs-l6cqYc">4720 Yellowhead Trail NW,<br />Edmonton, AB T5L 3CS</p>
+        <div class="group-7195-l6cqYc">
+          <div class="rectangle-2316-33iHaU"></div>
+          <div class="chevron-down-33iHaU"><img class="vector-LNtgXx" src="{{url_for('static',filename='img/vector@22x.svg')}}" /></div>
+        </div>
+        <img class="sidebar-l6cqYc" src="{{url_for('static',filename='img/sidebar@11x.svg')}}" />
+        <div class="electrical-load-by-panel-l6cqYc avertacy-bold-sapphire-20px">Sort by:</div>
+        <div class = 'tab'>
+        <button class="category-l6cqYc avertacy-bold-sapphire-15px tablinks" onclick = "openCity(event, 'Category')">Category</button>
+        <button class="panel-l6cqYc tablinks" onclick = "openCity(event, 'Panel')" id = "defaultOpen">Panel</button>
+        </div>
+        <div id="Panel" class="tabcontent">
+        <div class="energy-breakdown-l6cqYc">
+          <div class="group-51-5iNAkV">
+            <div class="group-43-9oEgQT">
+              <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12" style ="right:30px;">
+                        <div id="chart"></div>
+                        </div>
+                          <script>
+                            var options = {
+                              labels: ["Appliances", "Lighting", "Hot Water", "Heating", "Ventilation"],
+                              series: [{{appliance_usage}}, {{light_usage}}, {{dhw_usage}},{{heating_usage}}, {{ventilation_usage}}],
+                              chart: {
+                              width: 200,
+                              type: 'donut',
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            legend: {
+                                position: 'bottom',
+                                show:false
+                            },
+
+                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
+
+                            responsive: [{
+                              breakpoint: 480,
+                              options: {
+                                chart: {
+                                  width: 300
+                                },
+                              }
+                            }]
+                            };
+                            var chart = new ApexCharts(document.querySelector("#chart"), options);
+                            chart.render();
+                        </script>
+                    </div>
+            </div>
+          </div>
+        </div>
+        <div class="x100-l6cqYc">100%</div>
+        <div class="rectangle-2973-l6cqYc"></div>
+        <div class="rectangle-2340-l6cqYc"></div>
+        <div class="rectangle-2974-l6cqYc"></div>
+        <div class="rectangle-2975-l6cqYc"></div>
+        <div class="rectangle-2976-l6cqYc"></div>
+        <div class="rectangle-2977-l6cqYc"></div>
+        <div class="rectangle-15-l6cqYc"></div>
+        <div class="electrical-panels-l6cqYc avertacy-bold-sapphire-15px">Electrical Panels</div>
+        <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px" onclick = "openNav('A');openCity(event, 'Specs')">Panel A</div>
+        <div class="x43-l6cqYc avertacy-bold-sapphire-12px">{{appliance_percent}}%</div>
+        <div class="x21-l6cqYc avertacy-bold-sapphire-12px">{{light_percent}}%</div>
+        <div class="x19-l6cqYc avertacy-bold-sapphire-12px">{{dhw_percent}}%</div>
+        <div class="x11-l6cqYc avertacy-bold-sapphire-12px">{{heating_percent}}%</div>
+        <div class="x6-l6cqYc avertacy-bold-sapphire-12px">{{ventilation_percent}}%</div>
+        <div class="panel-b-l6cqYc avertacy-bold-sapphire-12px" onclick = "openNav('B');openCity(event, 'Specs')">Panel B</div>
+        <div class="panel-c-l6cqYc avertacy-bold-sapphire-12px" onclick = "openNav('C');openCity(event, 'Specs')" >Panel C</div>
+        <div class="panel-d-l6cqYc avertacy-bold-sapphire-12px"onclick = "openNav('D');openCity(event, 'Specs')">Panel D</div>
+        <div class="panel-e-l6cqYc avertacy-bold-sapphire-12px"onclick = "openNav('E');openCity(event, 'Specs')">Panel E</div>
+        <div class="rectangle-3024-l6cqYc"></div>
+        <div class="rectangle-3032-l6cqYc"></div>
+        <div class="rectangle-3033-l6cqYc"></div>
+        <div class="rectangle-3034-l6cqYc"></div>
+        <div class="rectangle-3035-l6cqYc"></div>
+
+    </div>
+            <div id = 'sidebar' class = 'sidebar'>
+      <div class="frame-1 screen">
+        <img class="sidebar-VxPVnb" src="{{url_for('static',filename='img/sidebar@12x.svg')}}" />
+        <h1 class="title-VxPVnb">Panel <span id = "panelletter"></span></h1>
+        <div class = "tab">
+        <button class="circuits-VxPVnb avertacy-bold-sapphire-20px tablinks" onclick = "openCity(event, 'Circuits');currentSlide(1)">Circuits</button>
+        <button id = 'specs' class="specs-VxPVnb tablinks" onclick = "openCity(event, 'Specs');currentSlide(1)">Specs</button></div>
+        <div id="Specs" class="tabcontent">
+        <div class = 'mySlides'>
+        <img class="panel1-image-1-VxPVnb" src="{{url_for('static',filename='img/panel1image-1@12x.png')}}" /><div class="photo-1-VxPVnb">Photo - 1</div></div>
+        <div class = 'mySlides'>
+        <img class="panel1-image-1-VxPVnb" src="{{url_for('static',filename='img/panel1image-2@12x.png')}}" /><div class="photo-1-VxPVnb">Photo - 2</div></div>
+        <div class="group-7236-VxPVnb" onclick = "plusSlides(-1)">
+          <div class="rectangle-2316-WT5zFx"></div>
+          <div class="chevron-down-WT5zFx"><img class="vector-QZDvpC" src="{{url_for('static',filename='img/vector@222x.svg')}}" /></div>
+        </div>
+        <div class="group-7237-VxPVnb" onclick = "plusSlides(1)">
+          <div class="rectangle-2316-ixtSxg"></div>
+          <div class="chevron-down-ixtSxg"><img class="vector-KEByjY" src="{{url_for('static',filename='img/vector-1@222x.svg')}}" /></div>
+        </div>
+        <div class="group-VxPVnb" onclick = "closeNav();openCity(event, 'Panel')"><img class="vector-JRdMbc" src="{{url_for('static',filename='img/vector-2@222x.svg')}}" /></div>
+        <div class="rectangle-3377-VxPVnb"></div>
+        <div class="rectangle-3378-VxPVnb"></div>
+        <div class="rectangle-3379-VxPVnb"></div>
+        <div class="rectangle-3380-VxPVnb"></div>
+        <div class="rectangle-3381-VxPVnb"></div>
+        <div class="rectangle-3382-VxPVnb"></div>
+        <div class="voltage-VxPVnb avertacy-bold-sapphire-8px">Voltage</div>
+        <div class="phase-VxPVnb avertacy-bold-sapphire-8px">Phase</div>
+        <div class="type-VxPVnb avertacy-bold-sapphire-8px">Type</div>
+        <div class="location-VxPVnb avertacy-bold-sapphire-8px">Location</div>
+        <div class="ciruits-VxPVnb avertacy-bold-sapphire-8px">Ciruits</div>
+        <div class="x120208-v-VxPVnb avertacy-bold-sapphire-20px">120/208V</div>
+        <div class="x3-phase-VxPVnb avertacy-bold-sapphire-20px">3-Phase</div>
+        <div class="type-q-VxPVnb avertacy-bold-sapphire-20px">Type-Q</div>
+        <div class="shop-VxPVnb avertacy-bold-sapphire-20px">Shop</div>
+        <div class="x52-VxPVnb avertacy-bold-sapphire-20px">52</div>
+    </div>
+<div id="Circuits" class="tabcontent">
+        <div class = 'mySlides'>
+        <img class="panel1-image-1-VxPVnb" src="{{url_for('static',filename='img/panel1image-1@12x.png')}}" /><div class="photo-1-VxPVnb">Photo - 1</div></div>
+        <div class = 'mySlides'>
+        <img class="panel1-image-1-VxPVnb" src="{{url_for('static',filename='img/panel1image-2@12x.png')}}" /><div class="photo-1-VxPVnb">Photo - 2</div></div>
+        <div class="group-7236-VxPVnb" onclick = "plusSlides(-1)">
+          <div class="rectangle-2316-WT5zFx"></div>
+          <div class="chevron-down-WT5zFx"><img class="vector-QZDvpC" src="{{url_for('static',filename='img/vector@222x.svg')}}" /></div>
+        </div>
+        <div class="group-7237-VxPVnb" onclick = "plusSlides(1)">
+          <div class="rectangle-2316-ixtSxg"></div>
+          <div class="chevron-down-ixtSxg"><img class="vector-KEByjY" src="{{url_for('static',filename='img/vector-1@222x.svg')}}" /></div>
+        </div>
+        <div class="group-VxPVnb" onclick = "closeNav();openCity(event, 'Panel')"><img class="vector-JRdMbc" src="{{url_for('static',filename='img/vector-2@222x.svg')}}" /></div>
+        <div class="frame-1 screen">
+        <div class="rectangle-3000-VxPVnb">
+        <div class="rectangle-3001-VxPVnb"></div>
+        <div class="rectangle-3002-VxPVnb"></div>
+        <div class="rectangle-3003-VxPVnb"></div>
+        <div class="rectangle-3004-VxPVnb"></div>
+        <div class="rectangle-3005-VxPVnb"></div>
+        <div class="rectangle-3383-VxPVnb"></div>
+        <div class="rectangle-3384-VxPVnb"></div>
+        <div class="rectangle-3385-VxPVnb"></div>
+        <div class="rectangle-3386-VxPVnb"></div>
+        <div class="rectangle-3387-VxPVnb"></div>
+        <div class="rectangle-3388-VxPVnb"></div>
+        <div class="rectangle-3389-VxPVnb"></div>
+        <div class="rectangle-3390-VxPVnb"></div>
+        <div class="x1-shop-lighting-1-VxPVnb avertacy-bold-sapphire-12px">#1 Shop Lighting 1</div>
+        <div class="x2-shop-lighting-2-VxPVnb avertacy-bold-sapphire-12px">#2 Shop Lighting 2</div>
+        <div class="x3-shop-lighting-3-VxPVnb avertacy-bold-sapphire-12px">#3 Shop Lighting 3</div>
+        <div class="x4-shop-lighting-4-VxPVnb avertacy-bold-sapphire-12px">#4 Shop Lighting 4</div>
+        <div class="x5-shop-plugs-1-VxPVnb avertacy-bold-sapphire-12px">#5 Shop Plugs 1</div>
+        <div class="x6-shop-plugs-2-VxPVnb avertacy-bold-sapphire-12px">#6 Shop Plugs 2</div>
+        <div class="x7-overhead-door-1-VxPVnb avertacy-bold-sapphire-12px">#7 Overhead Door 1</div>
+        <div class="x8-overhead-door-2-VxPVnb avertacy-bold-sapphire-12px">#8 Overhead Door 2</div>
+        <div class="x9-exit-lighting-VxPVnb avertacy-bold-sapphire-12px">#9 Exit Lighting</div>
+        <div class="x10-lunchroom-recepticles-VxPVnb avertacy-bold-sapphire-12px">#10 Lunchroom Recepticles</div>
+        <div class="x11-hallways-recepticles-VxPVnb avertacy-bold-sapphire-12px">#11 Hallways Recepticles</div>
+        <div class="x12-security-system-VxPVnb avertacy-bold-sapphire-12px">#12 Security System</div></div>
+      </div>
+    </div>
+      </div>
+
+    </div>
+        <div id="Category" class="tabcontent">
+        <div class="energy-breakdown-l6cqYc">
+          <div class="group-51-5iNAkV">
+            <div class="group-43-9oEgQT">
+              <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12" style ="right:30px;">
+                        <div id="chart2"></div>
+                        </div>
+                          <script>
+                            var options = {
+                              labels: ["Works", "Lighting", "Hot Water", "Heating", "Ventilation"],
+                              series: [{{appliance_usage}}, {{light_usage}}, {{dhw_usage}},{{heating_usage}}, {{ventilation_usage}}],
+                              chart: {
+                              width: 200,
+                              type: 'donut',
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            legend: {
+                                position: 'bottom',
+                                show:false
+                            },
+
+                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
+
+                            responsive: [{
+                              breakpoint: 480,
+                              options: {
+                                chart: {
+                                  width: 300
+                                },
+                              }
+                            }]
+                            };
+                            var chart = new ApexCharts(document.querySelector("#chart2"), options);
+                            chart.render();
+                        </script>
+                    </div>
+            </div>
+          </div>
+        </div>
+        <div class="x100-l6cqYc">100%</div>
+        <div class="rectangle-2973-l6cqYc" style = 'height: 209px;'></div>
+        <div class="rectangle-2340-l6cqYc"></div>
+        <div class="rectangle-2974-l6cqYc"></div>
+        <div class="rectangle-2975-l6cqYc"></div>
+        <div class="rectangle-2976-l6cqYc"></div>
+        <div class="rectangle-15-l6cqYc"></div>
+        <div class="electrical-panels-l6cqYc avertacy-bold-sapphire-15px">Categories</div>
+        <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">Lighting</div>
+        <div class="x43-l6cqYc avertacy-bold-sapphire-12px">{{appliance_percent}}%</div>
+        <div class="x21-l6cqYc avertacy-bold-sapphire-12px">{{light_percent}}%</div>
+        <div class="x19-l6cqYc avertacy-bold-sapphire-12px">{{dhw_percent}}%</div>
+        <div class="x11-l6cqYc avertacy-bold-sapphire-12px">{{heating_percent}}%</div>
+        <div class="panel-b-l6cqYc avertacy-bold-sapphire-12px">Electrical</div>
+        <div class="panel-c-l6cqYc avertacy-bold-sapphire-12px">DHW</div>
+        <div class="panel-d-l6cqYc avertacy-bold-sapphire-12px">Mechanical</div>
+        <div class="rectangle-3024-l6cqYc"></div>
+        <div class="rectangle-3032-l6cqYc"></div>
+        <div class="rectangle-3033-l6cqYc"></div>
+        <div class="rectangle-3034-l6cqYc"></div>
+    </div>
+        <div class="your-viewing-l6cqYc">Your Viewing</div>
+        <div class = "scrollable">
+        <div class="rectangle-3163-l6cqYc">
+        <h1 class="title-l6cqYc">Live Usage:</h1>
+        <div class="whats-running-l6cqYc">What’s Running ?</div>
+        <div class="k-wh-l6cqYc">kWh</div>
+        <div class="rectangle-3164-l6cqYc"></div>
+        <div class="rectangle-3165-l6cqYc"></div>
+        <div class="rectangle-3166-l6cqYc"></div>
+        <div class="rectangle-3167-l6cqYc"></div>
+        <div class="rectangle-3168-l6cqYc"></div>
+        <div class="rectangle-3169-l6cqYc"></div>
+        <div class="rectangle-3170-l6cqYc"></div>
+        <div class="rectangle-3171-l6cqYc"></div>
+        <div class="rectangle-3172-l6cqYc"></div>
+        <div class="rectangle-3173-l6cqYc"></div>
+        <div class="rectangle-3174-l6cqYc"></div>
+        <div class="rectangle-3175-l6cqYc"></div>
+        <div class="rectangle-3176-l6cqYc"></div>
+        <div class="rectangle-3177-l6cqYc"></div>
+        <div class="rectangle-3178-l6cqYc"></div>
+        <div class="rectangle-3179-l6cqYc"></div>
+        <div class="rectangle-3180-l6cqYc"></div>
+        <div class="rectangle-3181-l6cqYc"></div>
+        <div class="rectangle-3182-l6cqYc"></div>
+        <div class="rectangle-3183-l6cqYc"></div>
+        <div class="lunchroom-lights-l6cqYc avertacy-bold-apple-11px">Lunchroom Lights</div>
+        <div class="water-softner-dhw-l6cqYc avertacy-bold-apple-11px">Water Softner / DHW</div>
+        <div class="office-1-lighting-l6cqYc avertacy-bold-apple-11px">Office 1 Lighting</div>
+        <div class="office-2-lighting-l6cqYc avertacy-bold-apple-11px">Office 2 Lighting</div>
+        <div class="smoke-detectors-l6cqYc avertacy-bold-apple-11px">Smoke Detectors</div>
+        <div class="exit-lights-l6cqYc avertacy-bold-apple-11px">Exit Lights</div>
+        <div class="exit-lights-Al4pJ9 avertacy-bold-apple-11px">Exit Lights</div>
+        <div class="furnace-l6cqYc avertacy-bold-apple-11px">Furnace</div>
+        <div class="exit-emer-lights-l6cqYc avertacy-bold-apple-11px">Exit / Emer. Lights</div>
+        <div class="hallway-1-lighting-l6cqYc avertacy-bold-apple-11px">Hallway 1 Lighting</div>
+        <div class="halway-2-l\ighting-l6cqYc avertacy-bold-stack-11px">Halway 2 Lighting</div>
+        <div class="office-2-plugs-l6cqYc avertacy-bold-stack-11px">Office 2 Plugs</div>
+        <div class="washroom-dryer-l6cqYc avertacy-bold-stack-11px">Washroom Dryer</div>
+        <div class="baydoors-1-l6cqYc avertacy-bold-stack-11px">Baydoors - 1</div>
+        <div class="baydoors-2-l6cqYc avertacy-bold-stack-11px">Baydoors - 2</div>
+        <div class="hallway-plugs-l6cqYc avertacy-bold-stack-11px">Hallway Plugs</div>
+        <div class="rtu-2-l6cqYc avertacy-bold-stack-11px">RTU - 2</div>
+        <div class="air-compressor-l6cqYc avertacy-bold-stack-11px">Air Compressor</div>
+        <div class="rtu-1-l6cqYc avertacy-bold-stack-11px">RTU - 1</div>
+        <div class="x233hr-l6cqYc avertacy-bold-apple-11px">$2.33/hr</div>
+        <div class="x056hr-l6cqYc avertacy-bold-apple-11px">$0.56/hr</div>
+        <div class="x122hr-l6cqYc avertacy-bold-apple-11px">$1.22/hr</div>
+        <div class="x078hr-l6cqYc avertacy-bold-apple-11px">$0.78/hr</div>
+        <div class="x112hr-l6cqYc avertacy-bold-apple-11px">$1.12/hr</div>
+        <div class="x023hr-l6cqYc avertacy-bold-apple-11px">$0.23/hr</div>
+        <div class="x012hr-l6cqYc avertacy-bold-apple-11px">$0.12/hr</div>
+        <div class="x009hr-l6cqYc avertacy-bold-apple-11px">$0.09/hr</div>
+        <div class="x086hr-l6cqYc avertacy-bold-apple-11px">$0.86/hr</div>
+        <div class="x043hr-l6cqYc avertacy-bold-apple-11px">$0.43/hr</div>
+        <div class="x000hr-l6cqYc avertacy-bold-stack-11px">$0.00/hr</div>
+        <div class="x000hr-Al4pJ9 avertacy-bold-stack-11px">$0.00/hr</div>
+        <div class="x000hr-WzB72u avertacy-bold-stack-11px">$0.00/hr</div>
+        <div class="x000hr-ZNcuTa avertacy-bold-stack-11px">$0.00/hr</div>
+        <div class="x000hr-yZxHJX avertacy-bold-stack-11px">$0.00/hr</div>
+        <div class="x000hr-p0oEHK avertacy-bold-stack-11px">$0.00/hr</div>
+        <div class="x000hr-TTKXmQ avertacy-bold-stack-11px">$0.00/hr</div>
+        <div class="x000hr-HxJNWt avertacy-bold-stack-11px">$0.00/hr</div>
+        <div class="x000hr-W3rFHg avertacy-bold-stack-11px">$0.00/hr</div>
+        <div class="x21-Al4pJ9 avertacy-bold-apple-11px">21%</div>
+        <div class="x31-l6cqYc avertacy-bold-apple-11px">3.1%</div>
+        <div class="x678-l6cqYc avertacy-bold-apple-11px">6.78%</div>
+        <div class="x27-l6cqYc avertacy-bold-apple-11px">2.7%</div>
+        <div class="x374-l6cqYc avertacy-bold-apple-11px">3.74%</div>
+        <div class="x06-l6cqYc avertacy-bold-apple-11px">0.6%</div>
+        <div class="x04-l6cqYc avertacy-bold-apple-11px">0.4%</div>
+        <div class="x278-l6cqYc avertacy-bold-apple-11px">2.78%</div>
+        <div class="x098-l6cqYc avertacy-bold-apple-11px">0.98%</div>
+        <div class="x923-l6cqYc avertacy-bold-apple-11px">9.23%</div>
+        <div class="x0-l6cqYc avertacy-bold-stack-11px">0%</div>
+        <div class="x0-Al4pJ9 avertacy-bold-stack-11px">0%</div>
+        <div class="x0-WzB72u avertacy-bold-stack-11px">0%</div>
+        <div class="x0-ZNcuTa avertacy-bold-stack-11px">0%</div>
+        <div class="x0-yZxHJX avertacy-bold-stack-11px">0%</div>
+        <div class="x0-p0oEHK avertacy-bold-stack-11px">0%</div>
+        <div class="x0-TTKXmQ avertacy-bold-stack-11px">0%</div>
+        <div class="x0-HxJNWt avertacy-bold-stack-11px">0%</div>
+        <div class="x0-W3rFHg avertacy-bold-stack-11px">0%</div>
+        <div class="rectangle-3184-l6cqYc"></div>
+        <div class="rectangle-3185-l6cqYc"></div>
+        <div class="rectangle-3186-l6cqYc"></div>
+        <div class="rectangle-3187-l6cqYc"></div>
+        <div class="rectangle-3188-l6cqYc"></div>
+        <div class="rectangle-3189-l6cqYc"></div>
+        <div class="rectangle-3190-l6cqYc"></div>
+        <div class="rectangle-3191-l6cqYc"></div>
+        <div class="rectangle-3192-l6cqYc"></div>
+        <div class="rectangle-3193-l6cqYc"></div>
+        <div class="rectangle-3194-l6cqYc"></div>
+        <div class="rectangle-3195-l6cqYc"></div>
+        <div class="rectangle-3196-l6cqYc"></div>
+        <div class="rectangle-3197-l6cqYc"></div>
+        <div class="rectangle-3198-l6cqYc"></div>
+        <div class="rectangle-3199-l6cqYc"></div>
+        <div class="rectangle-3200-l6cqYc"></div>
+        <div class="rectangle-3201-l6cqYc"></div>
+        <div class="rectangle-3202-l6cqYc"></div>
+        <div class="rectangle-3203-l6cqYc"></div>
+        <div class="total-l6cqYc">Total</div>
+        <div class="rectangle-3204-l6cqYc"></div>
+        <div class="x100-Al4pJ9">100%</div>
+        <div class="rectangle-3205-l6cqYc"></div>
+        <div class="x-l6cqYc">$</div>
+        <div class="x674hr-l6cqYc">$6.74/hr</div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    function openNav(panel) {
+  document.getElementById("sidebar").style.width = "600px";
+  document.getElementById("panelletter").innerHTML = panel;
+}
+
+/* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
+function closeNav() {  document.getElementById("sidebar").style.width = "0";}
+
+      function openCity(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+document.getElementById("defaultOpen").click();
+
+
+var slideIndex = 1;
+showSlides(slideIndex);
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+}
+  </script>
+</html>
