@@ -36,6 +36,7 @@
   --font-family-averta_cy-bold: "Averta CY-Bold", Helvetica;
   --font-family-averta_cy-regular: "Averta CY-Regular", Helvetica;
   --font-family-averta_cy-semibold: "Averta CY-Semibold", Helvetica;
+  --font-family-averta_cy-bold: "Averta CY-Bold", Helvetica;
 }
 .avertacy-normal-gulf-blue-14px {
   color: var(--gulf-blue);
@@ -652,7 +653,17 @@
   --cerulean-frost: #6e9ac0;
   --chathams-blue: #1d5381;
   --white: #ffffff;
- 
+  --apple: #1fab3d;
+  --sapphire: #3044a5;
+  --stack: #8c8c8c;
+  --athens-gray: #e9ebf4;
+  --jaffa: #ee8e36;
+  --orange-soda: #ee5937;
+  --picton-blue: #3bcdee;
+  --sapphire: #3044a5;
+  --stack: #8c8c8c;
+  --white: #ffffff;
+  --zircon: #f7f9fe;
  
   --font-family-averta_cy-bold: "Averta CY-Bold", Helvetica;
   --font-family-averta_cy-regular: "Averta CY-Regular", Helvetica;
@@ -704,4 +715,147 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
+}
+
+.avertacy-bold-apple-11px {
+  color: var(--apple);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.avertacy-bold-stack-11px {
+  color: var(--stack);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.avertacy-bold-sapphire-12px {
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.avertacy-bold-sapphire-13px {
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.avertacy-bold-sapphire-20px {
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.avertacy-bold-sapphire-15px {
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+}
+.avertacy-bold-sapphire-8px {
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.avertacy-bold-sapphire-12px {
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.avertacy-bold-sapphire-11px {
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.avertacy-bold-stack-11px {
+  color: var(--stack);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.avertacy-bold-sapphire-13px {
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.avertacy-bold-jaffa-11px {
+  color: var(--jaffa);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.avertacy-bold-sapphire-15px {
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.avertacy-bold-sapphire-20px {
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.avertacy-bold-sapphire-18px {
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.avertacy-bold-orange-soda-11px {
+  color: var(--orange-soda);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.avertacy-bold-picton-blue-11px {
+  color: var(--picton-blue);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.avertacy-bold-sapphire-25px {
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
 }
