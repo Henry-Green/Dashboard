@@ -2,10 +2,8 @@
 
 .overview-main {
   background-color: var(--white);
-  height: 768px;
+  height: 100%;
   mix-blend-mode: normal;
-  overflow-x: hidden;
-  overflow-y: hidden;
   position: relative;
   width: 100%;
 }
