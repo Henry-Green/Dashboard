@@ -393,6 +393,37 @@ def facilitylist():
 @login_required
 def facilityoverview():
     if(current_user.is_authenticated and current_user.is_admin()):
+        serial_number = 'A2107A04B4B8F009A6CEC4'
+        customer = Emporia_Customer(serial_number)
+
+        customer.get_data(days= 1)
+        customer.get_schedule()
+
+        customer.save_channels()
+        exteriorwalls =[]
+        roofs = []
+        rooffinishs = []
+        foundations = []
+        channel1 = customer.channel1.data_hour
+        channel2 = customer.channel2.data_hour
+        channel3 = customer.channel3.data_hour
+        channel4 = customer.channel4.data_hour
+        channel5 = customer.channel5.data_hour
+        channel6 = customer.channel6.data_hour
+        channel7 = customer.channel7.data_hour
+        channel8 = customer.channel8.data_hour
+        channel9 = customer.channel9.data_hour
+        channel10 = customer.channel10.data_hour
+        channel11 = customer.channel11.data_hour
+        channel12 = customer.channel12.data_hour
+        channel13 = customer.channel13.data_hour
+        channel14 = customer.channel14.data_hour
+        channel15 = customer.channel15.data_hour
+        channel16 = customer.channel16.data_hour
+        channel17 = customer.channel17.data_hour
+        channel18 = customer.channel18.data_hour
+        channel19 = customer.channel19.data_hour
+        channel20 = customer.channel20.data_hour
         heating_usage = 40
         current_regress = 0
         light_usage = 20
@@ -406,7 +437,11 @@ def facilityoverview():
         appliance_percent = int(appliance_usage / total * 100)
         ventilation_percent = int(ventilation_usage / total * 100)
         dhw_percent = int(dhw_usage / total * 100)
-        return render_template('facilityoverview.html',heating_percent = heating_percent, appliance_percent = appliance_percent, ventilation_percent = ventilation_percent, dhw_percent = dhw_percent, light_percent = light_percent, buildings = buildings,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        return render_template('facilityoverview.html',channel1 = channel1,channel2 = channel2,channel3 = channel3,channel4 = channel4,
+            channel5 = channel5,channel6 = channel6,channel7 = channel7,channel8 = channel8,
+            channel9 = channel9,channel10 = channel10,channel11 = channel11,channel12 = channel12,
+            channel13 = channel13,channel14 = channel14,channel15 = channel15,channel16 = channel16,
+            channel17 = channel17,channel18 = channel18,channel19 = channel19,channel20 = channel20,heating_percent = heating_percent, appliance_percent = appliance_percent, ventilation_percent = ventilation_percent, dhw_percent = dhw_percent, light_percent = light_percent, buildings = buildings,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,total = total)
     else:
         abort(403)
