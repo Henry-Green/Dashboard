@@ -162,7 +162,7 @@ def usageweek():
         abort(403)
 @commercial.route('/usagemonth', methods=['GET', 'POST'])
 def usagemonth():
-    if(1 = 1):
+    if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
         #customer = Emporia_Customer(serial_number)
 
