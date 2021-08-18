@@ -108,7 +108,6 @@ def testapi():
         abort(403)
 @commercial.route('/')
 @commercial.route('/usageday', methods=['GET', 'POST'])
-@login_required
 def usageday():
     if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
@@ -135,7 +134,6 @@ def usageday():
         abort(403)
 
 @commercial.route('/usageweek', methods=['GET', 'POST'])
-@login_required
 def usageweek():
     if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
@@ -186,7 +184,6 @@ def usagemonth():
     else:
         abort(403)
 @commercial.route('/usagedayline', methods=['GET', 'POST'])
-@login_required
 def usagedayline():
     if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
@@ -213,7 +210,6 @@ def usagedayline():
         abort(403)
 
 @commercial.route('/usageweekline', methods=['GET', 'POST'])
-@login_required
 def usageweekline():
     if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
@@ -239,7 +235,6 @@ def usageweekline():
     else:
         abort(403)
 @commercial.route('/usagemonthline', methods=['GET', 'POST'])
-@login_required
 def usagemonthline():
     if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
@@ -266,7 +261,7 @@ def usagemonthline():
         abort(403)
         
 @commercial.route('/energycost', methods=['GET', 'POST'])
-@login_required
+
 def energycost():
     if(1 == 1):
         heating_usage = 40
@@ -281,7 +276,7 @@ def energycost():
     else:
         abort(403)
 @commercial.route('/energycostlighting', methods=['GET', 'POST'])
-@login_required
+
 def energycostlighting():
     if(1 == 1):
         heating_usage = 40
@@ -297,7 +292,7 @@ def energycostlighting():
         abort(403)
 
 @commercial.route('/energycosthighbays', methods=['GET', 'POST'])
-@login_required
+
 def energycosthighbays():
     if(1 == 1):
         heating_usage = 40
@@ -312,7 +307,7 @@ def energycosthighbays():
     else:
         abort(403)
 @commercial.route('/energycostlinears', methods=['GET', 'POST'])
-@login_required
+
 def energycostlinears():
     if(1 == 1):
         heating_usage = 40
@@ -327,7 +322,7 @@ def energycostlinears():
     else:
         abort(403)
 @commercial.route('/energycosttroffers1x4', methods=['GET', 'POST'])
-@login_required
+
 def energycosttroffers1x4():
     if(1 == 1):
         heating_usage = 40
@@ -343,7 +338,7 @@ def energycosttroffers1x4():
         abort(403)
 
 @commercial.route('/energycosttroffers2x4', methods=['GET', 'POST'])
-@login_required
+
 def energycosttroffers2x4():
     if(1 == 1):
         heating_usage = 40
@@ -358,7 +353,7 @@ def energycosttroffers2x4():
     else:
         abort(403)
 @commercial.route('/energycostspotlights', methods=['GET', 'POST'])
-@login_required
+
 def energycostspotlights():
     if(1 == 1):
         heating_usage = 40
@@ -373,7 +368,7 @@ def energycostspotlights():
     else:
         abort(403)
 @commercial.route('/facilitylist', methods=['GET', 'POST'])
-@login_required
+
 def facilitylist():
     if(1 == 1):
         heating_usage = 40
@@ -389,7 +384,7 @@ def facilitylist():
     else:
         abort(403)
 @commercial.route('/facilityoverview', methods=['GET', 'POST'])
-@login_required
+
 def facilityoverview():
     if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
@@ -445,7 +440,7 @@ def facilityoverview():
     else:
         abort(403)
 @commercial.route('/historicalusage', methods=['GET', 'POST'])
-@login_required
+
 def historicalusage():
     if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
@@ -473,7 +468,7 @@ def historicalusage():
         abort(403)
 
 @commercial.route('/historicalusageline', methods=['GET', 'POST'])
-@login_required
+
 def historicalusageline():
     if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
@@ -501,7 +496,7 @@ def historicalusageline():
         abort(403)
 
 @commercial.route('/historicalusageweek', methods=['GET', 'POST'])
-@login_required
+
 def historicalusageweek():
     if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
@@ -529,7 +524,7 @@ def historicalusageweek():
         abort(403)
 
 @commercial.route('/historicalusageweekline', methods=['GET', 'POST'])
-@login_required
+
 def historicalusageweekline():
     if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
