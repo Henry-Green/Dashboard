@@ -106,7 +106,7 @@ def testapi():
         return render_template('testapi.html')
     else:
         abort(403)
-@commercial.route('/')
+
 @commercial.route('/usageday', methods=['GET', 'POST'])
 def usageday():
     if(1 == 1):
