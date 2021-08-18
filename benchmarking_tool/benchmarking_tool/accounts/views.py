@@ -194,7 +194,7 @@ def commerciallogin():
         )
         if form.validate_on_submit():
             user = User.query.filter_by(email=email).first()
-            role_user = user.role.name
+
             if user and bcrypt.check_password_hash(user.password, password):
                 login_user(user)
                 next_page = request.args.get('next')
