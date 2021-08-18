@@ -184,7 +184,7 @@ def commerciallogin():
     hashed_password = bcrypt.generate_password_hash('password').decode('utf-8')
     print(hashed_password)
     if current_user.is_authenticated:
-        return redirect(url_for('commercial.usageday'))
+        return redirect(url_for('commercial.clients'))
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
@@ -193,8 +193,8 @@ def commerciallogin():
             password=password
         )
         if form.validate_on_submit():
-            user = User.query.filter_by(email=email).first() 
-            role_user=user.role.name		
+            user = User.query.filter_by(email=email).first()
+            role_user = user.role.name
             if user and bcrypt.check_password_hash(user.password, password):
                 login_user(user)
                 next_page = request.args.get('next')
@@ -203,14 +203,15 @@ def commerciallogin():
                     customer = user.customer
                     survey = customer.survey
                 else:
-                    return redirect(url_for('commercial.usageday'))
+                    return redirect(url_for('commercial.clients'))
             else:
                 flash(
                     f"Login Unsuccessful,Please check your email and Password!", 'danger')
                 return redirect(url_for('accounts.commerciallogin'))
     else:
         form = LoginForm(email="")
-    return render_template('login.html', title='Login', form=form,last_updated=dir_last_updated())
+    return render_template('commerciallogin.html', title='Login', form=form,last_updated=dir_last_updated())
+
 
 
 # route for the user to logout
