@@ -110,7 +110,7 @@ def testapi():
 @commercial.route('/usageday', methods=['GET', 'POST'])
 @login_required
 def usageday():
-    if(current_user.is_authenticated and current_user.is_admin()):
+    if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
         #customer = Emporia_Customer(serial_number)
 
@@ -137,7 +137,7 @@ def usageday():
 @commercial.route('/usageweek', methods=['GET', 'POST'])
 @login_required
 def usageweek():
-    if(current_user.is_authenticated and current_user.is_admin()):
+    if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
         #customer = Emporia_Customer(serial_number)
 
@@ -188,7 +188,7 @@ def usagemonth():
 @commercial.route('/usagedayline', methods=['GET', 'POST'])
 @login_required
 def usagedayline():
-    if(current_user.is_authenticated and current_user.is_admin()):
+    if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
         #customer = Emporia_Customer(serial_number)
 
@@ -215,7 +215,7 @@ def usagedayline():
 @commercial.route('/usageweekline', methods=['GET', 'POST'])
 @login_required
 def usageweekline():
-    if(current_user.is_authenticated and current_user.is_admin()):
+    if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
         #customer = Emporia_Customer(serial_number)
 
@@ -241,7 +241,7 @@ def usageweekline():
 @commercial.route('/usagemonthline', methods=['GET', 'POST'])
 @login_required
 def usagemonthline():
-    if(current_user.is_authenticated and current_user.is_admin()):
+    if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
         #customer = Emporia_Customer(serial_number)
 
@@ -268,7 +268,7 @@ def usagemonthline():
 @commercial.route('/energycost', methods=['GET', 'POST'])
 @login_required
 def energycost():
-    if(current_user.is_authenticated and current_user.is_admin()):
+    if(1 == 1):
         heating_usage = 40
         current_regress = 0
         light_usage = 20
@@ -283,7 +283,7 @@ def energycost():
 @commercial.route('/energycostlighting', methods=['GET', 'POST'])
 @login_required
 def energycostlighting():
-    if(current_user.is_authenticated and current_user.is_admin()):
+    if(1 == 1):
         heating_usage = 40
         current_regress = 0
         light_usage = 20
@@ -299,7 +299,7 @@ def energycostlighting():
 @commercial.route('/energycosthighbays', methods=['GET', 'POST'])
 @login_required
 def energycosthighbays():
-    if(current_user.is_authenticated and current_user.is_admin()):
+    if(1 == 1):
         heating_usage = 40
         current_regress = 0
         light_usage = 20
@@ -314,7 +314,7 @@ def energycosthighbays():
 @commercial.route('/energycostlinears', methods=['GET', 'POST'])
 @login_required
 def energycostlinears():
-    if(current_user.is_authenticated and current_user.is_admin()):
+    if(1 == 1):
         heating_usage = 40
         current_regress = 0
         light_usage = 20
@@ -329,7 +329,7 @@ def energycostlinears():
 @commercial.route('/energycosttroffers1x4', methods=['GET', 'POST'])
 @login_required
 def energycosttroffers1x4():
-    if(current_user.is_authenticated and current_user.is_admin()):
+    if(1 == 1):
         heating_usage = 40
         current_regress = 0
         light_usage = 20
@@ -345,7 +345,7 @@ def energycosttroffers1x4():
 @commercial.route('/energycosttroffers2x4', methods=['GET', 'POST'])
 @login_required
 def energycosttroffers2x4():
-    if(current_user.is_authenticated and current_user.is_admin()):
+    if(1 == 1):
         heating_usage = 40
         current_regress = 0
         light_usage = 20
@@ -360,7 +360,7 @@ def energycosttroffers2x4():
 @commercial.route('/energycostspotlights', methods=['GET', 'POST'])
 @login_required
 def energycostspotlights():
-    if(current_user.is_authenticated and current_user.is_admin()):
+    if(1 == 1):
         heating_usage = 40
         current_regress = 0
         light_usage = 20
@@ -375,7 +375,7 @@ def energycostspotlights():
 @commercial.route('/facilitylist', methods=['GET', 'POST'])
 @login_required
 def facilitylist():
-    if(current_user.is_authenticated and current_user.is_admin()):
+    if(1 == 1):
         heating_usage = 40
         current_regress = 0
         light_usage = 20
@@ -391,7 +391,7 @@ def facilitylist():
 @commercial.route('/facilityoverview', methods=['GET', 'POST'])
 @login_required
 def facilityoverview():
-    if(current_user.is_authenticated and current_user.is_admin()):
+    if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
         customer = Emporia_Customer(serial_number)
 
@@ -447,7 +447,7 @@ def facilityoverview():
 @commercial.route('/historicalusage', methods=['GET', 'POST'])
 @login_required
 def historicalusage():
-    if(current_user.is_authenticated and current_user.is_admin()):
+    if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
         exteriorwalls =[]
         roofs = []
@@ -475,7 +475,7 @@ def historicalusage():
 @commercial.route('/historicalusageline', methods=['GET', 'POST'])
 @login_required
 def historicalusageline():
-    if(current_user.is_authenticated and current_user.is_admin()):
+    if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
         exteriorwalls =[]
         roofs = []
@@ -503,7 +503,7 @@ def historicalusageline():
 @commercial.route('/historicalusageweek', methods=['GET', 'POST'])
 @login_required
 def historicalusageweek():
-    if(current_user.is_authenticated and current_user.is_admin()):
+    if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
         exteriorwalls =[]
         roofs = []
@@ -531,7 +531,7 @@ def historicalusageweek():
 @commercial.route('/historicalusageweekline', methods=['GET', 'POST'])
 @login_required
 def historicalusageweekline():
-    if(current_user.is_authenticated and current_user.is_admin()):
+    if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
         exteriorwalls =[]
         roofs = []
