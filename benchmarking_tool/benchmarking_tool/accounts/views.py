@@ -210,7 +210,7 @@ def commerciallogin():
                 return redirect(url_for('accounts.commerciallogin'))
     else:
         form = LoginForm(email="")
-    return render_template('commerciallogin.html', title='Login', form=form,last_updated=dir_last_updated())
+    return render_template('login.html', title='Login', form=form,last_updated=dir_last_updated())
 
 
 # route for the user to logout
