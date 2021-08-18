@@ -20,7 +20,7 @@ import re
 load_dotenv()
 from forms import *
 
-accounts = Blueprint('accounts',__name__,template_folder='templates', url_prefix='/accounts')
+accounts = Blueprint('accounts',__name__,template_folder='templates')
 
 bcrypt = Bcrypt()
 mail = Mail()
@@ -178,7 +178,7 @@ def login():
         form = LoginForm(email="")
     return redirect(url_for('accounts.commerciallogin'))	
     return render_template('login.html', title='Login', form=form,last_updated=dir_last_updated())
-@commercial.route('/')
+@accounts.route('/')
 @accounts.route('/commerciallogin', methods=['GET', 'POST'])
 def commerciallogin():
     hashed_password = bcrypt.generate_password_hash('password').decode('utf-8')
