@@ -44,7 +44,7 @@
         <button class="panel-L7BXHD avertacy-bold-sapphire-15px tablinks"onclick = "openCity(event, 'Panel')">Panel</button>
         <div id="Category" class="tabcontent">
                     <div class="row">
-                    <div class="col-lg-6 col-md-12 col-sm-12" style ="left:1018px;top:218px;">
+                    <div class="col-lg-6 col-md-12 col-sm-12" style ="left:1018px;top:218px; position: absolute;">
                         <div id="chart"></div>
                         </div>
                           <script>
@@ -78,38 +78,11 @@
       </div>
               <div id="Panel" class="tabcontent">
                     <div class="row">
-                    <div class="col-lg-6 col-md-12 col-sm-12" style ="left:1018px;top:218px;">
+                    <div class="col-lg-6 col-md-12 col-sm-12" style ="left:1018px;top:218px;position: absolute;">
                         <div id="chart3"></div>
                         </div>
                           <script>
-                            var options = {
-                              labels: ["Lighting", "Electrical", "Plug Load", "DHW", "Mechanical"],
-                              series: [43, 21, 19,11, 6],
-                              chart: {
-                              width: 200,
-                              type: 'donut',
-                            },
-                            dataLabels: {
-                              enabled: false
-                            },
-                            legend: {
-                                position: 'bottom',
-                                show:false
-                            },
 
-                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
-
-                            responsive: [{
-                              breakpoint: 480,
-                              options: {
-                                chart: {
-                                  width: 300
-                                },
-                              }
-                            }]
-                            };
-                            var chart = new ApexCharts(document.querySelector("#chart3"), options);
-                            chart.render();
                         </script>
                     </div>
         <div class="x100-L7BXHD">100%</div>
@@ -121,11 +94,11 @@
         <div class="rectangle-2977-L7BXHD"></div>
         <div class="rectangle-15-L7BXHD"></div>
         <div class="lighting-L7BXHD avertacy-bold-sapphire-12px">Panel A</div>
-        <div class="x43-L7BXHD avertacy-bold-sapphire-12px">43%</div>
-        <div class="x21-zsJCYe avertacy-bold-sapphire-12px">21%</div>
-        <div class="x19-L7BXHD avertacy-bold-sapphire-12px">19%</div>
-        <div class="x11-L7BXHD avertacy-bold-sapphire-12px">11%</div>
-        <div class="x6-L7BXHD avertacy-bold-sapphire-12px">6%</div>
+        <div class="x43-L7BXHD avertacy-bold-sapphire-12px" id = "panelA"></div>
+        <div class="x21-zsJCYe avertacy-bold-sapphire-12px" id = "panelB"></div>
+        <div class="x19-L7BXHD avertacy-bold-sapphire-12px" id = "panelC"></div>
+        <div class="x11-L7BXHD avertacy-bold-sapphire-12px" id = "panelD"></div>
+        <div class="x6-L7BXHD avertacy-bold-sapphire-12px" id = "panelE"></div>
         <div class="electrical-L7BXHD avertacy-bold-sapphire-12px">Panel B</div>
         <div class="plug-load-L7BXHD avertacy-bold-sapphire-12px">Panel C </div>
         <div class="dhw-L7BXHD avertacy-bold-sapphire-12px">Panel D</div>
@@ -215,7 +188,7 @@
             <div class="group-WOkfbn"><img class="group-s2WuyE" src="{{url_for('static',filename='img/group@22222x.svg')}}" /></div>
           </div>
         </div></a>
-                        <div class="col-lg-6 col-md-12 col-sm-12 " style ="left:330px; width: 400px; z-index: 50;" >
+                        <div class="col-lg-6 col-md-12 col-sm-12 " style ="left:330px; width: 400px; z-index: 50; top: 150px;" >
                             <div id="chart2"></div>
                         </div>
                           <script>
@@ -467,6 +440,11 @@ function showSlides(n) {
   document.getElementById("plugload").innerHTML = plugload + "%";
   document.getElementById("dhw").innerHTML = dhw + "%";
   document.getElementById("mechanical").innerHTML = mechanical + "%";
+  document.getElementById("panelA").innerHTML = lighting + "%";
+  document.getElementById("panelB").innerHTML = electrical + "%";
+  document.getElementById("panelC").innerHTML = plugload + "%";
+  document.getElementById("panelD").innerHTML = dhw + "%";
+  document.getElementById("panelE").innerHTML = mechanical + "%";
   var options = {
                               labels: ["Lighting", "Electrical", "Plug Load", "DHW", "Mechanical"],
                               series: [lighting,electrical,plugload,dhw,mechanical ],
@@ -494,6 +472,34 @@ function showSlides(n) {
                             }]
                             };
                             var chart = new ApexCharts(document.querySelector("#chart"), options);
+                            chart.render();
+                                                        var options = {
+                              labels: ["Lighting", "Electrical", "Plug Load", "DHW", "Mechanical"],
+                              series: [lighting,electrical,plugload,dhw,mechanical],
+                              chart: {
+                              width: 200,
+                              type: 'donut',
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            legend: {
+                                position: 'bottom',
+                                show:false
+                            },
+
+                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
+
+                            responsive: [{
+                              breakpoint: 480,
+                              options: {
+                                chart: {
+                                  width: 300
+                                },
+                              }
+                            }]
+                            };
+                            var chart = new ApexCharts(document.querySelector("#chart3"), options);
                             chart.render();
 }
 function getDate(){
