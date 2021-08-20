@@ -6,6 +6,9 @@
   mix-blend-mode: normal;
   position: relative;
   width: 100%;
+  zoom: 1.2; 
+  -moz-transform: scale(1.2); 
+  -moz-transform-origin: 0 0;
 }
 
 .tab{
