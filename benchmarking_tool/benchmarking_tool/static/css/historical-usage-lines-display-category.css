@@ -2,11 +2,20 @@
 
 .historical-usage-lines-display-category {
   background-color: var(--white);
-  height: 768px;
+  height: 100%;
   mix-blend-mode: normal;
-  overflow-x: hidden;
   position: relative;
-  width: 1360px;
+  width: 100%;
+}
+.tab{
+  overflow: hidden;
+}
+html, body, {
+    position:relative;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
 }
 
 .historical-usage-lines-display-category .rectangle-2893-L7BXHD {
@@ -16,7 +25,7 @@
   mix-blend-mode: normal;
   position: absolute;
   top: 0px;
-  width: 270px;
+  width: 275px;
 }
 
 .historical-usage-lines-display-category .header-L7BXHD {
@@ -1144,14 +1153,14 @@
 .historical-usage-lines-display-category .x21-L7BXHD {
   background-color: transparent;
   height: auto;
-  left: 631px;
   letter-spacing: 0.22px;
   line-height: normal;
   mix-blend-mode: normal;
-  position: absolute;
+  position: relative;
   text-align: left;
-  top: 433px;
   width: auto;
+  left: 10px;
+  bottom: 1px;
 }
 
 .historical-usage-lines-display-category .x21-week {
@@ -1169,14 +1178,14 @@
 .historical-usage-lines-display-category .x31-L7BXHD {
   background-color: transparent;
   height: auto;
-  left: 559px;
   letter-spacing: 0.22px;
   line-height: normal;
   mix-blend-mode: normal;
-  position: absolute;
+  position: relative;
   text-align: left;
-  top: 459px;
   width: auto;
+  left: 10px;
+  bottom: 1px;
 }
 
 .historical-usage-lines-display-category .x31-week {
@@ -1195,14 +1204,14 @@
 .historical-usage-lines-display-category .x534-L7BXHD {
   background-color: transparent;
   height: auto;
-  left: 593px;
   letter-spacing: 0.22px;
   line-height: normal;
   mix-blend-mode: normal;
-  position: absolute;
+  position: relative;
   text-align: left;
-  top: 485px;
   width: auto;
+  left: 10px;
+  bottom: 1px;
 }
 .historical-usage-lines-display-category .x534-week {
   background-color: transparent;
@@ -1219,14 +1228,14 @@
 .historical-usage-lines-display-category .x1897-L7BXHD {
   background-color: transparent;
   height: auto;
-  left: 623px;
   letter-spacing: 0.22px;
   line-height: normal;
   mix-blend-mode: normal;
-  position: absolute;
+  position: relative;
   text-align: left;
-  top: 511px;
   width: auto;
+  left: 10px;
+  bottom: 1px;
 }
 .historical-usage-lines-display-category .x1897-week {
   background-color: transparent;
@@ -1244,14 +1253,14 @@
 .historical-usage-lines-display-category .x298-L7BXHD {
   background-color: transparent;
   height: auto;
-  left: 559px;
   letter-spacing: 0.22px;
   line-height: normal;
   mix-blend-mode: normal;
-  position: absolute;
+  position: relative;
   text-align: left;
-  top: 537px;
   width: auto;
+  left: 10px;
+  bottom: 1px;
 }
 .historical-usage-lines-display-category .x298-week {
   background-color: transparent;
@@ -1269,14 +1278,14 @@
 .historical-usage-lines-display-category .x532-L7BXHD {
   background-color: transparent;
   height: auto;
-  left: 596px;
   letter-spacing: 0.22px;
   line-height: normal;
   mix-blend-mode: normal;
-  position: absolute;
+  position: relative;
   text-align: left;
-  top: 563px;
   width: auto;
+  left: 10px;
+  bottom: 1px;
 }
 .historical-usage-lines-display-category .x532-week {
   background-color: transparent;
@@ -1293,14 +1302,14 @@
 .historical-usage-lines-display-category .x06-L7BXHD {
   background-color: transparent;
   height: auto;
-  left: 555px;
   letter-spacing: 0.22px;
   line-height: normal;
   mix-blend-mode: normal;
-  position: absolute;
+  position: relative;
   text-align: left;
-  top: 589px;
   width: auto;
+  left: 10px;
+  bottom: 1px;
 }
 .historical-usage-lines-display-category .x06-week {
   background-color: transparent;
@@ -1317,13 +1326,13 @@
 .historical-usage-lines-display-category .x04-L7BXHD {
   background-color: transparent;
   height: auto;
-  left: 555px;
   letter-spacing: 0.22px;
   line-height: normal;
   mix-blend-mode: normal;
-  position: absolute;
+  position: relative;
   text-align: left;
-  top: 615px;
+  left: 10px;
+  bottom: 1px;
   width: auto;
 }
 .historical-usage-lines-display-category .x04-week {
@@ -1341,13 +1350,13 @@
 .historical-usage-lines-display-category .x092-L7BXHD {
   background-color: transparent;
   height: auto;
-  left: 560px;
   letter-spacing: 0.22px;
   line-height: normal;
   mix-blend-mode: normal;
-  position: absolute;
+  position: relative;
   text-align: left;
-  top: 641px;
+  left: 10px;
+  bottom: 1px;
   width: auto;
 }
 .historical-usage-lines-display-category .x092-week {
@@ -1365,13 +1374,13 @@
 .historical-usage-lines-display-category .x112-L7BXHD {
   background-color: transparent;
   height: auto;
-  left: 560px;
   letter-spacing: 0.22px;
   line-height: normal;
   mix-blend-mode: normal;
-  position: absolute;
+  position: relative;
   text-align: left;
-  top: 667px;
+  left: 10px;
+  bottom: 1px;
   width: auto;
 }
 .historical-usage-lines-display-category .x112-week {
@@ -1503,7 +1512,7 @@
   mix-blend-mode: normal;
   position: absolute;
   top: 590px;
-  width: 4px;
+  width: 0px;
 }
 .historical-usage-lines-display-category .rectangle-3221-week {
   background-color: var(--stack);
@@ -2271,7 +2280,7 @@
   height: 16px;
   left: 668px;
   position: absolute;
-  top: 191px;
+  top: 195px;
   width: 149px;
 }
 
@@ -2283,14 +2292,13 @@
   font-style: normal;
   font-weight: 700;
   height: auto;
-  left: 21px;
   letter-spacing: 0.26px;
   line-height: normal;
   mix-blend-mode: normal;
   position: absolute;
-  text-align: left;
-  top: 0px;
-  width: auto;
+  bottom: 0px;
+  width: 150px;
+  border-color: transparent;
 }
 .historical-usage-lines-display-category .march-18th-2021-week {
   background-color: transparent;
@@ -2566,4 +2574,7 @@
   bottom: .2px;
   left: 2px;
   color: white;
+}
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
 }
