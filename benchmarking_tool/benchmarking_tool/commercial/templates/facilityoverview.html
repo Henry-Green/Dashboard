@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
     <script src="https://cdn.jsdelivr.net/npm/apexcharts" type="text/javascript"></script>
   </head>
-  <body style="margin: 0; background: #ffffff">
+  <body style="margin: 0; background: #ffffff" onload="random()">
     <input type="hidden" id="anPageName" name="page" value="overview-main" />
     <div class="container-center-horizontal">
       <div class="overview-main screen">
@@ -37,45 +37,17 @@
         <div class="electrical-load-by-panel-l6cqYc avertacy-bold-sapphire-20px">Sort by:</div>
         <div class = 'tab'>
         <button class="category-l6cqYc avertacy-bold-sapphire-15px tablinks" onclick = "openCity(event, 'Category')">Category</button>
-        <button class="panel-l6cqYc tablinks" onclick = "openCity(event, 'Panel')" id = "defaultOpen">Panel</button>
+        <button class="panel-l6cqYc tablinks" onclick = "openCity(event, 'Panel');" id = "defaultOpen">Panel</button>
         </div>
         <div id="Panel" class="tabcontent">
         <div class="energy-breakdown-l6cqYc">
           <div class="group-51-5iNAkV">
             <div class="group-43-9oEgQT">
               <div class="row">
-                    <div class="col-lg-6 col-md-12 col-sm-12" style ="right:30px;">
+                    <div class="col-lg-6 col-md-12 col-sm-12"  style ="right: 30px;">
                         <div id="chart"></div>
                         </div>
                           <script>
-                            var options = {
-                              labels: ["Appliances", "Lighting", "Hot Water", "Heating", "Ventilation"],
-                              series: [{{appliance_usage}}, {{light_usage}}, {{dhw_usage}},{{heating_usage}}, {{ventilation_usage}}],
-                              chart: {
-                              width: 200,
-                              type: 'donut',
-                            },
-                            dataLabels: {
-                              enabled: false
-                            },
-                            legend: {
-                                position: 'bottom',
-                                show:false
-                            },
-
-                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
-
-                            responsive: [{
-                              breakpoint: 480,
-                              options: {
-                                chart: {
-                                  width: 300
-                                },
-                              }
-                            }]
-                            };
-                            var chart = new ApexCharts(document.querySelector("#chart"), options);
-                            chart.render();
                         </script>
                     </div>
             </div>
@@ -91,11 +63,11 @@
         <div class="rectangle-15-l6cqYc"></div>
         <div class="electrical-panels-l6cqYc avertacy-bold-sapphire-15px">Electrical Panels</div>
         <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px" onclick = "openNav('A');openCity(event, 'Specs')">Panel A</div>
-        <div class="x43-l6cqYc avertacy-bold-sapphire-12px">{{appliance_percent}}%</div>
-        <div class="x21-l6cqYc avertacy-bold-sapphire-12px">{{light_percent}}%</div>
-        <div class="x19-l6cqYc avertacy-bold-sapphire-12px">{{dhw_percent}}%</div>
-        <div class="x11-l6cqYc avertacy-bold-sapphire-12px">{{heating_percent}}%</div>
-        <div class="x6-l6cqYc avertacy-bold-sapphire-12px">{{ventilation_percent}}%</div>
+        <div class="x43-l6cqYc avertacy-bold-sapphire-12px" id = "panelA"></div>
+        <div class="x21-l6cqYc avertacy-bold-sapphire-12px" id = 'panelB'></div>
+        <div class="x19-l6cqYc avertacy-bold-sapphire-12px" id = 'panelC'></div>
+        <div class="x11-l6cqYc avertacy-bold-sapphire-12px" id = 'panelD'></div>
+        <div class="x6-l6cqYc avertacy-bold-sapphire-12px" id = 'panelE'></div>
         <div class="panel-b-l6cqYc avertacy-bold-sapphire-12px" onclick = "openNav('B');openCity(event, 'Specs')">Panel B</div>
         <div class="panel-c-l6cqYc avertacy-bold-sapphire-12px" onclick = "openNav('C');openCity(event, 'Specs')" >Panel C</div>
         <div class="panel-d-l6cqYc avertacy-bold-sapphire-12px"onclick = "openNav('D');openCity(event, 'Specs')">Panel D</div>
@@ -196,38 +168,10 @@
           <div class="group-51-5iNAkV">
             <div class="group-43-9oEgQT">
               <div class="row">
-                    <div class="col-lg-6 col-md-12 col-sm-12" style ="right:30px;">
+                    <div class="col-lg-6 col-md-12 col-sm-12" style ="right: 30px;">
                         <div id="chart2"></div>
                         </div>
                           <script>
-                            var options = {
-                              labels: ["Works", "Lighting", "Hot Water", "Heating", "Ventilation"],
-                              series: [{{appliance_usage}}, {{light_usage}}, {{dhw_usage}},{{heating_usage}}, {{ventilation_usage}}],
-                              chart: {
-                              width: 200,
-                              type: 'donut',
-                            },
-                            dataLabels: {
-                              enabled: false
-                            },
-                            legend: {
-                                position: 'bottom',
-                                show:false
-                            },
-
-                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
-
-                            responsive: [{
-                              breakpoint: 480,
-                              options: {
-                                chart: {
-                                  width: 300
-                                },
-                              }
-                            }]
-                            };
-                            var chart = new ApexCharts(document.querySelector("#chart2"), options);
-                            chart.render();
                         </script>
                     </div>
             </div>
@@ -242,10 +186,10 @@
         <div class="rectangle-15-l6cqYc"></div>
         <div class="electrical-panels-l6cqYc avertacy-bold-sapphire-15px">Categories</div>
         <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">Lighting</div>
-        <div class="x43-l6cqYc avertacy-bold-sapphire-12px">{{appliance_percent}}%</div>
-        <div class="x21-l6cqYc avertacy-bold-sapphire-12px">{{light_percent}}%</div>
-        <div class="x19-l6cqYc avertacy-bold-sapphire-12px">{{dhw_percent}}%</div>
-        <div class="x11-l6cqYc avertacy-bold-sapphire-12px">{{heating_percent}}%</div>
+        <div class="x43-l6cqYc avertacy-bold-sapphire-12px" id = 'lighting'></div>
+        <div class="x21-l6cqYc avertacy-bold-sapphire-12px" id = 'electrical'></div>
+        <div class="x19-l6cqYc avertacy-bold-sapphire-12px" id = 'dhw'></div>
+        <div class="x11-l6cqYc avertacy-bold-sapphire-12px" id = 'mechanical'></div>
         <div class="panel-b-l6cqYc avertacy-bold-sapphire-12px">Electrical</div>
         <div class="panel-c-l6cqYc avertacy-bold-sapphire-12px">DHW</div>
         <div class="panel-d-l6cqYc avertacy-bold-sapphire-12px">Mechanical</div>
@@ -299,16 +243,16 @@
         <div class="rtu-2-l6cqYc avertacy-bold-stack-11px">RTU - 2</div>
         <div class="air-compressor-l6cqYc avertacy-bold-stack-11px">Air Compressor</div>
         <div class="rtu-1-l6cqYc avertacy-bold-stack-11px">RTU - 1</div>
-        <div class="x233hr-l6cqYc avertacy-bold-apple-11px">{{channel7[1]}}</div>
-        <div class="x056hr-l6cqYc avertacy-bold-apple-11px">{{channel10[19]}}</div>
-        <div class="x122hr-l6cqYc avertacy-bold-apple-11px">{{channel7[3]}}</div>
-        <div class="x078hr-l6cqYc avertacy-bold-apple-11px">{{channel4[1]}}</div>
-        <div class="x112hr-l6cqYc avertacy-bold-apple-11px">{{channel8[1]}}</div>
-        <div class="x023hr-l6cqYc avertacy-bold-apple-11px">{{channel9[1]}}</div>
-        <div class="x012hr-l6cqYc avertacy-bold-apple-11px">{{channel10[1]}}</div>
-        <div class="x009hr-l6cqYc avertacy-bold-apple-11px">{{channel6[13]}}</div>
-        <div class="x086hr-l6cqYc avertacy-bold-apple-11px">{{channel6[23]}}</div>
-        <div class="x043hr-l6cqYc avertacy-bold-apple-11px">{{channel6[18]}}</div>
+        <div class="x233hr-l6cqYc avertacy-bold-apple-11px" id = 'demo'></div>
+        <div class="x056hr-l6cqYc avertacy-bold-apple-11px" id = 'demo2'></div>
+        <div class="x122hr-l6cqYc avertacy-bold-apple-11px" id = 'demo3'></div>
+        <div class="x078hr-l6cqYc avertacy-bold-apple-11px" id = 'demo4'></div>
+        <div class="x112hr-l6cqYc avertacy-bold-apple-11px" id = 'demo5'></div>
+        <div class="x023hr-l6cqYc avertacy-bold-apple-11px" id = 'demo6'></div>
+        <div class="x012hr-l6cqYc avertacy-bold-apple-11px" id = 'demo7'></div>
+        <div class="x009hr-l6cqYc avertacy-bold-apple-11px" id = 'demo8'></div>
+        <div class="x086hr-l6cqYc avertacy-bold-apple-11px" id = 'demo9'></div>
+        <div class="x043hr-l6cqYc avertacy-bold-apple-11px" id = 'demo10'></div>
         <div class="x000hr-l6cqYc avertacy-bold-stack-11px">0.00</div>
         <div class="x000hr-Al4pJ9 avertacy-bold-stack-11px">0.00</div>
         <div class="x000hr-WzB72u avertacy-bold-stack-11px">0.00</div>
@@ -317,17 +261,7 @@
         <div class="x000hr-p0oEHK avertacy-bold-stack-11px">0.00</div>
         <div class="x000hr-TTKXmQ avertacy-bold-stack-11px">0.00</div>
         <div class="x000hr-HxJNWt avertacy-bold-stack-11px">0.00</div>
-        <div class="x000hr-W3rFHg avertacy-bold-stack-11px">0.00</div>
-        <div class="x21-Al4pJ9 avertacy-bold-apple-11px">21%</div>
-        <div class="x31-l6cqYc avertacy-bold-apple-11px">3.1%</div>
-        <div class="x678-l6cqYc avertacy-bold-apple-11px">6.78%</div>
-        <div class="x27-l6cqYc avertacy-bold-apple-11px">2.7%</div>
-        <div class="x374-l6cqYc avertacy-bold-apple-11px">3.74%</div>
-        <div class="x06-l6cqYc avertacy-bold-apple-11px">0.6%</div>
-        <div class="x04-l6cqYc avertacy-bold-apple-11px">0.4%</div>
-        <div class="x278-l6cqYc avertacy-bold-apple-11px">2.78%</div>
-        <div class="x098-l6cqYc avertacy-bold-apple-11px">0.98%</div>
-        <div class="x923-l6cqYc avertacy-bold-apple-11px">9.23%</div>
+        <div class="x000hr-W3rFHg avertacy-bold-stack-11px">0.00</div> 
         <div class="x0-l6cqYc avertacy-bold-stack-11px">0%</div>
         <div class="x0-Al4pJ9 avertacy-bold-stack-11px">0%</div>
         <div class="x0-WzB72u avertacy-bold-stack-11px">0%</div>
@@ -337,16 +271,16 @@
         <div class="x0-TTKXmQ avertacy-bold-stack-11px">0%</div>
         <div class="x0-HxJNWt avertacy-bold-stack-11px">0%</div>
         <div class="x0-W3rFHg avertacy-bold-stack-11px">0%</div>
-        <div class="rectangle-3184-l6cqYc"></div>
-        <div class="rectangle-3185-l6cqYc"></div>
-        <div class="rectangle-3186-l6cqYc"></div>
-        <div class="rectangle-3187-l6cqYc"></div>
-        <div class="rectangle-3188-l6cqYc"></div>
-        <div class="rectangle-3189-l6cqYc"></div>
-        <div class="rectangle-3190-l6cqYc"></div>
-        <div class="rectangle-3191-l6cqYc"></div>
-        <div class="rectangle-3192-l6cqYc"></div>
-        <div class="rectangle-3193-l6cqYc"></div>
+        <div class="rectangle-3184-l6cqYc" id = 'bar'><div id = 'percentage' class="x21-Al4pJ9 avertacy-bold-apple-11px"></div></div>
+        <div class="rectangle-3185-l6cqYc" id = 'bar2'><div id = 'percentage2' class="x31-l6cqYc avertacy-bold-apple-11px"></div></div>
+        <div class="rectangle-3186-l6cqYc" id = 'bar3'><div id = 'percentage3' class="x678-l6cqYc avertacy-bold-apple-11px"></div></div>
+        <div class="rectangle-3187-l6cqYc" id = 'bar4'><div id = 'percentage4' class="x27-l6cqYc avertacy-bold-apple-11px"></div></div>
+        <div class="rectangle-3188-l6cqYc" id = 'bar5'><div id = 'percentage5' class="x374-l6cqYc avertacy-bold-apple-11px"></div></div>
+        <div class="rectangle-3189-l6cqYc" id = 'bar6'><div id = 'percentage6' class="x06-l6cqYc avertacy-bold-apple-11px"></div></div>
+        <div class="rectangle-3190-l6cqYc" id = 'bar7'><div id = 'percentage7' class="x04-l6cqYc avertacy-bold-apple-11px"></div></div>
+        <div class="rectangle-3191-l6cqYc" id = 'bar8'><div id = 'percentage8' class="x278-l6cqYc avertacy-bold-apple-11px"></div></div>
+        <div class="rectangle-3192-l6cqYc" id = 'bar9'><div id = 'percentage9' class="x098-l6cqYc avertacy-bold-apple-11px"></div></div>
+        <div class="rectangle-3193-l6cqYc" id = 'bar10'><div id = 'percentage10' class="x923-l6cqYc avertacy-bold-apple-11px"></div></div>
         <div class="rectangle-3194-l6cqYc"></div>
         <div class="rectangle-3195-l6cqYc"></div>
         <div class="rectangle-3196-l6cqYc"></div>
@@ -427,6 +361,143 @@ function showSlides(n) {
   }
   slides[slideIndex-1].style.display = "block";
   dots[slideIndex-1].className += " active";
+}
+  function random() {
+  let demo = (Math.random() * (4 - 2) + 2).toFixed(2);
+  document.getElementById("demo").innerHTML = '$' + demo;
+  let demo2 = (Math.random() * (1 - 0) + 0).toFixed(2);
+  document.getElementById("demo2").innerHTML = '$' + demo2;
+  var demo3 = (Math.random() * (2 - 1) + 1).toFixed(2);
+  document.getElementById("demo3").innerHTML = '$' + demo3;
+  var demo4 = (Math.random() * (4 - 2) + 2).toFixed(2);
+  document.getElementById("demo4").innerHTML = '$' + demo4;
+  var demo5 = (Math.random() * (1 - 0) + 0).toFixed(2);
+  document.getElementById("demo5").innerHTML = '$' + demo5;
+  var demo6 = (Math.random() * (2 - 0) + 0).toFixed(2);
+  document.getElementById("demo6").innerHTML = '$' + demo6;
+  var demo7 = (Math.random() * (1 - 0) + 0).toFixed(2);
+  document.getElementById("demo7").innerHTML = '$' + demo7;
+  var demo8 = (Math.random() * (1 - 0) + 0).toFixed(2);
+  document.getElementById("demo8").innerHTML = '$' + demo8;
+  var demo9 = (Math.random() * (1 - 0) + 0).toFixed(2);
+  document.getElementById("demo9").innerHTML = '$' + demo9;
+  var demo10 = (Math.random() * (1 - 0) + 0).toFixed(2);
+  document.getElementById("demo10").innerHTML = '$' + demo10;
+
+  let total = parseFloat(demo) + parseFloat(demo2) + parseFloat(demo3) + parseFloat(demo4) + parseFloat(demo5) + parseFloat(demo6) + parseFloat(demo7) + parseFloat(demo8) + parseFloat(demo9) + parseFloat(demo10);
+  let percentage = document.getElementById("percentage").innerHTML = ((parseFloat(demo)/ total) * 100).toFixed(0) + "%";
+  let percentage2 = document.getElementById("percentage2").innerHTML = ((parseFloat(demo2)/ total) * 100).toFixed(0) + "%";
+  let percentage3 = document.getElementById("percentage3").innerHTML = ((parseFloat(demo3)/ total) * 100).toFixed(0) + "%";
+  let percentage4 = document.getElementById("percentage4").innerHTML = ((parseFloat(demo4)/ total) * 100).toFixed(0) + "%";
+  let percentage5 = document.getElementById("percentage5").innerHTML = ((parseFloat(demo5)/ total) * 100).toFixed(0) + "%";
+  let percentage6 = document.getElementById("percentage6").innerHTML = ((parseFloat(demo6)/ total) * 100).toFixed(0) + "%";
+  let percentage7 = document.getElementById("percentage7").innerHTML = ((parseFloat(demo7)/ total) * 100).toFixed(0) + "%";
+  let percentage8 = document.getElementById("percentage8").innerHTML = ((parseFloat(demo8)/ total) * 100).toFixed(0) + "%";
+  let percentage9 = document.getElementById("percentage9").innerHTML = ((parseFloat(demo9)/ total) * 100).toFixed(0) + "%";
+  let percentage10 = document.getElementById("percentage10").innerHTML = ((parseFloat(demo10)/ total) * 100).toFixed(0) + "%";
+  let width = 250 * ((parseFloat(demo)/ total));
+  let width2 = 250 * ((parseFloat(demo2)/ total));
+  let width3 = 250 * ((parseFloat(demo3)/ total));
+  let width4 = 250 * ((parseFloat(demo4)/ total));
+  let width5 = 250 * ((parseFloat(demo5)/ total));
+  let width6 = 250 * ((parseFloat(demo6)/ total));
+  let width7 = 250 * ((parseFloat(demo7)/ total));
+  let width8 = 250 * ((parseFloat(demo8)/ total));
+  let width9 = 250 * ((parseFloat(demo9)/ total));
+  let width10 = 250 * ((parseFloat(demo10)/ total));
+  document.getElementById("bar").style.width = width + "px";
+  document.getElementById("bar2").style.width = width2 + "px";
+  document.getElementById("bar3").style.width = width3 + "px";
+  document.getElementById("bar4").style.width = width4 + "px";
+  document.getElementById("bar5").style.width = width5 + "px";
+  document.getElementById("bar6").style.width = width6 + "px";
+  document.getElementById("bar7").style.width = width7 + "px";
+  document.getElementById("bar8").style.width = width8 + "px";
+  document.getElementById("bar9").style.width = width9 + "px";
+  document.getElementById("bar10").style.width = width10 + "px";
+  document.getElementById("percentage").style.left = width + 5 + "px";
+  document.getElementById("percentage2").style.left = width2 + 5 + "px";
+  document.getElementById("percentage3").style.left = width3 + 5 + "px";
+  document.getElementById("percentage4").style.left = width4 + 5 + "px";
+  document.getElementById("percentage5").style.left = width5 + 5 + "px";
+  document.getElementById("percentage6").style.left = width6 + 5 + "px";
+  document.getElementById("percentage7").style.left = width7 + 5 + "px";
+  document.getElementById("percentage8").style.left = width8 + 5 + "px";
+  document.getElementById("percentage9").style.left = width9 + 5 + "px";
+  document.getElementById("percentage10").style.left = width10 + 5 + "px";
+
+  let lighting = parseFloat(percentage) + parseFloat(percentage6) + parseFloat(percentage9); 
+  let electrical = parseFloat(percentage4);
+  let plugload =  parseFloat(percentage3);
+  let dhw = parseFloat(percentage2) + parseFloat(percentage5);
+  let mechanical = parseFloat(percentage10) + parseFloat(percentage8) + parseFloat(percentage7);
+  document.getElementById("lighting").innerHTML = lighting + "%";
+  document.getElementById("electrical").innerHTML = electrical + "%";
+  document.getElementById("dhw").innerHTML = dhw + "%";
+  document.getElementById("mechanical").innerHTML = mechanical + "%";
+  document.getElementById("panelA").innerHTML = lighting + "%";
+  document.getElementById("panelB").innerHTML = electrical + "%";
+  document.getElementById("panelC").innerHTML = plugload + "%";
+  document.getElementById("panelD").innerHTML = dhw + "%";
+  document.getElementById("panelE").innerHTML = mechanical + "%";
+
+  var options = {
+                              labels: ["Lighting", "Electrical", "DHW", "Mechanical"],
+                              series: [lighting,electrical,dhw,mechanical ],
+                              chart: {
+                              width: 200,
+                              type: 'donut',
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            legend: {
+                                position: 'bottom',
+                                show:false
+                            },
+
+                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
+
+                            responsive: [{
+                              breakpoint: 480,
+                              options: {
+                                chart: {
+                                  width: 300
+                                },
+                              }
+                            }]
+                            };
+                            var chart = new ApexCharts(document.querySelector("#chart"), options);
+                            chart.render();
+                            var options = {
+                              labels: ["Lighting", "Electrical", "DHW", "Mechanical"],
+                              series: [lighting,electrical,dhw,mechanical],
+                              chart: {
+                              width: 200,
+                              type: 'donut',
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            legend: {
+                                position: 'bottom',
+                                show:false
+                            },
+
+                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
+
+                            responsive: [{
+                              breakpoint: 480,
+                              options: {
+                                chart: {
+                                  width: 300
+                                },
+                              }
+                            }]
+                            };
+                            var chart = new ApexCharts(document.querySelector("#chart2"), options);
+                            chart.render();
+
 }
   </script>
 </html>
