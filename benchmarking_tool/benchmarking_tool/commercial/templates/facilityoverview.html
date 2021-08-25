@@ -253,15 +253,15 @@
         <div class="x009hr-l6cqYc avertacy-bold-apple-11px" id = 'demo8'></div>
         <div class="x086hr-l6cqYc avertacy-bold-apple-11px" id = 'demo9'></div>
         <div class="x043hr-l6cqYc avertacy-bold-apple-11px" id = 'demo10'></div>
-        <div class="x000hr-l6cqYc avertacy-bold-stack-11px">0.00</div>
-        <div class="x000hr-Al4pJ9 avertacy-bold-stack-11px">0.00</div>
-        <div class="x000hr-WzB72u avertacy-bold-stack-11px">0.00</div>
-        <div class="x000hr-ZNcuTa avertacy-bold-stack-11px">0.00</div>
-        <div class="x000hr-yZxHJX avertacy-bold-stack-11px">0.00</div>
-        <div class="x000hr-p0oEHK avertacy-bold-stack-11px">0.00</div>
-        <div class="x000hr-TTKXmQ avertacy-bold-stack-11px">0.00</div>
-        <div class="x000hr-HxJNWt avertacy-bold-stack-11px">0.00</div>
-        <div class="x000hr-W3rFHg avertacy-bold-stack-11px">0.00</div> 
+        <div class="x000hr-l6cqYc avertacy-bold-stack-11px">$0.00/hr</div>
+        <div class="x000hr-Al4pJ9 avertacy-bold-stack-11px">$0.00/hr</div>
+        <div class="x000hr-WzB72u avertacy-bold-stack-11px">$0.00/hr</div>
+        <div class="x000hr-ZNcuTa avertacy-bold-stack-11px">$0.00/hr</div>
+        <div class="x000hr-yZxHJX avertacy-bold-stack-11px">$0.00/hr</div>
+        <div class="x000hr-p0oEHK avertacy-bold-stack-11px">$0.00/hr</div>
+        <div class="x000hr-TTKXmQ avertacy-bold-stack-11px">$0.00/hr</div>
+        <div class="x000hr-HxJNWt avertacy-bold-stack-11px">$0.00/hr</div>
+        <div class="x000hr-W3rFHg avertacy-bold-stack-11px">$0.00/hr</div> 
         <div class="x0-l6cqYc avertacy-bold-stack-11px">0%</div>
         <div class="x0-Al4pJ9 avertacy-bold-stack-11px">0%</div>
         <div class="x0-WzB72u avertacy-bold-stack-11px">0%</div>
@@ -363,26 +363,27 @@ function showSlides(n) {
   dots[slideIndex-1].className += " active";
 }
   function random() {
+  setInterval(function(){
   let demo = (Math.random() * (4 - 2) + 2).toFixed(2);
-  document.getElementById("demo").innerHTML = '$' + demo;
+  document.getElementById("demo").innerHTML = '$' + demo + '/hr';
   let demo2 = (Math.random() * (1 - 0) + 0).toFixed(2);
-  document.getElementById("demo2").innerHTML = '$' + demo2;
+  document.getElementById("demo2").innerHTML = '$' + demo2 + '/hr';
   var demo3 = (Math.random() * (2 - 1) + 1).toFixed(2);
-  document.getElementById("demo3").innerHTML = '$' + demo3;
+  document.getElementById("demo3").innerHTML = '$' + demo3 + '/hr';
   var demo4 = (Math.random() * (4 - 2) + 2).toFixed(2);
-  document.getElementById("demo4").innerHTML = '$' + demo4;
+  document.getElementById("demo4").innerHTML = '$' + demo4 + '/hr';
   var demo5 = (Math.random() * (1 - 0) + 0).toFixed(2);
-  document.getElementById("demo5").innerHTML = '$' + demo5;
+  document.getElementById("demo5").innerHTML = '$' + demo5 + '/hr';
   var demo6 = (Math.random() * (2 - 0) + 0).toFixed(2);
-  document.getElementById("demo6").innerHTML = '$' + demo6;
+  document.getElementById("demo6").innerHTML = '$' + demo6 + '/hr';
   var demo7 = (Math.random() * (1 - 0) + 0).toFixed(2);
-  document.getElementById("demo7").innerHTML = '$' + demo7;
+  document.getElementById("demo7").innerHTML = '$' + demo7 + '/hr';
   var demo8 = (Math.random() * (1 - 0) + 0).toFixed(2);
-  document.getElementById("demo8").innerHTML = '$' + demo8;
+  document.getElementById("demo8").innerHTML = '$' + demo8 + '/hr';
   var demo9 = (Math.random() * (1 - 0) + 0).toFixed(2);
-  document.getElementById("demo9").innerHTML = '$' + demo9;
+  document.getElementById("demo9").innerHTML = '$' + demo9 + '/hr';
   var demo10 = (Math.random() * (1 - 0) + 0).toFixed(2);
-  document.getElementById("demo10").innerHTML = '$' + demo10;
+  document.getElementById("demo10").innerHTML = '$' + demo10 + '/hr';
 
   let total = parseFloat(demo) + parseFloat(demo2) + parseFloat(demo3) + parseFloat(demo4) + parseFloat(demo5) + parseFloat(demo6) + parseFloat(demo7) + parseFloat(demo8) + parseFloat(demo9) + parseFloat(demo10);
   let percentage = document.getElementById("percentage").innerHTML = ((parseFloat(demo)/ total) * 100).toFixed(0) + "%";
@@ -498,6 +499,7 @@ function showSlides(n) {
                             var chart = new ApexCharts(document.querySelector("#chart2"), options);
                             chart.render();
 
+}, 1000);
 }
   </script>
 </html>
