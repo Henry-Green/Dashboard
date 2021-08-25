@@ -296,7 +296,7 @@
         <div class="x100-Al4pJ9">100%</div>
         <div class="rectangle-3205-l6cqYc"></div>
         <div class="x-l6cqYc">$</div>
-        <div class="x674hr-l6cqYc">$6.74/hr</div>
+        <div class="x674hr-l6cqYc" id = 'total'></div>
         </div>
         </div>
       </div>
@@ -396,6 +396,7 @@ function showSlides(n) {
   let percentage8 = document.getElementById("percentage8").innerHTML = ((parseFloat(demo8)/ total) * 100).toFixed(0) + "%";
   let percentage9 = document.getElementById("percentage9").innerHTML = ((parseFloat(demo9)/ total) * 100).toFixed(0) + "%";
   let percentage10 = document.getElementById("percentage10").innerHTML = ((parseFloat(demo10)/ total) * 100).toFixed(0) + "%";
+  document.getElementById("total").innerHTML = '$' + total.toFixed(2) + '/hr';
   let width = 250 * ((parseFloat(demo)/ total));
   let width2 = 250 * ((parseFloat(demo2)/ total));
   let width3 = 250 * ((parseFloat(demo3)/ total));
