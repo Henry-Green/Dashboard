@@ -608,7 +608,7 @@ function showSlides(n) {
   let wattspercentage8 = document.getElementById("wattspercentage8").innerHTML = ((parseFloat(watts8)/ wattstotal) * 100).toFixed(0) + "%";
   let wattspercentage9 = document.getElementById("wattspercentage9").innerHTML = ((parseFloat(watts9)/ wattstotal) * 100).toFixed(0) + "%";
   let wattspercentage10 = document.getElementById("wattspercentage10").innerHTML = ((parseFloat(watts10)/ wattstotal) * 100).toFixed(0) + "%";
-  document.getElementById("wattstotal").innerHTML = wattstotal.toFixed(2) + '/watts';
+  document.getElementById("wattstotal").innerHTML = wattstotal.toFixed(0) + '/watts';
   let wattswidth = 250 * ((parseFloat(demo)/ total));
   let wattswidth2 = 250 * ((parseFloat(demo2)/ total));
   let wattswidth3 = 250 * ((parseFloat(demo3)/ total));
