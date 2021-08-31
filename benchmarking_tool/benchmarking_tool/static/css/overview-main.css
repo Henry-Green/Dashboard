@@ -2012,7 +2012,7 @@
   line-height: normal;
   mix-blend-mode: normal;
   position: absolute;
-  text-align: left;
+  text-align: right;
   top: 681px;
   width: auto;
 }
@@ -2092,13 +2092,13 @@
   font-style: normal;
   font-weight: 700;
   height: auto;
-  left: 740px;
+  left: 280px;
   letter-spacing: 0.40px;
   line-height: normal;
   mix-blend-mode: normal;
-  position: absolute;
-  text-align: left;
-  top: 681px;
+  position: relative;
+  text-align: right;
+  top: 521px;
   width: auto;
 }
 
