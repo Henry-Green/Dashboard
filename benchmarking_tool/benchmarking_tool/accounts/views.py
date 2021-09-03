@@ -209,6 +209,8 @@ def commerciallogin():
                 return redirect(url_for('accounts.commerciallogin'))
     else:
         form = LoginForm(email="")
+	flash(
+                    f"Not working for some reason", 'danger')
     return render_template('commerciallogin.html', title='Login', form=form,last_updated=dir_last_updated())
 
 
