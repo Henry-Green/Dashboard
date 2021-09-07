@@ -183,7 +183,6 @@ def login():
 @accounts.route('/commerciallogin', methods=['GET', 'POST'])
 def commerciallogin():
     hashed_password = bcrypt.generate_password_hash('password').decode('utf-8')
-    print(hashed_password)
     if current_user.is_authenticated:
         return redirect(url_for('commercial.facilityoverview'))
         print('authenticated')
