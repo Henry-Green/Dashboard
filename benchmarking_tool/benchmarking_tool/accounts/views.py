@@ -199,6 +199,7 @@ def commerciallogin():
             user = User.query.filter_by(email=email).first()
             role_user = user.role.name
             if user and bcrypt.check_password_hash(user.password, password):
+                print('matching credentials')
                 login_user(user)
                 next_page = request.args.get('next')
                 flash(f"Welcome {email}", 'success')
