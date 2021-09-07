@@ -179,7 +179,7 @@ def login():
     return redirect(url_for('accounts.commerciallogin'))	
     return render_template('login.html', title='Login', form=form,last_updated=dir_last_updated())
 
-@accounts.route('/')
+@accounts.route('/', methods=['GET', 'POST'])
 @accounts.route('/commerciallogin', methods=['GET', 'POST'])
 def commerciallogin():
     hashed_password = bcrypt.generate_password_hash('password').decode('utf-8')
