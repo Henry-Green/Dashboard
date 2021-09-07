@@ -185,9 +185,7 @@ def commerciallogin():
     hashed_password = bcrypt.generate_password_hash('password').decode('utf-8')
     if current_user.is_authenticated:
         return redirect(url_for('commercial.facilityoverview'))
-        print('authenticated')
     if request.method == "POST":
-        print('post')
         email = request.form["email"]
         password = request.form["password"]
         form = LoginForm(
@@ -195,11 +193,9 @@ def commerciallogin():
             password=password
         )
         if form.validate_on_submit():
-            print('valid')
             user = User.query.filter_by(email=email).first()
             role_user = user.role.name
             if user and bcrypt.check_password_hash(user.password, password):
-                print('matching credentials')
                 login_user(user)
                 next_page = request.args.get('next')
                 flash(f"Welcome {email}", 'success')
@@ -207,15 +203,12 @@ def commerciallogin():
                     customer = user.customer
                     survey = customer.survey
                 else:
-                    print('redirect')
                     return redirect(url_for('commercial.facilityoverview'))
             else:
-                print('notvalid')
                 flash(
                     f"Login Unsuccessful,Please check your email and Password!", 'danger')
                 return redirect(url_for('accounts.commerciallogin'))
     else:
-        print('restartform')
         form = LoginForm(email="")
     return render_template('commerciallogin.html', title='Login', form=form,last_updated=dir_last_updated())
 
