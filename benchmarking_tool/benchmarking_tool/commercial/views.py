@@ -385,8 +385,131 @@ def facilitylist():
         abort(403)
 @commercial.route('/facilityoverview', methods=['GET', 'POST'])
 
+def get_seconds(minute, channel_names,serial_number):
+    
+    minutes = minute
+    seconds = 60
+
+    # need to init the column names 
+
+    col_names = ['emporia_id',
+        'emporia_building_id',
+        'emporia_pannel_id',
+        'date',
+        'day',
+        'hour',
+        'minute',
+        'second',
+        'serial_number',
+        'main1_name',
+        'main1_usage',
+        'main2_name',
+        'main2_usage',
+        'main3_name',
+        'main3_usage',
+        'channel4_name',
+        'channel4_usage',
+        'channel5_name',
+        'channel5_usage',
+        'channel6_name',
+        'channel6_usage',
+        'channel7_name',
+        'channel7_usage',
+        'channel8_name',
+        'channel8_usage',
+        'channel9_name',
+        'channel9_usage',
+        'channel10_name',
+        'channel10_usage',
+        'channel11_name',
+        'channel11_usage',
+        'channel12_name',
+        'channel12_usage',
+        'channel13_name',
+        'channel13_usage',
+        'channel14_name',
+        'channel14_usage',
+        'channel15_name',
+        'channel15_usage',
+        'channel16_name',
+        'channel16_usage',
+        'channel17_name',
+        'channel17_usage',
+        'channel18_name',
+        'channel18_usage',
+        'channel19_name',
+        'channel19_usage']
+
+
+    seconds_df = pd.DataFrame(columns=col_names)
+
+    sec_dict = seconds_df.to_dict()
+
+    single_row = sec_dict
+    emporia_id = str(random.randrange(1000,9000))
+    emporia_building_id = str(random.randrange(1000,9000))
+    emporia_pannel_id = str(random.randrange(1000,9000))
+
+    for m in range(minutes):
+        for s in range(seconds):
+            single_row['emporia_id'] = emporia_id
+            single_row['emporia_building_id'] = emporia_building_id
+            single_row['emporia_pannel_id'] = emporia_pannel_id
+            date = datetime.datetime.now()
+            single_row['date'] = str(date.year) + '-' + str(date.month)
+            single_row['day'] = date.day
+            single_row['hour'] = date.hour
+            single_row['minute'] = m
+            single_row['second'] = s
+            single_row['serial_number'] = serial_number
+            # now we have to do usage and channel names 
+            channel_col = list(sec_dict.keys())
+            channel_col = channel_col[9:]
+            counter_n = 0
+            counter_s = 0
+            
+            u = []
+            for i in range(16):
+                #gets a new usage list for every list 
+                usage = float(random.randrange(0,2000))/100
+                u.append(usage)
+
+
+            for c in channel_col:
+                
+                # is it going to be a name or is it usage?
+                if 'name' in c:
+                    single_row[c] = channel_names[counter_n]
+                    counter_n += 1
+                if 'usage' in c:
+                    #get a random number between 1 - 20
+                    if 'main' in c:
+                        # get the main 
+                        single_row[c] = round(sum(u)/3,2)
+                    else:
+                        single_row[c] = u[counter_s]
+                        counter_s += 1
+
+            seconds_df = seconds_df.append(single_row,ignore_index=True)
+
+            # comment this line out to not make a csv file 
+            #seconds_df.to_csv('seconds_data.csv')
+
+    return seconds_df
+@commercial.route('/facilityoverview', methods=['GET', 'POST'])
+@login_required
 def facilityoverview():
-    if(1 == 1):
+    if(current_user.is_authenticated and current_user.is_admin()):
+        if(current_user.id == 1):
+            channel_name = ['main sherwood 1_1', 'main sherwood 1_2', 'main sherwood 1_3', 'Dryer', 'Dryer', 'washer', 'car wash GFI Receptacle', 'Exterior receptacle' , 'Tube Heaters', 'Carwash GFI Receptacle', 'exterior receptacle' , 'SAPRE to car wash', 'wash bay door and heat' , 'wash bay door and heat' , 'wash bay door and heat' , 'wash bay receptacle' , 'car wash exhaust fan', 'exterior receptacle' , 'wash bay receptacle' ]
+            serial_number = 'A2107A04B4AC67B2F76F18'
+        else:
+            channel_name = ['main sherwood 2_1', 'main sherwood 2_2', 'main sherwood 2_3', 'paint booth lights', 'paint booth air dryers', 'paint booth air dryers', 'counter receptacle', 'counter receptacle', 'microwave' , 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'water heater' , 'mezzanine receptacle' , 'water softener and DHW', 'lunch room lights']
+            serial_number = 'A2108A04B4AC67B2F6A400'
+
+        #df_usage1 = get_seconds(2, channel_names1, serial_number1)
+
+        df_usage = get_seconds(2, channel_name, serial_number)
         heating_usage = 40
         current_regress = 0
         light_usage = 20
@@ -400,7 +523,7 @@ def facilityoverview():
         appliance_percent = int(appliance_usage / total * 100)
         ventilation_percent = int(ventilation_usage / total * 100)
         dhw_percent = int(dhw_usage / total * 100)
-        return render_template('facilityoverview.html',heating_percent = heating_percent, appliance_percent = appliance_percent, ventilation_percent = ventilation_percent, dhw_percent = dhw_percent, light_percent = light_percent, buildings = buildings,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        return render_template('facilityoverview.html', channel_name = channel_name,df_usage = df_usage,heating_percent = heating_percent, appliance_percent = appliance_percent, ventilation_percent = ventilation_percent, dhw_percent = dhw_percent, light_percent = light_percent, buildings = buildings,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,total = total)
     else:
         abort(403)
