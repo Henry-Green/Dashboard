@@ -383,8 +383,6 @@ def facilitylist():
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,total = total)
     else:
         abort(403)
-@commercial.route('/facilityoverview', methods=['GET', 'POST'])
-
 def get_seconds(minute, channel_names,serial_number):
     
     minutes = minute
