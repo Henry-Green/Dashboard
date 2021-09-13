@@ -221,7 +221,7 @@ def commerciallogin():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('accounts.login'))
+    return redirect(url_for('accounts.commerciallogin'))
 
 # route for the user to request a new password
 @accounts.route('/reset_password', methods=['GET', 'POST'])
