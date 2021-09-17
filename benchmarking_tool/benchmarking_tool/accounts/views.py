@@ -3,24 +3,25 @@ from pathlib import Path
 import secrets
 from flask import Blueprint,request,render_template,redirect,flash,url_for,current_app
 from flask_login import login_user, current_user, logout_user, login_required
-from forms import *
-from helper import *
+from ..forms import *
+from ..helper import *
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail, Message
-from methods import *
-from decorators import *
+from benchmarking_tool import app
+from benchmarking_tool.methods import *
+from benchmarking_tool.decorators import *
 from dotenv import load_dotenv
 from sqlalchemy import or_
-from image_reckognition.bill_detection import *
-from image_reckognition.bill_detection import detect_electrical_bill
-from methods import *
-from methods import *
+from benchmarking_tool.image_reckognition.bill_detection import *
+from benchmarking_tool.image_reckognition.bill_detection import detect_electrical_bill
+from benchmarking_tool.methods import *
+from benchmarking_tool.methods import *
 from difflib import get_close_matches
 import re
 load_dotenv()
-from forms import *
+from ..forms import *
 
-accounts = Blueprint('accounts',__name__,template_folder='templates')
+accounts = Blueprint('accounts',__name__,template_folder='templates', url_prefix='/accounts')
 
 bcrypt = Bcrypt()
 mail = Mail()
@@ -29,106 +30,35 @@ app_root = Path(__file__).parents[1]
 @accounts.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('commercial.usagedayline'))
+        return redirect(url_for('commercial.facilityoverview'))
     if request.method == "POST":
         email = request.form["email"]
         phone_number = request.form["phone_number"]
         password = request.form["password"]
         confirm_password = request.form["confirm_password"]
-        # location = request.form['location']
-        # gas_bill = request.files['gas_photo_bill']
-        electrical_bill = request.files['electrical_photo_bill']
-        # gas_address = request.form['gas_address']
-        electrical_address = request.form['electrical_address']
         form = RegistrationForm(
             email=email,
             phone_numer=phone_number,
             password=password,
             confirm_password=confirm_password,
-            # location = location,
-            # gas_bill = gas_address,
-            electrical_address = electrical_address
         )
         if form.validate_on_submit():
-            possible_addresses = []
-            possible_cities = []
-            # use text reckognition to pull text off bill initially and saving photos
-            # if gas_bill:
-            #     gas_picture = save_picture(gas_bill,"gas_folder")
-            #     gas_bill_reckognize = detectText(gas_bill)
-
-
-
-
-
-            if electrical_bill:
-                electrical_picture = save_picture(electrical_bill,"electrical_folder")
-                #first detect text on the bill itself
-                target = os.path.join(app_root, 'static/electrical_folder')
-                destination = '/'.join([target, electrical_picture])
-                electrical_bill_reckognize = detectText(destination)
-                #now find a company to apply the proper method
-                electrcial_company = detect_company(electrical_bill_reckognize)
-                #now that company is found, apply method to return values for detecting bill
-                #check if detection returns error, if so rename variable to specifify error found
-
-                if electrcial_company == 'error':
-                    flash('Your bill was not reckognized, please take another photo', 'danger')
-                #if no error, proceed
-
-
-                else:
-                    #find city via method in bill detection
-                    full_detection = detect_electrical_bill(electrcial_company,electrical_bill_reckognize)
-                    #find city via method in bill detection
-                    city_found = full_detection[3]
-                    city_query = City.query.all()
-                    for row in city_query:
-                        possible_cities = get_close_matches(city_found, [row.city], 1, 0.5) + possible_cities
-
-
-                    #use matching functions in methods to match approximate city on bill, it should have at least 80% match to succeed
-                    city_match = closeMatches(city_found,possible_cities)
-                    if len(city_match) == 0:
-                        flash('')
-                    #now that we have a city matched, find the address found and match that as well
-                    customer_city_query = db.session.query(Customer).filter(Customer.city == 'sedgewick').all()
-                    #using searching algorithm to find possible address and clossest address match
-                    for row in customer_city_query:
-                        # we are first finding relative close matches
-                        possible_addresses = get_close_matches(full_detection[1], [row.address], 1, 0.6) + possible_addresses
-                    #we then find absolute 90% match of the address, as we have already found the city, this will return absolute closest match
-                    print(full_detection[1])
-                    print(possible_addresses)
-                    address_found = get_close_matches(full_detection[1],possible_addresses,1,0.65)
-                    #we check to see if address was not found with a close match
-                    if len(address_found) == 0:
-                        flash('Your address was not found in our system', 'danger')
-                    else:
-                    # since difflib returns list, we need to take address out of the list
-
-                        address_found = address_found[0]
-
-                        electrical_address = address_found
-                customer = Customer.query.filter((Customer.address == electrical_address)).first()
-                role = Role.query.filter_by(name='User').first()
-                if (customer == None):
-                    flash('We found your address, but it was not in the database', 'danger')
-                else:
-                    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-                    user = User(
-                        email=form.email.data,
-                        phone_number=form.phone_number.data,
-                        password=hashed_password,
-                        role_id=role.id)
-                    electrical_usage = ElectricalUsage(consumption = float(full_detection[0][0]), cost = float(full_detection[2]),electrical_file = electrical_picture,customer=customer)
-
-                    user.customer = customer
-                    db.session.add(user)
-                    db.session.add(electrical_usage)
-                    db.session.commit()
-                    login_user(user)
-                    return redirect(url_for('main.overview'))
+                rows = User.query.count()
+                user_id = rows + 1
+                customer = Customer.query.filter_by(id = None).first()
+                role = Role.query.filter_by(name='Admin').first()
+                hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+                user = User(
+                    id = user_id,
+                    email=form.email.data,
+                    phone_number=form.phone_number.data,
+                    password=hashed_password,
+                    role_id=role.id)
+                user.customer = customer
+                db.session.add(user)
+                db.session.commit()
+                login_user(user)
+                return redirect(url_for('commercial.facilityoverview'))
     else:
         form = RegistrationForm(
             email="",
@@ -136,8 +66,6 @@ def register():
             last_name="",
             password="",
             confirm_password="",
-            # gas_bill = "",
-            electrical_bill = ""
         )
     return render_template('register.html', title='Register', form=form, last_updated=dir_last_updated())
 
@@ -146,7 +74,7 @@ def register():
 def login():
     print("in login")
     if current_user.is_authenticated:
-        return redirect(url_for('commercial.usagedayline'))
+        return redirect(url_for('main.overview'))
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
@@ -176,16 +104,17 @@ def login():
                 return redirect(url_for('accounts.login'))
     else:
         form = LoginForm(email="")
-    return redirect(url_for('accounts.commerciallogin'))	
     return render_template('login.html', title='Login', form=form,last_updated=dir_last_updated())
 
-@accounts.route('/', methods=['GET', 'POST'])
 @accounts.route('/commerciallogin', methods=['GET', 'POST'])
 def commerciallogin():
     hashed_password = bcrypt.generate_password_hash('password').decode('utf-8')
+    print(hashed_password)
     if current_user.is_authenticated:
-        return redirect(url_for('commercial.facilityoverview'))
+        return redirect(url_for('commercial.clients'))
+        print('authenticated')
     if request.method == "POST":
+        print('post')
         email = request.form["email"]
         password = request.form["password"]
         form = LoginForm(
@@ -193,9 +122,11 @@ def commerciallogin():
             password=password
         )
         if form.validate_on_submit():
+            print('valid')
             user = User.query.filter_by(email=email).first()
             role_user = user.role.name
             if user and bcrypt.check_password_hash(user.password, password):
+                print('matching credentials')
                 login_user(user)
                 next_page = request.args.get('next')
                 flash(f"Welcome {email}", 'success')
@@ -203,17 +134,17 @@ def commerciallogin():
                     customer = user.customer
                     survey = customer.survey
                 else:
-                    return redirect(url_for('commercial.facilityoverview'))
+                    print('redirect')
+                    return redirect(url_for('commercial.clients'))
             else:
+                print('notvalid')
                 flash(
                     f"Login Unsuccessful,Please check your email and Password!", 'danger')
                 return redirect(url_for('accounts.commerciallogin'))
     else:
+        print('restartform')
         form = LoginForm(email="")
     return render_template('commerciallogin.html', title='Login', form=form,last_updated=dir_last_updated())
-
-
-
 
 
 # route for the user to logout
