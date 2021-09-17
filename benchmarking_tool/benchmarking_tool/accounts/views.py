@@ -3,31 +3,29 @@ from pathlib import Path
 import secrets
 from flask import Blueprint,request,render_template,redirect,flash,url_for,current_app
 from flask_login import login_user, current_user, logout_user, login_required
-from ..forms import *
-from ..helper import *
+from forms import *
+from helper import *
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail, Message
-from benchmarking_tool import app
-from benchmarking_tool.methods import *
-from benchmarking_tool.decorators import *
+from methods import *
+from decorators import *
 from dotenv import load_dotenv
 from sqlalchemy import or_
-from benchmarking_tool.image_reckognition.bill_detection import *
-from benchmarking_tool.image_reckognition.bill_detection import detect_electrical_bill
-from benchmarking_tool.methods import *
-from benchmarking_tool.methods import *
+from image_reckognition.bill_detection import *
+from image_reckognition.bill_detection import detect_electrical_bill
+from methods import *
+from methods import *
 from difflib import get_close_matches
 import re
 load_dotenv()
-from ..forms import *
+from forms import *
 
-accounts = Blueprint('accounts',__name__,template_folder='templates', url_prefix='/accounts')
+accounts = Blueprint('accounts',__name__,template_folder='templates')
 
 bcrypt = Bcrypt()
 mail = Mail()
 app_root = Path(__file__).parents[1]
 
-@accounts.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('commercial.facilityoverview'))
@@ -74,7 +72,7 @@ def register():
 def login():
     print("in login")
     if current_user.is_authenticated:
-        return redirect(url_for('main.overview'))
+        return redirect(url_for('commercial.usagedayline'))
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
@@ -104,17 +102,16 @@ def login():
                 return redirect(url_for('accounts.login'))
     else:
         form = LoginForm(email="")
+    return redirect(url_for('accounts.commerciallogin'))	
     return render_template('login.html', title='Login', form=form,last_updated=dir_last_updated())
 
+@accounts.route('/', methods=['GET', 'POST'])
 @accounts.route('/commerciallogin', methods=['GET', 'POST'])
 def commerciallogin():
     hashed_password = bcrypt.generate_password_hash('password').decode('utf-8')
-    print(hashed_password)
     if current_user.is_authenticated:
-        return redirect(url_for('commercial.clients'))
-        print('authenticated')
+        return redirect(url_for('commercial.facilityoverview'))
     if request.method == "POST":
-        print('post')
         email = request.form["email"]
         password = request.form["password"]
         form = LoginForm(
@@ -122,11 +119,9 @@ def commerciallogin():
             password=password
         )
         if form.validate_on_submit():
-            print('valid')
             user = User.query.filter_by(email=email).first()
             role_user = user.role.name
             if user and bcrypt.check_password_hash(user.password, password):
-                print('matching credentials')
                 login_user(user)
                 next_page = request.args.get('next')
                 flash(f"Welcome {email}", 'success')
@@ -134,17 +129,17 @@ def commerciallogin():
                     customer = user.customer
                     survey = customer.survey
                 else:
-                    print('redirect')
-                    return redirect(url_for('commercial.clients'))
+                    return redirect(url_for('commercial.facilityoverview'))
             else:
-                print('notvalid')
                 flash(
                     f"Login Unsuccessful,Please check your email and Password!", 'danger')
                 return redirect(url_for('accounts.commerciallogin'))
     else:
-        print('restartform')
         form = LoginForm(email="")
     return render_template('commerciallogin.html', title='Login', form=form,last_updated=dir_last_updated())
+
+
+
 
 
 # route for the user to logout
@@ -259,5 +254,3 @@ def sw():
 @accounts.route('/offline.html', methods=['GET'])
 def offline():
     return render_template('offline.html', title='offline', last_updated=dir_last_updated())
-
-
