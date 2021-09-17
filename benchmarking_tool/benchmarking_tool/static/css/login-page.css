@@ -83,6 +83,7 @@
   width: auto;
 }
 
+
 .login-page .forgot-your-pas-reset-password-fmx5hU {
   background-color: transparent;
   color: transparent;
@@ -91,7 +92,7 @@
   font-style: normal;
   font-weight: 400;
   height: auto;
-  left: 512px;
+  left: 582px;
   letter-spacing: 0.36px;
   line-height: normal;
   position: absolute;
@@ -101,6 +102,10 @@
 }
 
 .login-page .span0-i7grhx {
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-style: normal;
+  font-weight: 700;
   font-style: normal;
   letter-spacing: 0.06px;
 }
