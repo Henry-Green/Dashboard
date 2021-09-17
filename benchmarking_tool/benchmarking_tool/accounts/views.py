@@ -26,6 +26,7 @@ bcrypt = Bcrypt()
 mail = Mail()
 app_root = Path(__file__).parents[1]
 
+@accounts.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('commercial.facilityoverview'))
