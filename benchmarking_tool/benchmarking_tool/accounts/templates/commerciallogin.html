@@ -16,8 +16,8 @@
         <div class="header-fmx5hU"><img class="pollen-2-B8pKgC" src="{{url_for('static',filename='img/pollen-2@2x.png')}}" /></div>
         <img class="sidebar-fmx5hU" src="{{url_for('static',filename='img/sidebar@1222x.svg')}}" />
         <div class="forgot-your-pas-reset-password-fmx5hU">
-          <span class="span0-i7grhx avertacy-regular-normal-mist-gray-18px">Forgot your password?</span
-          ><span class="span1-i7grhx">&nbsp;</span><span class="span2-i7grhx">Reset Password</span>
+          <a href = "{{url_for('accounts.register')}}"><span class="span0-i7grhx">Don't have an account? Sign up</span
+          ></a>
         </div>
         <div class=""></div>
         {{form.email(class="rectangle-3454-fmx5hU enter-your-email-fmx5hU avertacy-regular-normal-mist-gray-18px", id="inputEmail",placeholder="          Enter your email", type="email", style = "text-indent:40px;")}}
