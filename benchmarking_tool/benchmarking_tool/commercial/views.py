@@ -529,8 +529,53 @@ def facilityoverview():
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,total = total)
     else:
         abort(403)
-@commercial.route('/historicalusage', methods=['GET', 'POST'])
+        
+@commercial.route('/facilityoverviewbubble', methods=['GET', 'POST'])
+@login_required
+def facilityoverviewbubble():
+    if(current_user.is_authenticated and current_user.is_admin()):
+        # if(current_user.id == 1):
+        #     prine('1')
+        #     channel_name = ['main sherwood 1_1', 'main sherwood 1_2', 'main sherwood 1_3', 'Dryer', 'Dryer', 'washer', 'car wash GFI Receptacle', 'Exterior receptacle' , 'Tube Heaters', 'Carwash GFI Receptacle', 'exterior receptacle' , 'SAPRE to car wash', 'wash bay door and heat' , 'wash bay door and heat' , 'wash bay door and heat' , 'wash bay receptacle' , 'car wash exhaust fan', 'exterior receptacle' , 'wash bay receptacle' ]
+        #     serial_number = 'A2107A04B4AC67B2F76F18'
+        # else:
+        #     print('else')
+        #     channel_name = ['main sherwood 2_1', 'main sherwood 2_2', 'main sherwood 2_3', 'paint booth lights', 'paint booth air dryers', 'paint booth air dryers', 'counter receptacle', 'counter receptacle', 'microwave' , 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'water heater' , 'mezzanine receptacle' , 'water softener and DHW', 'lunch room lights']
+        #     serial_number = 'A2108A04B4AC67B2F6A400'
 
+        # #df_usage1 = get_seconds(2, channel_names1, serial_number1)
+        # serial_number = 'A2107A04B4B8F009A6CEC4'
+        # d = 5
+
+        # # new way of using the new data
+        # customer = Emporia_Customer(serial_number)
+
+        # customer.get_data(days= d)
+        # home_upgrades = customer.chan_min
+        # home_upgrades1 = customer.channel2.data_min
+        # home_upgrades3 = customer.channel4.data_min
+        # home_upgrades4 = customer.channel7.data_min
+        # home_upgrades5 = customer.channel8.data_min
+        # home_upgrades6 = customer.channel9.data_min
+        # df_usage = get_seconds(2, channel_name, serial_number)
+        # heating_usage = 40
+        # current_regress = 0
+        # light_usage = 20
+        # appliance_usage = 10
+        # ventilation_usage = 50
+        # dhw_usage = 30
+        # buildings = Building.query.filter_by(client_id = 1).all() 
+        # total = heating_usage + light_usage + appliance_usage + ventilation_usage + dhw_usage
+        # heating_percent = int(heating_usage / total * 100)
+        # light_percent = int(light_usage / total * 100)
+        # appliance_percent = int(appliance_usage / total * 100)
+        # ventilation_percent = int(ventilation_usage / total * 100)
+        # dhw_percent = int(dhw_usage / total * 100)
+        return render_template('facilityoverviewbubble.html')
+    else:
+        abort(403)
+        
+@commercial.route('/historicalusage', methods=['GET', 'POST'])
 def historicalusage():
     if(1 == 1):
         serial_number = 'A2107A04B4B8F009A6CEC4'
