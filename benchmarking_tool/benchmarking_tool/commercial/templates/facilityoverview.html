@@ -116,7 +116,7 @@
         <div class="x3-phase-VxPVnb avertacy-bold-sapphire-20px">3-Phase</div>
         <div class="type-q-VxPVnb avertacy-bold-sapphire-20px">Type-Q</div>
         <div class="shop-VxPVnb avertacy-bold-sapphire-20px">Shop</div>
-        <div class="x52-VxPVnb avertacy-bold-sapphire-20px">52</div>
+        <div class="x52-VxPVnb avertacy-bold-sapphire-20px">{{channellength}}</div>
     </div>
 <div id="Circuits" class="tabcontent">
         <div class = 'mySlides'>
@@ -135,43 +135,11 @@
         <div class="frame-1 screen">
         <div class="rectangle-3000-VxPVnb">
         <div class="rectangle-3001-VxPVnb"></div>
-        <div class="rectangle-3002-VxPVnb"></div>
-        <div class="rectangle-3003-VxPVnb"></div>
-        <div class="rectangle-3004-VxPVnb"></div>
-        <div class="rectangle-3005-VxPVnb"></div>
-        <div class="rectangle-3383-VxPVnb"></div>
-        <div class="rectangle-3384-VxPVnb"></div>
-        <div class="rectangle-3385-VxPVnb"></div>
-        <div class="rectangle-3386-VxPVnb"></div>
-        <div class="rectangle-3387-VxPVnb"></div>
-        <div class="rectangle-3388-VxPVnb"></div>
-        <div class="rectangle-3389-VxPVnb"></div>
-        <div class="rectangle-3390-VxPVnb"></div>
-        <div class="rectangle-3391-VxPVnb"></div>
-        <div class="rectangle-3392-VxPVnb"></div>
-        <div class="rectangle-3393-VxPVnb"></div>
-        <div class="rectangle-3394-VxPVnb"></div>
-        <div class="rectangle-3395-VxPVnb"></div>
-        <div class="rectangle-3396-VxPVnb"></div>
-        <div class="x1-shop-lighting-1-VxPVnb avertacy-bold-sapphire-12px">{{channel_name[1]}}</div>
-        <div class="x2-shop-lighting-2-VxPVnb avertacy-bold-sapphire-12px">{{channel_name[2]}}</div>
-        <div class="x3-shop-lighting-3-VxPVnb avertacy-bold-sapphire-12px">{{channel_name[3]}}</div>
-        <div class="x4-shop-lighting-4-VxPVnb avertacy-bold-sapphire-12px">{{channel_name[4]}}</div>
-        <div class="x5-shop-plugs-1-VxPVnb avertacy-bold-sapphire-12px">{{channel_name[5]}}</div>
-        <div class="x6-shop-plugs-2-VxPVnb avertacy-bold-sapphire-12px">{{channel_name[6]}}</div>
-        <div class="x7-overhead-door-1-VxPVnb avertacy-bold-sapphire-12px">{{channel_name[7]}}</div>
-        <div class="x8-overhead-door-2-VxPVnb avertacy-bold-sapphire-12px">{{channel_name[8]}}</div>
-        <div class="x9-exit-lighting-VxPVnb avertacy-bold-sapphire-12px">{{channel_name[9]}}</div>
-        <div class="x10-lunchroom-recepticles-VxPVnb avertacy-bold-sapphire-12px">{{channel_name[10]}}</div>
-        <div class="x11-hallways-recepticles-VxPVnb avertacy-bold-sapphire-12px">{{channel_name[11]}}</div>
-        <div class="x12-security-system-VxPVnb avertacy-bold-sapphire-12px">{{channel_name[12]}}</div>
-        <div class="x13-security-system-VxPVnb avertacy-bold-sapphire-12px">{{channel_name[13]}}</div>
-        <div class="x14-security-system-VxPVnb avertacy-bold-sapphire-12px">{{channel_name[14]}}</div>
-        <div class="x15-security-system-VxPVnb avertacy-bold-sapphire-12px">{{channel_name[15]}}</div>
-        <div class="x16-security-system-VxPVnb avertacy-bold-sapphire-12px">{{channel_name[16]}}</div>
-        <div class="x17-security-system-VxPVnb avertacy-bold-sapphire-12px">{{channel_name[17]}}</div>
-        <div class="x18-security-system-VxPVnb avertacy-bold-sapphire-12px">{{channel_name[18]}}</div>
-
+        {% for i in range(5, channellength) %}
+        <div class="rectangle-3002-VxPVnb">
+        <div class="x1-shop-lighting-1-VxPVnb avertacy-bold-sapphire-12px">{{channel_name[i]}}</div>
+        </div>
+        {% endfor %}
 
     </div>
       </div>
@@ -226,195 +194,107 @@
         </div>
         <div id="KWH" class="tabcontentss">
         <div class="rectangle-3164-l6cqYc"></div>
-        <div class="rectangle-3165-l6cqYc"></div>
-        <div class="rectangle-3166-l6cqYc"></div>
-        <div class="rectangle-3167-l6cqYc"></div>
-        <div class="rectangle-3168-l6cqYc"></div>
-        <div class="rectangle-3169-l6cqYc"></div>
-        <div class="rectangle-3170-l6cqYc"></div>
-        <div class="rectangle-3171-l6cqYc"></div>
-        <div class="rectangle-3172-l6cqYc"></div>
-        <div class="rectangle-3173-l6cqYc"></div>
-        <div class="rectangle-3174-l6cqYc"></div>
-        <div class="rectangle-3175-l6cqYc"></div>
-        <div class="rectangle-3176-l6cqYc"></div>
-        <div class="rectangle-3177-l6cqYc"></div>
-        <div class="rectangle-3178-l6cqYc"></div>
-        <div class="rectangle-3179-l6cqYc"></div>
-        <div class="rectangle-3180-l6cqYc"></div>
-        <div class="rectangle-3181-l6cqYc"></div>
-        <div class="rectangle-3182-l6cqYc"></div>
-        <div class="rectangle-3183-l6cqYc"></div>
-        <div class="lunchroom-lights-l6cqYc avertacy-bold-apple-11px">{{channel_name[0]}}</div>
-        <div class="water-softner-dhw-l6cqYc avertacy-bold-apple-11px">{{channel_name[1]}}</div>
-        <div class="office-1-lighting-l6cqYc avertacy-bold-apple-11px">{{channel_name[2]}}</div>
-        <div class="office-2-lighting-l6cqYc avertacy-bold-apple-11px">{{channel_name[3]}}</div>
-        <div class="smoke-detectors-l6cqYc avertacy-bold-apple-11px">{{channel_name[4]}}</div>
-        <div class="exit-lights-l6cqYc avertacy-bold-apple-11px">{{channel_name[5]}}</div>
-        <div class="exit-lights-Al4pJ9 avertacy-bold-apple-11px">{{channel_name[6]}}</div>
-        <div class="furnace-l6cqYc avertacy-bold-apple-11px">{{channel_name[7]}}</div>
-        <div class="exit-emer-lights-l6cqYc avertacy-bold-apple-11px">{{channel_name[8]}}</div>
-        <div class="hallway-1-lighting-l6cqYc avertacy-bold-apple-11px">{{channel_name[9]}}</div>
-        <div class="halway-2-l\ighting-l6cqYc avertacy-bold-stack-11px">{{channel_name[10]}}</div>
-        <div class="office-2-plugs-l6cqYc avertacy-bold-stack-11px">{{channel_name[11]}}</div>
-        <div class="washroom-dryer-l6cqYc avertacy-bold-stack-11px">{{channel_name[12]}}</div>
-        <div class="baydoors-1-l6cqYc avertacy-bold-stack-11px">{{channel_name[13]}}</div>
-        <div class="baydoors-2-l6cqYc avertacy-bold-stack-11px">{{channel_name[14]}}</div>
-        <div class="hallway-plugs-l6cqYc avertacy-bold-stack-11px">{{channel_name[15]}}</div>
-        <div class="rtu-2-l6cqYc avertacy-bold-stack-11px">{{channel_name[16]}}</div>
-        <div class="air-compressor-l6cqYc avertacy-bold-stack-11px">{{channel_name[17]}}</div>
-        <div class="rtu-1-l6cqYc avertacy-bold-stack-11px">{{channel_name[18]}}</div>
-        <div class="x233hr-l6cqYc avertacy-bold-apple-11px" id = 'watts'></div>
-        <div class="x056hr-l6cqYc avertacy-bold-apple-11px" id = 'watts2'></div>
-        <div class="x122hr-l6cqYc avertacy-bold-apple-11px" id = 'watts3'></div>
-        <div class="x078hr-l6cqYc avertacy-bold-apple-11px" id = 'watts4'></div>
-        <div class="x112hr-l6cqYc avertacy-bold-apple-11px" id = 'watts5'></div>
-        <div class="x023hr-l6cqYc avertacy-bold-apple-11px" id = 'watts6'></div>
-        <div class="x012hr-l6cqYc avertacy-bold-apple-11px" id = 'watts7'></div>
-        <div class="x009hr-l6cqYc avertacy-bold-apple-11px" id = 'watts8'></div>
-        <div class="x086hr-l6cqYc avertacy-bold-apple-11px" id = 'watts9'></div>
-        <div class="x043hr-l6cqYc avertacy-bold-apple-11px" id = 'watts10'></div>
-        <div class="x000hr-l6cqYc avertacy-bold-stack-11px">&nbsp&nbsp0/watts</div>
-        <div class="x000hr-Al4pJ9 avertacy-bold-stack-11px">&nbsp&nbsp0/watts</div>
-        <div class="x000hr-WzB72u avertacy-bold-stack-11px">&nbsp&nbsp0/watts</div>
-        <div class="x000hr-ZNcuTa avertacy-bold-stack-11px">&nbsp&nbsp0/watts</div>
-        <div class="x000hr-yZxHJX avertacy-bold-stack-11px">&nbsp&nbsp0/watts</div>
-        <div class="x000hr-p0oEHK avertacy-bold-stack-11px">&nbsp&nbsp0/watts</div>
-        <div class="x000hr-TTKXmQ avertacy-bold-stack-11px">&nbsp&nbsp0/watts</div>
-        <div class="x000hr-HxJNWt avertacy-bold-stack-11px">&nbsp&nbsp0/watts</div>
-        <div class="x000hr-W3rFHg avertacy-bold-stack-11px">&nbsp&nbsp0/watts</div> 
-        <div class="x0-l6cqYc avertacy-bold-stack-11px">0%</div>
-        <div class="x0-Al4pJ9 avertacy-bold-stack-11px">0%</div>
-        <div class="x0-WzB72u avertacy-bold-stack-11px">0%</div>
-        <div class="x0-ZNcuTa avertacy-bold-stack-11px">0%</div>
-        <div class="x0-yZxHJX avertacy-bold-stack-11px">0%</div>
-        <div class="x0-p0oEHK avertacy-bold-stack-11px">0%</div>
-        <div class="x0-TTKXmQ avertacy-bold-stack-11px">0%</div>
-        <div class="x0-HxJNWt avertacy-bold-stack-11px">0%</div>
-        <div class="x0-W3rFHg avertacy-bold-stack-11px">0%</div>
-        <div class="rectangle-3184-l6cqYc" id = 'wattsbar'><div id = 'wattspercentage' class="x21-Al4pJ9 avertacy-bold-apple-11px"></div></div>
-        <div class="rectangle-3185-l6cqYc" id = 'wattsbar2'><div id = 'wattspercentage2' class="x31-l6cqYc avertacy-bold-apple-11px"></div></div>
-        <div class="rectangle-3186-l6cqYc" id = 'wattsbar3'><div id = 'wattspercentage3' class="x678-l6cqYc avertacy-bold-apple-11px"></div></div>
-        <div class="rectangle-3187-l6cqYc" id = 'wattsbar4'><div id = 'wattspercentage4' class="x27-l6cqYc avertacy-bold-apple-11px"></div></div>
-        <div class="rectangle-3188-l6cqYc" id = 'wattsbar5'><div id = 'wattspercentage5' class="x374-l6cqYc avertacy-bold-apple-11px"></div></div>
-        <div class="rectangle-3189-l6cqYc" id = 'wattsbar6'><div id = 'wattspercentage6' class="x06-l6cqYc avertacy-bold-apple-11px"></div></div>
-        <div class="rectangle-3190-l6cqYc" id = 'wattsbar7'><div id = 'wattspercentage7' class="x04-l6cqYc avertacy-bold-apple-11px"></div></div>
-        <div class="rectangle-3191-l6cqYc" id = 'wattsbar8'><div id = 'wattspercentage8' class="x278-l6cqYc avertacy-bold-apple-11px"></div></div>
-        <div class="rectangle-3192-l6cqYc" id = 'wattsbar9'><div id = 'wattspercentage9' class="x098-l6cqYc avertacy-bold-apple-11px"></div></div>
-        <div class="rectangle-3193-l6cqYc" id = 'wattsbar10'><div id = 'wattspercentage10' class="x923-l6cqYc avertacy-bold-apple-11px"></div></div>
-        <div class="rectangle-3194-l6cqYc"></div>
-        <div class="rectangle-3195-l6cqYc"></div>
-        <div class="rectangle-3196-l6cqYc"></div>
-        <div class="rectangle-3197-l6cqYc"></div>
-        <div class="rectangle-3198-l6cqYc"></div>
-        <div class="rectangle-3199-l6cqYc"></div>
-        <div class="rectangle-3200-l6cqYc"></div>
-        <div class="rectangle-3201-l6cqYc"></div>
-        <div class="rectangle-3202-l6cqYc"></div>
-        <div class="rectangle-3203-l6cqYc"></div>
+        {% set channelnum = namespace(value=5) %}
+        {% for j in range(0, lasts) %}
+        {% for i in range(5, len) %}
+        <div class="rectangle-3165-l6cqYc">
+        <div class="lunchroom-lights-l6cqYc avertacy-bold-apple-11px">{{channel_name[channelnum.value]}}w</div>
+        <div class="x233hr-l6cqYc avertacy-bold-apple-11px">{{"%.2f"|format(home_upgrades.iloc[last[j]][columns[i]]|float)}}</div>
+        <div class="rectangle-3184-l6cqYc" style = 'width: {{250 * (home_upgrades.iloc[last[j]][columns[i]]/total) + 5}}px;'><div class="x21-Al4pJ9 avertacy-bold-apple-11px" style = 'left: {{250 * (home_upgrades.iloc[last[j]][columns[i]]/total) + 5}}px;'>{{"%.2f"|format(((home_upgrades.iloc[last[j]][columns[i]]/ total) * 100)|float)}}%</div></div></div>
+        {% set channelnum.value = channelnum.value + 1 %}
+        {% endfor %}
+        {% endfor %}
+
+        <div class="rectangle-3203-l6cqYc" style = "top: {{4 * channelnum.value}}px;">
         <div class="total-l6cqYc">Total</div>
         <div class="rectangle-3204-l6cqYc"></div>
         <div class="x100-Al4pJ9">100%</div>
-        <div class="x674hr-l6cqYc" id = 'wattstotal'></div>
+        <div class="x674hr-l6cqYc">{{"%.2f"|format(total|float)}}</div></div>
+
     </div>
         <div id="$" class="tabcontentss">
         <div class="rectangle-3164-l6cqYc"></div>
-        <div class="rectangle-3165-l6cqYc"></div>
-        <div class="rectangle-3166-l6cqYc"></div>
-        <div class="rectangle-3167-l6cqYc"></div>
-        <div class="rectangle-3168-l6cqYc"></div>
-        <div class="rectangle-3169-l6cqYc"></div>
-        <div class="rectangle-3170-l6cqYc"></div>
-        <div class="rectangle-3171-l6cqYc"></div>
-        <div class="rectangle-3172-l6cqYc"></div>
-        <div class="rectangle-3173-l6cqYc"></div>
-        <div class="rectangle-3174-l6cqYc"></div>
-        <div class="rectangle-3175-l6cqYc"></div>
-        <div class="rectangle-3176-l6cqYc"></div>
-        <div class="rectangle-3177-l6cqYc"></div>
-        <div class="rectangle-3178-l6cqYc"></div>
-        <div class="rectangle-3179-l6cqYc"></div>
-        <div class="rectangle-3180-l6cqYc"></div>
-        <div class="rectangle-3181-l6cqYc"></div>
-        <div class="rectangle-3182-l6cqYc"></div>
-        <div class="rectangle-3183-l6cqYc"></div>
-        <div class="lunchroom-lights-l6cqYc avertacy-bold-apple-11px">{{channel_name[0]}}</div>
-        <div class="water-softner-dhw-l6cqYc avertacy-bold-apple-11px">{{channel_name[1]}}</div>
-        <div class="office-1-lighting-l6cqYc avertacy-bold-apple-11px">{{channel_name[2]}}</div>
-        <div class="office-2-lighting-l6cqYc avertacy-bold-apple-11px">{{channel_name[3]}}</div>
-        <div class="smoke-detectors-l6cqYc avertacy-bold-apple-11px">{{channel_name[4]}}</div>
-        <div class="exit-lights-l6cqYc avertacy-bold-apple-11px">{{channel_name[5]}}</div>
-        <div class="exit-lights-Al4pJ9 avertacy-bold-apple-11px">{{channel_name[6]}}</div>
-        <div class="furnace-l6cqYc avertacy-bold-apple-11px">{{channel_name[7]}}</div>
-        <div class="exit-emer-lights-l6cqYc avertacy-bold-apple-11px">{{channel_name[8]}}</div>
-        <div class="hallway-1-lighting-l6cqYc avertacy-bold-apple-11px">{{channel_name[9]}}</div>
-        <div class="halway-2-l\ighting-l6cqYc avertacy-bold-stack-11px">{{channel_name[10]}}</div>
-        <div class="office-2-plugs-l6cqYc avertacy-bold-stack-11px">{{channel_name[11]}}</div>
-        <div class="washroom-dryer-l6cqYc avertacy-bold-stack-11px">{{channel_name[12]}}</div>
-        <div class="baydoors-1-l6cqYc avertacy-bold-stack-11px">{{channel_name[13]}}</div>
-        <div class="baydoors-2-l6cqYc avertacy-bold-stack-11px">{{channel_name[14]}}</div>
-        <div class="hallway-plugs-l6cqYc avertacy-bold-stack-11px">{{channel_name[15]}}</div>
-        <div class="rtu-2-l6cqYc avertacy-bold-stack-11px">{{channel_name[16]}}</div>
-        <div class="air-compressor-l6cqYc avertacy-bold-stack-11px">{{channel_name[17]}}</div>
-        <div class="rtu-1-l6cqYc avertacy-bold-stack-11px">{{channel_name[18]}}</div>
-        <div class="x233hr-l6cqYc avertacy-bold-apple-11px" id = 'demo'></div>
-        <div class="x056hr-l6cqYc avertacy-bold-apple-11px" id = 'demo2'></div>
-        <div class="x122hr-l6cqYc avertacy-bold-apple-11px" id = 'demo3'></div>
-        <div class="x078hr-l6cqYc avertacy-bold-apple-11px" id = 'demo4'></div>
-        <div class="x112hr-l6cqYc avertacy-bold-apple-11px" id = 'demo5'></div>
-        <div class="x023hr-l6cqYc avertacy-bold-apple-11px" id = 'demo6'></div>
-        <div class="x012hr-l6cqYc avertacy-bold-apple-11px" id = 'demo7'></div>
-        <div class="x009hr-l6cqYc avertacy-bold-apple-11px" id = 'demo8'></div>
-        <div class="x086hr-l6cqYc avertacy-bold-apple-11px" id = 'demo9'></div>
-        <div class="x043hr-l6cqYc avertacy-bold-apple-11px" id = 'demo10'></div>
-        <div class="x000hr-l6cqYc avertacy-bold-stack-11px">$0.00/hr</div>
-        <div class="x000hr-Al4pJ9 avertacy-bold-stack-11px">$0.00/hr</div>
-        <div class="x000hr-WzB72u avertacy-bold-stack-11px">$0.00/hr</div>
-        <div class="x000hr-ZNcuTa avertacy-bold-stack-11px">$0.00/hr</div>
-        <div class="x000hr-yZxHJX avertacy-bold-stack-11px">$0.00/hr</div>
-        <div class="x000hr-p0oEHK avertacy-bold-stack-11px">$0.00/hr</div>
-        <div class="x000hr-TTKXmQ avertacy-bold-stack-11px">$0.00/hr</div>
-        <div class="x000hr-HxJNWt avertacy-bold-stack-11px">$0.00/hr</div>
-        <div class="x000hr-W3rFHg avertacy-bold-stack-11px">$0.00/hr</div> 
-        <div class="x0-l6cqYc avertacy-bold-stack-11px">0%</div>
-        <div class="x0-Al4pJ9 avertacy-bold-stack-11px">0%</div>
-        <div class="x0-WzB72u avertacy-bold-stack-11px">0%</div>
-        <div class="x0-ZNcuTa avertacy-bold-stack-11px">0%</div>
-        <div class="x0-yZxHJX avertacy-bold-stack-11px">0%</div>
-        <div class="x0-p0oEHK avertacy-bold-stack-11px">0%</div>
-        <div class="x0-TTKXmQ avertacy-bold-stack-11px">0%</div>
-        <div class="x0-HxJNWt avertacy-bold-stack-11px">0%</div>
-        <div class="x0-W3rFHg avertacy-bold-stack-11px">0%</div>
-        <div class="rectangle-3184-l6cqYc" id = 'bar'><div id = 'percentage' class="x21-Al4pJ9 avertacy-bold-apple-11px"></div></div>
-        <div class="rectangle-3185-l6cqYc" id = 'bar2'><div id = 'percentage2' class="x31-l6cqYc avertacy-bold-apple-11px"></div></div>
-        <div class="rectangle-3186-l6cqYc" id = 'bar3'><div id = 'percentage3' class="x678-l6cqYc avertacy-bold-apple-11px"></div></div>
-        <div class="rectangle-3187-l6cqYc" id = 'bar4'><div id = 'percentage4' class="x27-l6cqYc avertacy-bold-apple-11px"></div></div>
-        <div class="rectangle-3188-l6cqYc" id = 'bar5'><div id = 'percentage5' class="x374-l6cqYc avertacy-bold-apple-11px"></div></div>
-        <div class="rectangle-3189-l6cqYc" id = 'bar6'><div id = 'percentage6' class="x06-l6cqYc avertacy-bold-apple-11px"></div></div>
-        <div class="rectangle-3190-l6cqYc" id = 'bar7'><div id = 'percentage7' class="x04-l6cqYc avertacy-bold-apple-11px"></div></div>
-        <div class="rectangle-3191-l6cqYc" id = 'bar8'><div id = 'percentage8' class="x278-l6cqYc avertacy-bold-apple-11px"></div></div>
-        <div class="rectangle-3192-l6cqYc" id = 'bar9'><div id = 'percentage9' class="x098-l6cqYc avertacy-bold-apple-11px"></div></div>
-        <div class="rectangle-3193-l6cqYc" id = 'bar10'><div id = 'percentage10' class="x923-l6cqYc avertacy-bold-apple-11px"></div></div>
-        <div class="rectangle-3194-l6cqYc"></div>
-        <div class="rectangle-3195-l6cqYc"></div>
-        <div class="rectangle-3196-l6cqYc"></div>
-        <div class="rectangle-3197-l6cqYc"></div>
-        <div class="rectangle-3198-l6cqYc"></div>
-        <div class="rectangle-3199-l6cqYc"></div>
-        <div class="rectangle-3200-l6cqYc"></div>
-        <div class="rectangle-3201-l6cqYc"></div>
-        <div class="rectangle-3202-l6cqYc"></div>
-        <div class="rectangle-3203-l6cqYc"></div>
+        {% set channelnum = namespace(value=5) %}
+        {% for i in range(0, pricelength) %}
+        <div class="rectangle-3165-l6cqYc">
+        <div class="lunchroom-lights-l6cqYc avertacy-bold-apple-11px">{{channel_name[channelnum.value]}}</div>
+        <div class="x233hr-l6cqYc avertacy-bold-apple-11px">{{"$%.2f"|format(price.iloc[i][2]|float)}}/hr</div>
+        <div class="rectangle-3184-l6cqYc" style = 'width: {{250 * (price.iloc[i][2]/totalprice) + 5}}px;'>
+        <div class="x21-Al4pJ9 avertacy-bold-apple-11px" style = 'left: {{250 * (price.iloc[i][2]/totalprice) + 5}}px;'>{{"%.2f"|format(((price.iloc[i][2]/ totalprice) * 100)|float)}}%</div></div></div>
+        {% set channelnum.value = channelnum.value + 1 %}
+        {% endfor %}
+
+
+        <div class="rectangle-3203-l6cqYc">
         <div class="total-l6cqYc">Total</div>
         <div class="rectangle-3204-l6cqYc"></div>
         <div class="x100-Al4pJ9">100%</div>
-        <div class="x674hr-l6cqYc" id = 'total'></div>
+        <div class="x674hr-l6cqYc">{{"$%.2f"|format(totalprice|float)}}</div></div>
     </div>
         </div>
         </div>
       </div>
     </div>
   </body>
+  <script>
+    var options = {
+                              labels: ["Lighting", "Electrical", "DHW", "Mechanical"],
+                              series: [100,0,0,0 ],
+                              chart: {
+                              width: 200,
+                              type: 'donut',
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            legend: {
+                                position: 'bottom',
+                                show:false
+                            },
+
+                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
+
+                            responsive: [{
+                              breakpoint: 480,
+                              options: {
+                                chart: {
+                                  width: 300
+                                },
+                              }
+                            }]
+                            };
+                            var chart1 = new ApexCharts(document.querySelector("#chart"), options);
+                            chart1.render();
+                            var options = {
+                              labels: ["Lighting", "Electrical", "DHW", "Mechanical"],
+                              series: [0,100,0,0],
+                              chart: {
+                              width: 200,
+                              type: 'donut',
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            legend: {
+                                position: 'bottom',
+                                show:false
+                            },
+
+                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
+
+                            responsive: [{
+                              breakpoint: 480,
+                              options: {
+                                chart: {
+                                  width: 300
+                                },
+                              }
+                            }]
+                            };
+                            var chart2 = new ApexCharts(document.querySelector("#chart2"), options);
+                            chart2.render();
+
+  </script>
   <script>
     function openNav(panel) {
   document.getElementById("sidebar").style.width = "600px";
@@ -498,211 +378,155 @@ function showSlides(n) {
   slides[slideIndex-1].style.display = "block";
   dots[slideIndex-1].className += " active";
 }
-  function random() {
-  setInterval(function(){
+  // function random() {
+  // setInterval(function(){
   
-  let demo = (Math.random() * (4 - 2) + 2).toFixed(2);
-  document.getElementById("demo").innerHTML = '$' + demo + '/hr';
-  let demo2 = (Math.random() * (1 - 0) + 0).toFixed(2);
-  document.getElementById("demo2").innerHTML = '$' + demo2 + '/hr';
-  var demo3 = (Math.random() * (2 - 1) + 1).toFixed(2);
-  document.getElementById("demo3").innerHTML = '$' + demo3 + '/hr';
-  var demo4 = (Math.random() * (4 - 2) + 2).toFixed(2);
-  document.getElementById("demo4").innerHTML = '$' + demo4 + '/hr';
-  var demo5 = (Math.random() * (1 - 0) + 0).toFixed(2);
-  document.getElementById("demo5").innerHTML = '$' + demo5 + '/hr';
-  var demo6 = (Math.random() * (2 - 0) + 0).toFixed(2);
-  document.getElementById("demo6").innerHTML = '$' + demo6 + '/hr';
-  var demo7 = (Math.random() * (1 - 0) + 0).toFixed(2);
-  document.getElementById("demo7").innerHTML = '$' + demo7 + '/hr';
-  var demo8 = (Math.random() * (1 - 0) + 0).toFixed(2);
-  document.getElementById("demo8").innerHTML = '$' + demo8 + '/hr';
-  var demo9 = (Math.random() * (1 - 0) + 0).toFixed(2);
-  document.getElementById("demo9").innerHTML = '$' + demo9 + '/hr';
-  var demo10 = (Math.random() * (1 - 0) + 0).toFixed(2);
-  document.getElementById("demo10").innerHTML = '$' + demo10 + '/hr';
+  // let demo = (Math.random() * (4 - 2) + 2).toFixed(2);
+  // document.getElementById("demo").innerHTML = '$' + demo + '/hr';
+  // let demo2 = (Math.random() * (1 - 0) + 0).toFixed(2);
+  // document.getElementById("demo2").innerHTML = '$' + demo2 + '/hr';
+  // var demo3 = (Math.random() * (2 - 1) + 1).toFixed(2);
+  // document.getElementById("demo3").innerHTML = '$' + demo3 + '/hr';
+  // var demo4 = (Math.random() * (4 - 2) + 2).toFixed(2);
+  // document.getElementById("demo4").innerHTML = '$' + demo4 + '/hr';
+  // var demo5 = (Math.random() * (1 - 0) + 0).toFixed(2);
+  // document.getElementById("demo5").innerHTML = '$' + demo5 + '/hr';
+  // var demo6 = (Math.random() * (2 - 0) + 0).toFixed(2);
+  // document.getElementById("demo6").innerHTML = '$' + demo6 + '/hr';
+  // var demo7 = (Math.random() * (1 - 0) + 0).toFixed(2);
+  // document.getElementById("demo7").innerHTML = '$' + demo7 + '/hr';
+  // var demo8 = (Math.random() * (1 - 0) + 0).toFixed(2);
+  // document.getElementById("demo8").innerHTML = '$' + demo8 + '/hr';
+  // var demo9 = (Math.random() * (1 - 0) + 0).toFixed(2);
+  // document.getElementById("demo9").innerHTML = '$' + demo9 + '/hr';
+  // var demo10 = (Math.random() * (1 - 0) + 0).toFixed(2);
+  // document.getElementById("demo10").innerHTML = '$' + demo10 + '/hr';
 
-  let total = parseFloat(demo) + parseFloat(demo2) + parseFloat(demo3) + parseFloat(demo4) + parseFloat(demo5) + parseFloat(demo6) + parseFloat(demo7) + parseFloat(demo8) + parseFloat(demo9) + parseFloat(demo10);
-  let percentage = document.getElementById("percentage").innerHTML = ((parseFloat(demo)/ total) * 100).toFixed(0) + "%";
-  let percentage2 = document.getElementById("percentage2").innerHTML = ((parseFloat(demo2)/ total) * 100).toFixed(0) + "%";
-  let percentage3 = document.getElementById("percentage3").innerHTML = ((parseFloat(demo3)/ total) * 100).toFixed(0) + "%";
-  let percentage4 = document.getElementById("percentage4").innerHTML = ((parseFloat(demo4)/ total) * 100).toFixed(0) + "%";
-  let percentage5 = document.getElementById("percentage5").innerHTML = ((parseFloat(demo5)/ total) * 100).toFixed(0) + "%";
-  let percentage6 = document.getElementById("percentage6").innerHTML = ((parseFloat(demo6)/ total) * 100).toFixed(0) + "%";
-  let percentage7 = document.getElementById("percentage7").innerHTML = ((parseFloat(demo7)/ total) * 100).toFixed(0) + "%";
-  let percentage8 = document.getElementById("percentage8").innerHTML = ((parseFloat(demo8)/ total) * 100).toFixed(0) + "%";
-  let percentage9 = document.getElementById("percentage9").innerHTML = ((parseFloat(demo9)/ total) * 100).toFixed(0) + "%";
-  let percentage10 = document.getElementById("percentage10").innerHTML = ((parseFloat(demo10)/ total) * 100).toFixed(0) + "%";
-  document.getElementById("total").innerHTML = '$' + total.toFixed(2) + '/hr';
-  let width = 250 * ((parseFloat(demo)/ total));
-  let width2 = 250 * ((parseFloat(demo2)/ total));
-  let width3 = 250 * ((parseFloat(demo3)/ total));
-  let width4 = 250 * ((parseFloat(demo4)/ total));
-  let width5 = 250 * ((parseFloat(demo5)/ total));
-  let width6 = 250 * ((parseFloat(demo6)/ total));
-  let width7 = 250 * ((parseFloat(demo7)/ total));
-  let width8 = 250 * ((parseFloat(demo8)/ total));
-  let width9 = 250 * ((parseFloat(demo9)/ total));
-  let width10 = 250 * ((parseFloat(demo10)/ total));
-  document.getElementById("bar").style.width = width + "px";
-  document.getElementById("bar2").style.width = width2 + "px";
-  document.getElementById("bar3").style.width = width3 + "px";
-  document.getElementById("bar4").style.width = width4 + "px";
-  document.getElementById("bar5").style.width = width5 + "px";
-  document.getElementById("bar6").style.width = width6 + "px";
-  document.getElementById("bar7").style.width = width7 + "px";
-  document.getElementById("bar8").style.width = width8 + "px";
-  document.getElementById("bar9").style.width = width9 + "px";
-  document.getElementById("bar10").style.width = width10 + "px";
-  document.getElementById("percentage").style.left = width + 5 + "px";
-  document.getElementById("percentage2").style.left = width2 + 5 + "px";
-  document.getElementById("percentage3").style.left = width3 + 5 + "px";
-  document.getElementById("percentage4").style.left = width4 + 5 + "px";
-  document.getElementById("percentage5").style.left = width5 + 5 + "px";
-  document.getElementById("percentage6").style.left = width6 + 5 + "px";
-  document.getElementById("percentage7").style.left = width7 + 5 + "px";
-  document.getElementById("percentage8").style.left = width8 + 5 + "px";
-  document.getElementById("percentage9").style.left = width9 + 5 + "px";
-  document.getElementById("percentage10").style.left = width10 + 5 + "px";
+  // let total = parseFloat(demo) + parseFloat(demo2) + parseFloat(demo3) + parseFloat(demo4) + parseFloat(demo5) + parseFloat(demo6) + parseFloat(demo7) + parseFloat(demo8) + parseFloat(demo9) + parseFloat(demo10);
+  // let percentage = document.getElementById("percentage").innerHTML = ((parseFloat(demo)/ total) * 100).toFixed(0) + "%";
+  // let percentage2 = document.getElementById("percentage2").innerHTML = ((parseFloat(demo2)/ total) * 100).toFixed(0) + "%";
+  // let percentage3 = document.getElementById("percentage3").innerHTML = ((parseFloat(demo3)/ total) * 100).toFixed(0) + "%";
+  // let percentage4 = document.getElementById("percentage4").innerHTML = ((parseFloat(demo4)/ total) * 100).toFixed(0) + "%";
+  // let percentage5 = document.getElementById("percentage5").innerHTML = ((parseFloat(demo5)/ total) * 100).toFixed(0) + "%";
+  // let percentage6 = document.getElementById("percentage6").innerHTML = ((parseFloat(demo6)/ total) * 100).toFixed(0) + "%";
+  // let percentage7 = document.getElementById("percentage7").innerHTML = ((parseFloat(demo7)/ total) * 100).toFixed(0) + "%";
+  // let percentage8 = document.getElementById("percentage8").innerHTML = ((parseFloat(demo8)/ total) * 100).toFixed(0) + "%";
+  // let percentage9 = document.getElementById("percentage9").innerHTML = ((parseFloat(demo9)/ total) * 100).toFixed(0) + "%";
+  // let percentage10 = document.getElementById("percentage10").innerHTML = ((parseFloat(demo10)/ total) * 100).toFixed(0) + "%";
+  // document.getElementById("total").innerHTML = '$' + total.toFixed(2) + '/hr';
+  // let width = 250 * ((parseFloat(demo)/ total));
+  // let width2 = 250 * ((parseFloat(demo2)/ total));
+  // let width3 = 250 * ((parseFloat(demo3)/ total));
+  // let width4 = 250 * ((parseFloat(demo4)/ total));
+  // let width5 = 250 * ((parseFloat(demo5)/ total));
+  // let width6 = 250 * ((parseFloat(demo6)/ total));
+  // let width7 = 250 * ((parseFloat(demo7)/ total));
+  // let width8 = 250 * ((parseFloat(demo8)/ total));
+  // let width9 = 250 * ((parseFloat(demo9)/ total));
+  // let width10 = 250 * ((parseFloat(demo10)/ total));
+  // document.getElementById("bar").style.width = width + "px";
+  // document.getElementById("bar2").style.width = width2 + "px";
+  // document.getElementById("bar3").style.width = width3 + "px";
+  // document.getElementById("bar4").style.width = width4 + "px";
+  // document.getElementById("bar5").style.width = width5 + "px";
+  // document.getElementById("bar6").style.width = width6 + "px";
+  // document.getElementById("bar7").style.width = width7 + "px";
+  // document.getElementById("bar8").style.width = width8 + "px";
+  // document.getElementById("bar9").style.width = width9 + "px";
+  // document.getElementById("bar10").style.width = width10 + "px";
+  // document.getElementById("percentage").style.left = width + 5 + "px";
+  // document.getElementById("percentage2").style.left = width2 + 5 + "px";
+  // document.getElementById("percentage3").style.left = width3 + 5 + "px";
+  // document.getElementById("percentage4").style.left = width4 + 5 + "px";
+  // document.getElementById("percentage5").style.left = width5 + 5 + "px";
+  // document.getElementById("percentage6").style.left = width6 + 5 + "px";
+  // document.getElementById("percentage7").style.left = width7 + 5 + "px";
+  // document.getElementById("percentage8").style.left = width8 + 5 + "px";
+  // document.getElementById("percentage9").style.left = width9 + 5 + "px";
+  // document.getElementById("percentage10").style.left = width10 + 5 + "px";
 
-    let watts = (Math.random() * (360 - 340) + 340).toFixed(0);
-  document.getElementById("watts").innerHTML = watts + '/watts';
-  let watts2 = (Math.random() * (80 - 70) + 70).toFixed(0);
-  document.getElementById("watts2").innerHTML = watts2 + '/watts';
-  var watts3 = (Math.random() * (240 - 230) + 230).toFixed(0);
-  document.getElementById("watts3").innerHTML = watts3 + '/watts';
-  var watts4 = (Math.random() * (60 - 50) + 60).toFixed(0);
-  document.getElementById("watts4").innerHTML = watts4 + '/watts';
-  var watts5 = (Math.random() * (90 - 80) + 80).toFixed(0);
-  document.getElementById("watts5").innerHTML = watts5 + '/watts';
-  var watts6 = (Math.random() * (15 - 10) + 10).toFixed(0);
-  document.getElementById("watts6").innerHTML = watts6 + '/watts';
-  var watts7 = (Math.random() * (15 - 10) + 10).toFixed(0);
-  document.getElementById("watts7").innerHTML = watts7 + '/watts';
-  var watts8 = (Math.random() * (30 - 20) + 20).toFixed(0);
-  document.getElementById("watts8").innerHTML = watts8 + '/watts';
-  var watts9 = (Math.random() * (40 - 30) + 30).toFixed(0);
-  document.getElementById("watts9").innerHTML = watts9 + '/watts';
-  var watts10 = (Math.random() * (160 - 150) + 150).toFixed(0);
-  document.getElementById("watts10").innerHTML = watts10 + '/watts';
+  //   let watts = (Math.random() * (360 - 340) + 340).toFixed(0);
+  // document.getElementById("watts").innerHTML = watts + '/watts';
+  // let watts2 = (Math.random() * (80 - 70) + 70).toFixed(0);
+  // document.getElementById("watts2").innerHTML = watts2 + '/watts';
+  // var watts3 = (Math.random() * (240 - 230) + 230).toFixed(0);
+  // document.getElementById("watts3").innerHTML = watts3 + '/watts';
+  // var watts4 = (Math.random() * (60 - 50) + 60).toFixed(0);
+  // document.getElementById("watts4").innerHTML = watts4 + '/watts';
+  // var watts5 = (Math.random() * (90 - 80) + 80).toFixed(0);
+  // document.getElementById("watts5").innerHTML = watts5 + '/watts';
+  // var watts6 = (Math.random() * (15 - 10) + 10).toFixed(0);
+  // document.getElementById("watts6").innerHTML = watts6 + '/watts';
+  // var watts7 = (Math.random() * (15 - 10) + 10).toFixed(0);
+  // document.getElementById("watts7").innerHTML = watts7 + '/watts';
+  // var watts8 = (Math.random() * (30 - 20) + 20).toFixed(0);
+  // document.getElementById("watts8").innerHTML = watts8 + '/watts';
+  // var watts9 = (Math.random() * (40 - 30) + 30).toFixed(0);
+  // document.getElementById("watts9").innerHTML = watts9 + '/watts';
+  // var watts10 = (Math.random() * (160 - 150) + 150).toFixed(0);
+  // document.getElementById("watts10").innerHTML = watts10 + '/watts';
 
-  let wattstotal = parseFloat(watts) + parseFloat(watts2) + parseFloat(watts3) + parseFloat(watts4) + parseFloat(watts5) + parseFloat(watts6) + parseFloat(watts7) + parseFloat(watts8) + parseFloat(watts9) + parseFloat(watts10);
-  let wattspercentage = document.getElementById("wattspercentage").innerHTML = ((parseFloat(watts)/ wattstotal) * 100).toFixed(0) + "%";
-  let wattspercentage2 = document.getElementById("wattspercentage2").innerHTML = ((parseFloat(watts2)/ wattstotal) * 100).toFixed(0) + "%";
-  let wattspercentage3 = document.getElementById("wattspercentage3").innerHTML = ((parseFloat(watts3)/ wattstotal) * 100).toFixed(0) + "%";
-  let wattspercentage4 = document.getElementById("wattspercentage4").innerHTML = ((parseFloat(watts4)/ wattstotal) * 100).toFixed(0) + "%";
-  let wattspercentage5 = document.getElementById("wattspercentage5").innerHTML = ((parseFloat(watts5)/ wattstotal) * 100).toFixed(0) + "%";
-  let wattspercentage6 = document.getElementById("wattspercentage6").innerHTML = ((parseFloat(watts6)/ wattstotal) * 100).toFixed(0) + "%";
-  let wattspercentage7 = document.getElementById("wattspercentage7").innerHTML = ((parseFloat(watts7)/ wattstotal) * 100).toFixed(0) + "%";
-  let wattspercentage8 = document.getElementById("wattspercentage8").innerHTML = ((parseFloat(watts8)/ wattstotal) * 100).toFixed(0) + "%";
-  let wattspercentage9 = document.getElementById("wattspercentage9").innerHTML = ((parseFloat(watts9)/ wattstotal) * 100).toFixed(0) + "%";
-  let wattspercentage10 = document.getElementById("wattspercentage10").innerHTML = ((parseFloat(watts10)/ wattstotal) * 100).toFixed(0) + "%";
-  document.getElementById("wattstotal").innerHTML = wattstotal.toFixed(0) + '/watts';
-  let wattswidth = 250 * ((parseFloat(demo)/ total));
-  let wattswidth2 = 250 * ((parseFloat(demo2)/ total));
-  let wattswidth3 = 250 * ((parseFloat(demo3)/ total));
-  let wattswidth4 = 250 * ((parseFloat(demo4)/ total));
-  let wattswidth5 = 250 * ((parseFloat(demo5)/ total));
-  let wattswidth6 = 250 * ((parseFloat(demo6)/ total));
-  let wattswidth7 = 250 * ((parseFloat(demo7)/ total));
-  let wattswidth8 = 250 * ((parseFloat(demo8)/ total));
-  let wattswidth9 = 250 * ((parseFloat(demo9)/ total));
-  let wattswidth10 = 250 * ((parseFloat(demo10)/ total));
-  document.getElementById("wattsbar").style.width = wattswidth + "px";
-  document.getElementById("wattsbar2").style.width = wattswidth2 + "px";
-  document.getElementById("wattsbar3").style.width = wattswidth3 + "px";
-  document.getElementById("wattsbar4").style.width = wattswidth4 + "px";
-  document.getElementById("wattsbar5").style.width = wattswidth5 + "px";
-  document.getElementById("wattsbar6").style.width = wattswidth6 + "px";
-  document.getElementById("wattsbar7").style.width = wattswidth7 + "px";
-  document.getElementById("wattsbar8").style.width = wattswidth8 + "px";
-  document.getElementById("wattsbar9").style.width = wattswidth9 + "px";
-  document.getElementById("wattsbar10").style.width = wattswidth10 + "px";
-  document.getElementById("wattspercentage").style.left = wattswidth + 5 + "px";
-  document.getElementById("wattspercentage2").style.left = wattswidth2 + 5 + "px";
-  document.getElementById("wattspercentage3").style.left = wattswidth3 + 5 + "px";
-  document.getElementById("wattspercentage4").style.left = wattswidth4 + 5 + "px";
-  document.getElementById("wattspercentage5").style.left = wattswidth5 + 5 + "px";
-  document.getElementById("wattspercentage6").style.left = wattswidth6 + 5 + "px";
-  document.getElementById("wattspercentage7").style.left = wattswidth7 + 5 + "px";
-  document.getElementById("wattspercentage8").style.left = wattswidth8 + 5 + "px";
-  document.getElementById("wattspercentage9").style.left = wattswidth9 + 5 + "px";
-  document.getElementById("wattspercentage10").style.left = wattswidth10 + 5 + "px";
+  // let wattstotal = parseFloat(watts) + parseFloat(watts2) + parseFloat(watts3) + parseFloat(watts4) + parseFloat(watts5) + parseFloat(watts6) + parseFloat(watts7) + parseFloat(watts8) + parseFloat(watts9) + parseFloat(watts10);
+  // let wattspercentage = document.getElementById("wattspercentage").innerHTML = ((parseFloat(watts)/ wattstotal) * 100).toFixed(0) + "%";
+  // let wattspercentage2 = document.getElementById("wattspercentage2").innerHTML = ((parseFloat(watts2)/ wattstotal) * 100).toFixed(0) + "%";
+  // let wattspercentage3 = document.getElementById("wattspercentage3").innerHTML = ((parseFloat(watts3)/ wattstotal) * 100).toFixed(0) + "%";
+  // let wattspercentage4 = document.getElementById("wattspercentage4").innerHTML = ((parseFloat(watts4)/ wattstotal) * 100).toFixed(0) + "%";
+  // let wattspercentage5 = document.getElementById("wattspercentage5").innerHTML = ((parseFloat(watts5)/ wattstotal) * 100).toFixed(0) + "%";
+  // let wattspercentage6 = document.getElementById("wattspercentage6").innerHTML = ((parseFloat(watts6)/ wattstotal) * 100).toFixed(0) + "%";
+  // let wattspercentage7 = document.getElementById("wattspercentage7").innerHTML = ((parseFloat(watts7)/ wattstotal) * 100).toFixed(0) + "%";
+  // let wattspercentage8 = document.getElementById("wattspercentage8").innerHTML = ((parseFloat(watts8)/ wattstotal) * 100).toFixed(0) + "%";
+  // let wattspercentage9 = document.getElementById("wattspercentage9").innerHTML = ((parseFloat(watts9)/ wattstotal) * 100).toFixed(0) + "%";
+  // let wattspercentage10 = document.getElementById("wattspercentage10").innerHTML = ((parseFloat(watts10)/ wattstotal) * 100).toFixed(0) + "%";
+  // document.getElementById("wattstotal").innerHTML = wattstotal.toFixed(0) + '/watts';
+  // let wattswidth = 250 * ((parseFloat(demo)/ total));
+  // let wattswidth2 = 250 * ((parseFloat(demo2)/ total));
+  // let wattswidth3 = 250 * ((parseFloat(demo3)/ total));
+  // let wattswidth4 = 250 * ((parseFloat(demo4)/ total));
+  // let wattswidth5 = 250 * ((parseFloat(demo5)/ total));
+  // let wattswidth6 = 250 * ((parseFloat(demo6)/ total));
+  // let wattswidth7 = 250 * ((parseFloat(demo7)/ total));
+  // let wattswidth8 = 250 * ((parseFloat(demo8)/ total));
+  // let wattswidth9 = 250 * ((parseFloat(demo9)/ total));
+  // let wattswidth10 = 250 * ((parseFloat(demo10)/ total));
+  // document.getElementById("wattsbar").style.width = wattswidth + "px";
+  // document.getElementById("wattsbar2").style.width = wattswidth2 + "px";
+  // document.getElementById("wattsbar3").style.width = wattswidth3 + "px";
+  // document.getElementById("wattsbar4").style.width = wattswidth4 + "px";
+  // document.getElementById("wattsbar5").style.width = wattswidth5 + "px";
+  // document.getElementById("wattsbar6").style.width = wattswidth6 + "px";
+  // document.getElementById("wattsbar7").style.width = wattswidth7 + "px";
+  // document.getElementById("wattsbar8").style.width = wattswidth8 + "px";
+  // document.getElementById("wattsbar9").style.width = wattswidth9 + "px";
+  // document.getElementById("wattsbar10").style.width = wattswidth10 + "px";
+  // document.getElementById("wattspercentage").style.left = wattswidth + 5 + "px";
+  // document.getElementById("wattspercentage2").style.left = wattswidth2 + 5 + "px";
+  // document.getElementById("wattspercentage3").style.left = wattswidth3 + 5 + "px";
+  // document.getElementById("wattspercentage4").style.left = wattswidth4 + 5 + "px";
+  // document.getElementById("wattspercentage5").style.left = wattswidth5 + 5 + "px";
+  // document.getElementById("wattspercentage6").style.left = wattswidth6 + 5 + "px";
+  // document.getElementById("wattspercentage7").style.left = wattswidth7 + 5 + "px";
+  // document.getElementById("wattspercentage8").style.left = wattswidth8 + 5 + "px";
+  // document.getElementById("wattspercentage9").style.left = wattswidth9 + 5 + "px";
+  // document.getElementById("wattspercentage10").style.left = wattswidth10 + 5 + "px";
 
-  let lighting = parseFloat(percentage) + parseFloat(percentage6) + parseFloat(percentage9); 
-  let electrical = parseFloat(percentage4);
-  let plugload =  parseFloat(percentage3);
-  let dhw = parseFloat(percentage2) + parseFloat(percentage5);
-  let mechanical = parseFloat(percentage10) + parseFloat(percentage8) + parseFloat(percentage7);
-  document.getElementById("lighting").innerHTML = lighting + "%";
-  document.getElementById("electrical").innerHTML = electrical + "%";
-  document.getElementById("dhw").innerHTML = dhw + "%";
-  document.getElementById("mechanical").innerHTML = mechanical + "%";
-  document.getElementById("panelA").innerHTML = lighting + "%";
-  document.getElementById("panelB").innerHTML = electrical + "%";
-  document.getElementById("panelC").innerHTML = plugload + "%";
-  document.getElementById("panelD").innerHTML = dhw + "%";
-  document.getElementById("panelE").innerHTML = mechanical + "%";
+  // let lighting = parseFloat(percentage) + parseFloat(percentage6) + parseFloat(percentage9); 
+  // let electrical = parseFloat(percentage4);
+  // let plugload =  parseFloat(percentage3);
+  // let dhw = parseFloat(percentage2) + parseFloat(percentage5);
+  // let mechanical = parseFloat(percentage10) + parseFloat(percentage8) + parseFloat(percentage7);
+  // document.getElementById("lighting").innerHTML = lighting + "%";
+  // document.getElementById("electrical").innerHTML = electrical + "%";
+  // document.getElementById("dhw").innerHTML = dhw + "%";
+  // document.getElementById("mechanical").innerHTML = mechanical + "%";
+  // document.getElementById("panelA").innerHTML = lighting + "%";
+  // document.getElementById("panelB").innerHTML = electrical + "%";
+  // document.getElementById("panelC").innerHTML = plugload + "%";
+  // document.getElementById("panelD").innerHTML = dhw + "%";
+  // document.getElementById("panelE").innerHTML = mechanical + "%";
 
-  var options = {
-                              labels: ["Lighting", "Electrical", "DHW", "Mechanical"],
-                              series: [lighting,electrical,dhw,mechanical ],
-                              chart: {
-                              width: 200,
-                              type: 'donut',
-                            },
-                            dataLabels: {
-                              enabled: false
-                            },
-                            legend: {
-                                position: 'bottom',
-                                show:false
-                            },
+  
 
-                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
-
-                            responsive: [{
-                              breakpoint: 480,
-                              options: {
-                                chart: {
-                                  width: 300
-                                },
-                              }
-                            }]
-                            };
-                            var chart1 = new ApexCharts(document.querySelector("#chart"), options);
-                            chart1.render();
-                            var options = {
-                              labels: ["Lighting", "Electrical", "DHW", "Mechanical"],
-                              series: [lighting,electrical,dhw,mechanical],
-                              chart: {
-                              width: 200,
-                              type: 'donut',
-                            },
-                            dataLabels: {
-                              enabled: false
-                            },
-                            legend: {
-                                position: 'bottom',
-                                show:false
-                            },
-
-                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
-
-                            responsive: [{
-                              breakpoint: 480,
-                              options: {
-                                chart: {
-                                  width: 300
-                                },
-                              }
-                            }]
-                            };
-                            var chart2 = new ApexCharts(document.querySelector("#chart2"), options);
-                            chart2.render();
-
-
-}, 1000);
-}
+// }, 1000);
+// }
   </script>
 </html>
