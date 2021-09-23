@@ -821,6 +821,7 @@
 .overview-main .scrollable{
   height: 650px;
   overflow-y: scroll;
+  overflow-x: hidden;
   width: 536px;
   left: 328px;
   mix-blend-mode: normal;
