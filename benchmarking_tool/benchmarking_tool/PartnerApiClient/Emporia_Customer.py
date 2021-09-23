@@ -58,6 +58,48 @@ class Emporia_Customer():
         self.chan_fivmin = chan_fivmin
         self.chan_min = chan_min
     
+    def get_price_per_channel(self, price_per_kwh):
+        # this function takes the total energy used on all channels for a day and then returns how much it is costing per hour 
+
+        hours = self.chan_hours
+
+        hours = hours.drop(columns = ['year','month','day','hour','minute'])
+
+
+        # only way to get the mains off is to look at the first 3 names in the channel names list 
+
+        # main_names = self.channel_names[:3]
+        # try:
+        #     hours = hours.drop(columns = main_names)
+        # except:
+        #     pass
+
+        # need to get the total 
+
+        totals  = hours.sum()
+        
+        total_energy = totals.sum()
+
+        cols = ['circuit name', 'percentage','price per hour']
+
+        df = pd.DataFrame(columns=cols)
+
+        hours = 24
+
+        for i in range(len(totals.index)): 
+            percent_usage = totals[i]/total_energy
+            usage_price = price_per_kwh * (totals[i]/hours) # divide it by 24 to get average usage per hour 
+
+            df.loc[i] = [totals.index[i],percent_usage,usage_price]
+
+            #df['circuit name'].append(i)
+            #df['percentage'].append(percent_usage)
+            #df['price per hour'].append(usage_price)
+
+        self.channel_cost = df
+
+        return df
+
     def get_schedule(self): 
         # gets the schedule of the pas days 
 
