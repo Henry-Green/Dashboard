@@ -10,17 +10,18 @@ def get_data(serial_number, days):
     usage = ['1MIN','15MIN','1H']
     # first thing to do is call api and update the Output.txt file 
     # no api takes in a serial number and number of days to get past data. 
-    line_list = call_api(serial_number, days)
-    # line_list = []
-    # with open("Output.txt", 'r') as text_file:
-    #    for line in text_file:
-    #        line_list.append(line)
-            
+    # line_list = call_api(serial_number, days)
+    line_list = []
+    subprocess.call(['java', '-jar', 'emporia_api_maven/target/emporiaenergy-client-1.0-SNAPSHOT.jar'])
+    
+
+    with open("Output.txt", 'r') as text_file:
+       for line in text_file:
+           line_list.append(line)
+    line_list.pop()        
     usage_list1 = get_usage(line_list, usage[0], serial_number)
     usage_list2 = get_usage(line_list, usage[1], serial_number)
     usage_list3 = get_usage(line_list, usage[2], serial_number)
-    print('usage_list1')
-    print(usage_list1)
     data1 = make_df(usage_list1)
     data2 = make_df(usage_list2)
     data3 = make_df(usage_list3)
@@ -32,34 +33,34 @@ def get_data(serial_number, days):
 # phart@sustainergy.ca
 # psswrd: 66hello77
 
-def call_api(serial_number, days ):
-    # this is a test call to the api
-    #output = subprocess.run('ls')
-    #date_proc = subprocess.Popen(['date'], stdout=subprocess.PIPE)
-    # this runs on the command line to run the EmporiaEnergyApiClient.java 
-    # this file is compiled in the mains folder 
-    str_days = str(days)
-    string1 = "java -cp .:lib/\* mains.EmporiaEnergyApiClient phart@sustainergy.ca hello12345 "+serial_number+" "+str_days+" partner-api.emporiaenergy.com"
-    output = subprocess.Popen(string1, shell=True,stdout=subprocess.PIPE)
-    #date_proc.stdout.close()
+# def call_api(serial_number, days ):
+#     # this is a test call to the api
+#     #output = subprocess.run('ls')
+#     #date_proc = subprocess.Popen(['date'], stdout=subprocess.PIPE)
+#     # this runs on the command line to run the EmporiaEnergyApiClient.java 
+#     # this file is compiled in the mains folder 
+#     str_days = str(days)
+#     string1 = "java -cp lib\*;. mains.EmporiaEnergyApiClient phart@sustainergy.ca P4iJBNrkx3BQ "+serial_number+" "+str_days+" partner-api.emporiaenergy.com"
+#     output = subprocess.Popen(string1, shell=True,stdout=subprocess.PIPE)
+#     #date_proc.stdout.close()
 
-    #print(output.stdout.read())
-    st, s = output.communicate()
-    # the returned sting is a long single string that is 
-    slip = str(st)
-    slip = slip.replace('\\n','\n')
-    slip = slip.replace('\\t','\t')
+#     #print(output.stdout.read())
+#     st, s = output.communicate()
+#     # the returned sting is a long single string that is 
+#     slip = str(st)
+#     slip = slip.replace('\\n','\n')
+#     slip = slip.replace('\\t','\t')
 
 
-    with open("Output.txt", "w") as text_file:
-        for line in slip:
+#     with open("Output.txt", "w") as text_file:
+#         for line in slip:
             
-            text_file.write(line)
-    with open("Output.txt", "r") as f:
-        list_of_lines = [line.strip() for line in f]
+#             text_file.write(line)
+#     with open("Output.txt", "r") as f:
+#         list_of_lines = [line.strip() for line in f]
 
-    list_of_lines = [x.replace("\\r","") for x in list_of_lines]
-    return list_of_lines
+#     list_of_lines = [x.replace("\\r","") for x in list_of_lines]
+#     return list_of_lines
 
 
 
@@ -81,10 +82,6 @@ def get_usage(line_list, usage, serial_number):
                         break
                     else:
                         r.append(s2_list)
-            if s_list[0] =='Usage':
-                print('worked')
-            else:
-                print("no Work")
         except:
             continue
     return r
