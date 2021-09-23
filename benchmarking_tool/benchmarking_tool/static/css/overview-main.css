@@ -819,13 +819,14 @@
 }
 
 .overview-main .scrollable{
-  height: 696px;
+  height: 650px;
   overflow-y: scroll;
   width: 536px;
   left: 328px;
   mix-blend-mode: normal;
   position: absolute;
   top: 36px;
+  padding-bottom: 20px;
   background-color: var(--zircon);
 
 }
@@ -866,9 +867,10 @@
   height: 20px;
   left: 366px;
   mix-blend-mode: normal;
-  position: absolute;
+  position: relative;
   top: 147px;
   width: 459px;
+  margin-bottom: 10px;
 }
 
 .overview-main .rectangle-3166-l6cqYc {
@@ -1072,13 +1074,13 @@
 .overview-main .lunchroom-lights-l6cqYc {
   background-color: transparent;
   height: auto;
-  left: 376px;
+  left: 0px;
   letter-spacing: 0.22px;
   line-height: normal;
   mix-blend-mode: normal;
-  position: absolute;
+  position: relative;
   text-align: left;
-  top: 150px;
+  top: 2px;
   width: auto;
 }
 
@@ -1319,13 +1321,13 @@
 .overview-main .x233hr-l6cqYc {
   background-color: transparent;
   height: auto;
-  left: 280px;
+  right: 5px;
   letter-spacing: 0.22px;
   line-height: normal;
   mix-blend-mode: normal;
   position: relative;
   text-align: right;
-  top: 133px;
+  bottom: 11px;
   width: auto;
   z-index: 100;
 }
@@ -1567,13 +1569,14 @@
 .overview-main .x21-Al4pJ9 {
   background-color: transparent;
   height: auto;
-  left: 10px;
+  left: 8px;
   letter-spacing: 0.22px;
   line-height: normal;
   mix-blend-mode: normal;
   position: relative;
   text-align: left;
-  top: 1px;
+  bottom: 1px;
+  margin-left: 5px;
   width: auto;
 }
 
@@ -1814,11 +1817,13 @@
 .overview-main .rectangle-3184-l6cqYc {
   background-color: var(--apple);
   height: 12px;
-  left: 550px;
+  left: 30%;
   mix-blend-mode: normal;
-  position: absolute;
-  top: 151px;
+  position: relative;
+  bottom: 25px;
   width: 82px;
+  margin-right: 5px;
+  z-index: 100;
 }
 
 .overview-main .rectangle-3185-l6cqYc {
@@ -2007,9 +2012,11 @@
   height: 32px;
   left: 365px;
   mix-blend-mode: normal;
-  position: absolute;
-  top: 678px;
+  position: relative;
+  margin-top: 10px;
   width: 461px;
+  top: 145px;
+  padding-bottom: 20px;
 }
 
 .overview-main .total-l6cqYc {
@@ -2020,23 +2027,23 @@
   font-style: normal;
   font-weight: 700;
   height: auto;
-  left: 377px;
+  right: 400px;
   letter-spacing: 0.40px;
   line-height: normal;
   mix-blend-mode: normal;
-  position: absolute;
+  position: relative;
   text-align: right;
-  top: 681px;
+  top: 3px;
   width: auto;
 }
 
 .overview-main .rectangle-3204-l6cqYc {
   background-color: var(--apple);
   height: 20px;
-  left: 551px;
+  left: 40%;
   mix-blend-mode: normal;
   position: absolute;
-  top: 684px;
+  top: 6px;
   width: 138px;
 }
 
@@ -2048,13 +2055,13 @@
   font-style: normal;
   font-weight: 700;
   height: auto;
-  left: 642px;
+  left: 60%;
   letter-spacing: 0.28px;
   line-height: normal;
   mix-blend-mode: normal;
   position: absolute;
   text-align: left;
-  top: 685px;
+  top: 5px;
   width: auto;
 }
 
@@ -2105,13 +2112,13 @@
   font-style: normal;
   font-weight: 700;
   height: auto;
-  left: 280px;
+  right: 5px;
   letter-spacing: 0.40px;
   line-height: normal;
   mix-blend-mode: normal;
   position: relative;
   text-align: right;
-  top: 521px;
+  top: -22px;
   width: auto;
 }
 
@@ -2589,9 +2596,10 @@
   height: 28px;
   left: 14px;
   mix-blend-mode: normal;
-  position: absolute;
+  position: relative;
   top: 14px;
   width: 186px;
+  margin-bottom: 10px;
 }
 
 .overview-main .rectangle-3003-VxPVnb {
@@ -2778,13 +2786,13 @@
 .overview-main .x1-shop-lighting-1-VxPVnb {
   background-color: transparent;
   height: auto;
-  left: 28px;
+  left: 10px;
   letter-spacing: 0.24px;
   line-height: normal;
   mix-blend-mode: normal;
   position: absolute;
   text-align: left;
-  top: 20px;
+  top: 5px;
   width: auto;
 }
 
@@ -3049,6 +3057,7 @@
   top: 75px;
   border-radius: 10px;
 }
+
 
 .overview-main .sidebar_arrow{
   left: 1430px;
