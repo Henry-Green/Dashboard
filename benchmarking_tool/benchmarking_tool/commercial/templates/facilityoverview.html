@@ -198,7 +198,7 @@
         {% for j in range(0, lasts) %}
         {% for i in range(5, len) %}
         <div class="rectangle-3165-l6cqYc">
-        <div class="lunchroom-lights-l6cqYc avertacy-bold-apple-11px">{{channel_name[channelnum.value]}}w</div>
+        <div class="lunchroom-lights-l6cqYc avertacy-bold-apple-11px">{{channel_name[channelnum.value]}}</div>
         <div class="x233hr-l6cqYc avertacy-bold-apple-11px">{{"%.2f"|format(home_upgrades.iloc[last[j]][columns[i]]|float)}}w</div>
         <div class="rectangle-3184-l6cqYc" style = 'width: {{250 * (home_upgrades.iloc[last[j]][columns[i]]/total) + 5}}px;'><div class="x21-Al4pJ9 avertacy-bold-apple-11px" style = 'left: {{250 * (home_upgrades.iloc[last[j]][columns[i]]/total) + 5}}px;'>{{"%.2f"|format(((home_upgrades.iloc[last[j]][columns[i]]/ total) * 100)|float)}}%</div></div></div>
         {% set channelnum.value = channelnum.value + 1 %}
