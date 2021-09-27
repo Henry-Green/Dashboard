@@ -537,6 +537,9 @@ def facilityoverview():
                     total += home_upgrades.iloc[last[i]][columns[j]]
             for j in range(0, len(price.index)):
                 totalprice += price.iloc[i][2]
+        print(home_upgrades)
+        print(price)
+        print('here ^^^^^^^^')
         return render_template('facilityoverview.html',pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last,columns = columns, len = len(columns), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
     else:
         abort(403)
