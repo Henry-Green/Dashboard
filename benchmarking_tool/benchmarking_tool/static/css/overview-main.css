@@ -807,7 +807,7 @@
   font-style: normal;
   font-weight: 700;
   height: auto;
-  left: 365px;
+  left: 37px;
   letter-spacing: 0.76px;
   line-height: normal;
   mix-blend-mode: normal;
@@ -839,7 +839,7 @@
   font-style: normal;
   font-weight: 700;
   height: auto;
-  left: 367px;
+  left: 39px;
   letter-spacing: 0.28px;
   line-height: normal;
   mix-blend-mode: normal;
@@ -1579,6 +1579,12 @@
   bottom: 1px;
   margin-left: 5px;
   width: auto;
+  color: var(--apple);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+
 }
 
 .overview-main .x31-l6cqYc {
@@ -2007,16 +2013,39 @@
   width: 2px;
 }
 
+.overview-main .header{
+  position: fixed;
+  width: 536px;
+  height: 150px;
+  top: -20px;
+  z-index: 1000;
+  left: 328px;
+  background-color: var(--zircon);
+
+}
+.overview-main .total-rectangle {
+  background-color: var(--zircon);
+  border-radius: 5px;
+  height: 60px;
+  left: 328px;
+  mix-blend-mode: normal;
+  position: fixed;
+  margin-top: 10px;
+  width: 536px;
+  top: 675px;
+  padding-bottom: 80px;
+}
+
 .overview-main .rectangle-3203-l6cqYc {
   background-color: var(--white);
   border-radius: 5px;
   height: 32px;
   left: 365px;
   mix-blend-mode: normal;
-  position: relative;
+  position: fixed;
   margin-top: 10px;
   width: 461px;
-  top: 145px;
+  top: 700px;
   padding-bottom: 20px;
 }
 
@@ -2075,7 +2104,7 @@
   font-style: normal;
   font-weight: 700;
   height: auto;
-  left: 800px;
+  left: 472px;
   letter-spacing: 0.28px;
   line-height: normal;
   mix-blend-mode: normal;
@@ -2094,7 +2123,7 @@
   font-style: normal;
   font-weight: 700;
   height: auto;
-  left: 729px;
+  left: 401px;
   letter-spacing: 0.28px;
   line-height: normal;
   mix-blend-mode: normal;
