@@ -12,7 +12,7 @@ def get_data(serial_number, days):
     # no api takes in a serial number and number of days to get past data. 
     # line_list = call_api(serial_number, days)
     line_list = []
-    subprocess.call(['java', '-jar', 'emporia_api_maven/target/emporiaenergy-client-1.0-SNAPSHOT.jar'])
+    #subprocess.call(['java', '-jar', 'emporia_api_maven/target/emporiaenergy-client-1.0-SNAPSHOT.jar'])
     
 
     with open("Output.txt", 'r') as text_file:
