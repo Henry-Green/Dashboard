@@ -25,6 +25,8 @@ def get_data(serial_number, days):
     data1 = make_df(usage_list1)
     data2 = make_df(usage_list2)
     data3 = make_df(usage_list3)
+    print(data1)
+    print('data1')
 
     return [data1,data2,data3]
 
