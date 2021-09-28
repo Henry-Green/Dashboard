@@ -1331,6 +1331,12 @@
   bottom: 11px;
   width: auto;
   z-index: 100;
+  color: var(--apple);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+}
 }
 
 .overview-main .x056hr-l6cqYc {
