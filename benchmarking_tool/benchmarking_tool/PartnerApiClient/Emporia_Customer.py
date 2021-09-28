@@ -61,8 +61,8 @@ class Emporia_Customer():
     def get_price_per_channel(self, price_per_kwh):
         # this function takes the total energy used on all channels for a day and then returns how much it is costing per hour 
 
-        hours = self.chan_min
-        hours = hours.drop(columns = ['year','month','day','hour','minute'])
+        hours = self.chan_hours
+        hours = hours.drop(columns = ['year','month','day','hour','minute', 'channel 4', 'channel 5', 'channel 6'])
         last = hours.last_valid_index() - 1
 
 
