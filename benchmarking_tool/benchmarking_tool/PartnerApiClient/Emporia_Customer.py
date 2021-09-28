@@ -61,9 +61,9 @@ class Emporia_Customer():
     def get_price_per_channel(self, price_per_kwh):
         # this function takes the total energy used on all channels for a day and then returns how much it is costing per hour 
 
-        hours = self.chan_hours
-
+        hours = self.chan_min
         hours = hours.drop(columns = ['year','month','day','hour','minute'])
+        last = hours.last_valid_index() - 1
 
 
         # only way to get the mains off is to look at the first 3 names in the channel names list 
@@ -84,11 +84,10 @@ class Emporia_Customer():
 
         df = pd.DataFrame(columns=cols)
 
-        hours = 24
-
+        mins = 1000
         for i in range(len(totals.index)): 
             percent_usage = totals[i]/total_energy
-            usage_price = price_per_kwh * (totals[i]/hours) # divide it by 24 to get average usage per hour 
+            usage_price = price_per_kwh * (hours.iloc[last][i]/mins) # divide it by 24 to get average usage per hour 
 
             df.loc[i] = [totals.index[i],percent_usage,usage_price]
 
@@ -115,111 +114,157 @@ class Emporia_Customer():
         self.mains.schedule = self.mains_schedule
 
         # store the channels into a list for the customer
-        cols = self.chan_hours.columns.tolist()
+        channels = self.chan_min.drop(columns = ['year','month','day','hour','minute'])
+        cols = channels.columns.tolist()
         
-        for i in cols:
-            if i == 'channel 4':
-                self.channel4.data_hour = self.chan_hours[i]
-                self.channel4.data_fivmin = self.chan_fivmin[i]
-                self.channel4.data_min = self.chan_min[i]
-                self.channel4.schedule = self.schedule[i]
+        
+        for i in range(len(cols)):
+            if cols[i] == 'year' or cols[i] == 'month' or cols[i] == 'day' or cols[i] == 'minute':
+                continue
 
-            if i == 'channel 5':
-                self.channel5.data_hour = self.chan_hours[i]
-                self.channel5.data_fivmin = self.chan_fivmin[i]
-                self.channel5.data_min = self.chan_min[i]
-                self.channel5.schedule = self.schedule[i]
+            if i == 0: # the 4th channel 
 
-            if i == 'channel 6':
-                self.channel6.data_hour = self.chan_hours[i]
-                self.channel6.data_fivmin = self.chan_fivmin[i]
-                self.channel6.data_min = self.chan_min[i]
-                self.channel6.schedule = self.schedule[i]
+                self.channel4.name = cols[i]
+                self.channel4.data_hour = self.chan_hours[cols[i]]
+                self.channel4.data_fivmin = self.chan_fivmin[cols[i]]
+                self.channel4.data_min = self.chan_min[cols[i]]
+                self.channel4.schedule = self.schedule[cols[i]]
 
-            if i == 'channel 7':
-                self.channel7.data_hour = self.chan_hours[i]
-                self.channel7.data_fivmin = self.chan_fivmin[i]
-                self.channel7.data_min = self.chan_min[i]
-                self.channel7.schedule = self.schedule[i]
+            if i == 1:
+                self.channel5.name = cols[i]
+                self.channel5.data_hour = self.chan_hours[cols[i]]
+                self.channel5.data_fivmin = self.chan_fivmin[cols[i]]
+                self.channel5.data_min = self.chan_min[cols[i]]
+                self.channel5.schedule = self.schedule[cols[i]]
 
-            if i == 'channel 8':
-                self.channel8.data_hour = self.chan_hours[i]
-                self.channel8.data_fivmin = self.chan_fivmin[i]
-                self.channel8.data_min = self.chan_min[i]
-                self.channel8.schedule = self.schedule[i]
+            if i == 2:
+                self.channel6.name = cols[i]
+                self.channel6.data_hour = self.chan_hours[cols[i]]
+                self.channel6.data_fivmin = self.chan_fivmin[cols[i]]
+                self.channel6.data_min = self.chan_min[cols[i]]
+                self.channel6.schedule = self.schedule[cols[i]]
 
-            if i == 'channel 9':
-                self.channel9.data_hour = self.chan_hours[i]
-                self.channel9.data_fivmin = self.chan_fivmin[i]
-                self.channel9.data_min = self.chan_min[i]
-                self.channel9.schedule = self.schedule[i]
 
-            if i == 'channel 10':
-                self.channel10.data_hour = self.chan_hours[i]
-                self.channel10.data_fivmin = self.chan_fivmin[i]
-                self.channel10.data_min = self.chan_min[i]
-                self.channel10.schedule = self.schedule[i]
+            if i == 3:
+                self.channel7.name = cols[i]
+                self.channel7.data_hour = self.chan_hours[cols[i]]
+                self.channel7.data_fivmin = self.chan_fivmin[cols[i]]
+                self.channel7.data_min = self.chan_min[cols[i]]
+                self.channel7.schedule = self.schedule[cols[i]]
 
-            if i == 'channel 11':
-                self.channel11.data_hour = self.chan_hours[i]
-                self.channel11.data_fivmin = self.chan_fivmin[i]
-                self.channel11.data_min = self.chan_min[i]
-                self.channel11.schedule = self.schedule[i]
+            if i == 4:
+                self.channel8.name = cols[i]
+                self.channel8.data_hour = self.chan_hours[cols[i]]
+                self.channel8.data_fivmin = self.chan_fivmin[cols[i]]
+                self.channel8.data_min = self.chan_min[cols[i]]
+                self.channel8.schedule = self.schedule[cols[i]]
 
-            if i == 'channel 12':
-                self.channel12.data_hour = self.chan_hours[i]
-                self.channel12.data_fivmin = self.chan_fivmin[i]
-                self.channel12.data_min = self.chan_min[i]
-                self.channel12.schedule = self.schedule[i]
+            if i == 5:
+                self.channel8.name = cols[i]
+                self.channel8.data_hour = self.chan_hours[cols[i]]
+                self.channel8.data_fivmin = self.chan_fivmin[cols[i]]
+                self.channel8.data_min = self.chan_min[cols[i]]
+                self.channel8.schedule = self.schedule[cols[i]]
+
+            if i == 6:
+                self.channel10.name = cols[i]
+                self.channel10.data_hour = self.chan_hours[cols[i]]
+                self.channel10.data_fivmin = self.chan_fivmin[cols[i]]
+                self.channel10.data_min = self.chan_min[cols[i]]
+                self.channel10.schedule = self.schedule[cols[i]]
+
+            if i == 7:
+                self.channel11.name = cols[i]
+                self.channel11.data_hour = self.chan_hours[cols[i]]
+                self.channel11.data_fivmin = self.chan_fivmin[cols[i]]
+                self.channel11.data_min = self.chan_min[cols[i]]
+                self.channel11.schedule = self.schedule[cols[i]]
+
+            if i == 8:
+                self.channel12.name = cols[i]
+                self.channel12.data_hour = self.chan_hours[cols[i]]
+                self.channel12.data_fivmin = self.chan_fivmin[cols[i]]
+                self.channel12.data_min = self.chan_min[cols[i]]
+                self.channel12.schedule = self.schedule[cols[i]]
             
-            if i == 'channel 13':
-                self.channel13.data_hour = self.chan_hours[i]
-                self.channel13.data_fivmin = self.chan_fivmin[i]
-                self.channel13.data_min = self.chan_min[i]
-                self.channel13.schedule = self.schedule[i]
+            if i == 9:
+                self.channel13.name = cols[i]
+                self.channel13.data_hour = self.chan_hours[cols[i]]
+                self.channel13.data_fivmin = self.chan_fivmin[cols[i]]
+                self.channel13.data_min = self.chan_min[cols[i]]
+                self.channel13.schedule = self.schedule[cols[i]]
 
-            if i == 'channel 14':
-                self.channel14.data_hour = self.chan_hours[i]
-                self.channel14.data_fivmin = self.chan_fivmin[i]
-                self.channel14.data_min = self.chan_min[i]
-                self.channel14.schedule = self.schedule[i]
+            if i == 10:
+                self.channel14.name = cols[i]
+                self.channel14.data_hour = self.chan_hours[cols[i]]
+                self.channel14.data_fivmin = self.chan_fivmin[cols[i]]
+                self.channel14.data_min = self.chan_min[cols[i]]
+                self.channel14.schedule = self.schedule[cols[i]]
 
-            if i == 'channel 15':
-                self.channel15.data_hour = self.chan_hours[i]
-                self.channel15.data_fivmin = self.chan_fivmin[i]
-                self.channel15.data_min = self.chan_min[i]
-                self.channel15.schedule = self.schedule[i]
+            if i == 11:
+                self.channel15.name = cols[i]
+                self.channel15.data_hour = self.chan_hours[cols[i]]
+                self.channel15.data_fivmin = self.chan_fivmin[cols[i]]
+                self.channel15.data_min = self.chan_min[cols[i]]
+                self.channel15.schedule = self.schedule[cols[i]]
             
-            if i == 'channel 16':
-                self.channel16.data_hour = self.chan_hours[i]
-                self.channel16.data_fivmin = self.chan_fivmin[i]
-                self.channel16.data_min = self.chan_min[i]
-                self.channel16.schedule = self.schedule[i]
+            if i == 12:
+                self.channel16.name = cols[i]
+                self.channel16.data_hour = self.chan_hours[cols[i]]
+                self.channel16.data_fivmin = self.chan_fivmin[cols[i]]
+                self.channel16.data_min = self.chan_min[cols[i]]
+                self.channel16.schedule = self.schedule[cols[i]]
 
-            if i == 'channel 17':
-                self.channel17.data_hour = self.chan_hours[i]
-                self.channel17.data_fivmin = self.chan_fivmin[i]
-                self.channel17.data_min = self.chan_min[i]
-                self.channel17.schedule = self.schedule[i]
+            if i == 13:
+                self.channel17.name = cols[i]
+                self.channel17.data_hour = self.chan_hours[cols[i]]
+                self.channel17.data_fivmin = self.chan_fivmin[cols[i]]
+                self.channel17.data_min = self.chan_min[cols[i]]
+                self.channel17.schedule = self.schedule[cols[i]]
 
-            if i == 'channel 18':
-                self.channel18.data_hour = self.chan_hours[i]
-                self.channel18.data_fivmin = self.chan_fivmin[i]
-                self.channel18.data_min = self.chan_min[i]
-                self.channel18.schedule = self.schedule[i]
+            if i == 14:
+                self.channel18.name = cols[i]
+                self.channel18.data_hour = self.chan_hours[cols[i]]
+                self.channel18.data_fivmin = self.chan_fivmin[cols[i]]
+                self.channel18.data_min = self.chan_min[cols[i]]
+                self.channel18.schedule = self.schedule[cols[i]]
             
-            if i == 'channel 19':
-                self.channel19.data_hour = self.chan_hours[i]
-                self.channel19.data_fivmin = self.chan_fivmin[i]
-                self.channel19.data_min = self.chan_min[i]
-                self.channel19.schedule = self.schedule[i]
+            if i == 15:
+                self.channel19.name = cols[i]
+                self.channel19.data_hour = self.chan_hours[cols[i]]
+                self.channel19.data_fivmin = self.chan_fivmin[cols[i]]
+                self.channel19.data_min = self.chan_min[cols[i]]
+                self.channel19.schedule = self.schedule[cols[i]]
 
-            if i == 'channel 20':
-                self.channel20.data_hour = self.chan_hours[i]
-                self.channel20.data_fivmin = self.chan_fivmin[i]
-                self.channel20.data_min = self.chan_min[i]
-                self.channel20.schedule = self.schedule[i]
+            if i == 16:
+                self.channel20.name = cols[i]
+                self.channel20.data_hour = self.chan_hours[cols[i]]
+                self.channel20.data_fivmin = self.chan_fivmin[cols[i]]
+                self.channel20.data_min = self.chan_min[cols[i]]
+                self.channel20.schedule = self.schedule[cols[i]]
+
+            if i == 17:
+                self.channel21.name = cols[i]
+                self.channel21.data_hour = self.chan_hours[cols[i]]
+                self.channel21.data_fivmin = self.chan_fivmin[cols[i]]
+                self.channel21.data_min = self.chan_min[cols[i]]
+                self.channel21.schedule = self.schedule[cols[i]]
+
+            if i == 18:
+                self.channel22.name = cols[i]
+                self.channel22.data_hour = self.chan_hours[cols[i]]
+                self.channel22.data_fivmin = self.chan_fivmin[cols[i]]
+                self.channel22.data_min = self.chan_min[cols[i]]
+                self.channel22.schedule = self.schedule[cols[i]]
+
+            if i == 19:
+                self.channel23.name = cols[i]
+                self.channel23.data_hour = self.chan_hours[cols[i]]
+                self.channel23.data_fivmin = self.chan_fivmin[cols[i]]
+                self.channel23.data_min = self.chan_min[cols[i]]
+                self.channel23.schedule = self.schedule[cols[i]]
         return 
+
 
 
 '''
