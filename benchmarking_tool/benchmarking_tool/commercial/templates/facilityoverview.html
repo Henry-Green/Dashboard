@@ -224,7 +224,7 @@
         {% for i in range(0, pricelength) %}
         <div class="rectangle-3165-l6cqYc">
         <div class="lunchroom-lights-l6cqYc avertacy-bold-apple-11px">{{channel_name[channelnum.value]}}</div>
-        <div class="x233hr-l6cqYc" {% if price.iloc[i][2] == 0 %} style = 'color: grey;'{% endif %}>{{"$%.2f"|format((price.iloc[i][2])|float)}}/hour</div>
+        <div class="x233hr-l6cqYc" {% if price.iloc[i][2] == 0 %} style = 'color: grey;'{% endif %}>{{"$%.2f"|format((price.iloc[i][2])|float)}}/hr</div>
         <div class="rectangle-3184-l6cqYc" {% if price.iloc[i][2] == 0 %} style = 'width: {{250 * (price.iloc[i][2]/totalprice) + 5}}px; background-color: grey;'{% elif price.iloc[i][2]> 0  %} style = 'width: {{250 * (price.iloc[i][2]/totalprice) + 5}}px;'{% endif %}>
         <div class="x21-Al4pJ9" {% if price.iloc[i][2] == 0 %} style = 'left: {{250 * (price.iloc[i][2]/totalprice) + 5}}px; background-color: grey; color: grey;'{% elif price.iloc[i][2] > 0  %} style = 'left: {{250 * (price.iloc[i][2]/totalprice) + 5}}px;'{% endif %}>{{"%.2f"|format(((price.iloc[i][2]/ totalprice) * 100)|float)}}%</div></div></div>
         {% set channelnum.value = channelnum.value + 1 %}
@@ -235,7 +235,7 @@
         <div class="total-l6cqYc">Total</div>
         <div class="rectangle-3204-l6cqYc"></div>
         <div class="x100-Al4pJ9">100%</div>
-        <div class="x674hr-l6cqYc">{{"$%.2f"|format((totalprice)|float)}}</div></div>
+        <div class="x674hr-l6cqYc">{{"$%.2f"|format((totalprice)|float)}}/hr</div></div>
     </div></div>
         </div>
         </div>
