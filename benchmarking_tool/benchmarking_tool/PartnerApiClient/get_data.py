@@ -4,7 +4,9 @@ import matplotlib.pyplot as plt
 import subprocess
 import string
 import io
+import os
 
+path = os.path.join(os.path.expanduser('~'), 'local', 'benchmarking_tool', 'Output.txt')
 
 def get_data(serial_number, days):
     usage = ['1MIN','15MIN','1H']
@@ -12,10 +14,10 @@ def get_data(serial_number, days):
     # no api takes in a serial number and number of days to get past data. 
     # line_list = call_api(serial_number, days)
     line_list = []
-    #subprocess.call(['java', '-jar', 'emporia_api_maven/target/emporiaenergy-client-1.0-SNAPSHOT.jar'])
+    subprocess.call(['java', '-jar', 'emporia_api_maven/target/emporiaenergy-client-1.0-SNAPSHOT.jar'])
     
 
-    with open("Output.txt", 'r') as text_file:
+    with open(path, 'r') as text_file:
        for line in text_file:
            line_list.append(line)
     line_list.pop()        
@@ -25,8 +27,6 @@ def get_data(serial_number, days):
     data1 = make_df(usage_list1)
     data2 = make_df(usage_list2)
     data3 = make_df(usage_list3)
-    print(data1)
-    print('data1')
 
     return [data1,data2,data3]
 
