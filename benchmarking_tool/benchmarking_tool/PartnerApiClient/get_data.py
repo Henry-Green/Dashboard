@@ -7,6 +7,7 @@ import io
 import os
 
 path = os.path.join(os.path.expanduser('~'), 'local', 'benchmarking_tool', 'Output.txt')
+print(path)
 
 def get_data(serial_number, days):
     usage = ['1MIN','15MIN','1H']
