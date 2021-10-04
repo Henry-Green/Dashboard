@@ -503,7 +503,7 @@ def get_seconds(minute, channel_names,serial_number):
 @login_required
 def facilityoverview():
     if(current_user.is_authenticated and current_user.is_admin()):
-        channel_name = ['','','','','', 'main sherwood 2_1', 'main sherwood 2_2', 'main sherwood 2_3', 'paint booth lights', 'paint booth air dryers', 'paint booth air dryers', 'counter receptacle', 'counter receptacle', 'microwave' , 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'water heater' , 'mezzanine receptacle' , 'water softener and DHW', 'lunch room lights','main sherwood 1_1', 'main sherwood 1_2', 'main sherwood 1_3', 'Dryer', 'Dryer', 'washer', 'car wash GFI Receptacle', 'Exterior receptacle' , 'Tube Heaters', 'Carwash GFI Receptacle', 'exterior receptacle' , 'SAPRE to car wash', 'wash bay door and heat' , 'wash bay door and heat' , 'wash bay door and heat' , 'wash bay receptacle' , 'car wash exhaust fan', 'exterior receptacle' , 'wash bay receptacle' ]
+        channel_name = ['Dryer', 'Dryer', 'washer', 'car wash GFI Receptacle', 'Exterior receptacle' , 'Tube Heaters', 'Carwash GFI Receptacle', 'exterior receptacle' , 'SAPRE to car wash', 'wash bay door and heat' , 'wash bay door and heat' , 'wash bay door and heat' , 'wash bay receptacle' , 'car wash exhaust fan', 'exterior receptacle' , 'wash bay receptacle','paint booth lights', 'paint booth air dryers', 'paint booth air dryers', 'counter receptacle', 'counter receptacle', 'microwave' , 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'water heater' , 'mezzanine receptacle' , 'water softener and DHW', 'lunch room lights' ]
         serial_numbers = current_user.phone_number
         total = 0
         totalprice = 0;
@@ -511,36 +511,29 @@ def facilityoverview():
         pricelast = []
 
         serial_list = serial_numbers.split()
-        d = 5
+        d = 1
         customer = Emporia_Customer(serial_list[0])
         customer.get_data(days= d)
+        customer.get_schedule()
         customer.get_price_per_channel(0.75)
         price = customer.channel_cost
-        home_upgrades = customer.chan_min
-        columns = home_upgrades.columns.tolist()
-        last.append(home_upgrades.last_valid_index() - 1)
-        for i in range(5, len(home_upgrades.columns)):
-            total += home_upgrades.iloc[last[0]][columns[i]]
 
         if(len(serial_list) > 1):    
             for i in range(1, len(serial_list)): 
                 serial_number = serial_list[i]
-                customer = Emporia_Customer(serial_number)
+                customer = Emporia_Customer(serial_list[i])
                 customer.get_data(days= d)
+                customer.get_schedule()
                 customer.get_price_per_channel(0.75)
-                appenddf = customer.chan_min
                 appendprice = customer.channel_cost
-                home_upgrades = home_upgrades.append(appenddf, ignore_index = True)
                 price = price.append(appendprice, ignore_index = True)
-                last.append((home_upgrades.last_valid_index() - 1))
-                for j in range(5, len(columns)):
-                    total += home_upgrades.iloc[last[i]][columns[j]]
-            for j in range(0, len(price.index)):
-                totalprice += price.iloc[i][2]
+
+        home_upgrades = price.copy()
+        home_upgrades['price per hour'] = home_upgrades['price per hour']/(0.75*60*0.000017)
+        total = home_upgrades['price per hour'].sum()
+        totalprice = price['price per hour'].sum()
         print(home_upgrades)
-        print(price)
-        print('here ^^^^^^^^')
-        return render_template('facilityoverview.html',pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last,columns = columns, len = len(columns), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
+        return render_template('facilityoverview.html',pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last, len = len(home_upgrades.index), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
     else:
         abort(403)
      
