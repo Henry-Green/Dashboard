@@ -1,6 +1,5 @@
-from .emporia_structure import ave_channel_usage, Channel, clean_data,get_channels,on_off_usage,UTC_MTN
-
-from .get_data import get_data
+from benchmarking_tool.PartnerApiClient.emporia_structure import ave_channel_usage, Channel, clean_data,get_channels,on_off_usage,UTC_MTN
+from benchmarking_tool.PartnerApiClient.get_data import get_data
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -37,18 +36,54 @@ class Emporia_Customer():
         self.channel18 = Channel()
         self.channel19 = Channel()
         self.channel20 = Channel()
+        self.channel21 = Channel()
+        self.channel22 = Channel()
+        self.channel23 = Channel()
+
+        self.channel_list = [self.channel1,
+                                self.channel2,
+                                self.channel3,
+                                self.channel4,
+                                self.channel5,
+                                self.channel6,
+                                self.channel7,
+                                self.channel8,
+                                self.channel9,
+                                self.channel10,
+                                self.channel11,
+                                self.channel12,
+                                self.channel13,
+                                self.channel14,
+                                self.channel15,
+                                self.channel16,
+                                self.channel17,
+                                self.channel18,
+                                self.channel19,
+                                self.channel20,
+                                self.channel21,
+                                self.channel22,
+                                self.channel23]
+
+        
 
     def get_data(self, days):
         #mains, channels = get_data(serial_number=self.serial_number, days=days)
-        l = get_data(self.serial_number, days)
+        
+        l, channel_names = get_data(self.serial_number, days)
+        print(channel_names)
+        print('^^^^^^^^^^^^^^')
+        self.days = days
 
         mint = l[0]
         fivmin = l[1]
         hour = l[2]
 
-        mains_hours, chan_hours = clean_data(hour)
-        mains_fivmin, chan_fivmin = clean_data(fivmin)
-        mains_min, chan_min = clean_data(mint)
+        
+        self.channel_names = channel_names[self.serial_number]
+
+        mains_hours, chan_hours = clean_data(hour,self.channel_names )
+        mains_fivmin, chan_fivmin = clean_data(fivmin,self.channel_names)
+        mains_min, chan_min = clean_data(mint,self.channel_names)
 
         self.mains_hours = mains_hours
         self.mains_fivmin = mains_fivmin
@@ -57,37 +92,74 @@ class Emporia_Customer():
         self.chan_hours = chan_hours
         self.chan_fivmin = chan_fivmin
         self.chan_min = chan_min
+
+    def get_data_minute(self, days):
+        #mains, channels = get_data(serial_number=self.serial_number, days=days)
+        
+        l, channel_names = get_data(self.serial_number, days)
+
+        self.days = days
+
+        mint = l[0]
+
+        
+        self.channel_names = channel_names[self.serial_number]
+
+
+        mains_min, chan_min = clean_data(mint,self.channel_names)
+
+        self.mains_min = mains_min
+
+        self.chan_min = chan_min
+
+        return chan_min
     
+    def get_schedule(self): 
+        # gets the schedule of the pas days 
+
+        self.schedule = on_off_usage(self.chan_hours)
+        self.mains_schedule = on_off_usage(self.mains_hours)
+
     def get_price_per_channel(self, price_per_kwh):
         # this function takes the total energy used on all channels for a day and then returns how much it is costing per hour 
 
         hours = self.chan_hours
-        hours = hours.drop(columns = ['year','month','day','hour','minute', 'channel 4', 'channel 5', 'channel 6'])
-        last = hours.last_valid_index() - 1
 
+        hours = hours.drop(columns = ['year','month','day','hour','minute'])
+
+        
 
         # only way to get the mains off is to look at the first 3 names in the channel names list 
 
-        # main_names = self.channel_names[:3]
-        # try:
-        #     hours = hours.drop(columns = main_names)
-        # except:
-        #     pass
+        main_names = self.channel_names[:3]
+        try:
+            hours = hours.drop(columns = main_names)
+        except:
+            pass
 
         # need to get the total 
 
         totals  = hours.sum()
+
+        totals = totals /1000
+
         
         total_energy = totals.sum()
+
+        
 
         cols = ['circuit name', 'percentage','price per hour']
 
         df = pd.DataFrame(columns=cols)
 
-        mins = 1000
+        hours = self.days * 24
+        
+
+        
+
         for i in range(len(totals.index)): 
-            percent_usage = totals[i]/total_energy
-            usage_price = price_per_kwh * (hours.iloc[last][i]/mins) # divide it by 24 to get average usage per hour 
+            percent_usage = float(totals[i])/float(total_energy)
+            usage_price = price_per_kwh * (float(totals[i])/float(hours)) # divide it by 24 to get average usage per hour 
 
             df.loc[i] = [totals.index[i],percent_usage,usage_price]
 
@@ -99,11 +171,63 @@ class Emporia_Customer():
 
         return df
 
-    def get_schedule(self): 
-        # gets the schedule of the pas days 
+    def percent_usage_minute_update(self, price_per_kwh):
+        # this function will get the latest minute it can from emporia 
 
-        self.schedule = on_off_usage(self.chan_hours)
-        self.mains_schedule = on_off_usage(self.mains_hours)
+        minutes = self.get_data_minute(days = 1)
+
+
+        # need to get the latest minute 
+
+        last_min = minutes.tail(1)
+
+        last_min = last_min.drop(columns = ['year','month','day','hour','minute'])
+
+        # only way to get the mains off is to look at the first 3 names in the channel names list 
+
+        main_names = self.channel_names[:3]
+        try:
+            last_min = last_min.drop(columns = main_names)
+        except:
+            pass
+
+        # need to get the total 
+
+        totals  = last_min.sum()
+        
+        #total_energy = totals.sum()
+
+        cols = ['circuit name', 'percentage','price per hour']
+
+        df = pd.DataFrame(columns=cols)
+
+        # have to get the total to kwh right now it is in watts per min 
+        
+        # 1 watt minute = 0.000017 kwh
+
+        totals = totals * 0.000017
+
+        total_energy = totals.sum()
+
+        hour_kwh = totals * 60
+
+        print(hour_kwh)
+
+
+        for i in range(len(totals.index)): 
+            percent_usage = float(totals[i])/float(total_energy)
+            #usage_price = price_per_kwh * (float(totals[i])/float(hours)) # divide it by 24 to get average usage per hour 
+            usage_price = price_per_kwh * hour_kwh[i]
+
+            df.loc[i] = [totals.index[i],percent_usage,usage_price]
+
+            #df['circuit name'].append(i)
+            #df['percentage'].append(percent_usage)
+            #df['price per hour'].append(usage_price)
+
+        self.channel_cost = df
+
+        return df
 
     def save_channels(self):  
 
@@ -266,17 +390,3 @@ class Emporia_Customer():
         return 
 
 
-
-'''
-# this should take about 11 seconds 
-serial_number = 'A2107A04B4B8F009A6CEC4'
-customer = Emporia_Customer(serial_number)
-
-customer.get_data(days= 5)
-customer.get_schedule()
-
-customer.save_channels()
-
-print(customer.channel4.data_hour)
-print(customer.channel4.schedule)
-'''

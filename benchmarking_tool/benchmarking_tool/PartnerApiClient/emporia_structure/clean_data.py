@@ -4,8 +4,8 @@ import pandas as pd
 import numpy as np
 from .UTC_MTN import UTC_MTN
 from .get_channels import get_channels
-def clean_data(data):
-    c = get_channels(data)
+def clean_data(data,channel_names):
+    c = get_channels(data, channel_names)
     c_mains = c[0]
     channels = c[1]
     t = data['time']

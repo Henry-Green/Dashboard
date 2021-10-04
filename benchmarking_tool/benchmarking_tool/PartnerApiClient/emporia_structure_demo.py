@@ -7,8 +7,12 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
+#other serial numbers 
+# these are 
+# A2107A04B4AC67B2F76F18
+# A2108A04B4AC67B2F6A400
 
-serial_number = 'A2107A04B4B8F009A6CEC4'
+serial_number = 'A2107A04B4AC67B2F76F18'
 
 l = get_data(serial_number, 5)
 

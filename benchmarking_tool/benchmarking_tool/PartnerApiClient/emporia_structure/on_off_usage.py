@@ -4,10 +4,10 @@ import numpy as np
 import pandas as pd
 from .ave_channel_usage import ave_channel_usage
 def on_off_usage(channels):
-    #print(channels)
+    
 
     dayz = channels.groupby('day', as_index= False).count()
-    #print(d)
+    
 
     all_days = dayz['day'].values
 
@@ -19,7 +19,8 @@ def on_off_usage(channels):
     
     # get the average and the standard diviation of the channels 
     averchan, stdchan = ave_channel_usage(channels)
-
+    
+    
 
     # init the data frame the on and off structure will be going  into 
     # make the thing a dict 
@@ -53,15 +54,30 @@ def on_off_usage(channels):
                     continue
 
                 row = row.reset_index()
-                usage = row[c][0]
-                std = stdchan[c][h]
-                ave = averchan[c][h]
-                if usage > (ave + (0.5*std)):
-                    # it is on 
-                    row_dict[c].at[h, 'day: ' + str(d)] = 1
+                usage = float(row[c][0])
+                std = float(stdchan[c])
+                ave = float(averchan[c])
+
+                try:
+                    percentage = usage/(ave + std)
+
+                    percentage = round(percentage,2)
+
+                    if percentage > 1:
+                        percentage = 1.0
+
+                    row_dict[c].at[h, 'day: ' + str(d)] = percentage
+                except:
                     
-                else:
+                    row_dict[c].at[h, 'day: ' + str(d)] = 0.00
+
+
+                #if usage > (ave + (0.5*std)):
+                #    # it is on 
+                #    row_dict[c].at[h, 'day: ' + str(d)] = 1
+                    
+                #else:
                     # it is off
-                    pass
+                #    pass
     
     return row_dict
