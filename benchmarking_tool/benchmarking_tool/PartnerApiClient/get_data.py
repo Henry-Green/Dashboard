@@ -4,19 +4,18 @@ import matplotlib.pyplot as plt
 import subprocess
 import string
 import io
-
-
+import os
+path = os.path.join(os.path.expanduser('~'), 'local', 'benchmarking_tool', 'benchmarking_tool', 'Output.txt')
+path2 = os.path.join(os.path.expanduser('~'), 'local', 'benchmarking_tool', 'emporia_api_maven', 'target', 'emporiaenergy-client-1.0-SNAPSHOT.jar')
 def get_data(serial_number, days):
     usage = ['1MIN','15MIN','1H']
     # first thing to do is call api and update the Output.txt file 
     # no api takes in a serial number and number of days to get past data. 
-    #line_list = call_api(serial_number, days)
-    print('aslhjkgdflkjasgkjdfgasjkhdgj')
+    # line_list = call_api(serial_number, days)
+    
+    subprocess.call(['java', '-jar', 'emporia_api_maven/target/emporiaenergy-client-1.0-SNAPSHOT.jar'])
     line_list = call_file('Output.txt')
-    #line_list = []
-    #with open("Output.txt", 'r') as text_file:
-    #    for line in text_file:
-    #        line_list.append(line)
+    line_list.pop()
 
     sn = get_serial_list(line_list)
     
@@ -50,7 +49,7 @@ def call_api(serial_number, days ):
     # this runs on the command line to run the EmporiaEnergyApiClient.java 
     # this file is compiled in the mains folder 
     str_days = str(days)
-    string1 = "java -cp .:lib/\* mains.EmporiaEnergyApiClient phart@sustainergy.ca hello12345 "+serial_number+" "+str_days+" partner-api.emporiaenergy.com"
+    string1 = "java -cp lib\*;. mains.EmporiaEnergyApiClient phart@sustainergy.ca P4iJBNrkx3BQ "+serial_number+" "+str_days+" partner-api.emporiaenergy.com"
     output = subprocess.Popen(string1, shell=True,stdout=subprocess.PIPE)
     #date_proc.stdout.close()
 
