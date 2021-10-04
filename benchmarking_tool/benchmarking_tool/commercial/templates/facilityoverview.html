@@ -197,17 +197,15 @@
         <div id="KWH" class="tabcontentss">
         <div class="rectangle-3164-l6cqYc"></div>
         {% set channelnum = namespace(value=0) %}
-        {% for j in range(0, lasts) %}
         {% for i in range(0, len) %}
         <div class="rectangle-3165-l6cqYc">
-        <div class="lunchroom-lights-l6cqYc avertacy-bold-apple-11px" {% if home_upgrades.iloc[last[j]][columns[i]] == 0 %} style = 'color: grey;'{% endif %}>{{channel_name[channelnum.value]}}</div>
-        <div class="x233hr-l6cqYc" "{% if home_upgrades.iloc[last[j]][columns[i]] == 0 %} style = ' color: grey;'{% endif %}>{{"%.2f"|format(home_upgrades.iloc[last[j]][columns[i]]|float)}}w</div>
-        <div class="rectangle-3184-l6cqYc" {% if home_upgrades.iloc[last[j]][columns[i]] == 0 %} style = 'width: 2px; background-color: grey;'{% elif home_upgrades.iloc[last[j]][columns[i]] > 0  %} style = 'width: {{250 * (home_upgrades.iloc[last[j]][columns[i]]/total) + 5}}px;'{% endif %}>
-        <div class="x21-Al4pJ9"{% if home_upgrades.iloc[last[j]][columns[i]] == 0 %} style = 'left: {{250 * (home_upgrades.iloc[last[j]][columns[i]]/total) + 5}}px; background-color: grey; color: grey;'{% elif home_upgrades.iloc[last[j]][columns[i]] > 0  %} style = 'left: {{250 * (home_upgrades.iloc[last[j]][columns[i]]/total) + 5}}px;'{% endif %}>{{"%.2f"|format(((home_upgrades.iloc[last[j]][columns[i]]/ total) * 100)|float)}}%</div>
+        <div class="lunchroom-lights-l6cqYc avertacy-bold-apple-11px" {% if home_upgrades.iloc[i][2] == 0 %} style = 'color: grey;'{% endif %}>{{channel_name[channelnum.value]}}</div>
+        <div class="x233hr-l6cqYc"{% if home_upgrades.iloc[i][2] == 0 %} style = ' color: grey;'{% endif %}>{{"%.2f"|format(home_upgrades.iloc[i][2]|float)}}w</div>
+        <div class="rectangle-3184-l6cqYc" {% if home_upgrades.iloc[i][2] == 0 %} style = 'width: 2px; background-color: grey;'{% elif home_upgrades.iloc[i][2] > 0  %} style = 'width: {{250 * (home_upgrades.iloc[i][2]/total) + 5}}px;'{% endif %}>
+        <div class="x21-Al4pJ9" {% if home_upgrades.iloc[i][2] == 0 %} style = 'left: {{250 * (home_upgrades.iloc[i][2]/total) + 5}}px; background-color: grey; color: grey;'{% elif home_upgrades.iloc[i][2] > 0  %} style = 'left: {{250 * (home_upgrades.iloc[i][2]/total) + 5}}px;'{% endif %}>{{"%.2f"|format(((home_upgrades.iloc[i][2]/ total) * 100)|float)}}%</div>
         </div>
         </div>
         {% set channelnum.value = channelnum.value + 1 %}
-        {% endfor %}
         {% endfor %}
 
         <div class = "total-rectangle">
@@ -223,7 +221,7 @@
         {% set channelnum = namespace(value=0) %}
         {% for i in range(0, pricelength) %}
         <div class="rectangle-3165-l6cqYc">
-        <div class="lunchroom-lights-l6cqYc avertacy-bold-apple-11px"  {% if price.iloc[i][2] == 0 %} style = 'color: grey;'{% endif %}>{{channel_name[channelnum.value]}}</div>
+        <div class="lunchroom-lights-l6cqYc avertacy-bold-apple-11px"{% if (price.iloc[i][2]) == 0 %} style = 'color: grey;'{% endif %}>{{channel_name[channelnum.value]}}</div>
         <div class="x233hr-l6cqYc" {% if price.iloc[i][2] == 0 %} style = 'color: grey;'{% endif %}>{{"$%.2f"|format((price.iloc[i][2])|float)}}/hr</div>
         <div class="rectangle-3184-l6cqYc" {% if price.iloc[i][2] == 0 %} style = 'width: 2px; background-color: grey;'{% elif price.iloc[i][2]> 0  %} style = 'width: {{250 * (price.iloc[i][2]/totalprice) + 5}}px;'{% endif %}>
         <div class="x21-Al4pJ9" {% if price.iloc[i][2] == 0 %} style = 'left: {{250 * (price.iloc[i][2]/totalprice) + 5}}px; background-color: grey; color: grey;'{% elif price.iloc[i][2] > 0  %} style = 'left: {{250 * (price.iloc[i][2]/totalprice) + 5}}px;'{% endif %}>{{"%.2f"|format(((price.iloc[i][2]/ totalprice) * 100)|float)}}%</div></div></div>
