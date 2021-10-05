@@ -3,6 +3,8 @@ from benchmarking_tool.PartnerApiClient.get_data import get_data
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+from datetime import datetime
+
 
 class Emporia_Customer():
     def __init__(self, serial_number):
@@ -70,8 +72,7 @@ class Emporia_Customer():
         #mains, channels = get_data(serial_number=self.serial_number, days=days)
         
         l, channel_names = get_data(self.serial_number, days)
-        print(channel_names)
-        print('^^^^^^^^^^^^^^')
+
         self.days = days
 
         mint = l[0]
@@ -120,7 +121,7 @@ class Emporia_Customer():
         self.schedule = on_off_usage(self.chan_hours)
         self.mains_schedule = on_off_usage(self.mains_hours)
 
-    def get_price_per_channel(self, price_per_kwh):
+    def get_price_per_channel_day(self, price_per_kwh):
         # this function takes the total energy used on all channels for a day and then returns how much it is costing per hour 
 
         hours = self.chan_hours
@@ -171,17 +172,110 @@ class Emporia_Customer():
 
         return df
 
+    def get_price_per_channel_hour(self, price_per_kwh):
+         
+        try:
+            hours = self.chan_hours
+        except:
+            get_data(1)
+            hours = self.chan_hours
+        
+        # need to get the latest hour
+        t = 1
+
+        last_hour = hours.tail(t)
+
+        d = datetime(last_hour['year'].values[0],last_hour['month'].values[0],last_hour['day'].values[0],last_hour['hour'].values[0],last_hour['minute'].values[0])
+        
+        last_hour = last_hour.drop(columns = ['year','month','day','hour','minute'])
+
+        # if the final minute did not come in properly it will look at one back 
+        for i in last_hour:
+            
+            if last_hour[i].values != last_hour[i].values:
+                t += 1
+                last_hour = 0
+                last_hour = hours.tail(t)
+                d = datetime(last_hour['year'].values[0],last_hour['month'].values[0],last_hour['day'].values[0],last_hour['hour'].values[0],last_hour['minute'].values[0])
+                last_hour = last_hour.drop(columns = ['year','month','day','hour','minute'])
+                break
+                
+        
+
+        # only way to get the mains off is to look at the first 3 names in the channel names list 
+
+        main_names = self.channel_names[:3]
+        try:
+            last_hour = last_hour.drop(columns = main_names)
+        except:
+            pass
+
+        # need to get the total 
+        
+        total_watts  = last_hour.sum()
+    
+       
+
+        cols = ['circuit name', 'percentage','price per hour','watts in hour']
+
+        df = pd.DataFrame(columns=cols)
+
+        # have to get the total to kwh right now it is in watts per min 
+        
+        # 1 watt minute = 0.000017 kwh
+
+        hour_kwh = total_watts /1000
+
+        total_energy = total_watts.sum()
+
+
+
+        for i in range(len(total_watts.index)): 
+            try:
+                percent_usage = float(total_watts[i])/float(total_energy)
+            except:
+                percent_usage = 0.0
+            #usage_price = price_per_kwh * (float(totals[i])/float(hours)) # divide it by 24 to get average usage per hour 
+            usage_price = price_per_kwh * hour_kwh[i]
+
+            df.loc[i] = [total_watts.index[i],percent_usage,usage_price,total_watts[i]]
+
+
+
+        self.channel_cost_hour = df
+
+        return df, d
+
+        
     def percent_usage_minute_update(self, price_per_kwh):
         # this function will get the latest minute it can from emporia 
 
         minutes = self.get_data_minute(days = 1)
 
-
+        
         # need to get the latest minute 
+        t = 1
 
-        last_min = minutes.tail(1)
+        last_min = minutes.tail(t)
+
+        d = datetime(last_min['year'].values[0],last_min['month'].values[0],last_min['day'].values[0],last_min['hour'].values[0],last_min['minute'].values[0])
+        
+
 
         last_min = last_min.drop(columns = ['year','month','day','hour','minute'])
+
+        # if the final minute did not come in properly it will look at one back 
+        for i in last_min:
+            
+            if last_min[i].values != last_min[i].values:
+                t += 1
+                last_min = 0
+                last_min = minutes.tail(t)
+                d = datetime(last_min['year'].values[0],last_min['month'].values[0],last_min['day'].values[0],last_min['hour'].values[0],last_min['minute'].values[0])
+                last_min = last_min.drop(columns = ['year','month','day','hour','minute'])
+                break
+                
+        
 
         # only way to get the mains off is to look at the first 3 names in the channel names list 
 
@@ -192,12 +286,15 @@ class Emporia_Customer():
             pass
 
         # need to get the total 
-
+        
         totals  = last_min.sum()
         
+        totals = totals * 60
+        
         #total_energy = totals.sum()
+       
 
-        cols = ['circuit name', 'percentage','price per hour']
+        cols = ['circuit name', 'percentage','price per hour','watts in minute']
 
         df = pd.DataFrame(columns=cols)
 
@@ -205,29 +302,34 @@ class Emporia_Customer():
         
         # 1 watt minute = 0.000017 kwh
 
-        totals = totals * 0.000017
+        total_watts = totals
+
+        kw_totals = total_watts /1000
+
+
 
         total_energy = totals.sum()
 
-        hour_kwh = totals * 60
+        kwh_minute = kw_totals * (1/60) # take kw and multiplyit by the time so 1 min = 1/60 hours
 
-        print(hour_kwh)
+        hour_kwh = kwh_minute * 60  # how many kwh would it take if it was on for a hour 
 
 
         for i in range(len(totals.index)): 
-            percent_usage = float(totals[i])/float(total_energy)
+            try:
+                percent_usage = float(totals[i])/float(total_energy)
+            except:
+                percent_usage = 0.0
             #usage_price = price_per_kwh * (float(totals[i])/float(hours)) # divide it by 24 to get average usage per hour 
             usage_price = price_per_kwh * hour_kwh[i]
 
-            df.loc[i] = [totals.index[i],percent_usage,usage_price]
+            df.loc[i] = [totals.index[i],percent_usage,usage_price,total_watts[i]]
 
-            #df['circuit name'].append(i)
-            #df['percentage'].append(percent_usage)
-            #df['price per hour'].append(usage_price)
 
-        self.channel_cost = df
 
-        return df
+        self.channel_cost_min = df
+        
+        return df, d
 
     def save_channels(self):  
 
