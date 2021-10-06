@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
     <script src="https://cdn.jsdelivr.net/npm/apexcharts" type="text/javascript"></script>
   </head>
-  <body style="margin: 0; background: #ffffff" onload="random(); getDate()">
+  <body style="margin: 0; background: #ffffff" onload="getDate()">
     <input type="hidden" id="anPageName" name="page" value="historical-usage-lines-display-category" />
     <div class="container-center-horizontal">
       <div class="historical-usage-lines-display-category screen">
@@ -75,7 +75,7 @@
       </div>
               <div id="Panel" class="tabcontent">
                     <div class="row">
-                    <div class="col-lg-6 col-md-12 col-sm-12" style ="left:1018px;top:218px;position: absolute;">
+                    <div class="col-lg-6 col-md-12 col-sm-12" style ="left:1018px;top:218px; position: absolute;">
                         <div id="chart3"></div>
                         </div>
                           <script>
@@ -100,11 +100,11 @@
         <div class="plug-load-L7BXHD avertacy-bold-sapphire-12px">Panel C </div>
         <div class="dhw-L7BXHD avertacy-bold-sapphire-12px">Panel D</div>
         <div class="mechanical-L7BXHD avertacy-bold-sapphire-12px">Panel E</div>
-        <div class="rectangle-3024-L7BXHD"></div>
-        <div class="rectangle-3032-L7BXHD"></div>
-        <div class="rectangle-3033-L7BXHD"></div>
-        <div class="rectangle-3034-L7BXHD"></div>
-        <div class="rectangle-3035-L7BXHD"></div>
+        <input type= 'checkbox'class="rectangle-3024-L7BXHD"d= 'panel1check' onclick= "chart.toggleSeries('Panel A');" checked/><label for = 'panel1check'></label>
+        <input type= 'checkbox' class="rectangle-3032-L7BXHD"id= 'panel2check' onclick= "chart.toggleSeries('Panel 2');" checked/><label for = 'panel2check'></label>
+        <input type= 'checkbox' class="rectangle-3033-L7BXHD"id= 'panel2check' onclick= "chart.toggleSeries('Panel 3');" checked/><label for = 'panel2check'></label>
+        <input type= 'checkbox' class="rectangle-3034-L7BXHD"id= 'panel2check' onclick= "chart.toggleSeries('Panel 4');" checked/><label for = 'panel2check'></label>
+        <input type= 'checkbox' class="rectangle-3035-L7BXHD"id= 'panel1check' onclick= "chart.toggleSeries('Panel 5');" checked/><label for = 'panel1check'></label>
         <div class="category-zsJCYe avertacy-bold-sapphire-15px">Category</div>
       </div>
         <div class="rectangle-2984-L7BXHD"></div>
@@ -112,58 +112,25 @@
         <div class="month-L7BXHD avertacy-bold-sapphire-13px">Month</div>
         <img class="rectangle-3207-week" src="{{url_for('static',filename='img/rectangle-3207@2x.svg')}}" />
         <a href = "{{url_for('commercial.historicalusage')}}"><div class="day-L7BXHD" style = "color: #3044A5;">Day</div>
-        <div class="rectangle-3165-L7BXHD"></div>
-        <div class="rectangle-3210-L7BXHD"></div>
-        <div class="rectangle-3212-L7BXHD"></div>
-        <div class="rectangle-3214-L7BXHD"></div>
-        <div class="rectangle-3216-L7BXHD"></div>
-        <div class="rectangle-3218-L7BXHD"></div>
-        <div class="rectangle-3220-L7BXHD"></div>
-        <div class="rectangle-3222-L7BXHD"></div>
-        <div class="rectangle-3224-L7BXHD"></div>
-        <div class="rectangle-3226-L7BXHD"></div>
-        <div class="lunchroom-lights-L7BXHD avertacy-bold-sapphire-11px">Lunchroom Lights</div>
-        <div class="office-plugs-2-L7BXHD avertacy-bold-jaffa-11px">Office Plugs 2</div>
-        <div class="hallway-lighting-L7BXHD avertacy-bold-orange-soda-11px">Hallway Lighting</div>
-        <div class="shop-lights-1-L7BXHD avertacy-bold-picton-blue-11px">Shop Lights 1</div>
-        <div class="office-plugs-1-L7BXHD avertacy-bold-jaffa-11px">Office Plugs 1</div>
-        <div class="wallpacks-L7BXHD avertacy-bold-sapphire-11px">Wallpacks</div>
-        <div class="exit-lights-L7BXHD avertacy-bold-stack-11px">Exit Lights</div>
-        <div class="exit-lights-zsJCYe avertacy-bold-stack-11px">Exit Lights</div>
-        <div class="smoke-detectors-L7BXHD avertacy-bold-sapphire-11px">Smoke Detectors</div>
-        <div class="emer-lights-L7BXHD avertacy-bold-stack-11px">Emer. Lights</div>
-        <div id = 'demo' class="x345-L7BXHD avertacy-bold-sapphire-11px"></div>
-        <div id = 'demo2' class="x045-L7BXHD avertacy-bold-jaffa-11px"></div>
-        <div id = 'demo3' class="x113-L7BXHD avertacy-bold-orange-soda-11px"></div>
-        <div id = 'demo4' class="x302-L7BXHD avertacy-bold-picton-blue-11px"></div>
-        <div id = 'demo5' class="x042-L7BXHD avertacy-bold-jaffa-11px"></div>
-        <div id = 'demo6' class="x102-L7BXHD avertacy-bold-sapphire-11px"></div>
-        <div id = 'demo7' class="x025-L7BXHD avertacy-bold-stack-11px"></div>
-        <div id = 'demo8' class="x019-L7BXHD avertacy-bold-stack-11px"></div>
-        <div id = 'demo9' class="x039-L7BXHD avertacy-bold-sapphire-11px"></div>
-        <div id = 'demo10' class="x044-L7BXHD avertacy-bold-stack-11px"></div>
-        <div class="rectangle-3184-L7BXHD" id = 'bar'><div id = 'percentage' class="x21-L7BXHD avertacy-bold-sapphire-11px"></div></div>
-        <div class="rectangle-3211-L7BXHD" id = 'bar2'><div id = 'percentage2' class="x31-L7BXHD avertacy-bold-jaffa-11px"></div></div>
-        <div class="rectangle-3213-L7BXHD" id = 'bar3'><div id = 'percentage3' class="x534-L7BXHD avertacy-bold-orange-soda-11px"></div></div>
-        <div class="rectangle-3215-L7BXHD" id = 'bar4'><div id = 'percentage4' class="x1897-L7BXHD avertacy-bold-picton-blue-11px"></div></div>
-        <div class="rectangle-3217-L7BXHD" id = 'bar5'><div id = 'percentage5' class="x298-L7BXHD avertacy-bold-jaffa-11px"></div></div>
-        <div class="rectangle-3219-L7BXHD" id = 'bar6'><div id = 'percentage6' class="x532-L7BXHD avertacy-bold-sapphire-11px"></div></div>
-        <div class="rectangle-3221-L7BXHD" id = 'bar7'><div id = 'percentage7' class="x06-L7BXHD avertacy-bold-stack-11px"></div></div>
-        <div class="rectangle-3223-L7BXHD" id = 'bar8'><div id = 'percentage8' class="x04-L7BXHD avertacy-bold-stack-11px"></div></div>
-        <div class="rectangle-3225-L7BXHD" id = 'bar9'><div id = 'percentage9' class="x092-L7BXHD avertacy-bold-sapphire-11px"></div></div>
-        <div class="rectangle-3227-L7BXHD" id = 'bar10'><div id = 'percentage10' class="x112-L7BXHD avertacy-bold-stack-11px"></div></div>
+        <div class = scrollable>
+        {% for i in range (0, len) %}
+
+        <div class="rectangle-3165-L7BXHD">
+        <div class="lunchroom-lights-L7BXHD avertacy-bold-sapphire-11px">{{historicalusage.iloc[i][0]}}</div>
+        <div class="x345-L7BXHD avertacy-bold-sapphire-11px">{{historicalusage.iloc[i][1]}}w</div>
+        <div class="rectangle-3184-L7BXHD" {% if historicalusage.iloc[i][1] == 0 %} style = 'width: 2px; background-color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'width: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;'{% endif %}><div class="x21-L7BXHD avertacy-bold-sapphire-11px" {% if historicalusage.iloc[i][1] == 0 %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;  color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 10}}px;'{% endif %}>{{"%.2f"|format(((historicalusage.iloc[i][1]/ total) * 100)|float)}}%</div></div></div>
+        {% endfor %}
+    </div>
         <div class="rectangle-3099-L7BXHD"></div>
         <div class="x1245-L7BXHD avertacy-bold-sapphire-15px">
           <span class="span0-rNQNIN avertacy-bold-sapphire-15px">$</span
-          ><span class="span1-rNQNIN avertacy-bold-sapphire-25px">12.45</span>
+          ><span class="span1-rNQNIN avertacy-bold-sapphire-25px">{{"%.2f"|format(totalprice)|float}}</span>
         </div>
         <div class="x13212-k-wh-L7BXHD avertacy-bold-sapphire-25px">
-          <span class="span0-84mBJe avertacy-bold-sapphire-25px">13,212</span
+          <span class="span0-84mBJe avertacy-bold-sapphire-25px">{{"%.2f"|format(total/1000)|float}}</span
           ><span class="span1-84mBJe avertacy-bold-sapphire-20px">&nbsp;</span
           ><span class="span2-84mBJe avertacy-bold-sapphire-15px">kWh</span>
         </div>
-        <div class="rectangle-3002-L7BXHD"></div>
-        <div class="rectangle-3003-L7BXHD"></div>
         <div class="costs-L7BXHD avertacy-bold-sapphire-8px">Costs</div>
         <div class="consumption-L7BXHD avertacy-bold-sapphire-8px">Consumption</div>
         <a href= "{{url_for('commercial.historicalusageweek')}}"><div class="group-7245-L7BXHD">
@@ -193,7 +160,7 @@
                                   colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
                                   series: [
                                   {
-                                    name: "Panel 1",
+                                    name: "Panel A",
                                     data: [{{home_upgrades[0]}},{{home_upgrades[1]}},{{home_upgrades[2]}},{{home_upgrades[3]}},{{home_upgrades[4]}},{{home_upgrades[5]}},{{home_upgrades[6]}},{{home_upgrades[7]}},{{home_upgrades[8]}},{{home_upgrades[9]}},{{home_upgrades[10]}},{{home_upgrades[11]}},{{home_upgrades[12]}}]
                                   },
                                   {
@@ -278,7 +245,7 @@
         <h1 class="title-L7BXHD">Historical Usage</h1>
         <img class="rectangle-3269-L7BXHD" src="{{url_for('static',filename='img/rectangle-3269@2x.svg')}}" />
         <div class="x66-L7BXHD avertacy-bold-sapphire-18px">
-          <span class="span0-nJpIKI avertacy-bold-sapphire-18px">66</span
+          <span class="span0-nJpIKI avertacy-bold-sapphire-18px">100</span
           ><span class="span1-nJpIKI avertacy-bold-sapphire-12px">%</span>
         </div>
         <div class="x43kgco2-L7BXHD avertacy-bold-sapphire-18px">
@@ -287,12 +254,72 @@
         <div class="usage-L7BXHD avertacy-bold-sapphire-8px">Usage</div>
         <div class="emissions-L7BXHD avertacy-bold-sapphire-8px">Emissions</div>
         <div class="rectangle-3262-L7BXHD"></div>
+        <form onsubmit="setTimeout(function(){window.location.reload();},10);" method = "POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
         <div class="group-7286-L7BXHD">
-          <input onchange= "random()" id = 'today2' type = 'week' class="march-18th-2021-tkyWp6">
+          <input onchange= "submit()" name = 'date' id = 'today2' type = 'week' class="march-18th-2021-tkyWp6">
         </div>
+        </form>
       </div>
     </div>
   </body>
+  <script >var options = {
+                              labels: ["Lighting", "Electrical", "Plug Load", "DHW", "Mechanical"],
+                              series: [1,0,0,0,0 ],
+                              chart: {
+                              width: 200,
+                              type: 'donut',
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            legend: {
+                                position: 'bottom',
+                                show:false
+                            },
+
+                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
+
+                            responsive: [{
+                              breakpoint: 480,
+                              options: {
+                                chart: {
+                                  width: 300
+                                },
+                              }
+                            }]
+                            };
+                            var chart = new ApexCharts(document.querySelector("#chart"), options);
+                            chart.render();
+                                                        var options = {
+                              labels: ["Panel A", "Panel B", "Panel C", "Panel D", "Panel E"],
+                              series: [1,0,0,0,0],
+                              chart: {
+                              width: 200,
+                              type: 'donut',
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            legend: {
+                                position: 'bottom',
+                                show:false
+                            },
+
+                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
+
+                            responsive: [{
+                              breakpoint: 480,
+                              options: {
+                                chart: {
+                                  width: 300
+                                },
+                              }
+                            }]
+                            };
+                            var chart = new ApexCharts(document.querySelector("#chart3"), options);
+                            chart.render();
+</script>
     <script>
     function openNav(panel) {
   document.getElementById("sidebar").style.width = "600px";
@@ -364,141 +391,6 @@ function showSlides(n) {
 
   document.querySelector("#today2").valueAsDate = new Date();
 
-  function random() {
-  let demo = (Math.random() * (6 - 4) + 4).toFixed(2);
-  document.getElementById("demo").innerHTML = '$' + demo;
-  let demo2 = (Math.random() * (2 - 1) + 1).toFixed(2);
-  document.getElementById("demo2").innerHTML = '$' + demo2;
-  var demo3 = (Math.random() * (5 - 4) + 4).toFixed(2);
-  document.getElementById("demo3").innerHTML = '$' + demo3;
-  var demo4 = (Math.random() * (7 - 6) + 6).toFixed(2);
-  document.getElementById("demo4").innerHTML = '$' + demo4;
-  var demo5 = (Math.random() * (4 - 3) + 3).toFixed(2);
-  document.getElementById("demo5").innerHTML = '$' + demo5;
-  var demo6 = (Math.random() * (5 - 4) + 4).toFixed(2);
-  document.getElementById("demo6").innerHTML = '$' + demo6;
-  var demo7 = (Math.random() * (2 - 1) + 1).toFixed(2);
-  document.getElementById("demo7").innerHTML = '$' + demo7;
-  var demo8 = (Math.random() * (2 - 1) + 1).toFixed(2);
-  document.getElementById("demo8").innerHTML = '$' + demo8;
-  var demo9 = (Math.random() * (4 - 3) + 3).toFixed(2);
-  document.getElementById("demo9").innerHTML = '$' + demo9;
-  var demo10 = (Math.random() * (2 - 1) + 1).toFixed(2);
-  document.getElementById("demo10").innerHTML = '$' + demo10;
-
-  let total = parseFloat(demo) + parseFloat(demo2) + parseFloat(demo3) + parseFloat(demo4) + parseFloat(demo5) + parseFloat(demo6) + parseFloat(demo7) + parseFloat(demo8) + parseFloat(demo9) + parseFloat(demo10);
-  let percentage = document.getElementById("percentage").innerHTML = ((parseFloat(demo)/ total) * 100).toFixed(0) + "%";
-  let percentage2 = document.getElementById("percentage2").innerHTML = ((parseFloat(demo2)/ total) * 100).toFixed(0) + "%";
-  let percentage3 = document.getElementById("percentage3").innerHTML = ((parseFloat(demo3)/ total) * 100).toFixed(0) + "%";
-  let percentage4 = document.getElementById("percentage4").innerHTML = ((parseFloat(demo4)/ total) * 100).toFixed(0) + "%";
-  let percentage5 = document.getElementById("percentage5").innerHTML = ((parseFloat(demo5)/ total) * 100).toFixed(0) + "%";
-  let percentage6 = document.getElementById("percentage6").innerHTML = ((parseFloat(demo6)/ total) * 100).toFixed(0) + "%";
-  let percentage7 = document.getElementById("percentage7").innerHTML = ((parseFloat(demo7)/ total) * 100).toFixed(0) + "%";
-  let percentage8 = document.getElementById("percentage8").innerHTML = ((parseFloat(demo8)/ total) * 100).toFixed(0) + "%";
-  let percentage9 = document.getElementById("percentage9").innerHTML = ((parseFloat(demo9)/ total) * 100).toFixed(0) + "%";
-  let percentage10 = document.getElementById("percentage10").innerHTML = ((parseFloat(demo10)/ total) * 100).toFixed(0) + "%";
-  let width = 250 * ((parseFloat(demo)/ total));
-  let width2 = 250 * ((parseFloat(demo2)/ total));
-  let width3 = 250 * ((parseFloat(demo3)/ total));
-  let width4 = 250 * ((parseFloat(demo4)/ total));
-  let width5 = 250 * ((parseFloat(demo5)/ total));
-  let width6 = 250 * ((parseFloat(demo6)/ total));
-  let width7 = 250 * ((parseFloat(demo7)/ total));
-  let width8 = 250 * ((parseFloat(demo8)/ total));
-  let width9 = 250 * ((parseFloat(demo9)/ total));
-  let width10 = 250 * ((parseFloat(demo10)/ total));
-  document.getElementById("bar").style.width = width + "px";
-  document.getElementById("bar2").style.width = width2 + "px";
-  document.getElementById("bar3").style.width = width3 + "px";
-  document.getElementById("bar4").style.width = width4 + "px";
-  document.getElementById("bar5").style.width = width5 + "px";
-  document.getElementById("bar6").style.width = width6 + "px";
-  document.getElementById("bar7").style.width = width7 + "px";
-  document.getElementById("bar8").style.width = width8 + "px";
-  document.getElementById("bar9").style.width = width9 + "px";
-  document.getElementById("bar10").style.width = width10 + "px";
-  document.getElementById("percentage").style.left = width + 5 + "px";
-  document.getElementById("percentage2").style.left = width2 + 5 + "px";
-  document.getElementById("percentage3").style.left = width3 + 5 + "px";
-  document.getElementById("percentage4").style.left = width4 + 5 + "px";
-  document.getElementById("percentage5").style.left = width5 + 5 + "px";
-  document.getElementById("percentage6").style.left = width6 + 5 + "px";
-  document.getElementById("percentage7").style.left = width7 + 5 + "px";
-  document.getElementById("percentage8").style.left = width8 + 5 + "px";
-  document.getElementById("percentage9").style.left = width9 + 5 + "px";
-  document.getElementById("percentage10").style.left = width10 + 5 + "px";
-  let lighting = parseFloat(percentage) + parseFloat(percentage6) + parseFloat(percentage9);
-  let electrical = parseFloat(percentage4);
-  let plugload =  parseFloat(percentage3);
-  let dhw = parseFloat(percentage2) + parseFloat(percentage5);
-  let mechanical = parseFloat(percentage10) + parseFloat(percentage8) + parseFloat(percentage7);
-  document.getElementById("lighting").innerHTML = lighting + "%";
-  document.getElementById("electrical").innerHTML = electrical + "%";
-  document.getElementById("plugload").innerHTML = plugload + "%";
-  document.getElementById("dhw").innerHTML = dhw + "%";
-  document.getElementById("mechanical").innerHTML = mechanical + "%";
-  document.getElementById("panelA").innerHTML = lighting + "%";
-  document.getElementById("panelB").innerHTML = electrical + "%";
-  document.getElementById("panelC").innerHTML = plugload + "%";
-  document.getElementById("panelD").innerHTML = dhw + "%";
-  document.getElementById("panelE").innerHTML = mechanical + "%";
-  var options = {
-                              labels: ["Lighting", "Electrical", "Plug Load", "DHW", "Mechanical"],
-                              series: [lighting,electrical,plugload,dhw,mechanical ],
-                              chart: {
-                              width: 200,
-                              type: 'donut',
-                            },
-                            dataLabels: {
-                              enabled: false
-                            },
-                            legend: {
-                                position: 'bottom',
-                                show:false
-                            },
-
-                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
-
-                            responsive: [{
-                              breakpoint: 480,
-                              options: {
-                                chart: {
-                                  width: 300
-                                },
-                              }
-                            }]
-                            };
-                            var chart = new ApexCharts(document.querySelector("#chart"), options);
-                            chart.render();
-                                                        var options = {
-                              labels: ["Lighting", "Electrical", "Plug Load", "DHW", "Mechanical"],
-                              series: [lighting,electrical,plugload,dhw,mechanical],
-                              chart: {
-                              width: 200,
-                              type: 'donut',
-                            },
-                            dataLabels: {
-                              enabled: false
-                            },
-                            legend: {
-                                position: 'bottom',
-                                show:false
-                            },
-
-                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
-
-                            responsive: [{
-                              breakpoint: 480,
-                              options: {
-                                chart: {
-                                  width: 300
-                                },
-                              }
-                            }]
-                            };
-                            var chart = new ApexCharts(document.querySelector("#chart3"), options);
-                            chart.render();
-}
 function getDate(){
     var today = new Date();
 
