@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, jsonify, url_for
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+from datetime import datetime, date
 import flask_excel as excel
 import pandas as pd
 import os
@@ -82,7 +82,7 @@ from PartnerApiClient import *
 import matplotlib.pyplot as plt
 import pandas as pd
 from PartnerApiClient.Emporia_Customer import Emporia_Customer
-
+import mysql.connector
 #for photo upload
 commercial = Blueprint('commercial',__name__,template_folder='templates')
 app_root = Path(__file__).parents[1]
@@ -4606,3 +4606,7 @@ class ClientForm(FlaskForm):
     address = StringField("Address")
     postal_code = StringField("Postal Code")
     province = StringField("Province")
+class HistoricalUsageForm(FlaskForm):
+    date = StringField("Date")
+
+
