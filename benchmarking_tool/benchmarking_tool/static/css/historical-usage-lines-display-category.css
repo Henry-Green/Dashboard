@@ -782,11 +782,12 @@
   background-color: var(--white);
   border-radius: 5px;
   height: 20px;
-  left: 357px;
+  left: 20px;
   mix-blend-mode: normal;
-  position: absolute;
-  top: 430px;
+  position: relative;
+  top: 5px;
   width: 468px;
+  margin-bottom: 10px;
 }
 
 .historical-usage-lines-display-category .rectangle-3210-L7BXHD {
@@ -891,13 +892,13 @@
 .historical-usage-lines-display-category .lunchroom-lights-L7BXHD {
   background-color: transparent;
   height: auto;
-  left: 367px;
+  left: 10px;
   letter-spacing: 0.22px;
   line-height: normal;
   mix-blend-mode: normal;
-  position: absolute;
+  position: relative;
   text-align: left;
-  top: 433px;
+  top: 2px;
   width: auto;
 }
 
@@ -1021,13 +1022,13 @@
 .historical-usage-lines-display-category .x345-L7BXHD {
   background-color: transparent;
   height: auto;
-  left: 790px;
+  right: 5px;
   letter-spacing: 0.22px;
   line-height: normal;
   mix-blend-mode: normal;
-  position: absolute;
-  text-align: left;
-  top: 433px;
+  position: relative;
+  text-align: right;
+  bottom: 13px;
   width: auto;
 }
 
@@ -1170,6 +1171,7 @@
   width: auto;
   left: 10px;
   bottom: 1px;
+  z-index: 1000;
 }
 
 .historical-usage-lines-display-category .x21-week {
@@ -1407,11 +1409,10 @@
 .historical-usage-lines-display-category .rectangle-3184-L7BXHD {
   background-color: var(--sapphire);
   height: 12px;
-  left: 541px;
+  left: 35%;
   mix-blend-mode: normal;
-  position: absolute;
-  top: 434px;
-  width: 82px;
+  position: relative;
+  bottom: 25px;
 }
 .historical-usage-lines-display-category .rectangle-3184-week {
   background-color: var(--sapphire);
@@ -2587,3 +2588,42 @@
 ::-webkit-calendar-picker-indicator {
     filter: invert(1);
 }
+
+.historical-usage-lines-display-category .scrollable{
+  background-color: var(--zircon);
+  border-radius: 5px;
+  height: 336px;
+  left: 328px;
+  mix-blend-mode: normal;
+  position: absolute;
+  top: 430px;
+  width: 536px;  
+  padding-bottom: 20px;
+  background-color: var(--zircon);
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+}
+.scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+.scrollable::-webkit-scrollbar-track {
+  -webkit-border-radius: 12px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  background-color: #3044A5;
+  -webkit-border-radius: 8px;
+}
+.rectangle-3000-VxPVnb::-webkit-scrollbar {
+  width: 8px;
+}
+.rectangle-3000-VxPVnb::-webkit-scrollbar-track {
+  -webkit-border-radius: 12px;
+}
+
+.rectangle-3000-VxPVnb::-webkit-scrollbar-thumb {
+  background-color: #3044A5;
+  -webkit-border-radius: 8px;
+}
+/* screen - frame-1 */
