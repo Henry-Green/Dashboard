@@ -6,3 +6,4 @@ from benchmarking_tool.PartnerApiClient.emporia_structure.clean_data import clea
 from benchmarking_tool.PartnerApiClient.emporia_structure.get_channels import get_channels
 from benchmarking_tool.PartnerApiClient.emporia_structure.on_off_usage import on_off_usage
 from benchmarking_tool.PartnerApiClient.emporia_structure.UTC_MTN import UTC_MTN
+from benchmarking_tool.PartnerApiClient.emporia_structure.category_usage import category_usage

@@ -1,4 +1,4 @@
-from benchmarking_tool.PartnerApiClient.emporia_structure import ave_channel_usage, Channel, clean_data,get_channels,on_off_usage,UTC_MTN
+from benchmarking_tool.PartnerApiClient.emporia_structure import ave_channel_usage, Channel, clean_data,get_channels,on_off_usage,UTC_MTN,category_usage
 from benchmarking_tool.PartnerApiClient.get_data import get_data
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -114,6 +114,51 @@ class Emporia_Customer():
         self.chan_min = chan_min
 
         return chan_min
+
+    def day_category_usage(self):
+        # needs to have hours data to use 
+        usage, categories = category_usage(self.chan_hours)
+        last_hour = self.chan_hours.tail(1)
+        d = datetime(last_hour['year'].values[0],last_hour['month'].values[0],last_hour['day'].values[0],last_hour['hour'].values[0],last_hour['minute'].values[0])
+        return usage, categories, d 
+
+    def hour_category_usage(self):
+        last_hour = self.chan_hours.tail(1)
+        t = 1
+        d = datetime(last_hour['year'].values[0],last_hour['month'].values[0],last_hour['day'].values[0],last_hour['hour'].values[0],last_hour['minute'].values[0])
+        for i in last_hour:
+            if last_hour[i].values != last_hour[i].values:
+                t += 1
+                last_hour = 0
+                last_hour = self.chan_hours.tail(t)
+                d = datetime(last_hour['year'].values[0],last_hour['month'].values[0],last_hour['day'].values[0],last_hour['hour'].values[0],last_hour['minute'].values[0])
+                break
+
+
+        usage, categories = category_usage(last_hour)
+        return usage,categories, d
+
+    def minute_category_usage(self):
+        last_min = self.chan_min.tail(1)
+        t = 1
+        d = datetime(last_min['year'].values[0],last_min['month'].values[0],last_min['day'].values[0],last_min['hour'].values[0],last_min['minute'].values[0])
+                
+        for i in last_min:
+            
+            if last_min[i].values != last_min[i].values:
+                t += 1
+                last_min = 0
+                last_min = self.chan_min.tail(t)
+                d = datetime(last_min['year'].values[0],last_min['month'].values[0],last_min['day'].values[0],last_min['hour'].values[0],last_min['minute'].values[0])
+                break
+
+        last_min = last_min.multiply(other = 60)
+
+        print(last_min)
+
+        usage, categories = category_usage(last_min)
+
+        return usage, categories, d
     
     def get_schedule(self): 
         # gets the schedule of the pas days 
