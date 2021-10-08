@@ -49,12 +49,13 @@
                         </script>
                     </div>
         <div class="x100-L7BXHD">100%</div>
-          <div class="rectangle-2973-L7BXHD"></div>
+          <div class="rectangle-2973-L7BXHD"  style = "height: 270px;"></div>
         <div class="rectangle-2340-L7BXHD"></div>
         <div class="rectangle-2974-L7BXHD"></div>
         <div class="rectangle-2975-L7BXHD"></div>
         <div class="rectangle-2976-L7BXHD"></div>
         <div class="rectangle-2977-L7BXHD"></div>
+        <div class="rectangle-2978-l6cqYc"></div>
         <div class="rectangle-15-L7BXHD"></div>
         <div class="lighting-L7BXHD avertacy-bold-sapphire-12px">Lighting</div>
         <div class="x43-L7BXHD avertacy-bold-sapphire-12px" id = 'lighting'></div>
@@ -62,15 +63,17 @@
         <div class="x19-L7BXHD avertacy-bold-sapphire-12px" id = 'plugload'></div>
         <div class="x11-L7BXHD avertacy-bold-sapphire-12px" id = 'dhw'></div>
         <div class="x6-L7BXHD avertacy-bold-sapphire-12px" id = 'mechanical'></div>
-        <div class="electrical-L7BXHD avertacy-bold-sapphire-12px">Electrical</div>
-        <div class="plug-load-L7BXHD avertacy-bold-sapphire-12px">Plug Load</div>
-        <div class="dhw-L7BXHD avertacy-bold-sapphire-12px">DHW</div>
-        <div class="mechanical-L7BXHD avertacy-bold-sapphire-12px">Mechanical</div>
-        <input type= 'checkbox'class="rectangle-3024-L7BXHD"d= 'panel1check' onclick= "chart.toggleSeries('Panel 1');" checked/><label for = 'panel1check'></label>
-        <input type= 'checkbox' class="rectangle-3032-L7BXHD"id= 'panel2check' onclick= "chart.toggleSeries('Panel 2');" checked/><label for = 'panel2check'></label>
-        <input type= 'checkbox' class="rectangle-3033-L7BXHD"id= 'panel2check' onclick= "chart.toggleSeries('Panel 3');" checked/><label for = 'panel2check'></label>
-        <input type= 'checkbox' class="rectangle-3034-L7BXHD"id= 'panel2check' onclick= "chart.toggleSeries('Panel 4');" checked/><label for = 'panel2check'></label>
-        <input type= 'checkbox' class="rectangle-3035-L7BXHD"id= 'panel1check' onclick= "chart.toggleSeries('Panel 5');" checked/><label for = 'panel1check'></label>
+        <div class="electrical-L7BXHD avertacy-bold-sapphire-12px">Equipment</div>
+        <div class="plug-load-L7BXHD avertacy-bold-sapphire-12px">HVAC</div>
+        <div class="dhw-L7BXHD avertacy-bold-sapphire-12px">Plug Load</div>
+        <div class="mechanical-L7BXHD avertacy-bold-sapphire-12px">Hot Water</div>
+        <div class="panel-f-l6cqYc avertacy-bold-sapphire-12px">Other</div>
+        <input type= 'checkbox'class="rectangle-3024-L7BXHD" id= 'panel1check' onclick= "toggleLighting()" checked/><label for = 'panel1check'></label>
+        <input type= 'checkbox' class="rectangle-3032-L7BXHD"id= 'panel2check' onclick= "toggleEquipment();" checked/><label for = 'panel2check'></label>
+        <input type= 'checkbox' class="rectangle-3033-L7BXHD"id= 'panel2check' onclick= "toggleHVAC();" checked/><label for = 'panel2check'></label>
+        <input type= 'checkbox' class="rectangle-3034-L7BXHD"id= 'panel2check' onclick= "togglePlugLoad();" checked/><label for = 'panel2check'></label>
+        <input type= 'checkbox' class="rectangle-3035-L7BXHD"id= 'panel1check' onclick= "toggleHotWater();" checked/><label for = 'panel1check'></label>
+        <input type= 'checkbox' class="rectangle-30352-l6cqYc"id= 'panel1check' onclick= "toggleOther();" checked/><label for = 'panel1check'></label>
         <div class="category-zsJCYe avertacy-bold-sapphire-15px">Category</div>
       </div>
               <div id="Panel" class="tabcontent">
@@ -115,10 +118,10 @@
         <div class = scrollable>
         {% for i in range (0, len) %}
 
-        <div class="rectangle-3165-L7BXHD">
-        <div class="lunchroom-lights-L7BXHD avertacy-bold-sapphire-11px">{{historicalusage.iloc[i][0]}}</div>
-        <div class="x345-L7BXHD avertacy-bold-sapphire-11px">{{historicalusage.iloc[i][1]}}w</div>
-        <div class="rectangle-3184-L7BXHD" {% if historicalusage.iloc[i][1] == 0 %} style = 'width: 2px; background-color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'width: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;'{% endif %}><div class="x21-L7BXHD avertacy-bold-sapphire-11px" {% if historicalusage.iloc[i][1] == 0 %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;  color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 10}}px;'{% endif %}>{{"%.2f"|format(((historicalusage.iloc[i][1]/ total) * 100)|float)}}%</div></div></div>
+        <div class="rectangle-3165-L7BXHD {{historicalusage.iloc[i][2]}}">
+        <div class="lunchroom-lights-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][2]}}">{{historicalusage.iloc[i][0]}}</div>
+        <div class="x345-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][2]}}">{{historicalusage.iloc[i][1]}}w</div>
+        <div class="rectangle-3184-L7BXHD {{historicalusage.iloc[i][2]}}line" {% if historicalusage.iloc[i][1] == 0 %} style = 'width: 2px; background-color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'width: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;'{% endif %}><div class="x21-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][2]}}" {% if historicalusage.iloc[i][1] == 0 %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;  color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 10}}px;'{% endif %}>{{"%.2f"|format(((historicalusage.iloc[i][1]/ total) * 100)|float)}}%</div></div></div>
         {% endfor %}
     </div>
         <div class="rectangle-3099-L7BXHD"></div>
@@ -264,8 +267,8 @@
     </div>
   </body>
   <script >var options = {
-                              labels: ["Lighting", "Electrical", "Plug Load", "DHW", "Mechanical"],
-                              series: [1,0,0,0,0 ],
+                              labels: ["Lighting", "Equipment", "HVAC", "Plug Load", "Hot Water", "Other"],
+                              series: [{{lighttotal}},{{equipmenttotal}},{{hvactotal}},{{plugtotal}},{{watertotal}},{{othertotal}} ],
                               chart: {
                               width: 200,
                               type: 'donut',
@@ -278,7 +281,7 @@
                                 show:false
                             },
 
-                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
+                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3'],
 
                             responsive: [{
                               breakpoint: 480,
@@ -397,6 +400,74 @@ function getDate(){
 document.getElementById("today2").value = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
 
 
+}
+  </script>
+  <script>
+    function toggleLighting() {
+  var x = document.getElementsByClassName("lighting");
+  var i;
+  for (i = 0; i < x.length; i++) {
+    if (x[i].style.display === "none") {
+    x[i].style.display = "block";
+  } else {
+    x[i].style.display = "none";
+  }
+  }
+}
+function toggleEquipment() {
+  var x = document.getElementsByClassName("equipment");
+  var i;
+  for (i = 0; i < x.length; i++) {
+    if (x[i].style.display === "none") {
+    x[i].style.display = "block";
+  } else {
+    x[i].style.display = "none";
+  }
+  }
+}
+function toggleHVAC() {
+  var x = document.getElementsByClassName("hvac");
+  var i;
+  for (i = 0; i < x.length; i++) {
+    if (x[i].style.display === "none") {
+    x[i].style.display = "block";
+  } else {
+    x[i].style.display = "none";
+  }
+  }
+}
+function togglePlugLoad() {
+  var x = document.getElementsByClassName("plugload");
+  var i;
+  for (i = 0; i < x.length; i++) {
+    if (x[i].style.display === "none") {
+    x[i].style.display = "block";
+  } else {
+    x[i].style.display = "none";
+  }
+  }
+}
+function toggleHotWater() {
+  var x = document.getElementsByClassName("hotwater");
+  var i;
+  for (i = 0; i < x.length; i++) {
+    if (x[i].style.display === "none") {
+    x[i].style.display = "block";
+  } else {
+    x[i].style.display = "none";
+  }
+  }
+}
+function toggleOther() {
+  var x = document.getElementsByClassName("other");
+  var i;
+  for (i = 0; i < x.length; i++) {
+    if (x[i].style.display === "none") {
+    x[i].style.display = "block";
+  } else {
+    x[i].style.display = "none";
+  }
+  }
 }
   </script>
 </html>
