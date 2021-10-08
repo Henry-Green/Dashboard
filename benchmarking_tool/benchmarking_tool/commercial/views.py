@@ -83,6 +83,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from PartnerApiClient.Emporia_Customer import Emporia_Customer
 import mysql.connector
+from collections import Counter, defaultdict
 #for photo upload
 commercial = Blueprint('commercial',__name__,template_folder='templates')
 app_root = Path(__file__).parents[1]
@@ -506,7 +507,7 @@ def facilityoverview():
         channel_name = ['Dryer', 'Dryer', 'washer', 'car wash GFI Receptacle', 'Exterior receptacle' , 'Tube Heaters', 'Carwash GFI Receptacle', 'exterior receptacle' , 'SAPRE to car wash', 'wash bay door and heat' , 'wash bay door and heat' , 'wash bay door and heat' , 'wash bay receptacle' , 'car wash exhaust fan', 'exterior receptacle' , 'wash bay receptacle','paint booth lights', 'paint booth air dryers', 'paint booth air dryers', 'counter receptacle', 'counter receptacle', 'microwave' , 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'water heater' , 'mezzanine receptacle' , 'water softener and DHW', 'lunch room lights' ]
         serial_numbers = current_user.phone_number
         total = 0
-        totalprice = 0;
+        totalprice = 0
         last = []
         pricelast = []
 
@@ -515,8 +516,10 @@ def facilityoverview():
         customer = Emporia_Customer(serial_list[0])
         customer.get_data(days= d)
         customer.get_schedule()
-        customer.get_price_per_channel(0.75)
-        price = customer.channel_cost
+        customer.get_price_per_channel_hour(0.75)
+        price = customer.channel_cost_hour
+        h1, cat1, dat1 = customer.hour_category_usage()
+
 
         if(len(serial_list) > 1):    
             for i in range(1, len(serial_list)): 
@@ -524,16 +527,46 @@ def facilityoverview():
                 customer = Emporia_Customer(serial_list[i])
                 customer.get_data(days= d)
                 customer.get_schedule()
-                customer.get_price_per_channel(0.75)
-                appendprice = customer.channel_cost
+                customer.get_price_per_channel_hour(0.75)
+                h2, cat2, dat2 = customer.hour_category_usage()
+                appendprice = customer.channel_cost_hour
                 price = price.append(appendprice, ignore_index = True)
 
+        price = price.sort_values(by=['price per hour'], ascending=False)
         home_upgrades = price.copy()
         home_upgrades['price per hour'] = home_upgrades['price per hour']/(0.75*60*0.000017)
         total = home_upgrades['price per hour'].sum()
         totalprice = price['price per hour'].sum()
+        
+        h1 = Counter(h1)
+        h2 = Counter(h2)
+        categoryusage = h1 + h2
+        channel_names = home_upgrades['circuit name']
+        categories = []
+        for name in channel_names:
+            
+            # make everything lowercase 
+            name_l = name.lower()
+            if 'light' in name_l or 'lights' in name_l or 'lighting' in name_l:
+                categories.append('lighting')
+
+            elif 'hot water' in name_l or 'dhw' in name_l or 'water' in name_l or 'water heater' in name_l:
+                categories.append('hotwater')
+
+            elif 'fan' in name_l or 'heat' in name_l or 'hvac' in name_l or 'cooling' in name_l:
+                categories.append('hvac')
+
+            elif 'motor' in name_l or 'pump' in name_l or 'compressor' in name_l or 'vacuum' in name_l or 'dryer' in name_l:
+                categories.append('equipment')
+            
+            elif 'plug' in name_l or 'plugs' in name_l or 'receptacle' in name_l or 'receptacle' in name_l:
+                categories.append('plugload')
+            
+            else:
+                categories.append('other')
+        home_upgrades['Category'] = categories
         print(home_upgrades)
-        return render_template('facilityoverview.html',pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last, len = len(home_upgrades.index), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
+        return render_template('facilityoverview.html',categoryusage = categoryusage, pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last, len = len(home_upgrades.index), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
     else:
         abort(403)
      
@@ -581,7 +614,6 @@ def facilityoverviewbubble():
         return render_template('facilityoverviewbubble.html')
     else:
         abort(403)
-        
 @commercial.route('/historicalusage', methods=['GET', 'POST'])
 @login_required
 def historicalusage():
@@ -641,7 +673,66 @@ def historicalusage():
                 historicalusage = historicalusage.append(historicalusage2, ignore_index = True)
                 total += total2
                 totalprice += totalprice2
+        
+        channel_names = historicalusage['Channel Names']
+        categories = []
+        for name in channel_names:
+            
+            # make everything lowercase 
+            name_l = name.lower()
+            if 'light' in name_l or 'lights' in name_l or 'lighting' in name_l:
+                categories.append('lighting')
 
+            elif 'hot water' in name_l or 'dhw' in name_l or 'water' in name_l or 'water heater' in name_l:
+                categories.append('hotwater')
+
+            elif 'fan' in name_l or 'heat' in name_l or 'hvac' in name_l or 'cooling' in name_l:
+                categories.append('hvac')
+
+            elif 'motor' in name_l or 'pump' in name_l or 'compressor' in name_l or 'vacuum' in name_l or 'dryer' in name_l:
+                categories.append('equipment')
+            
+            elif 'plug' in name_l or 'plugs' in name_l or 'receptacle' in name_l or 'receptacle' in name_l:
+                categories.append('plugload')
+            
+            else:
+                categories.append('other')
+        historicalusage['Category'] = categories
+        lighttotal = 0
+        watertotal = 0
+        hvactotal = 0
+        equipmenttotal = 0
+        plugtotal = 0
+        othertotal = 0
+        categorytotals = historicalusage.copy()
+        for i in range(0,len(categorytotals.index)):
+            
+            # make everything lowercase 
+            name_l = name.lower()
+            if categorytotals.iloc[i][2] == 'lighting':
+                lighttotal += categorytotals.iloc[i][1]
+
+            elif categorytotals.iloc[i][2] == 'hotwater':
+                watertotal += categorytotals.iloc[i][1]
+
+            elif categorytotals.iloc[i][2] == 'hvac':
+                hvactotal += categorytotals.iloc[i][1]
+
+            elif categorytotals.iloc[i][2] == 'equipment':
+                equipmenttotal += categorytotals.iloc[i][1]
+            
+            elif categorytotals.iloc[i][2] == 'plugload':
+                plugtotal += categorytotals.iloc[i][1]
+            
+            else:
+                othertotal += categorytotals.iloc[i][1]
+
+        lighttotal = float("{:.2f}".format(lighttotal/1000))
+        watertotal = float("{:.2f}".format(watertotal/1000))
+        hvactotal = float("{:.2f}".format(hvactotal/1000))
+        equipmenttotal = float("{:.2f}".format(equipmenttotal/1000))
+        plugtotal = float("{:.2f}".format(plugtotal/1000))
+        othertotal = float("{:.2f}".format(othertotal/1000))
         serial_number = 'A2107A04B4B8F009A6CEC4'
         exteriorwalls =[]
         roofs = []
@@ -662,7 +753,7 @@ def historicalusage():
         user_home = [60, 50]
         average_home = [75,62]
         historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
-        return render_template('historicalusage.html',totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        return render_template('historicalusage.html',lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
@@ -727,6 +818,65 @@ def historicalusageline():
                 total += total2
                 totalprice += totalprice2
 
+        channel_names = historicalusage['Channel Names']
+        categories = []
+        for name in channel_names:
+            
+            # make everything lowercase 
+            name_l = name.lower()
+            if 'light' in name_l or 'lights' in name_l or 'lighting' in name_l:
+                categories.append('lighting')
+
+            elif 'hot water' in name_l or 'dhw' in name_l or 'water' in name_l or 'water heater' in name_l:
+                categories.append('hotwater')
+
+            elif 'fan' in name_l or 'heat' in name_l or 'hvac' in name_l or 'cooling' in name_l:
+                categories.append('hvac')
+
+            elif 'motor' in name_l or 'pump' in name_l or 'compressor' in name_l or 'vacuum' in name_l or 'dryer' in name_l:
+                categories.append('equipment')
+            
+            elif 'plug' in name_l or 'plugs' in name_l or 'receptacle' in name_l or 'receptacle' in name_l:
+                categories.append('plugload')
+            
+            else:
+                categories.append('other')
+        historicalusage['Category'] = categories
+        lighttotal = 0
+        watertotal = 0
+        hvactotal = 0
+        equipmenttotal = 0
+        plugtotal = 0
+        othertotal = 0
+        categorytotals = historicalusage.copy()
+        for i in range(0,len(categorytotals.index)):
+            
+            # make everything lowercase 
+            name_l = name.lower()
+            if categorytotals.iloc[i][2] == 'lighting':
+                lighttotal += categorytotals.iloc[i][1]
+
+            elif categorytotals.iloc[i][2] == 'hotwater':
+                watertotal += categorytotals.iloc[i][1]
+
+            elif categorytotals.iloc[i][2] == 'hvac':
+                hvactotal += categorytotals.iloc[i][1]
+
+            elif categorytotals.iloc[i][2] == 'equipment':
+                equipmenttotal += categorytotals.iloc[i][1]
+            
+            elif categorytotals.iloc[i][2] == 'plugload':
+                plugtotal += categorytotals.iloc[i][1]
+            
+            else:
+                othertotal += categorytotals.iloc[i][1]
+
+        lighttotal = "{:.2f}".format(lighttotal)
+        watertotal = "{:.2f}".format(watertotal)
+        hvactotal = "{:.2f}".format(hvactotal)
+        equipmenttotal = "{:.2f}".format(equipmenttotal)
+        plugtotal = "{:.2f}".format(plugtotal)
+        othertotal = "{:.2f}".format(othertotal)
         serial_number = 'A2107A04B4B8F009A6CEC4'
         exteriorwalls =[]
         roofs = []
@@ -747,7 +897,7 @@ def historicalusageline():
         user_home = [60, 50]
         average_home = [75,62]
         historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
-        return render_template('historicalusageline.html',totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        return render_template('historicalusageline.html',lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
@@ -905,6 +1055,65 @@ def historicalusageweek():
             historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
             totalprice = (total * 0.75)/1000
 
+        channel_names = historicalusage['Channel Names']
+        categories = []
+        for name in channel_names:
+            
+            # make everything lowercase 
+            name_l = name.lower()
+            if 'light' in name_l or 'lights' in name_l or 'lighting' in name_l:
+                categories.append('lighting')
+
+            elif 'hot water' in name_l or 'dhw' in name_l or 'water' in name_l or 'water heater' in name_l:
+                categories.append('hotwater')
+
+            elif 'fan' in name_l or 'heat' in name_l or 'hvac' in name_l or 'cooling' in name_l:
+                categories.append('hvac')
+
+            elif 'motor' in name_l or 'pump' in name_l or 'compressor' in name_l or 'vacuum' in name_l or 'dryer' in name_l:
+                categories.append('equipment')
+            
+            elif 'plug' in name_l or 'plugs' in name_l or 'receptacle' in name_l or 'receptacle' in name_l:
+                categories.append('plugload')
+            
+            else:
+                categories.append('other')
+        historicalusage['Category'] = categories
+        lighttotal = 0
+        watertotal = 0
+        hvactotal = 0
+        equipmenttotal = 0
+        plugtotal = 0
+        othertotal = 0
+        categorytotals = historicalusage.copy()
+        for i in range(0,len(categorytotals.index)):
+            
+            # make everything lowercase 
+            name_l = name.lower()
+            if categorytotals.iloc[i][2] == 'lighting':
+                lighttotal += categorytotals.iloc[i][1]
+
+            elif categorytotals.iloc[i][2] == 'hotwater':
+                watertotal += categorytotals.iloc[i][1]
+
+            elif categorytotals.iloc[i][2] == 'hvac':
+                hvactotal += categorytotals.iloc[i][1]
+
+            elif categorytotals.iloc[i][2] == 'equipment':
+                equipmenttotal += categorytotals.iloc[i][1]
+            
+            elif categorytotals.iloc[i][2] == 'plugload':
+                plugtotal += categorytotals.iloc[i][1]
+            
+            else:
+                othertotal += categorytotals.iloc[i][1]
+
+        lighttotal = "{:.2f}".format(lighttotal)
+        watertotal = "{:.2f}".format(watertotal)
+        hvactotal = "{:.2f}".format(hvactotal)
+        equipmenttotal = "{:.2f}".format(equipmenttotal)
+        plugtotal = "{:.2f}".format(plugtotal)
+        othertotal = "{:.2f}".format(othertotal)
         serial_number = 'A2107A04B4B8F009A6CEC4'
         exteriorwalls =[]
         roofs = []
@@ -925,7 +1134,7 @@ def historicalusageweek():
         user_home = [60, 50]
         average_home = [75,62]
         historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
-        return render_template('historicalusageweek.html',totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        return render_template('historicalusageweek.html',lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
@@ -1056,6 +1265,66 @@ def historicalusageweekline():
             historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
             totalprice = (total * 0.75)/1000
 
+
+        channel_names = historicalusage['Channel Names']
+        categories = []
+        for name in channel_names:
+            
+            # make everything lowercase 
+            name_l = name.lower()
+            if 'light' in name_l or 'lights' in name_l or 'lighting' in name_l:
+                categories.append('lighting')
+
+            elif 'hot water' in name_l or 'dhw' in name_l or 'water' in name_l or 'water heater' in name_l:
+                categories.append('hotwater')
+
+            elif 'fan' in name_l or 'heat' in name_l or 'hvac' in name_l or 'cooling' in name_l:
+                categories.append('hvac')
+
+            elif 'motor' in name_l or 'pump' in name_l or 'compressor' in name_l or 'vacuum' in name_l or 'dryer' in name_l:
+                categories.append('equipment')
+            
+            elif 'plug' in name_l or 'plugs' in name_l or 'receptacle' in name_l or 'receptacle' in name_l:
+                categories.append('plugload')
+            
+            else:
+                categories.append('other')
+        historicalusage['Category'] = categories
+        lighttotal = 0
+        watertotal = 0
+        hvactotal = 0
+        equipmenttotal = 0
+        plugtotal = 0
+        othertotal = 0
+        categorytotals = historicalusage.copy()
+        for i in range(0,len(categorytotals.index)):
+            
+            # make everything lowercase 
+            name_l = name.lower()
+            if categorytotals.iloc[i][2] == 'lighting':
+                lighttotal += categorytotals.iloc[i][1]
+
+            elif categorytotals.iloc[i][2] == 'hotwater':
+                watertotal += categorytotals.iloc[i][1]
+
+            elif categorytotals.iloc[i][2] == 'hvac':
+                hvactotal += categorytotals.iloc[i][1]
+
+            elif categorytotals.iloc[i][2] == 'equipment':
+                equipmenttotal += categorytotals.iloc[i][1]
+            
+            elif categorytotals.iloc[i][2] == 'plugload':
+                plugtotal += categorytotals.iloc[i][1]
+            
+            else:
+                othertotal += categorytotals.iloc[i][1]
+
+        lighttotal = "{:.2f}".format(lighttotal)
+        watertotal = "{:.2f}".format(watertotal)
+        hvactotal = "{:.2f}".format(hvactotal)
+        equipmenttotal = "{:.2f}".format(equipmenttotal)
+        plugtotal = "{:.2f}".format(plugtotal)
+        othertotal = "{:.2f}".format(othertotal)
         serial_number = 'A2107A04B4B8F009A6CEC4'
         exteriorwalls =[]
         roofs = []
@@ -1076,7 +1345,7 @@ def historicalusageweekline():
         user_home = [60, 50]
         average_home = [75,62]
         historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
-        return render_template('historicalusageweekline.html',totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        return render_template('historicalusageweekline.html',lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
