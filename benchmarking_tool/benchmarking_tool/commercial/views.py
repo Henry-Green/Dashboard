@@ -565,8 +565,50 @@ def facilityoverview():
             else:
                 categories.append('other')
         home_upgrades['Category'] = categories
-        print(home_upgrades)
-        return render_template('facilityoverview.html',categoryusage = categoryusage, pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last, len = len(home_upgrades.index), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
+        lighttotal = 0
+        watertotal = 0
+        hvactotal = 0
+        equipmenttotal = 0
+        plugtotal = 0
+        othertotal = 0
+        categorytotals = home_upgrades.copy()
+        for i in range(0,len(categorytotals.index)):
+            
+            # make everything lowercase 
+            name_l = name.lower()
+            if categorytotals.iloc[i][4] == 'lighting':
+                lighttotal += categorytotals.iloc[i][2]
+
+            elif categorytotals.iloc[i][4] == 'hotwater':
+                watertotal += categorytotals.iloc[i][2]
+
+            elif categorytotals.iloc[i][4] == 'hvac':
+                hvactotal += categorytotals.iloc[i][2]
+
+            elif categorytotals.iloc[i][4] == 'equipment':
+                equipmenttotal += categorytotals.iloc[i][2]
+            
+            elif categorytotals.iloc[i][4] == 'plugload':
+                plugtotal += categorytotals.iloc[i][2]
+            
+            else:
+                othertotal += categorytotals.iloc[i][2]
+
+        lightprice = (lighttotal * 0.75)/1000
+        waterprice = (watertotal * 0.75)/1000
+        hvacprice = (hvactotal * 0.75)/1000
+        equipmentprice = (equipmenttotal * 0.75)/1000
+        plugprice = (plugtotal * 0.75)/1000
+        otherprice = (othertotal * 0.75)/1000
+
+        percenttotal = total
+        lightpercent = (lighttotal/percenttotal) * 100
+        waterpercent = (watertotal/percenttotal) * 100
+        hvacpercent = (hvactotal/percenttotal) * 100
+        equipmentpercent = (equipmenttotal/percenttotal) * 100
+        plugpercent = (plugtotal/percenttotal) * 100
+        otherpercent = (othertotal/percenttotal) * 100
+        return render_template('facilityoverview.html',lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,categoryusage = categoryusage, pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last, len = len(home_upgrades.index), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
     else:
         abort(403)
      
@@ -668,9 +710,9 @@ def historicalusage():
                 usage = stringlist[1::2]
                 historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
                 historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
-                total2 = historicalusage2['Usage'].sum()
-                totalprice2 = (total * 0.75)/1000
                 historicalusage = historicalusage.append(historicalusage2, ignore_index = True)
+                total2 = historicalusage2['Usage'].sum()
+                totalprice2 = (total2 * 0.75)/1000
                 total += total2
                 totalprice += totalprice2
         
@@ -727,12 +769,28 @@ def historicalusage():
             else:
                 othertotal += categorytotals.iloc[i][1]
 
-        lighttotal = float("{:.2f}".format(lighttotal/1000))
-        watertotal = float("{:.2f}".format(watertotal/1000))
-        hvactotal = float("{:.2f}".format(hvactotal/1000))
-        equipmenttotal = float("{:.2f}".format(equipmenttotal/1000))
-        plugtotal = float("{:.2f}".format(plugtotal/1000))
-        othertotal = float("{:.2f}".format(othertotal/1000))
+        lighttotal = lighttotal/1000
+        watertotal = watertotal/1000
+        hvactotal = hvactotal/1000
+        equipmenttotal = equipmenttotal/1000
+        plugtotal = plugtotal/1000
+        othertotal = othertotal/1000
+
+        lightprice = (lighttotal * 0.75)
+        waterprice = (watertotal * 0.75)
+        hvacprice = (hvactotal * 0.75)
+        equipmentprice = (equipmenttotal * 0.75)
+        plugprice = (plugtotal * 0.75)
+        otherprice = (othertotal * 0.75)
+
+        percenttotal = total/1000
+        lightpercent = (lighttotal/percenttotal) * 100
+        waterpercent = (watertotal/percenttotal) * 100
+        hvacpercent = (hvactotal/percenttotal) * 100
+        equipmentpercent = (equipmenttotal/percenttotal) * 100
+        plugpercent = (plugtotal/percenttotal) * 100
+        otherpercent = (othertotal/percenttotal) * 100
+
         serial_number = 'A2107A04B4B8F009A6CEC4'
         exteriorwalls =[]
         roofs = []
@@ -753,7 +811,7 @@ def historicalusage():
         user_home = [60, 50]
         average_home = [75,62]
         historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
-        return render_template('historicalusage.html',lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        return render_template('historicalusage.html',lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
@@ -813,7 +871,7 @@ def historicalusageline():
                 historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
                 historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
                 total2 = historicalusage2['Usage'].sum()
-                totalprice2 = (total * 0.75)/1000
+                totalprice2 = (total2 * 0.75)/1000
                 historicalusage = historicalusage.append(historicalusage2, ignore_index = True)
                 total += total2
                 totalprice += totalprice2
@@ -871,12 +929,29 @@ def historicalusageline():
             else:
                 othertotal += categorytotals.iloc[i][1]
 
-        lighttotal = "{:.2f}".format(lighttotal)
-        watertotal = "{:.2f}".format(watertotal)
-        hvactotal = "{:.2f}".format(hvactotal)
-        equipmenttotal = "{:.2f}".format(equipmenttotal)
-        plugtotal = "{:.2f}".format(plugtotal)
-        othertotal = "{:.2f}".format(othertotal)
+        lighttotal = lighttotal/1000
+        watertotal = watertotal/1000
+        hvactotal = hvactotal/1000
+        equipmenttotal = equipmenttotal/1000
+        plugtotal = plugtotal/1000
+        othertotal = othertotal/1000
+
+        lightprice = (lighttotal * 0.75)
+        waterprice = (watertotal * 0.75)
+        hvacprice = (hvactotal * 0.75)
+        equipmentprice = (equipmenttotal * 0.75)
+        plugprice = (plugtotal * 0.75)
+        otherprice = (othertotal * 0.75)
+
+        percenttotal = total/1000
+        lightpercent = (lighttotal/percenttotal) * 100
+        waterpercent = (watertotal/percenttotal) * 100
+        hvacpercent = (hvactotal/percenttotal) * 100
+        equipmentpercent = (equipmenttotal/percenttotal) * 100
+        plugpercent = (plugtotal/percenttotal) * 100
+        otherpercent = (othertotal/percenttotal) * 100
+        otherpercent = (othertotal/percenttotal) * 100
+
         serial_number = 'A2107A04B4B8F009A6CEC4'
         exteriorwalls =[]
         roofs = []
@@ -897,7 +972,7 @@ def historicalusageline():
         user_home = [60, 50]
         average_home = [75,62]
         historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
-        return render_template('historicalusageline.html',lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        return render_template('historicalusageline.html',lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
@@ -1010,8 +1085,10 @@ def historicalusageweek():
                     usage = stringlist[1::2]
                     historicalusage3 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
                     historicalusage3['Usage'] = pd.to_numeric(historicalusage3['Usage'], downcast = 'float')
-                    total = historicalusage3['Usage'].sum()
-                    totalprice = (total * 0.75)/1000
+                    total3 = historicalusage3['Usage'].sum()
+                    totalprice3 = (total3 * 0.75)/1000
+                    total += total3
+                    totalprice += totalprice3
                     for i in range(0,6):
                         str = ''
                         stringlist = []
@@ -1108,12 +1185,29 @@ def historicalusageweek():
             else:
                 othertotal += categorytotals.iloc[i][1]
 
-        lighttotal = "{:.2f}".format(lighttotal)
-        watertotal = "{:.2f}".format(watertotal)
-        hvactotal = "{:.2f}".format(hvactotal)
-        equipmenttotal = "{:.2f}".format(equipmenttotal)
-        plugtotal = "{:.2f}".format(plugtotal)
-        othertotal = "{:.2f}".format(othertotal)
+        lighttotal = lighttotal/1000
+        watertotal = watertotal/1000
+        hvactotal = hvactotal/1000
+        equipmenttotal = equipmenttotal/1000
+        plugtotal = plugtotal/1000
+        othertotal = othertotal/1000
+
+        lightprice = (lighttotal * 0.75)
+        waterprice = (watertotal * 0.75)
+        hvacprice = (hvactotal * 0.75)
+        equipmentprice = (equipmenttotal * 0.75)
+        plugprice = (plugtotal * 0.75)
+        otherprice = (othertotal * 0.75)
+
+        percenttotal = total/1000
+        lightpercent = (lighttotal/percenttotal) * 100
+        waterpercent = (watertotal/percenttotal) * 100
+        hvacpercent = (hvactotal/percenttotal) * 100
+        equipmentpercent = (equipmenttotal/percenttotal) * 100
+        plugpercent = (plugtotal/percenttotal) * 100
+        otherpercent = (othertotal/percenttotal) * 100
+        otherpercent = (othertotal/percenttotal) * 100
+
         serial_number = 'A2107A04B4B8F009A6CEC4'
         exteriorwalls =[]
         roofs = []
@@ -1134,7 +1228,7 @@ def historicalusageweek():
         user_home = [60, 50]
         average_home = [75,62]
         historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
-        return render_template('historicalusageweek.html',lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        return render_template('historicalusageweek.html',lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
@@ -1220,8 +1314,10 @@ def historicalusageweekline():
                     usage = stringlist[1::2]
                     historicalusage3 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
                     historicalusage3['Usage'] = pd.to_numeric(historicalusage3['Usage'], downcast = 'float')
-                    total = historicalusage3['Usage'].sum()
-                    totalprice = (total * 0.75)/1000
+                    total3 = historicalusage3['Usage'].sum()
+                    totalprice3 = (total3 * 0.75)/1000
+                    total += total3
+                    totalprice += totalprice3
                     for i in range(0,6):
                         str = ''
                         stringlist = []
@@ -1264,7 +1360,6 @@ def historicalusageweekline():
             total = historicalusage['Usage'].sum()
             historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
             totalprice = (total * 0.75)/1000
-
 
         channel_names = historicalusage['Channel Names']
         categories = []
@@ -1319,12 +1414,29 @@ def historicalusageweekline():
             else:
                 othertotal += categorytotals.iloc[i][1]
 
-        lighttotal = "{:.2f}".format(lighttotal)
-        watertotal = "{:.2f}".format(watertotal)
-        hvactotal = "{:.2f}".format(hvactotal)
-        equipmenttotal = "{:.2f}".format(equipmenttotal)
-        plugtotal = "{:.2f}".format(plugtotal)
-        othertotal = "{:.2f}".format(othertotal)
+        lighttotal = lighttotal/1000
+        watertotal = watertotal/1000
+        hvactotal = hvactotal/1000
+        equipmenttotal = equipmenttotal/1000
+        plugtotal = plugtotal/1000
+        othertotal = othertotal/1000
+
+        lightprice = (lighttotal * 0.75)
+        waterprice = (watertotal * 0.75)
+        hvacprice = (hvactotal * 0.75)
+        equipmentprice = (equipmenttotal * 0.75)
+        plugprice = (plugtotal * 0.75)
+        otherprice = (othertotal * 0.75)
+
+        percenttotal = total/1000
+        lightpercent = (lighttotal/percenttotal) * 100
+        waterpercent = (watertotal/percenttotal) * 100
+        hvacpercent = (hvactotal/percenttotal) * 100
+        equipmentpercent = (equipmenttotal/percenttotal) * 100
+        plugpercent = (plugtotal/percenttotal) * 100
+        otherpercent = (othertotal/percenttotal) * 100
+        otherpercent = (othertotal/percenttotal) * 100
+
         serial_number = 'A2107A04B4B8F009A6CEC4'
         exteriorwalls =[]
         roofs = []
@@ -1345,7 +1457,7 @@ def historicalusageweekline():
         user_home = [60, 50]
         average_home = [75,62]
         historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
-        return render_template('historicalusageweekline.html',lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        return render_template('historicalusageweekline.html',lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
