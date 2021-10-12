@@ -303,18 +303,24 @@
 
 .overview-main .category-l6cqYc {
   background-color: transparent;
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: var(--font-size-xxl);
+  font-style: normal;
+  font-weight: 700;
   height: auto;
-  left: 1036px;
+  left: 1025px;
   letter-spacing: 0.30px;
   line-height: normal;
   mix-blend-mode: normal;
   position: absolute;
   text-align: center;
+  top: 153px;
+  width: auto;
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 3px;
   padding-bottom: 3px;
-  top: 154px;
   width: auto;
   border-radius: 4px;
   border: transparent;
@@ -790,27 +796,23 @@
 
 .overview-main .panel-l6cqYc {
   background-color: transparent;
-  color: var(--sapphire);
-  font-family: var(--font-family-averta_cy-bold);
-  font-size: var(--font-size-xxxl);
-  font-style: normal;
-  font-weight: 700;
   height: auto;
-  left: 1137px;
+  left: 1148px;
   letter-spacing: 0.30px;
   line-height: normal;
   mix-blend-mode: normal;
   position: absolute;
   text-align: center;
+  top: 154px;
+  width: auto;
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 3px;
   padding-bottom: 3px;
-  top: 155px;
+  top: 154px;
   width: auto;
-  z-index: 99;
-  border: transparent;
   border-radius: 4px;
+  border: transparent;
 }
 .tabcontent {
   animation: fadeEffect 1s; /* Fading effect takes 1 second */
