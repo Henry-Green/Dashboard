@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
     <script src="https://cdn.jsdelivr.net/npm/apexcharts" type="text/javascript"></script>
   </head>
-  <body style="margin: 0; background: #ffffff" onload="getDate()">
+  <body style="margin: 0; background: #ffffff" onload="getDate(); resetVariables(); getTotal();">
     <input type="hidden" id="anPageName" name="page" value="historical-usage-lines-display-category" />
     <div class="container-center-horizontal">
       <div class="historical-usage-lines-display-category screen">
@@ -127,10 +127,10 @@
         <div class="rectangle-3099-L7BXHD"></div>
         <div class="x1245-L7BXHD avertacy-bold-sapphire-15px">
           <span class="span0-rNQNIN avertacy-bold-sapphire-15px">$</span
-          ><span class="span1-rNQNIN avertacy-bold-sapphire-25px">{{"%.2f"|format(totalprice)|float}}</span>
+          ><span class="span1-rNQNIN avertacy-bold-sapphire-25px" id = 'totalprice'></span>
         </div>
         <div class="x13212-k-wh-L7BXHD avertacy-bold-sapphire-25px">
-          <span class="span0-84mBJe avertacy-bold-sapphire-25px">{{"%.2f"|format(total/1000)|float}}</span
+          <span class="span0-84mBJe avertacy-bold-sapphire-25px" id = 'total'></span
           ><span class="span1-84mBJe avertacy-bold-sapphire-20px">&nbsp;</span
           ><span class="span2-84mBJe avertacy-bold-sapphire-15px">kWh</span>
         </div>
@@ -248,7 +248,7 @@
         <h1 class="title-L7BXHD">Historical Usage</h1>
         <img class="rectangle-3269-L7BXHD" src="{{url_for('static',filename='img/rectangle-3269@2x.svg')}}" />
         <div class="x66-L7BXHD avertacy-bold-sapphire-18px">
-          <span class="span0-nJpIKI avertacy-bold-sapphire-18px">100</span
+          <span class="span0-nJpIKI avertacy-bold-sapphire-18px"id = 'percentage'></span
           ><span class="span1-nJpIKI avertacy-bold-sapphire-12px">%</span>
         </div>
         <div class="x43kgco2-L7BXHD avertacy-bold-sapphire-18px">
@@ -260,7 +260,7 @@
         <form onsubmit="setTimeout(function(){window.location.reload();},10);" method = "POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <div class="group-7286-L7BXHD">
-          <input onchange= "submit()" name = 'date' id = 'today2' type = 'week' class="march-18th-2021-tkyWp6">
+          <input onchange= "submit(); getTotal();" name = 'date' id = 'today2' type = 'week' class="march-18th-2021-tkyWp6">
         </div>
         </form>
       </div>
@@ -403,6 +403,9 @@ document.getElementById("today2").value = today.getFullYear() + '-' + ('0' + (to
 }
   </script>
   <script>
+    var newtotal = 0;
+    var newtotalprice = 0;
+    var newpercent = 0;
     function toggleLighting() {
   var x = document.getElementsByClassName("lighting");
   var i;
@@ -412,6 +415,21 @@ document.getElementById("today2").value = today.getFullYear() + '-' + ('0' + (to
   } else {
     x[i].style.display = "none";
   }
+}
+  if (x[0].style.display === "none") {
+    newtotal = (newtotal - {{lighttotal}});
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newtotalprice = (newtotalprice - {{lightprice}});
+    document.getElementById("totalprice").innerHTML = Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newpercent = (newpercent - {{lightpercent}});
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+  } else {
+    newtotal = (newtotal - -Math.abs({{lighttotal}}));
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newtotalprice = (newtotalprice - -Math.abs({{lightprice}}));
+    document.getElementById("totalprice").innerHTML = Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newpercent = (newpercent - -Math.abs({{lightpercent}}));
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
   }
 }
 function toggleEquipment() {
@@ -424,6 +442,21 @@ function toggleEquipment() {
     x[i].style.display = "none";
   }
   }
+    if (x[0].style.display === "none") {
+    newtotal = (newtotal - {{equipmenttotal}});
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newtotalprice = (newtotalprice - {{equipmentprice}});
+    document.getElementById("totalprice").innerHTML = Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newpercent = (newpercent - {{equipmentpercent}});
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+  } else {
+    newtotal = (newtotal - -Math.abs({{equipmenttotal}}));
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newtotalprice = (newtotalprice - -Math.abs({{equipmentprice}}));
+    document.getElementById("totalprice").innerHTML = Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newpercent = (newpercent - -Math.abs({{equipmentpercent}}));
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+  }
 }
 function toggleHVAC() {
   var x = document.getElementsByClassName("hvac");
@@ -434,6 +467,21 @@ function toggleHVAC() {
   } else {
     x[i].style.display = "none";
   }
+  }
+      if (x[0].style.display === "none") {
+    newtotal = (newtotal - {{hvactotal}});
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newtotalprice = (newtotalprice - {{hvacprice}});
+    document.getElementById("totalprice").innerHTML = Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newpercent = (newpercent - {{hvacpercent}});
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+  } else {
+    newtotal = (newtotal - -Math.abs({{hvactotal}}));
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newtotalprice = (newtotalprice - -Math.abs({{hvacprice}}));
+    document.getElementById("totalprice").innerHTML = Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newpercent = (newpercent - -Math.abs({{hvacpercent}}));
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
   }
 }
 function togglePlugLoad() {
@@ -446,6 +494,21 @@ function togglePlugLoad() {
     x[i].style.display = "none";
   }
   }
+      if (x[0].style.display === "none") {
+    newtotal = (newtotal - {{plugtotal}});
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newtotalprice = (newtotalprice - {{plugprice}});
+    document.getElementById("totalprice").innerHTML = Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newpercent = (newpercent - {{plugpercent}});
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+  } else {
+    newtotal = (newtotal - -Math.abs({{plugtotal}}));
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newtotalprice = (newtotalprice - -Math.abs({{plugprice}}));
+    document.getElementById("totalprice").innerHTML = Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newpercent = (newpercent - -Math.abs({{plugpercent}}));
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+  }
 }
 function toggleHotWater() {
   var x = document.getElementsByClassName("hotwater");
@@ -456,6 +519,21 @@ function toggleHotWater() {
   } else {
     x[i].style.display = "none";
   }
+  }
+      if (x[0].style.display === "none") {
+    newtotal = (newtotal - {{watertotal}});
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newtotalprice = (newtotalprice - {{waterprice}});
+    document.getElementById("totalprice").innerHTML = Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newpercent = (newpercent - {{waterpercent}});
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+  } else {
+    newtotal = (newtotal - -Math.abs({{watertotal}}));
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newtotalprice = (newtotalprice - -Math.abs({{waterprice}}));
+    document.getElementById("totalprice").innerHTML = Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newpercent = (newpercent - -Math.abs({{waterpercent}}));
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
   }
 }
 function toggleOther() {
@@ -468,6 +546,35 @@ function toggleOther() {
     x[i].style.display = "none";
   }
   }
+      if (x[0].style.display === "none") {
+    newtotal = (newtotal - {{othertotal}});
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newtotalprice = (newtotalprice - {{otherprice}});
+    document.getElementById("totalprice").innerHTML = Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newpercent = (newpercent - {{otherpercent}});
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+  } else {
+    newtotal = (newtotal - -Math.abs({{othertotal}}));
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newtotalprice = (newtotalprice - -Math.abs({{otherprice}}));
+    document.getElementById("totalprice").innerHTML = Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    newpercent = (newpercent - -Math.abs({{otherpercent}}));
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+  }
+}
+
+function getTotal() {
+  newtotal = {{"%.2f"|format(total/1000)|float}};
+  document.getElementById("total").innerHTML = newtotal;
+  newtotalprice = {{"%.2f"|format(totalprice)|float}}
+  document.getElementById("totalprice").innerHTML = newtotalprice;
+  newpercent = 100;
+  document.getElementById("percentage").innerHTML = newpercent;
+}
+function resetVariables(){
+  newtotal = 0;
+  newtotalprice = 0;
+  newpercent = 0;
 }
   </script>
 </html>
