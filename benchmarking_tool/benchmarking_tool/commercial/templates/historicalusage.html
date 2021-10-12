@@ -68,12 +68,12 @@
         <div class="dhw-L7BXHD avertacy-bold-sapphire-12px">Plug Load</div>
         <div class="mechanical-L7BXHD avertacy-bold-sapphire-12px">Hot Water</div>
         <div class="panel-f-l6cqYc avertacy-bold-sapphire-12px">Other</div>
-        <input type= 'checkbox'class="rectangle-3024-L7BXHD" id= 'lightingcheck' onclick= "toggleLighting()" checked/><label for = 'lightingcheck'></label>
-        <input type= 'checkbox' class="rectangle-3032-L7BXHD"id= 'panel2check' onclick= "toggleEquipment();" checked/><label for = 'panel2check'></label>
-        <input type= 'checkbox' class="rectangle-3033-L7BXHD"id= 'panel3check' onclick= "toggleHVAC();" checked/><label for = 'panel3check'></label>
-        <input type= 'checkbox' class="rectangle-3034-L7BXHD"id= 'panel4check' onclick= "togglePlugLoad();" checked/><label for = 'panel4check'></label>
-        <input type= 'checkbox' class="rectangle-3035-L7BXHD"id= 'panel5check' onclick= "toggleHotWater();" checked/><label for = 'panel5check'></label>
-        <input type= 'checkbox' class="rectangle-30352-l6cqYc"id= 'panel6check' onclick= "toggleOther();" checked/><label for = 'panel6check'></label>
+        <input type= 'checkbox'class="rectangle-3024-L7BXHD" id= 'lightingcheck' onclick= "toggleLighting(); checkIf0();" checked/><label for = 'lightingcheck'></label>
+        <input type= 'checkbox' class="rectangle-3032-L7BXHD"id= 'panel2check' onclick= "toggleEquipment(); checkIf0();" checked/><label for = 'panel2check'></label>
+        <input type= 'checkbox' class="rectangle-3033-L7BXHD"id= 'panel3check' onclick= "toggleHVAC(); checkIf0();" checked/><label for = 'panel3check'></label>
+        <input type= 'checkbox' class="rectangle-3034-L7BXHD"id= 'panel4check' onclick= "togglePlugLoad(); checkIf0();" checked/><label for = 'panel4check'></label>
+        <input type= 'checkbox' class="rectangle-3035-L7BXHD"id= 'panel5check' onclick= "toggleHotWater(); checkIf0();" checked/><label for = 'panel5check'></label>
+        <input type= 'checkbox' class="rectangle-30352-l6cqYc"id= 'panel6check' onclick= "toggleOther(); checkIf0();" checked/><label for = 'panel6check'></label>
         <div class="category-zsJCYe avertacy-bold-sapphire-15px">Category</div>
       </div>
               <div id="Panel" class="tabcontent">
@@ -378,6 +378,7 @@ document.getElementById("today2").value = today.getFullYear() + '-' + ('0' + (to
     var newtotal = 0;
     var newtotalprice = 0;
     var newpercent = 0;
+    var colors = ['{{colours[0]}}','{{colours[1]}}','{{colours[2]}}','{{colours[3]}}','{{colours[4]}}','{{colours[5]}}'];
     function toggleLighting() {
   var x = document.getElementsByClassName("lighting");
   var i;
@@ -395,21 +396,25 @@ document.getElementById("today2").value = today.getFullYear() + '-' + ('0' + (to
     document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
     newpercent = (newpercent - {{lightpercent}});
     document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
-
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    chart.updateSeries(removeLighting())
+    removeLighting();
+    chart.updateOptions({
+  colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
+})
   } else {
     newtotal = (newtotal - -Math.abs({{lighttotal}}));
     document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
     newtotalprice = (newtotalprice - -Math.abs({{lightprice}}));
-    document.getElementById("totalprice").innerHTML =  Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
     newpercent = (newpercent - -Math.abs({{lightpercent}}));
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] ;
-
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    chart.updateSeries(addLighting())
+    addLighting();
+        chart.updateOptions({
+  colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
+})
   }
 }
 function toggleEquipment() {
@@ -426,13 +431,15 @@ function toggleEquipment() {
     newtotal = (newtotal - {{equipmenttotal}});
     document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
     newtotalprice = (newtotalprice - {{equipmentprice}});
-    document.getElementById("totalprice").innerHTML =  Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
     newpercent = (newpercent - {{equipmentpercent}});
     document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
-
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    chart.updateSeries(removeEquipment())
+    removeEquipment();
+        chart.updateOptions({
+  colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
+})
   } else {
     newtotal = (newtotal - -Math.abs({{equipmenttotal}}));
     document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
@@ -440,10 +447,12 @@ function toggleEquipment() {
     document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
     newpercent = (newpercent - -Math.abs({{equipmentpercent}}));
     document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
-
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    chart.updateSeries(addEquipment())
+    addEquipment();
+        chart.updateOptions({
+  colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
+})
   }
 }
 function toggleHVAC() {
@@ -463,10 +472,12 @@ function toggleHVAC() {
     document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
     newpercent = (newpercent - {{hvacpercent}});
     document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
-
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    chart.updateSeries(removeHVAC())
+    removeHVAC();
+        chart.updateOptions({
+  colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
+})
   } else {
     newtotal = (newtotal - -Math.abs({{hvactotal}}));
     document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
@@ -474,10 +485,12 @@ function toggleHVAC() {
     document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
     newpercent = (newpercent - -Math.abs({{hvacpercent}}));
     document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
-
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    chart.updateSeries(addHVAC())
+    addHVAC();
+        chart.updateOptions({
+  colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
+})
   }
 }
 function togglePlugLoad() {
@@ -497,10 +510,12 @@ function togglePlugLoad() {
     document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
     newpercent = (newpercent - {{plugpercent}});
     document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
-
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    chart.updateSeries(removePlug())
+    removePlug();
+        chart.updateOptions({
+  colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
+})
   } else {
     newtotal = (newtotal - -Math.abs({{plugtotal}}));
     document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
@@ -508,10 +523,12 @@ function togglePlugLoad() {
     document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
     newpercent = (newpercent - -Math.abs({{plugpercent}}));
     document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
-
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    chart.updateSeries(addPlug())
+    addPlug();
+        chart.updateOptions({
+  colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
+})
   }
 }
 function toggleHotWater() {
@@ -531,10 +548,12 @@ function toggleHotWater() {
     document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
     newpercent = (newpercent - {{waterpercent}});
     document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
-
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    chart.updateSeries(removeWater())
+    removeWater();
+        chart.updateOptions({
+  colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
+})
   } else {
     newtotal = (newtotal - -Math.abs({{watertotal}}));
     document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
@@ -542,10 +561,12 @@ function toggleHotWater() {
     document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
     newpercent = (newpercent - -Math.abs({{waterpercent}}));
     document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
-
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    chart.updateSeries(addWater())
+    addWater();
+        chart.updateOptions({
+  colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
+})
   }
 }
 function toggleOther() {
@@ -565,10 +586,12 @@ function toggleOther() {
     document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
     newpercent = (newpercent - {{otherpercent}});
     document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
-
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    chart.updateSeries(removeOther())
+    removeOther();
+        chart.updateOptions({
+  colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
+})
   } else {
     newtotal = (newtotal - -Math.abs({{othertotal}}));
     document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
@@ -576,10 +599,12 @@ function toggleOther() {
     document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
     newpercent = (newpercent - -Math.abs({{otherpercent}}));
     document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
-
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    chart.updateSeries(addOther())
+    addOther();
+        chart.updateOptions({
+  colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
+})
 
   }
 }
@@ -591,7 +616,7 @@ function getTotal() {
   document.getElementById("totalprice").innerHTML =newtotalprice;
   newpercent = 100;
   document.getElementById("percentage").innerHTML = newpercent;
-  document.getElementById("percent3").innerHTML = newpercent + "<span style = 'font-size: 12px;'>%</span>";
+  document.getElementById("percent3").innerHTML = newpercent + "<span style = 'font-size: 12px;'>%'</span>";
   document.getElementById("percent4").innerHTML = newpercent + "<span style = 'font-size: 12px;'>%</span>";
 }
 function resetVariables(){
@@ -602,150 +627,54 @@ function resetVariables(){
   </script>
   <script>
     function removeLighting() {
-        var arr = chart.w.globals.series.slice()
-        for( var i = 0; i < arr.length; i++){ 
-        console.log(arr[i])
-        if ( arr[i] === {{lighttotal}}) { 
-    
-            arr[i] = 0
-        }
-    
-    }
-        return arr;
+        colors[0] = '#FFFFFF'
       }
       function removeEquipment() {
-        var arr = chart.w.globals.series.slice()
-        for( var i = 0; i < arr.length; i++){ 
-        console.log(arr[i])
-        if ( arr[i] === {{equipmenttotal}}) { 
-    
-            arr[i] = 0
-        }
-    
-    }
-        return arr;
+        colors[1] = '#FFFFFF'
       }
       function removeHVAC() {
-        var arr = chart.w.globals.series.slice()
-        for( var i = 0; i < arr.length; i++){ 
-        console.log(arr[i])
-        if ( arr[i] === {{hvactotal}}) { 
-    
-            arr[i] = 0
-        }
-    
-    }
-        return arr;
+        colors[2] = '#FFFFFF'
       }
       function removePlug() {
-        var arr = chart.w.globals.series.slice()
-        for( var i = 0; i < arr.length; i++){ 
-        console.log(arr[i])
-        if ( arr[i] === {{plugtotal}}) { 
-    
-            arr[i] = 0
-        }
-    
-    }
-        return arr;
+        colors[3] = '#FFFFFF'
       }
       function removeWater() {
-        var arr = chart.w.globals.series.slice()
-        for( var i = 0; i < arr.length; i++){ 
-        console.log(arr[i])
-        if ( arr[i] === {{watertotal}}) { 
-    
-            arr[i] = 0
-        }
-    
-    }
-        return arr;
+        colors[4] = '#FFFFFF'
       }
       function removeOther() {
-        var arr = chart.w.globals.series.slice()
-        for( var i = 0; i < arr.length; i++){ 
-        console.log(arr[i])
-        if ( arr[i] === {{othertotal}}) { 
-    
-            arr[i] = 0
-        }
-    
-    }
-        return arr;
+        colors[5] = '#FFFFFF'
       }
   </script>
     <script>
     function addLighting() {
-        var arr = chart.w.globals.series.slice()
-        for( var i = 0; i < arr.length; i++){ 
-        console.log(arr[i])
-        if ( arr[i] === 0) { 
-    
-            arr[i] = {{lighttotal}}
-        }
-    
-    }
-        return arr;
+        colors[0] = '#3649A8'
       }
       function addEquipment() {
-        var arr = chart.w.globals.series.slice()
-        for( var i = 0; i < arr.length; i++){ 
-        console.log(arr[i])
-        if ( arr[i] === 0) { 
-    
-            arr[i] = {{equipmenttotal}}
-        }
-    
-    }
-        return arr;
+        colors[1] = '#3BCDEE'
       }
       function addHVAC() {
-        var arr = chart.w.globals.series.slice()
-        for( var i = 0; i < arr.length; i++){ 
-        console.log(arr[i])
-        if ( arr[i] === 0) { 
-    
-            arr[i] = {{hvactotal}}
-        }
-    
-    }
-        return arr;
+        colors[2] = '#EE5937'
       }
       function addPlug() {
-        var arr = chart.w.globals.series.slice()
-        for( var i = 0; i < arr.length; i++){ 
-        console.log(arr[i])
-        if ( arr[i] === 0) { 
-    
-            arr[i] = {{plugtotal}}
-        }
-    
-    }
-        return arr;
+        colors[3] = '#EE8F37'
       }
       function addWater() {
-        var arr = chart.w.globals.series.slice()
-        for( var i = 0; i < arr.length; i++){ 
-        console.log(arr[i])
-        if ( arr[i] === 0) { 
-    
-            arr[i] = {{watertotal}}
-        }
-    
-    }
-        return arr;
+        colors[4] = '#90C449'
       }
       function addOther() {
-        var arr = chart.w.globals.series.slice()
-        for( var i = 0; i < arr.length; i++){ 
-        console.log(arr[i])
-        if ( arr[i] === 0) { 
-    
-            arr[i] = {{othertotal}}
-        }
-    
-    }
-        return arr;
+        colors[5] = '#DBE2F3'
       }
+  </script>
+  <script>
+    function checkIf0(){
+        if(colors[0] == '#FFFFFF' && colors[1] == '#FFFFFF' && colors[2] == '#FFFFFF' && colors[3] == '#FFFFFF' && colors[4] == '#FFFFFF' && colors[5] == '#FFFFFF'){
+              document.getElementById("total").innerHTML = 0;
+              document.getElementById("totalprice").innerHTML =0;
+              document.getElementById("percentage").innerHTML = 0;
+              document.getElementById("percent2").innerHTML = 0;
+              document.getElementById("percent3").innerHTML = 0 + "<span style = 'font-size: 12px;'>%</span>";
+              document.getElementById("percent4").innerHTML = 0 + "<span style = 'font-size: 12px;'>%</span>";
+                    }
+    }
   </script>
 </html>
