@@ -406,7 +406,7 @@
 
 .overview-main .x100-l6cqYc {
   background-color: transparent;
-  color: #1d5381;
+  color: #3649A8;
   font-family: var(--font-family-averta_cy-bold);
   font-size: var(--font-size-xxxxl);
   font-style: normal;
@@ -2166,6 +2166,7 @@
   top: 110px;
   width: auto;
   border-color: transparent;
+  border-radius: 4px;
 }
 
 .overview-main .k-wh-l6cqYc {
@@ -2185,6 +2186,7 @@
   top: 109px;
   width: auto;
   border-color: transparent;
+  border-radius: 4px;
 }
 
 .overview-main .x674hr-l6cqYc {
