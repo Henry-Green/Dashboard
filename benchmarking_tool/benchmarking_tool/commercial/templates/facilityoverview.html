@@ -409,28 +409,28 @@ function showSlides(n) {
 }
   if (x[0].style.display === "none") {
     newtotal = (newtotal - {{lighttotal}});
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + 'w';
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toFixed(2) + 'w';
     newtotalprice = (newtotalprice - {{lightprice}});
-    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '/hr';
+    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toFixed(2) + '/hr';
     newpercent = (newpercent - {{lightpercent}});
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
     removeLighting();
     chart2.updateOptions({
   colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
 })
   } else {
     newtotal = (newtotal - -Math.abs({{lighttotal}}));
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + 'w';
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toFixed(2) + 'w';
     newtotalprice = (newtotalprice - -Math.abs({{lightprice}}));
-    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '/hr';
+    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toFixed(2) + '/hr';
     newpercent = (newpercent - -Math.abs({{lightpercent}}));
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
     addLighting();
         chart2.updateOptions({
   colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
@@ -449,28 +449,28 @@ function toggleEquipment() {
   }
     if (x[0].style.display === "none") {
     newtotal = (newtotal - {{equipmenttotal}});
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + 'w';
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toFixed(2) + 'w';
     newtotalprice = (newtotalprice - {{equipmentprice}});
-    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '/hr';
+    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toFixed(2) + '/hr';
     newpercent = (newpercent - {{equipmentpercent}});
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
     removeEquipment();
         chart2.updateOptions({
   colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
 })
   } else {
     newtotal = (newtotal - -Math.abs({{equipmenttotal}}));
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + 'w';
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toFixed(2) + 'w';
     newtotalprice = (newtotalprice - -Math.abs({{equipmentprice}}));
-    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '/hr';
+    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toFixed(2) + '/hr';
     newpercent = (newpercent - -Math.abs({{equipmentpercent}}));
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
     addEquipment();
         chart2.updateOptions({
   colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
@@ -489,28 +489,28 @@ function toggleHVAC() {
   }
       if (x[0].style.display === "none") {
     newtotal = (newtotal - {{hvactotal}});
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + 'w';
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toFixed(2) + 'w';
     newtotalprice = (newtotalprice - {{hvacprice}});
-    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '/hr';
+    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toFixed(2) + '/hr';
     newpercent = (newpercent - {{hvacpercent}});
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
     removeHVAC();
         chart2.updateOptions({
   colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
 })
   } else {
     newtotal = (newtotal - -Math.abs({{hvactotal}}));
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + 'w';
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toFixed(2) + 'w';
     newtotalprice = (newtotalprice - -Math.abs({{hvacprice}}));
-    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '/hr';
+    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toFixed(2) + '/hr';
     newpercent = (newpercent - -Math.abs({{hvacpercent}}));
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
     addHVAC();
         chart2.updateOptions({
   colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
@@ -529,28 +529,28 @@ function togglePlugLoad() {
   }
       if (x[0].style.display === "none") {
     newtotal = (newtotal - {{plugtotal}});
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + 'w';
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toFixed(2) + 'w';
     newtotalprice = (newtotalprice - {{plugprice}});
-    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '/hr';
+    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toFixed(2) + '/hr';
     newpercent = (newpercent - {{plugpercent}});
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
     removePlug();
         chart2.updateOptions({
   colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
 })
   } else {
     newtotal = (newtotal - -Math.abs({{plugtotal}}));
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + 'w';
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toFixed(2) + 'w';
     newtotalprice = (newtotalprice - -Math.abs({{plugprice}}));
-    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '/hr';
+    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toFixed(2) + '/hr';
     newpercent = (newpercent - -Math.abs({{plugpercent}}));
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
     addPlug();
         chart2.updateOptions({
   colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
@@ -569,28 +569,28 @@ function toggleHotWater() {
   }
       if (x[0].style.display === "none") {
     newtotal = (newtotal - {{watertotal}});
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + 'w';
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toFixed(2) + 'w';
     newtotalprice = (newtotalprice - {{waterprice}});
-    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '/hr';
+    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toFixed(2) + '/hr';
     newpercent = (newpercent - {{waterpercent}});
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
     removeWater();
         chart2.updateOptions({
   colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
 })
   } else {
     newtotal = (newtotal - -Math.abs({{watertotal}}));
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + 'w';
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toFixed(2) + 'w';
     newtotalprice = (newtotalprice - -Math.abs({{waterprice}}));
-    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '/hr';
+    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toFixed(2) + '/hr';
     newpercent = (newpercent - -Math.abs({{waterpercent}}));
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
     addWater();
         chart2.updateOptions({
   colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
@@ -609,28 +609,28 @@ function toggleOther() {
   }
       if (x[0].style.display === "none") {
     newtotal = (newtotal - {{othertotal}});
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + 'w';
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toFixed(2) + 'w';
     newtotalprice = (newtotalprice - {{otherprice}});
-    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '/hr';
+    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toFixed(2) + '/hr';
     newpercent = (newpercent - {{otherpercent}});
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
     removeOther();
         chart2.updateOptions({
   colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
 })
   } else {
     newtotal = (newtotal - -Math.abs({{othertotal}}));
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + 'w';
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toFixed(2) + 'w';
     newtotalprice = (newtotalprice - -Math.abs({{otherprice}}));
-    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '/hr';
+    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toFixed(2) + '/hr';
     newpercent = (newpercent - -Math.abs({{otherpercent}}));
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + '%';
-    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
-    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent2").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
+    document.getElementById("percent4").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
     addOther();
         chart2.updateOptions({
   colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
@@ -698,20 +698,20 @@ function resetVariables(){
   </script>
   <script>
     function changeToKWH(){
-    document.getElementById("chartLight").innerHTML = {{"%.2f"|format(lighttotal)|float}} + 'w';
-    document.getElementById("chartWater").innerHTML = {{"%.2f"|format(watertotal)|float}} + 'w';
-    document.getElementById("chartOther").innerHTML = {{"%.2f"|format(othertotal)|float}} + 'w';
-    document.getElementById("chartPlug").innerHTML = {{"%.2f"|format(plugtotal)|float}} + 'w';
-    document.getElementById("chartEquipment").innerHTML = {{"%.2f"|format(equipmenttotal)|float}} + 'w';
-    document.getElementById("chartHVAC").innerHTML = {{"%.2f"|format(hvactotal)|float}} + 'w';
+    document.getElementById("chartLight").innerHTML = {{lighttotal}}.toFixed(2) + 'w';
+    document.getElementById("chartWater").innerHTML = {{watertotal}}.toFixed(2) + 'w';
+    document.getElementById("chartOther").innerHTML = {{othertotal}}.toFixed(2) + 'w';
+    document.getElementById("chartPlug").innerHTML = {{plugtotal}}.toFixed(2) + 'w';
+    document.getElementById("chartEquipment").innerHTML = {{equipmenttotal}}.toFixed(2) + 'w';
+    document.getElementById("chartHVAC").innerHTML = {{hvactotal}}.toFixed(2) + 'w';
     }
     function changeTo$(){
-    document.getElementById("chartLight").innerHTML = '$' + {{"%.2f"|format(lightprice)|float}};
-    document.getElementById("chartWater").innerHTML = '$' + {{"%.2f"|format(waterprice)|float}};
-    document.getElementById("chartOther").innerHTML = '$' + {{"%.2f"|format(otherprice)|float}};
-    document.getElementById("chartPlug").innerHTML = '$' + {{"%.2f"|format(plugprice)|float}};
-    document.getElementById("chartEquipment").innerHTML = '$' + {{"%.2f"|format(equipmentprice)|float}};
-    document.getElementById("chartHVAC").innerHTML = '$' + {{"%.2f"|format(hvacprice)|float}};
+    document.getElementById("chartLight").innerHTML = '$' + {{lightprice}}.toFixed(2) + '/hr';
+    document.getElementById("chartWater").innerHTML = '$' + {{waterprice}}.toFixed(2) + '/hr';
+    document.getElementById("chartOther").innerHTML = '$' + {{otherprice}}.toFixed(2) + '/hr';
+    document.getElementById("chartPlug").innerHTML = '$' + {{plugprice}}.toFixed(2) + '/hr';
+    document.getElementById("chartEquipment").innerHTML = '$' + {{equipmentprice}}.toFixed(2) + '/hr';
+    document.getElementById("chartHVAC").innerHTML = '$' + {{hvacprice}}.toFixed(2) + '/hr';
     }
   </script>
   <script>
