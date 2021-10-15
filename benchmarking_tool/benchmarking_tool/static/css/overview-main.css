@@ -466,6 +466,18 @@
   width: 186px;
 }
 
+.overview-main .rectangle-23402-l6cqYc {
+  background-color: var(--white);
+  border-radius: 6px;
+  height: 26px;
+  left: 10px;
+  mix-blend-mode: normal;
+  position: relative;
+  top: 30px;
+  width: 186px;
+}
+
+
 .overview-main .rectangle-2974-l6cqYc {
   background-color: var(--white);
   border-radius: 6px;
@@ -532,6 +544,17 @@
   width: 181px;
 }
 
+.overview-main .rectangle-152-l6cqYc {
+  background-color: #0d1758;
+  height: 1px;
+  left: 10px;
+  mix-blend-mode: normal;
+  opacity: 0.06;
+  position: relative;
+  top: 40px;
+  width: 181px;
+}
+
 .overview-main .electrical-panels-l6cqYc {
   background-color: transparent;
   height: auto;
@@ -542,6 +565,19 @@
   position: absolute;
   text-align: left;
   top: 421px;
+  width: auto;
+}
+
+.overview-main .electrical-panels-l6cqYc2 {
+  background-color: transparent;
+  height: auto;
+  left: 10px;
+  letter-spacing: 0.30px;
+  line-height: normal;
+  mix-blend-mode: normal;
+  position: relative;
+  text-align: left;
+  top: 10px;
   width: auto;
 }
 
@@ -558,6 +594,19 @@
   width: auto;
 }
 
+.overview-main .panel-a2-l6cqYc {
+  background-color: transparent;
+  height: auto;
+  left: 30px;
+  letter-spacing: 0.24px;
+  line-height: normal;
+  mix-blend-mode: normal;
+  position: relative;
+  text-align: left;
+  top: 5px;
+  width: auto;
+}
+
 .overview-main .x43-l6cqYc {
   background-color: transparent;
   height: auto;
@@ -570,6 +619,7 @@
   top: 5px;
   width: auto;
 }
+
 
 .overview-main .x21-l6cqYc {
   background-color: transparent;
@@ -727,6 +777,18 @@
   position: absolute;
   top: 476px;
   width: 10px;
+}
+
+.overview-main .rectangle-30242-l6cqYc {
+  background-color: #3649a8;
+  border-radius: 1px;
+  height: 10px;
+  left: 25px;
+  mix-blend-mode: normal;
+  position: relative;
+  top: 9px;
+  width: 10px;
+  margin-right:15px;
 }
 
 .overview-main .rectangle-3032-l6cqYc {
@@ -2071,7 +2133,7 @@
   width: 536px;
   height: 150px;
   top: -20px;
-  z-index: 1000;
+  z-index: 10;
   left: 328px;
   background-color: var(--zircon);
 
@@ -2685,7 +2747,9 @@
   top: 14px;
   width: 186px;
   margin-bottom: 10px;
+
 }
+
 
 .overview-main .rectangle-3003-VxPVnb {
   background-color: var(--white);
@@ -3575,6 +3639,41 @@
 }
 
 .overview-main  .rectangle-3024-l6cqYc:checked:after {
+  content: '\2714';
+  font-size: 8px;
+  position: absolute;
+  bottom: .2px;
+  left: 2px;
+  color: white;
+}
+
+.overview-main  .rectangle-30242-l6cqYc:checked {
+  background-color: #3649a8;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 1px;
+  height: 10px;
+  left: 25px;
+  mix-blend-mode: normal;
+  position: relative;
+  top: 9px;
+  width: 10px;
+  margin-right:15px;
+}
+
+.overview-main .info{
+  width: 13px;
+  height: 13px;
+  position: relative;
+  left: 98px;
+  bottom: 9px;
+}
+.overview-main .info-image{
+  width: 13px;
+  height: 13px;
+}
+
+.overview-main  .rectangle-30242-l6cqYc:checked:after {
   content: '\2714';
   font-size: 8px;
   position: absolute;
