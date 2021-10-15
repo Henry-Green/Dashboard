@@ -510,6 +510,9 @@ def facilityoverview():
         totalprice = 0
         last = []
         pricelast = []
+        paneltotal = []
+        circuitcount = []
+        panelcircuits =  pd.DataFrame()
 
         serial_list = serial_numbers.split()
         d = 1
@@ -519,7 +522,10 @@ def facilityoverview():
         customer.get_price_per_channel_hour(0.75)
         price = customer.channel_cost_hour
         h1, cat1, dat1 = customer.hour_category_usage()
-
+        price['panel name'] = 'Panel 1-A'
+        paneltotal.append(price['price per hour'].sum())
+        panelcircuits['Panel 1'] = price['circuit name']
+        circuitcount.append(len(price.index))
 
         if(len(serial_list) > 1):    
             for i in range(1, len(serial_list)): 
@@ -530,8 +536,11 @@ def facilityoverview():
                 customer.get_price_per_channel_hour(0.75)
                 h2, cat2, dat2 = customer.hour_category_usage()
                 appendprice = customer.channel_cost_hour
+                appendprice['panel name'] = 'Panel 1-B'
+                panelcircuits['Panel 2'] = appendprice['circuit name']
+                paneltotal.append(appendprice['price per hour'].sum())
                 price = price.append(appendprice, ignore_index = True)
-
+                circuitcount.append(len(appendprice.index))
         price = price.sort_values(by=['price per hour'], ascending=False)
         home_upgrades = price.copy()
         home_upgrades['price per hour'] = home_upgrades['price per hour']/(0.75*60*0.000017)
@@ -584,19 +593,19 @@ def facilityoverview():
             
             # make everything lowercase 
             name_l = name.lower()
-            if categorytotals.iloc[i][4] == 'lighting':
+            if categorytotals.iloc[i][5] == 'lighting':
                 lighttotal += categorytotals.iloc[i][2]
 
-            elif categorytotals.iloc[i][4] == 'hotwater':
+            elif categorytotals.iloc[i][5] == 'hotwater':
                 watertotal += categorytotals.iloc[i][2]
 
-            elif categorytotals.iloc[i][4] == 'hvac':
+            elif categorytotals.iloc[i][5] == 'hvac':
                 hvactotal += categorytotals.iloc[i][2]
 
-            elif categorytotals.iloc[i][4] == 'equipment':
+            elif categorytotals.iloc[i][5] == 'equipment':
                 equipmenttotal += categorytotals.iloc[i][2]
             
-            elif categorytotals.iloc[i][4] == 'plugload':
+            elif categorytotals.iloc[i][5] == 'plugload':
                 plugtotal += categorytotals.iloc[i][2]
             
             else:
@@ -606,19 +615,19 @@ def facilityoverview():
             
             # make everything lowercase 
             name_l = name.lower()
-            if pricecategorytotals.iloc[i][4] == 'lighting':
+            if pricecategorytotals.iloc[i][5] == 'lighting':
                 lightprice += pricecategorytotals.iloc[i][2]
 
-            elif pricecategorytotals.iloc[i][4] == 'hotwater':
+            elif pricecategorytotals.iloc[i][5] == 'hotwater':
                 waterprice += pricecategorytotals.iloc[i][2]
 
-            elif pricecategorytotals.iloc[i][4] == 'hvac':
+            elif pricecategorytotals.iloc[i][5] == 'hvac':
                 hvacprice += pricecategorytotals.iloc[i][2]
 
-            elif pricecategorytotals.iloc[i][4] == 'equipment':
+            elif pricecategorytotals.iloc[i][5] == 'equipment':
                 equipmentprice += pricecategorytotals.iloc[i][2]
             
-            elif pricecategorytotals.iloc[i][4] == 'plugload':
+            elif pricecategorytotals.iloc[i][5] == 'plugload':
                 plugprice += pricecategorytotals.iloc[i][2]
             
             else:
@@ -626,27 +635,24 @@ def facilityoverview():
 
 
 
-        percenttotal = total
+
+        percenttotal = home_upgrades['price per hour'].sum()
         lightpercent = (lighttotal/percenttotal) * 100
         waterpercent = (watertotal/percenttotal) * 100
         hvacpercent = (hvactotal/percenttotal) * 100
         equipmentpercent = (equipmenttotal/percenttotal) * 100
         plugpercent = (plugtotal/percenttotal) * 100
         otherpercent = (othertotal/percenttotal) * 100
-
-        print(lightpercent)
-        print(waterpercent)
-        print(hvacpercent)
-        print(equipmentpercent)
-        print(plugpercent)
-        print(otherpercent)
-        print(percenttotal)
         total = home_upgrades['price per hour'].sum()
         totalprice = price['price per hour'].sum()
         colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
-        return render_template('facilityoverview.html',colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,categoryusage = categoryusage, pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last, len = len(home_upgrades.index), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
+        numpanels = home_upgrades['panel name'].nunique()
+        panelnames = home_upgrades['panel name'].unique()
+        panelnames = sorted(panelnames)
+        return render_template('facilityoverview.html',panelcircuits = panelcircuits,circuitcount = circuitcount,paneltotal = paneltotal,panelnames = panelnames,numpanels = numpanels,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,categoryusage = categoryusage, pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last, len = len(home_upgrades.index), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
     else:
         abort(403)
+     
      
 @commercial.route('/facilityoverviewbubble', methods=['GET', 'POST'])
 @login_required
