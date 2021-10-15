@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
     <script src="https://cdn.jsdelivr.net/npm/apexcharts" type="text/javascript"></script>
   </head>
-  <body style="margin: 0; background: #ffffff" onload="resetVariables(); getTotal(); changeTo$()">
+  <body style="margin: 0; background: #ffffff" onload="resetVariables(); getTotal(); changeTo$(); populatePanel();">
     <input type="hidden" id="anPageName" name="page" value="overview-main" />
     <div class="container-center-horizontal">
       <div class="overview-main screen">
@@ -55,43 +55,32 @@
           </div>
         </div>
         <div class="x100-l6cqYc" id = 'percent3'></div>
-        <div class="rectangle-2973-l6cqYc"></div>
-        <div class="rectangle-2340-l6cqYc"></div>
-        <div class="rectangle-2974-l6cqYc"></div>
-        <div class="rectangle-2975-l6cqYc"></div>
-        <div class="rectangle-2976-l6cqYc"></div>
-        <div class="rectangle-2977-l6cqYc"></div>
-        <div class="rectangle-15-l6cqYc"></div>
-        <div class="electrical-panels-l6cqYc avertacy-bold-sapphire-15px">Electrical Panels</div>
-        <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px" onclick = "openNav('A');openCity(event, 'Specs')">Panel A</div>
-        <div class="x43-l6cqYc avertacy-bold-sapphire-12px" id = "panelA"></div>
-        <div class="x21-l6cqYc avertacy-bold-sapphire-12px" id = 'panelB'></div>
-        <div class="x19-l6cqYc avertacy-bold-sapphire-12px" id = 'panelC'></div>
-        <div class="x11-l6cqYc avertacy-bold-sapphire-12px" id = 'panelD'></div>
-        <div class="x6-l6cqYc avertacy-bold-sapphire-12px" id = 'panelE'></div>
-        <div class="panel-b-l6cqYc avertacy-bold-sapphire-12px" onclick = "openNav('B');openCity(event, 'Specs')">Panel B</div>
-        <div class="panel-c-l6cqYc avertacy-bold-sapphire-12px" onclick = "openNav('C');openCity(event, 'Specs')" >Panel C</div>
-        <div class="panel-d-l6cqYc avertacy-bold-sapphire-12px"onclick = "openNav('D');openCity(event, 'Specs')">Panel D</div>
-        <div class="panel-e-l6cqYc avertacy-bold-sapphire-12px"onclick = "openNav('E');openCity(event, 'Specs')">Panel E</div>
-        <div class="rectangle-3024-l6cqYc"></div>
-        <div class="rectangle-3032-l6cqYc"></div>
-        <div class="rectangle-3033-l6cqYc"></div>
-        <div class="rectangle-3034-l6cqYc"></div>
-        <div class="rectangle-3035-l6cqYc"></div>
+        <div class="rectangle-2973-l6cqYc">
+        <div class="rectangle-152-l6cqYc"></div>
+        <div class="electrical-panels-l6cqYc2 avertacy-bold-sapphire-15px">Electrical Panels</div>
 
+        {% for i in range(0, numpanels) %}
+
+        <div class="rectangle-23402-l6cqYc">
+        <div class="panel-a2-l6cqYc avertacy-bold-sapphire-12px" onclick = "openNav('{{panelnames[i]}}',{{i}});openCity(event, 'Specs');">{{panelnames[i]}}</div></div>
+        <div class="x43-l6cqYc avertacy-bold-sapphire-12px" id = "{{panelnames[i]}}"></div>
+        <input type= 'checkbox' class="rectangle-30242-l6cqYc"style = "background-color: {{colours[i]}};" id = 'panel1check'checked/><label for = 'panel1check'></label>
+        <div class="info"onclick = "openNav('{{panelnames[i]}}',{{i}});openCity(event, 'Specs');"><img class="info-image" src="{{url_for('static',filename='img/infoimage.png')}}" onclick = "openNav('{{panelnames[i]}}',{{i}});openCity(event, 'Specs');"/></div>
+        {% endfor %}
+    </div>
     </div>
             <div id = 'sidebar' class = 'sidebar'>
       <div class="frame-1 screen">
         <img class="sidebar-VxPVnb" src="{{url_for('static',filename='img/sidebar@12x.svg')}}" />
-        <h1 class="title-VxPVnb">Panel <span id = "panelletter"></span></h1>
+        <h1 class="title-VxPVnb"><span id = "panelletter"></span></h1>
         <div class = "tab">
         <button class="circuits-VxPVnb avertacy-bold-sapphire-20px tablinks" onclick = "openCity(event, 'Circuits');currentSlide(0)">Circuits</button>
         <button id = 'specs' class="specs-VxPVnb tablinks" onclick = "openCity(event, 'Specs');currentSlide(1)">Specs</button></div>
         <div id="Specs" class="tabcontent">
         <div class = 'mySlides'>
-        <img class="panel1-image-1-VxPVnb" src="{{url_for('static',filename='img/panel1image-1@12x.png')}}" /><div class="photo-1-VxPVnb">Photo - 1</div></div>
+        <img class="panel1-image-1-VxPVnb" src="{{url_for('static',filename='img/panelimage1.jpg')}}" /><div class="photo-1-VxPVnb">Photo - 1</div></div>
         <div class = 'mySlides'>
-        <img class="panel1-image-1-VxPVnb" src="{{url_for('static',filename='img/panel1image-2@12x.png')}}" /><div class="photo-1-VxPVnb">Photo - 2</div></div>
+        <img class="panel1-image-1-VxPVnb" src="{{url_for('static',filename='img/panelimage2.jpg')}}" /><div class="photo-1-VxPVnb">Photo - 2</div></div>
         <div class="group-7236-VxPVnb" onclick = "plusSlides(-1)">
           <div class="rectangle-2316-WT5zFx"></div>
           <div class="chevron-down-WT5zFx"><img class="vector-QZDvpC" src="{{url_for('static',filename='img/vector@222x.svg')}}" /></div>
@@ -116,13 +105,13 @@
         <div class="x3-phase-VxPVnb avertacy-bold-sapphire-20px">3-Phase</div>
         <div class="type-q-VxPVnb avertacy-bold-sapphire-20px">Type-Q</div>
         <div class="shop-VxPVnb avertacy-bold-sapphire-20px">Shop</div>
-        <div class="x52-VxPVnb avertacy-bold-sapphire-20px">{{channellength}}</div>
+        <div class="x52-VxPVnb avertacy-bold-sapphire-20px" id = 'circuitcount'></div>
     </div>
 <div id="Circuits" class="tabcontent">
         <div class = 'mySlides'>
-        <img class="panel1-image-1-VxPVnb" src="{{url_for('static',filename='img/panel1image-1@12x.png')}}" /><div class="photo-1-VxPVnb">Photo - 1</div></div>
+        <img class="panel1-image-1-VxPVnb" src="{{url_for('static',filename='img/panelimage1.jpg')}}" /><div class="photo-1-VxPVnb">Photo - 1</div></div>
         <div class = 'mySlides'>
-        <img class="panel1-image-1-VxPVnb" src="{{url_for('static',filename='img/panel1image-2@12x.png')}}" /><div class="photo-1-VxPVnb">Photo - 2</div></div>
+        <img class="panel1-image-1-VxPVnb" src="{{url_for('static',filename='img/panelimage2.jpg')}}" /><div class="photo-1-VxPVnb">Photo - 2</div></div>
         <div class="group-7236-VxPVnb" onclick = "plusSlides(-1)">
           <div class="rectangle-2316-WT5zFx"></div>
           <div class="chevron-down-WT5zFx"><img class="vector-QZDvpC" src="{{url_for('static',filename='img/vector@222x.svg')}}" /></div>
@@ -135,10 +124,12 @@
         <div class="frame-1 screen">
         <div class="rectangle-3000-VxPVnb">
         <div class="rectangle-3001-VxPVnb"></div>
-        {% for i in range(5, channellength) %}
-        <div class="rectangle-3002-VxPVnb">
-        <div class="x1-shop-lighting-1-VxPVnb avertacy-bold-sapphire-12px">{{channel_name[i]}}</div>
+        {% for j in range (0, numpanels) %}
+        {% for i in range(0, circuitcount[j]) %}
+        <div class="rectangle-3002-VxPVnb {{panelnames[j]}}" style = 'display: none;'>
+        <div class="x1-shop-lighting-1-VxPVnb avertacy-bold-sapphire-12px">{{panelcircuits.iloc[i][j]}}</div>
         </div>
+        {% endfor %}
         {% endfor %}
 
     </div>
@@ -201,7 +192,7 @@
         <div class="rectangle-3164-l6cqYc"></div>
         {% set channelnum = namespace(value=0) %}
         {% for i in range(0, len) %}
-        <div class="rectangle-3165-l6cqYc {{home_upgrades.iloc[i][4]}}">
+        <div class="rectangle-3165-l6cqYc {{home_upgrades.iloc[i][5]}}">
         <div class="lunchroom-lights-l6cqYc avertacy-bold-apple-11px" {% if home_upgrades.iloc[i][2] == 0 %} style = 'color: grey;'{% endif %}>{{home_upgrades.iloc[i][0]}}</div>
         <div class="x233hr-l6cqYc"{% if home_upgrades.iloc[i][2] == 0 %} style = ' color: grey;'{% endif %}>{{"%.2f"|format(home_upgrades.iloc[i][2]|float)}}w</div>
         <div class="rectangle-3184-l6cqYc" {% if home_upgrades.iloc[i][2] == 0 %} style = 'width: 2px; background-color: grey;'{% elif home_upgrades.iloc[i][2] > 0  %} style = 'width: {{250 * (home_upgrades.iloc[i][2]/total) + 5}}px;'{% endif %}>
@@ -223,7 +214,7 @@
         <div class="rectangle-3164-l6cqYc"></div>
         {% set channelnum = namespace(value=0) %}
         {% for i in range(0, pricelength) %}
-        <div class="rectangle-3165-l6cqYc {{home_upgrades.iloc[i][4]}}">
+        <div class="rectangle-3165-l6cqYc {{home_upgrades.iloc[i][5]}}">
         <div class="lunchroom-lights-l6cqYc avertacy-bold-apple-11px"{% if (price.iloc[i][2]) == 0 %} style = 'color: grey;'{% endif %}>{{price.iloc[i][0]}}</div>
         <div class="x233hr-l6cqYc" {% if price.iloc[i][2] == 0 %} style = 'color: grey;'{% endif %}>{{"$%.2f"|format((price.iloc[i][2])|float)}}/hr</div>
         <div class="rectangle-3184-l6cqYc" {% if price.iloc[i][2] == 0 %} style = 'width: 2px; background-color: grey;'{% elif price.iloc[i][2]> 0  %} style = 'width: {{250 * (price.iloc[i][2]/totalprice) + 5}}px;'{% endif %}>
@@ -245,14 +236,14 @@
   </body>
   <script>
     var options = {
-                              labels: ["Lighting", "Electrical", "DHW", "Mechanical"],
-                              series: [100,0,0,0 ],
+                              labels: ["Panel 1-A", "Panel 1-B", "DHW", "Mechanical"],
+                              series: [{{paneltotal[0]}},{{paneltotal[1]}}],
                               chart: {
                               width: 200,
                               type: 'donut',
                             },
                             dataLabels: {
-                              enabled: true
+                              enabled: false
                             },
                             tooltip:{
                                 enabled: false
@@ -262,7 +253,7 @@
                                 show:false
                             },
 
-                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
+                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3'],
 
                             responsive: [{
                               breakpoint: 480,
@@ -309,13 +300,33 @@
 
   </script>
   <script>
-    function openNav(panel) {
+    var panelnumber = 0;
+    var circuitcount = {{circuitcount}};
+    function openNav(panel, number) {
   document.getElementById("sidebar").style.width = "600px";
   document.getElementById("panelletter").innerHTML = panel;
+  document.getElementById("circuitcount").innerHTML = circuitcount[number];
+  var x = document.getElementsByClassName(panel);
+  var i;
+  for (i = 0; i < x.length; i++) {
+    if (x[i].style.display === "none") {
+    x[i].style.display = "block";
+  }
+}
+
 }
 
 /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
-function closeNav() {  document.getElementById("sidebar").style.width = "0";}
+function closeNav() {  
+    document.getElementById("sidebar").style.width = "0";
+    var x = document.getElementsByClassName('rectangle-3002-VxPVnb');
+      var i;
+      for (i = 0; i < x.length; i++) {
+        if (x[i].style.display === "block") {
+        x[i].style.display = "none";
+      }
+    }
+    }
 
       function openCity(evt, cityName) {
   // Declare all variables
@@ -397,6 +408,7 @@ function showSlides(n) {
     var newtotalprice = 0;
     var newpercent = 0;
     var colors = ['{{colours[0]}}','{{colours[1]}}','{{colours[2]}}','{{colours[3]}}','{{colours[4]}}','{{colours[5]}}'];
+
     function toggleLighting() {
   var x = document.getElementsByClassName("lighting");
   var i;
@@ -647,7 +659,7 @@ function getTotal() {
   newpercent = 100;
   document.getElementById("percentage").innerHTML = newpercent + '%';
   document.getElementById("percent2").innerHTML = newpercent + '%';
-  document.getElementById("percent3").innerHTML = newpercent + "<span style = 'font-size: 12px;'>%'</span>";
+  document.getElementById("percent3").innerHTML = newpercent + "<span style = 'font-size: 12px;'>%</span>";
   document.getElementById("percent4").innerHTML = newpercent + "<span style = 'font-size: 12px;'>%</span>";
 }
 function resetVariables(){
@@ -704,6 +716,7 @@ function resetVariables(){
     document.getElementById("chartPlug").innerHTML = {{plugtotal}}.toFixed(2) + 'w';
     document.getElementById("chartEquipment").innerHTML = {{equipmenttotal}}.toFixed(2) + 'w';
     document.getElementById("chartHVAC").innerHTML = {{hvactotal}}.toFixed(2) + 'w';
+    document.getElementById("PanelA").innerHTML = {{total}}.toFixed(2) + 'w';
     }
     function changeTo$(){
     document.getElementById("chartLight").innerHTML = '$' + {{lightprice}}.toFixed(2) + '/hr';
@@ -712,6 +725,7 @@ function resetVariables(){
     document.getElementById("chartPlug").innerHTML = '$' + {{plugprice}}.toFixed(2) + '/hr';
     document.getElementById("chartEquipment").innerHTML = '$' + {{equipmentprice}}.toFixed(2) + '/hr';
     document.getElementById("chartHVAC").innerHTML = '$' + {{hvacprice}}.toFixed(2) + '/hr';
+    document.getElementById("PanelA").innerHTML = '$' + {{totalprice}}.toFixed(2) + '/hr';
     }
   </script>
   <script>
@@ -725,5 +739,15 @@ function resetVariables(){
               document.getElementById("percent4").innerHTML = 0 + "<span style = 'font-size: 12px;'>%</span>";
                     }
     }
+  </script>
+  <script>
+    function populatePanel(){
+    var x = {{numpanels}}
+    var i;
+      for (i = 1; i < x.length; i++) {
+        var arr = chart1.w.global.series.slice()
+        arr.push({{paneltotal[i]}})
+        chart1.updateSeries(arr)
+      }
   </script>
 </html>
