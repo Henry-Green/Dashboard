@@ -62,21 +62,20 @@
         {% for i in range(0, numpanels) %}
 
         <div class="rectangle-23402-l6cqYc">
-        <div class="panel-a2-l6cqYc avertacy-bold-sapphire-12px" onclick = "openNav('{{panelnames[i]}}',{{i}});openCity(event, 'Specs');">{{panelnames[i]}}</div></div>
+        <div class="panel-a2-l6cqYc avertacy-bold-sapphire-12px" onclick = "openNav('{{panelnames[i]}}',{{i}});openCity2(event, 'Specs');">{{panelnames[i]}}</div>
         <div class="x43-l6cqYc avertacy-bold-sapphire-12px" id = "{{panelnames[i]}}"></div>
         <input type= 'checkbox' class="rectangle-30242-l6cqYc"style = "background-color: {{colours[i]}};" id = 'panel1check'checked/><label for = 'panel1check'></label>
-        <div class="info"onclick = "openNav('{{panelnames[i]}}',{{i}});openCity(event, 'Specs');"><img class="info-image" src="{{url_for('static',filename='img/infoimage.png')}}" onclick = "openNav('{{panelnames[i]}}',{{i}});openCity(event, 'Specs');"/></div>
+        <div class="info"onclick = "openNav('{{panelnames[i]}}',{{i}});openCity2(event, 'Specs');"><img class="info-image" src="{{url_for('static',filename='img/infoimage.png')}}" onclick = "openNav('{{panelnames[i]}}',{{i}});openCity2(event, 'Specs');"/></div></div>
         {% endfor %}
     </div>
     </div>
             <div id = 'sidebar' class = 'sidebar'>
       <div class="frame-1 screen">
-        <img class="sidebar-VxPVnb" src="{{url_for('static',filename='img/sidebar@12x.svg')}}" />
         <h1 class="title-VxPVnb"><span id = "panelletter"></span></h1>
-        <div class = "tab">
-        <button class="circuits-VxPVnb avertacy-bold-sapphire-20px tablinks" onclick = "openCity(event, 'Circuits');currentSlide(0)">Circuits</button>
-        <button id = 'specs' class="specs-VxPVnb tablinks" onclick = "openCity(event, 'Specs');currentSlide(1)">Specs</button></div>
-        <div id="Specs" class="tabcontent">
+        <div class = "tabss">
+        <button class="circuits-VxPVnb avertacy-bold-sapphire-20px tablinksss" onclick = "openCity2(event, 'Circuits');currentSlide(0)">Circuits</button>
+        <button id = 'specs' class="specs-VxPVnb tablinksss" onclick = "openCity2(event, 'Specs');currentSlide(1)">Specs</button></div>
+        <div id="Specs" class="tabcontentss">
         <div class = 'mySlides'>
         <img class="panel1-image-1-VxPVnb" src="{{url_for('static',filename='img/panelimage1.jpg')}}" /><div class="photo-1-VxPVnb">Photo - 1</div></div>
         <div class = 'mySlides'>
@@ -89,7 +88,7 @@
           <div class="rectangle-2316-ixtSxg"></div>
           <div class="chevron-down-ixtSxg"><img class="vector-KEByjY" src="{{url_for('static',filename='img/vector-1@222x.svg')}}" /></div>
         </div>
-        <div class="group-VxPVnb" onclick = "closeNav();openCity(event, 'Panel')"><img class="vector-JRdMbc" src="{{url_for('static',filename='img/vector-2@222x.svg')}}" /></div>
+        <div class="group-VxPVnb" onclick = "closeNav();openCity2(event, 'KWH')"><img class="vector-JRdMbc" src="{{url_for('static',filename='img/vector-2@222x.svg')}}" /></div>
         <div class="rectangle-3377-VxPVnb"></div>
         <div class="rectangle-3378-VxPVnb"></div>
         <div class="rectangle-3379-VxPVnb"></div>
@@ -107,7 +106,7 @@
         <div class="shop-VxPVnb avertacy-bold-sapphire-20px">Shop</div>
         <div class="x52-VxPVnb avertacy-bold-sapphire-20px" id = 'circuitcount'></div>
     </div>
-<div id="Circuits" class="tabcontent">
+<div id="Circuits" class="tabcontentss">
         <div class = 'mySlides'>
         <img class="panel1-image-1-VxPVnb" src="{{url_for('static',filename='img/panelimage1.jpg')}}" /><div class="photo-1-VxPVnb">Photo - 1</div></div>
         <div class = 'mySlides'>
@@ -120,7 +119,7 @@
           <div class="rectangle-2316-ixtSxg"></div>
           <div class="chevron-down-ixtSxg"><img class="vector-KEByjY" src="{{url_for('static',filename='img/vector-1@222x.svg')}}" /></div>
         </div>
-        <div class="group-VxPVnb" onclick = "closeNav();openCity(event, 'Panel')"><img class="vector-JRdMbc" src="{{url_for('static',filename='img/vector-2@222x.svg')}}" /></div>
+        <div class="group-VxPVnb" onclick = "closeNav();openCity2(event, 'KWH')"><img class="vector-JRdMbc" src="{{url_for('static',filename='img/vector-2@222x.svg')}}" /></div>
         <div class="frame-1 screen">
         <div class="rectangle-3000-VxPVnb">
         <div class="rectangle-3001-VxPVnb"></div>
@@ -304,6 +303,7 @@
     var circuitcount = {{circuitcount}};
     function openNav(panel, number) {
   document.getElementById("sidebar").style.width = "600px";
+  document.getElementById("sidebar").style.boxShadow  = "0 0 0 10000px rgba(0,0,0,.50)";
   document.getElementById("panelletter").innerHTML = panel;
   document.getElementById("circuitcount").innerHTML = circuitcount[number];
   var x = document.getElementsByClassName(panel);
@@ -318,6 +318,7 @@
 
 /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
 function closeNav() {  
+    document.getElementById("sidebar").style.boxShadow  = "0 0 0 0px rgba(0,0,0,.50)";
     document.getElementById("sidebar").style.width = "0";
     var x = document.getElementsByClassName('rectangle-3002-VxPVnb');
       var i;
