@@ -82,6 +82,7 @@ from PartnerApiClient import *
 import matplotlib.pyplot as plt
 import pandas as pd
 from PartnerApiClient.Emporia_Customer import Emporia_Customer
+from report_functions import calendar_init, calendar_update, calendar_pull, calendar_edit, operating_hours
 import mysql.connector
 from collections import Counter, defaultdict
 #for photo upload
@@ -1508,6 +1509,69 @@ def historicalusageweekline():
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
+        
+@commercial.route('/operatinghours', methods=['GET', 'POST'])
+@login_required
+def operatinghours():
+    form = OperatingHoursForm()
+    if(current_user.is_authenticated and current_user.is_admin()):
+        building_id = 111111
+        year = 2021
+        days_per_week = 5
+        start_hour = 8
+        end_hour = 17
+        starthours = []
+        endhours = []
+        startam = []
+        endam = []
+        month = 0
+
+        # calendar_init(building_id, year, days_per_week, start_hour, end_hour)
+        if request.method == "POST":
+            month = request.form['month']
+            starthours = []
+            endhours = []
+            startam = []
+            endam = []
+        month = int(month)
+        cal_month = month + 1
+        cal_db = calendar_pull(building_id,year, cal_month)
+        print(cal_db[1])
+        for date in cal_db:
+            string = date
+            starthours.append(string['start_hours'])
+            endhours.append(string['end_hours'])
+        d = datetime.datetime(2021, cal_month, 1)
+        offset = d.weekday()
+        offset += 1
+        starthours = rotate(starthours,offset)
+        endhours = rotate(endhours,offset)
+        
+        for i in range(len(starthours)):
+            if starthours[i] is not None and starthours[i] < 13:
+                startam.append("am")
+            if starthours[i] is not None and starthours[i] >= 13:
+                startam.append("pm")
+                starthours[i] = starthours[i] - 12
+            if starthours[i] is None:
+                startam.append(endhours[i])
+
+            if endhours[i] is not None and endhours[i] < 13:
+                endam.append("am")
+            if endhours[i] is not None and endhours[i] >= 13:
+                endam.append("pm")
+                endhours[i] = endhours[i] - 12
+            if endhours[i] is None:
+                endam.append(endhours[i])
+            
+        return render_template('operatinghours.html',form = form,month = month,starthours = starthours, endhours = endhours, startam = startam, endam = endam)
+    else:
+        abort(403)
+
+
+
+def rotate(l, n):
+    return l[-n:] + l[:-n]
 @commercial.route('/clients', methods=['GET', 'POST'])
 @login_required
 def clients():
