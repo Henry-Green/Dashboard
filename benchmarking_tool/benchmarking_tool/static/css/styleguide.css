@@ -15,7 +15,8 @@
   --violet-blue-3: #3649a81f;
   --white: #ffffff;
   --zircon: #f7f9fe;
-
+  --mist-gray: #c4c4c4;
+  
   --font-size-12_6px: 12.6px;
   --font-size-15_2px: 15.2px;
   --font-size-22_8px: 22.8px;
@@ -91,6 +92,50 @@
   color: var(--gulf-blue);
   font-family: var(--font-family-averta_cy-bold);
   font-size: var(--font-size-xl);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.avertacy-bold-apple-8px {
+  color: var(--apple);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: var(--font-size-xs);
+  font-style: normal;
+  font-weight: 700;
+}
+.avertacy-bold-apple-21px {
+  color: var(--apple);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 700;
+}
+.avertacy-bold-white-15px {
+  color: var(--white);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.avertacy-bold-sapphire-10px {
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: var(--font-size-s);
+  font-style: normal;
+  font-weight: 700;
+}
+.avertacy-bold-sapphire-16px {
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+}
+.avertacy-bold-sapphire-38px {
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 38px;
   font-style: normal;
   font-weight: 700;
 }
@@ -858,4 +903,11 @@
   font-size: 25px;
   font-style: normal;
   font-weight: 700;
+}
+.avertacy-regular-normal-mist-gray-18px {
+  color: var(--mist-gray);
+  font-family: var(--font-family-averta_cy-regular);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
 }
