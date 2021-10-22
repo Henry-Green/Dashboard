@@ -317,7 +317,7 @@ input[type=number]::-webkit-outer-spin-button {
   font-style: normal;
   font-weight: 700;
   text-indent: 10px;
-  background-image: url('/static/img/CAPTURE.PNG');
+  background-image: url('/static/img/Capture.PNG');
   background-size: contain;
   position: relative;
   z-index: 10000;
