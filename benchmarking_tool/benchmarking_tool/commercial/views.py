@@ -5101,4 +5101,5 @@ class ClientForm(FlaskForm):
 class HistoricalUsageForm(FlaskForm):
     date = StringField("Date")
 
-
+class OperatingHoursForm(FlaskForm):
+    month = StringField("Month")
