@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
 
 
-  <body style="margin: 0; background: #ffffff">
+  <body style="margin: 0; background: #ffffff" onload="uncheck();">
     <input type="hidden" id="anPageName" name="page" value="operating-hours" />
     <div class="container-center-horizontal">
       <div class="operating-hours screen">
@@ -35,7 +35,7 @@
             <h1 class="title avertacy-bold-sapphire-38px">Operating Hours</h1>
           </div>
 
-<form onsubmit="setTimeout(function(){window.location.reload();},10);" method = "POST" enctype="multipart/form-data">
+<form method = "POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
 <fieldset  onchange="submit();">
   <div class="input">
@@ -59,6 +59,17 @@
      <!-- <input id="year" type="number" min="1900" max="2100" step="1" value="2021"> -->
   </div>
  </fieldset>
+ <div id = 'editor' class = 'editor'>
+  <p class = 'edittitle' id = 'edittitle'></p>
+  <p class = 'starttitle'>Opening Hour</p>
+   <input id = 'newstart' class = 'newstart' name = 'newstart' type = "number" min = '1' max = '23' step = '1' value = 8><p class = 'newstartclock'>:00</p>
+   <p class = 'endtitle'>Closing Hour</p>
+   <input id = 'newend' class = 'newend' name = 'newend' type = "number" min = '1' max = '23' step = '1' value = 17><p class = 'newendclock'>:00</p>
+   <input type="checkbox" id = 'changed' name = changed value="true" style="opacity: 0.0;">
+   <input type="text" id = 'datenumber' name = datenumber style="opacity: 0.0;  display: none;">
+   <button type = 'submit' class = "editbutton" onclick = 'check();'>Submit</button>
+   <div class="closebutton" onclick = "hideedit();"><img src="{{url_for('static',filename='img/vector-2@222x.svg')}}" /></div>
+ </div>
 </form>
 
 <div id="calendar">
@@ -69,10 +80,14 @@
   <div class = 'divider'></div>
   <div class = 'startam'></div>
   <div class = 'endam'></div>
-</div>
+  <div class = 'editimage'></div>
 </div>
 
-<script>const $ = document.querySelector.bind(document);
+</div>
+
+<script>
+
+const $ = document.querySelector.bind(document);
 const h = tag => document.createElement(tag);
 
 const text_labels = {
@@ -89,6 +104,7 @@ const operatinghoursend = $('#calendar .operatinghoursend');
 const divider = $('#calendar .divider');
 const startam = $('#calendar .startam');
 const endam = $('#calendar .endam');
+const editimage = $('#calendar .editimage');
 const month = {{month}};
 
 const lspan = Array.from({ length: 7 }, () => {
@@ -115,6 +131,9 @@ const endamspan = Array.from({ length: 42 }, () => {
   return endam.appendChild(h('span'));
 });
 
+const editspan = Array.from({ length: 42 }, () => {
+  return editimage.appendChild(h('span'));
+});
 
 // -- state mgmt
   
@@ -147,7 +166,9 @@ function update(state) {
       startamspan[i].textContent = week[j] > 0 && startam[i] != null ? ":00 " + startam[i]: '';
       endamspan[i].textContent = week[j] > 0 && endam[i] != null ? ":00 " + endam[i]: '';
       divspan[i].textContent = week[j] > 0 && startam[i] != null ? "|": '';
+      editspan[i].textContent = week[j] > 0 ? '': '1';
       dspan[i++].textContent = week[j] > 0 ? week[j]: '';
+
     
     }
   });
@@ -164,24 +185,39 @@ $('#month').onchange = ev => {
   view.month = ev.target.value;
 };
 
+
 // $('#year').onchange = ev => {
 //   view.year = ev.target.value;
 // };
 
+  function sceSelect() {
+    console.log(this.textContent || this.innerText);
+    showedit(this.textContent);
+}
+var spans = document.getElementsByTagName('span');
+for (var i = 0, len = spans.length; i < len; i++) {
+    spans[i].onclick = sceSelect;
+}
+console.log(spans.length)
+
 </script>
-
 <script>
-  $("#next").click(function() {
-  var nextElement = $('#month > option:selected').next('option');
-  if (nextElement.length > 0) {
-    $('#month > option:selected').removeAttr('selected').next('option').attr('selected', 'selected');
-  }
-});
+  function check() {
+    document.getElementById("changed").checked = true;
+}
 
-$("#prev").click(function() {
-  var nextElement = $('#month > option:selected').prev('option');
-  if (nextElement.length > 0) {
-    $('#month > option:selected').removeAttr('selected').prev('option').attr('selected', 'selected');
-  }
-});
+function uncheck() {
+    document.getElementById("changed").checked = false;
+}
+
+function hideedit(){
+ document.getElementById("editor").style.boxShadow  = "0 0 0 0px rgba(0,0,0,.50)";
+ document.getElementById("editor").style.display = 'none';
+}
+function showedit(date){
+  document.getElementById("editor").style.display = "block";
+  document.getElementById("editor").style.boxShadow  = "-10px 10px 8px #888888";
+  document.getElementById("edittitle").innerHTML = 'Editing Operating Hours For The ' + date;
+  document.getElementById("datenumber").value = date;
+}
 </script>
