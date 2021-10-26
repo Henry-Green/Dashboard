@@ -72,6 +72,16 @@
 
    <input type="checkbox" id = 'changed' name = changed value="true" style="opacity: 0.0;">
    <input type="text" id = 'datenumber' name = datenumber style="opacity: 0.0;  display: none;">
+
+   <div class = 'bulk'>
+   <select id="bulk" name = 'bulk'>
+      <optgroup>
+      <option value="single" selected="selected">Update Just Today</option>
+      <option value="weekday" id = 'weekday'></option>
+      <option value="everyday">Change for Everyday of the Month</option>
+      <option value="everyweekday">Change for Every Weekday of the Month</option>
+      </optgroup>
+    </select></div>
    <button type = 'submit' class = "editbutton" onclick = 'check();'>Submit</button>
    <div class="closebutton" onclick = "hideedit();"><img src="{{url_for('static',filename='img/vector-2@222x.svg')}}" /></div>
  </div>
@@ -222,9 +232,19 @@ function hideedit(){
  document.getElementById("editor").style.display = 'none';
 }
 function showedit(date){
+  const d = new Date(2021, month, date);
+  const weekday = new Array(7);
+  weekday[0] = "Sunday";
+  weekday[1] = "Monday";
+  weekday[2] = "Tuesday";
+  weekday[3] = "Wednesday";
+  weekday[4] = "Thursday";
+  weekday[5] = "Friday";
+  weekday[6] = "Saturday";
   document.getElementById("editor").style.display = "block";
   document.getElementById("editor").style.boxShadow  = "-10px 10px 8px #888888";
   document.getElementById("edittitle").innerHTML = 'Editing Operating Hours For The ' + date;
+  document.getElementById("weekday").innerHTML = 'Update for every ' + weekday[d.getDay()] + ' in the month';
   document.getElementById("datenumber").value = date;
 }
 
