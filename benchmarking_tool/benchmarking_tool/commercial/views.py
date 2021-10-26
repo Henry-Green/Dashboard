@@ -83,6 +83,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from PartnerApiClient.Emporia_Customer import Emporia_Customer
 from report_functions import calendar_init, calendar_update, calendar_pull, calendar_edit, operating_hours
+from report_functions.edit_weekday_calendar import edit_weekday_calendar
 import mysql.connector
 from collections import Counter, defaultdict
 #for photo upload
@@ -1538,12 +1539,14 @@ def operatinghours():
             endam = []
             changed = request.form.get('changed')
             datenumber = request.form.get('datenumber')
+            bulk = request.form.get('bulk')
 
 
         month = int(month)
         cal_month = month + 1
         cal_db = calendar_pull(building_id,year, cal_month)
         if changed == "true":
+            if bulk == "single":
                 newstart = request.form.get('newstart')
                 newend = request.form.get('newend')
                 datenumber = int(datenumber)
@@ -1554,6 +1557,42 @@ def operatinghours():
                 datechange = datetime.date(year,cal_month,datenumber)
                 cal_db = calendar_edit(cal_db,datechange,starttime,endtime)
                 calendar_update(building_id, year,cal_db)
+            if bulk == "weekday":
+                newstart = request.form.get('newstart')
+                newend = request.form.get('newend')
+                datenumber = int(datenumber)
+                startmins = request.form.get('startmins')
+                endmins = request.form.get('endmins')
+                starttime = newstart + ':' + startmins
+                endtime = newend + ':' + endmins
+                datechange = datetime.datetime(year,cal_month,datenumber)
+                datechange = datechange.weekday()
+                cal_db = edit_weekday_calendar(cal_db,datechange,starttime,endtime)
+                calendar_update(building_id, year,cal_db)
+
+            if bulk == "everyday":
+                newstart = request.form.get('newstart')
+                newend = request.form.get('newend')
+                datenumber = int(datenumber)
+                startmins = request.form.get('startmins')
+                endmins = request.form.get('endmins')
+                starttime = newstart + ':' + startmins
+                endtime = newend + ':' + endmins
+                for i in range(0,6):
+                    cal_db = edit_weekday_calendar(cal_db,i,starttime,endtime)
+                    calendar_update(building_id, year,cal_db)
+
+            if bulk == "everyweekday":
+                newstart = request.form.get('newstart')
+                newend = request.form.get('newend')
+                datenumber = int(datenumber)
+                startmins = request.form.get('startmins')
+                endmins = request.form.get('endmins')
+                starttime = newstart + ':' + startmins
+                endtime = newend + ':' + endmins
+                for i in range(0,5):
+                    cal_db = edit_weekday_calendar(cal_db,i,starttime,endtime)
+                    calendar_update(building_id, year,cal_db)
         for date in cal_db:
             string = date
             starthours.append(string['start_hours'])
