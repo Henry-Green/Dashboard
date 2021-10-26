@@ -61,10 +61,15 @@
  </fieldset>
  <div id = 'editor' class = 'editor'>
   <p class = 'edittitle' id = 'edittitle'></p>
+
   <p class = 'starttitle'>Opening Hour</p>
-   <input id = 'newstart' class = 'newstart' name = 'newstart' type = "number" min = '1' max = '23' step = '1' value = 8><p class = 'newstartclock'>:00</p>
+   <input id = 'newstart' class = 'newstart' name = 'newstart' type = "number" min = '0' max = '23' step = '1' value = 8>
+   <input name = startmins type = number pattern="[0-9]*" min = 00 max = '59' step = 01 value = 30  class = 'newstartclock'>
+
    <p class = 'endtitle'>Closing Hour</p>
-   <input id = 'newend' class = 'newend' name = 'newend' type = "number" min = '1' max = '23' step = '1' value = 17><p class = 'newendclock'>:00</p>
+   <input id = 'newend' class = 'newend' name = 'newend' type = "number" min = '0' max = '23' step = '1' value = 17>
+   <input name = 'endmins' type = number pattern="[0-9]*" min = 00 max = '59' step = 01 value = 30 class = 'newendclock'>
+
    <input type="checkbox" id = 'changed' name = changed value="true" style="opacity: 0.0;">
    <input type="text" id = 'datenumber' name = datenumber style="opacity: 0.0;  display: none;">
    <button type = 'submit' class = "editbutton" onclick = 'check();'>Submit</button>
@@ -150,6 +155,8 @@ function update(state) {
   const endhours = {{endhours|tojson}};
   const startam = {{startam|tojson}};
   const endam = {{endam|tojson}};
+  const startminutes = {{startminutes|tojson}};
+  const endminutes = {{endminutes|tojson}};
   
   // apply day labels
   const txts = text_labels[state.lang];
@@ -163,8 +170,8 @@ function update(state) {
     for (j=0; j < 7; j++) {
       ospan[i].textContent = week[j] > 0 ? starthours[i]: ' ';
       ospanend[i].textContent = week[j] > 0 ? endhours[i]: '';
-      startamspan[i].textContent = week[j] > 0 && startam[i] != null ? ":00 " + startam[i]: '';
-      endamspan[i].textContent = week[j] > 0 && endam[i] != null ? ":00 " + endam[i]: '';
+      startamspan[i].textContent = week[j] > 0 && startam[i] != null ? ":" + startminutes[i] + ' ' + startam[i]: '';
+      endamspan[i].textContent = week[j] > 0 && endam[i] != null ? ":" + endminutes[i] + ' ' + endam[i]: '';
       divspan[i].textContent = week[j] > 0 && startam[i] != null ? "|": '';
       editspan[i].textContent = week[j] > 0 ? '': '1';
       dspan[i++].textContent = week[j] > 0 ? week[j]: '';
@@ -220,4 +227,6 @@ function showedit(date){
   document.getElementById("edittitle").innerHTML = 'Editing Operating Hours For The ' + date;
   document.getElementById("datenumber").value = date;
 }
+
 </script>
+
