@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+
 }
 
 html {
@@ -8,6 +9,9 @@ html {
   line-height: 1.4;
   font-size: 16px;
   overflow: hidden;
+  zoom: 1.1; 
+  -moz-transform: scale(1.1); 
+  -moz-transform-origin: 0 0;
 }
 
 fieldset {
@@ -225,7 +229,7 @@ input{
 }
 .endam span {
   height: 88px;
-  width: 30px;
+  width: 25px;
   font-size: 16px;
   letter-spacing: -1px;
   padding-right: 4px;
@@ -257,7 +261,7 @@ input{
 }
 .startam span {
   height: 88px;
-  width: 30px;
+  width: 25px;
   font-size: 16px;
   letter-spacing: -1px;
   padding-right: 4px;
@@ -379,7 +383,7 @@ input{
   border-color: black;
   position: relative;
   background-color: transparent;
-  top: 105px;
+  top: 75px;
   left: 25%;
   right: 65px;
   width: 60px;
@@ -391,10 +395,12 @@ input{
   width: auto;
   position: relative;
   background-color: transparent;
-  top: 65px;
-  left: 32%;
+  text-align: left;
+  border-color: black;
+  top: 75px;
+  left: 24.5%;
   right: 65px;
-  width: auto;
+  width: 60px;
 }
 
 .newend{
@@ -405,7 +411,6 @@ input{
   border-color: black;
   position: relative;
   background-color: transparent;
-  bottom: 300px;
   left: 60%;
   right: 65px;
   width: 60px;
@@ -417,10 +422,12 @@ input{
   width: auto;
   position: relative;
   background-color: transparent;
+  text-align: left;
+  border-color: black;
   bottom: 40px;
-  left: 67%;
+  left: 59.5%;
   right: 65px;
-  width: auto;
+  width: 60px;
 }
 
 .edittitle{
@@ -442,7 +449,7 @@ input{
   width: auto;
   position: relative;
   background-color: transparent;
-  top: 90px;
+  top: 60px;
   right: 20%;
   text-align: center;
   width: auto;
@@ -469,8 +476,8 @@ button{
   position: relative;
   border-radius: 5px;
   border-color: transparent;
-  left: 40%;
-  top: 50px;
+  left: 25%;
+  top: 150px;
   text-align: center;
   width: 100px;
   height: 30px;
