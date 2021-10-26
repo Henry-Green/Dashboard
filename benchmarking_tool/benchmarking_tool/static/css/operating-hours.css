@@ -476,7 +476,7 @@ button{
   position: relative;
   border-radius: 5px;
   border-color: transparent;
-  left: 25%;
+  left: 45%;
   top: 150px;
   text-align: center;
   width: 100px;
@@ -489,6 +489,12 @@ button{
   position: relative;
   left: 860px;
   bottom: 240px;
+}
+
+.bulk{
+  position: relative;
+  top: 100px;
+  left: 230px;
 }
 /* screen - operating-hours */
 
