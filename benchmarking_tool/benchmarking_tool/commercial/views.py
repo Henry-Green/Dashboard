@@ -1515,7 +1515,7 @@ def historicalusageweekline():
 def operatinghours():
     form = OperatingHoursForm()
     if(current_user.is_authenticated and current_user.is_admin()):
-        building_id = 111111
+        building_id = 12
         year = 2021
         days_per_week = 5
         start_hour = 8
@@ -1525,6 +1525,7 @@ def operatinghours():
         startam = []
         endam = []
         month = 0
+        changed = ''
 
         # calendar_init(building_id, year, days_per_week, start_hour, end_hour)
         if request.method == "POST":
@@ -1533,10 +1534,22 @@ def operatinghours():
             endhours = []
             startam = []
             endam = []
+            changed = request.form.get('changed')
+            datenumber = request.form.get('datenumber')
+
+
         month = int(month)
         cal_month = month + 1
         cal_db = calendar_pull(building_id,year, cal_month)
-        print(cal_db[1])
+        if changed == "true":
+                newstart = request.form.get('newstart')
+                newend = request.form.get('newend')
+                newstart = int(newstart)
+                newend = int(newend)
+                datenumber = int(datenumber)
+                datechange = datetime.date(year,cal_month,datenumber)
+                cal_db = calendar_edit(cal_db,datechange,newstart,newend)
+                calendar_update(building_id, year,cal_db)
         for date in cal_db:
             string = date
             starthours.append(string['start_hours'])
@@ -5103,3 +5116,7 @@ class HistoricalUsageForm(FlaskForm):
 
 class OperatingHoursForm(FlaskForm):
     month = StringField("Month")
+    changed = StringField("Changed")
+    newstart = IntegerField("NewStart")
+    newend = IntegerField("NewEnd")
+    datenumber = IntegerField("DateNumber")
