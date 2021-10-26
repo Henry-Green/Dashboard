@@ -1524,6 +1524,8 @@ def operatinghours():
         endhours = []
         startam = []
         endam = []
+        startminutes = []
+        endminutes = []
         month = 0
         changed = ''
 
@@ -1544,11 +1546,13 @@ def operatinghours():
         if changed == "true":
                 newstart = request.form.get('newstart')
                 newend = request.form.get('newend')
-                newstart = int(newstart)
-                newend = int(newend)
                 datenumber = int(datenumber)
+                startmins = request.form.get('startmins')
+                endmins = request.form.get('endmins')
+                starttime = newstart + ':' + startmins
+                endtime = newend + ':' + endmins
                 datechange = datetime.date(year,cal_month,datenumber)
-                cal_db = calendar_edit(cal_db,datechange,newstart,newend)
+                cal_db = calendar_edit(cal_db,datechange,starttime,endtime)
                 calendar_update(building_id, year,cal_db)
         for date in cal_db:
             string = date
@@ -1559,7 +1563,36 @@ def operatinghours():
         offset += 1
         starthours = rotate(starthours,offset)
         endhours = rotate(endhours,offset)
-        
+
+        i = 0
+        for hour in starthours:
+            if type(hour) == str and hour[1] == ':':
+                starthours[i] = hour[0]
+                starthours[i] = int(starthours[i])
+                startminutes.append(hour[2] + hour[3])
+            elif type(hour) == str and hour[1] != ':':
+                starthours[i] = hour[0] + hour[1]
+                starthours[i] = int(starthours[i])
+                startminutes.append(hour[3] + hour[4])
+            else:
+                startminutes.append('00')
+            i += 1
+
+        i = 0
+        for hour in endhours:
+            if type(hour) == str and hour[1] == ':':
+                endhours[i] = hour[0]
+                endhours[i] = int(endhours[i])
+                endminutes.append(hour[2] + hour[3])
+            elif type(hour) == str and hour[1] != ':':
+                endhours[i] = hour[0] + hour[1]
+                endhours[i] = int(endhours[i])
+                endminutes.append(hour[3] + hour[4])
+            else:
+                endminutes.append('00')
+            i += 1 
+        print(startminutes)
+        print('^^^^^^^^^^^^^^')
         for i in range(len(starthours)):
             if starthours[i] is not None and starthours[i] < 13:
                 startam.append("am")
@@ -1577,10 +1610,9 @@ def operatinghours():
             if endhours[i] is None:
                 endam.append(endhours[i])
             
-        return render_template('operatinghours.html',form = form,month = month,starthours = starthours, endhours = endhours, startam = startam, endam = endam)
+        return render_template('operatinghours.html',startminutes = startminutes, endminutes = endminutes, form = form,month = month,starthours = starthours, endhours = endhours, startam = startam, endam = endam)
     else:
         abort(403)
-
 
 
 def rotate(l, n):
