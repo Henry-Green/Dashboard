@@ -70,7 +70,8 @@ input {
   font-family: var(--font-family-averta_cy-bold);
   font-size: 10px;
   text-indent: 10px;
-  background-color: white;
+  background-color: transparent;
+  z-index: 40000;
 
 }
 
@@ -140,12 +141,7 @@ input{
   width: auto;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button {  
 
-   opacity: 0;
-
-}
 
 .operatinghours{
   display: grid;
@@ -296,10 +292,9 @@ input[type=number]::-webkit-outer-spin-button {
   font-style: normal;
   font-weight: 700;
   text-indent: 10px;
-  background-color: transparent;
+  background-color: white;
   position: relative;
   line-height: 119px;
-  z-index: 10000;
 }
 
 .operatinghours span:empty {
@@ -320,10 +315,174 @@ input[type=number]::-webkit-outer-spin-button {
   background-image: url('/static/img/Capture.PNG');
   background-size: contain;
   position: relative;
-  z-index: 10000;
 
 }
 
+.editimage {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: right;
+  position: relative;
+  grid-gap: 10px;
+  bottom: 3470px;
+
+}
+.editimage span {
+  height: 0px;
+  width: 0px;
+  
+
+}
+.editimage span:empty {
+  height: 88px;
+  width: 96px;
+  font-size: 16px;
+  letter-spacing: -1px;
+  padding-right: 4px;
+  font-weight: 700;
+  border-radius: 5px;
+  text-align: left;
+  color: var(--sapphire);
+  position: relative;
+  left: 70px;
+  top: 3px;
+  font-family: var(--font-family-averta_cy-bold);
+  background-size: contain;
+  font-size: 10px;
+  text-indent: 10px;
+  background-image: url('/static/img/EditImage.PNG');
+  background-repeat: no-repeat;
+  background-size: 21px;
+  z-index: 1000;
+
+}
+
+.editor{
+  width: 904px;
+  height: 600px;
+  position: relative;
+  top: 590px;
+  background-color: white;
+  border-size: 5px;
+  border-color: black;
+  z-index: 5000000;
+  border-radius: 10px;
+  box-shadow: -10px 10px 8px #888888;
+  display: none;
+}
+
+.newstart{
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 24px;
+  width: auto;
+  border-color: black;
+  position: relative;
+  background-color: transparent;
+  top: 105px;
+  left: 25%;
+  right: 65px;
+  width: 60px;
+}
+.newstartclock{
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 24px;
+  width: auto;
+  position: relative;
+  background-color: transparent;
+  top: 65px;
+  left: 32%;
+  right: 65px;
+  width: auto;
+}
+
+.newend{
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 24px;
+  width: auto;
+  border-color: black;
+  position: relative;
+  background-color: transparent;
+  bottom: 300px;
+  left: 60%;
+  right: 65px;
+  width: 60px;
+}
+.newendclock{
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 24px;
+  width: auto;
+  position: relative;
+  background-color: transparent;
+  bottom: 40px;
+  left: 67%;
+  right: 65px;
+  width: auto;
+}
+
+.edittitle{
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 24px;
+  width: auto;
+  position: relative;
+  background-color: transparent;
+  top: 10px;
+  text-align: center;
+  width: auto;
+}
+
+.starttitle{
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 18px;
+  width: auto;
+  position: relative;
+  background-color: transparent;
+  top: 90px;
+  right: 20%;
+  text-align: center;
+  width: auto;
+}
+.endtitle{
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 18px;
+  width: auto;
+  position: relative;
+  background-color: transparent;
+  left: 15%;
+  bottom: 15px;
+  text-align: center;
+  width: auto;
+}
+
+button{
+  background-color: var(--sapphire);
+  color: white;
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 18px;
+  width: auto;
+  position: relative;
+  border-radius: 5px;
+  border-color: transparent;
+  left: 40%;
+  top: 50px;
+  text-align: center;
+  width: 100px;
+  height: 30px;
+}
+
+.closebutton{
+  width: 50px;
+  height: 50px;
+  position: relative;
+  left: 860px;
+  bottom: 240px;
+}
 /* screen - operating-hours */
 
 .operating-hours {
