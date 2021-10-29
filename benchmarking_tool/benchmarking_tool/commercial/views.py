@@ -712,8 +712,6 @@ def historicalusage():
         )
         today = date.today()
         userdate = (today - timedelta(days = 1)).strftime('%Y-%m-%d') + '%'
-        print(userdate)
-        print('userdate')
         form = HistoricalUsageForm()
         serial_numbers = current_user.phone_number
         serial_list = serial_numbers.split()
@@ -827,7 +825,8 @@ def historicalusage():
         plugprice = (plugtotal * 0.75)
         otherprice = (othertotal * 0.75)
 
-        percenttotal = total/1000
+        percenttotal = total
+        
         lightpercent = (lighttotal/percenttotal) * 100
         waterpercent = (watertotal/percenttotal) * 100
         hvacpercent = (hvactotal/percenttotal) * 100
@@ -857,7 +856,8 @@ def historicalusage():
         average_home = [75,62]
         historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
         colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
-        return render_template('historicalusage.html',colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        correctdate = userdate[:-1]
+        return render_template('historicalusage.html',correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
@@ -1019,7 +1019,8 @@ def historicalusageline():
         average_home = [75,62]
         historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
         colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
-        return render_template('historicalusageline.html',colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        correctdate = userdate[:-1]
+        return render_template('historicalusageline.html',correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
@@ -1063,6 +1064,8 @@ def historicalusageweek():
         )
         today = date.today()
         userdate = (today - timedelta(days = 1)).strftime('%Y-%m-%d') + '%'
+        year, week_num, day_of_week = today.isocalendar()
+        weekdate = "2021-W42"
         print(userdate)
         print('userdate')
         form = HistoricalUsageForm()
@@ -1276,7 +1279,7 @@ def historicalusageweek():
         average_home = [75,62]
         historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
         colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
-        return render_template('historicalusageweek.html',colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        return render_template('historicalusageweek.html',weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
@@ -1293,8 +1296,7 @@ def historicalusageweekline():
         )
         today = date.today()
         userdate = (today - timedelta(days = 1)).strftime('%Y-%m-%d') + '%'
-        print(userdate)
-        print('userdate')
+        weekdate = "2021-W42"
         form = HistoricalUsageForm()
         serial_numbers = current_user.phone_number
         serial_list = serial_numbers.split()
@@ -1506,11 +1508,485 @@ def historicalusageweekline():
         average_home = [75,62]
         historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
         colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
-        return render_template('historicalusageweekline.html',colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        return render_template('historicalusageweekline.html',weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
-        
+
+@commercial.route('/historicalusagemonth', methods=['GET', 'POST'])
+@login_required
+def historicalusagemonth():
+    if(current_user.is_authenticated and current_user.is_admin()):
+        mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+        today = date.today()
+        userdate = (today - timedelta(days = 1)).strftime('%Y-%m-%d') + '%'
+        weekdate = "2021-10"
+        form = HistoricalUsageForm()
+        serial_numbers = current_user.phone_number
+        serial_list = serial_numbers.split()
+        mycursor = mydb.cursor()
+        if request.method == "POST":
+            weekdate = request.form['date']
+            year = weekdate[0] + weekdate[1] + weekdate[2] + weekdate[3]
+            month = weekdate[5] + weekdate[6]
+            num_days = monthrange(int(year),int(month))
+            num_days = int(num_days[1])
+            dayoftheweek = datetime.datetime(int(year),int(month),1)
+            userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
+            number = serial_list[0]
+            sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
+                
+            mycursor.execute(sql, (userdate, number))
+            myresult = mycursor.fetchall()
+            for x in myresult:
+                str = ','.join(x)
+
+            stringlist = str.split(',')
+            channel_names = stringlist[::2]
+            usage = stringlist[1::2]
+            historicalusage = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
+            historicalusage['Usage'] = pd.to_numeric(historicalusage['Usage'], downcast = 'float')
+            total = historicalusage['Usage'].sum()
+            totalprice = (total * 0.75)/1000
+            for i in range(0,num_days):
+                try:
+                    str = ''
+                    stringlist = []
+                    usage = []
+                    dayoftheweek = (dayoftheweek + timedelta(days = 1))
+                    userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
+                    
+                    sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
+                    mycursor.execute(sql, (userdate, number))
+                    myresult = mycursor.fetchall()
+                    for x in myresult:
+                        str = ','.join(x)
+
+                    stringlist = str.split(',')
+                    channel_names = stringlist[::2]
+                    usage = stringlist[1::2]
+                    historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
+                    historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
+                    total2 = historicalusage2['Usage'].sum()
+                    totalprice2 = (total2 * 0.75)/1000
+                    historicalusage["Usage"] = historicalusage['Usage'].add(historicalusage2['Usage'], fill_value=0)
+                    total += total2
+                    totalprice += totalprice2
+                except:
+                    break
+
+            if len(serial_list) > 1:
+                str = ''
+                stringlist = []
+                for i in range (1, len(serial_list)):
+                    try:
+                        dayoftheweek = datetime.datetime(int(year),int(month),1)
+                        userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
+                        number = serial_list[i]
+                        sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
+                        mycursor.execute(sql, (userdate, number))
+                        myresult = mycursor.fetchall()
+                        for x in myresult:
+                            str = ','.join(x)
+
+                        stringlist = str.split(',')
+                        channel_names = stringlist[::2]
+                        usage = stringlist[1::2]
+                        historicalusage3 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
+                        historicalusage3['Usage'] = pd.to_numeric(historicalusage3['Usage'], downcast = 'float')
+                        total3 = historicalusage3['Usage'].sum()
+                        totalprice3 = (total3 * 0.75)/1000
+                        total += total3
+                        totalprice += totalprice3
+                        for i in range(0,num_days):
+                            str = ''
+                            stringlist = []
+                            usage = []
+                            dayoftheweek = (dayoftheweek + timedelta(days = 1))
+                            userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
+                            sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
+                            
+                            mycursor.execute(sql, (userdate, number))
+                            myresult = mycursor.fetchall()
+                            for x in myresult:
+                                str = ','.join(x)
+
+                            stringlist = str.split(',')
+                            channel_names = stringlist[::2]
+                            usage = stringlist[1::2]
+                            historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
+                            historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
+                            total2 = historicalusage2['Usage'].sum()
+                            totalprice2 = (total2 * 0.75)/1000
+                            historicalusage3["Usage"] = historicalusage3['Usage'].add(historicalusage2['Usage'], fill_value=0)
+                            total += total2
+                            totalprice += totalprice2
+                            print(historicalusage3)
+                    except:
+                        break
+                    historicalusage = historicalusage.append(historicalusage3, ignore_index = True)
+        else:
+            number = serial_list[0]
+            sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
+                
+            mycursor.execute(sql, (userdate, number))
+            myresult = mycursor.fetchall()
+            for x in myresult:
+                str = ','.join(x)
+
+            stringlist = str.split(',')
+            channel_names = stringlist[::2]
+            usage = stringlist[1::2]
+            historicalusage = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
+            historicalusage['Usage'] = pd.to_numeric(historicalusage['Usage'], downcast = 'float')
+            total = historicalusage['Usage'].sum()
+            historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
+            totalprice = (total * 0.75)/1000
+
+        channel_names = historicalusage['Channel Names']
+        categories = []
+        for name in channel_names:
+            
+            # make everything lowercase 
+            name_l = name.lower()
+            if 'light' in name_l or 'lights' in name_l or 'lighting' in name_l:
+                categories.append('lighting')
+
+            elif 'hot water' in name_l or 'dhw' in name_l or 'water' in name_l or 'water heater' in name_l:
+                categories.append('hotwater')
+
+            elif 'fan' in name_l or 'heat' in name_l or 'hvac' in name_l or 'cooling' in name_l:
+                categories.append('hvac')
+
+            elif 'motor' in name_l or 'pump' in name_l or 'compressor' in name_l or 'vacuum' in name_l or 'dryer' in name_l:
+                categories.append('equipment')
+            
+            elif 'plug' in name_l or 'plugs' in name_l or 'receptacle' in name_l or 'receptacle' in name_l:
+                categories.append('plugload')
+            
+            else:
+                categories.append('other')
+        historicalusage['Category'] = categories
+        lighttotal = 0
+        watertotal = 0
+        hvactotal = 0
+        equipmenttotal = 0
+        plugtotal = 0
+        othertotal = 0
+        categorytotals = historicalusage.copy()
+        for i in range(0,len(categorytotals.index)):
+            
+            # make everything lowercase 
+            name_l = name.lower()
+            if categorytotals.iloc[i][2] == 'lighting':
+                lighttotal += categorytotals.iloc[i][1]
+
+            elif categorytotals.iloc[i][2] == 'hotwater':
+                watertotal += categorytotals.iloc[i][1]
+
+            elif categorytotals.iloc[i][2] == 'hvac':
+                hvactotal += categorytotals.iloc[i][1]
+
+            elif categorytotals.iloc[i][2] == 'equipment':
+                equipmenttotal += categorytotals.iloc[i][1]
+            
+            elif categorytotals.iloc[i][2] == 'plugload':
+                plugtotal += categorytotals.iloc[i][1]
+            
+            else:
+                othertotal += categorytotals.iloc[i][1]
+
+        lighttotal = lighttotal/1000
+        watertotal = watertotal/1000
+        hvactotal = hvactotal/1000
+        equipmenttotal = equipmenttotal/1000
+        plugtotal = plugtotal/1000
+        othertotal = othertotal/1000
+
+        lightprice = (lighttotal * 0.75)
+        waterprice = (watertotal * 0.75)
+        hvacprice = (hvactotal * 0.75)
+        equipmentprice = (equipmenttotal * 0.75)
+        plugprice = (plugtotal * 0.75)
+        otherprice = (othertotal * 0.75)
+
+        percenttotal = total/1000
+        lightpercent = (lighttotal/percenttotal) * 100
+        waterpercent = (watertotal/percenttotal) * 100
+        hvacpercent = (hvactotal/percenttotal) * 100
+        equipmentpercent = (equipmenttotal/percenttotal) * 100
+        plugpercent = (plugtotal/percenttotal) * 100
+        otherpercent = (othertotal/percenttotal) * 100
+        otherpercent = (othertotal/percenttotal) * 100
+
+        serial_number = 'A2107A04B4B8F009A6CEC4'
+        exteriorwalls =[]
+        roofs = []
+        rooffinishs = []
+        foundations = []
+        heating_usage = 40
+        current_regress = 0
+        light_usage = 20
+        appliance_usage = 10
+        ventilation_usage = 50
+        dhw_usage = 30
+        home_upgrades = [52,39,173,145,143,144,142,142,141,141,140,140,221,137,140,138,137,65,11,116,140,138,180,67]
+        home_upgrades1 = [215,222,229,199,186,195,186,185,185,185,185,185,185,184,257,231,258,224,220,214,217,106,106,107]
+        home_upgrades3 = [42,29,140,139,138,137,136,136,135,135,134,217,131,134,133,131,56,1,109,134,132,132,65]
+        home_upgrades4 = [52,39,173,145,143,144,142,142,141,141,140,140,221,137,140,138,137,65,11,116,140,138,180,67]
+        home_upgrades5 = [215,222,229,199,186,195,186,185,185,185,185,185,185,184,257,231,258,224,220,214,217,106,106,107]
+        home_upgrades6 = [42,29,140,139,138,137,136,136,135,135,134,217,131,134,133,131,56,1,109,134,132,132,65]
+        user_home = [60, 50]
+        average_home = [75,62]
+        historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
+        colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
+        return render_template('historicalusagemonth.html',weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
+    else:
+        abort(403)
+
+@commercial.route('/historicalusagemonthline', methods=['GET', 'POST'])
+@login_required
+def historicalusagemonthline():
+    if(current_user.is_authenticated and current_user.is_admin()):
+        mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+        today = date.today()
+        userdate = (today - timedelta(days = 1)).strftime('%Y-%m-%d') + '%'
+        weekdate = "2021-10"
+        form = HistoricalUsageForm()
+        serial_numbers = current_user.phone_number
+        serial_list = serial_numbers.split()
+        mycursor = mydb.cursor()
+        if request.method == "POST":
+            weekdate = request.form['date']
+            year = weekdate[0] + weekdate[1] + weekdate[2] + weekdate[3]
+            month = weekdate[5] + weekdate[6]
+            num_days = monthrange(int(year),int(month))
+            num_days = int(num_days[1])
+            dayoftheweek = datetime.datetime(int(year),int(month),1)
+            userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
+            number = serial_list[0]
+            sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
+                
+            mycursor.execute(sql, (userdate, number))
+            myresult = mycursor.fetchall()
+            for x in myresult:
+                str = ','.join(x)
+
+            stringlist = str.split(',')
+            channel_names = stringlist[::2]
+            usage = stringlist[1::2]
+            historicalusage = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
+            historicalusage['Usage'] = pd.to_numeric(historicalusage['Usage'], downcast = 'float')
+            total = historicalusage['Usage'].sum()
+            totalprice = (total * 0.75)/1000
+            for i in range(0,num_days):
+                try:
+                    str = ''
+                    stringlist = []
+                    usage = []
+                    dayoftheweek = (dayoftheweek + timedelta(days = 1))
+                    userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
+                    
+                    sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
+                    mycursor.execute(sql, (userdate, number))
+                    myresult = mycursor.fetchall()
+                    for x in myresult:
+                        str = ','.join(x)
+
+                    stringlist = str.split(',')
+                    channel_names = stringlist[::2]
+                    usage = stringlist[1::2]
+                    historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
+                    historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
+                    total2 = historicalusage2['Usage'].sum()
+                    totalprice2 = (total2 * 0.75)/1000
+                    historicalusage["Usage"] = historicalusage['Usage'].add(historicalusage2['Usage'], fill_value=0)
+                    total += total2
+                    totalprice += totalprice2
+                except:
+                    break
+
+            if len(serial_list) > 1:
+                str = ''
+                stringlist = []
+                for i in range (1, len(serial_list)):
+                    try:
+                        dayoftheweek = datetime.datetime(int(year),int(month),1)
+                        userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
+                        number = serial_list[i]
+                        sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
+                        mycursor.execute(sql, (userdate, number))
+                        myresult = mycursor.fetchall()
+                        for x in myresult:
+                            str = ','.join(x)
+
+                        stringlist = str.split(',')
+                        channel_names = stringlist[::2]
+                        usage = stringlist[1::2]
+                        historicalusage3 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
+                        historicalusage3['Usage'] = pd.to_numeric(historicalusage3['Usage'], downcast = 'float')
+                        total3 = historicalusage3['Usage'].sum()
+                        totalprice3 = (total3 * 0.75)/1000
+                        total += total3
+                        totalprice += totalprice3
+                        for i in range(0,num_days):
+                            str = ''
+                            stringlist = []
+                            usage = []
+                            dayoftheweek = (dayoftheweek + timedelta(days = 1))
+                            userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
+                            sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
+                            
+                            mycursor.execute(sql, (userdate, number))
+                            myresult = mycursor.fetchall()
+                            for x in myresult:
+                                str = ','.join(x)
+
+                            stringlist = str.split(',')
+                            channel_names = stringlist[::2]
+                            usage = stringlist[1::2]
+                            historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
+                            historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
+                            total2 = historicalusage2['Usage'].sum()
+                            totalprice2 = (total2 * 0.75)/1000
+                            historicalusage3["Usage"] = historicalusage3['Usage'].add(historicalusage2['Usage'], fill_value=0)
+                            total += total2
+                            totalprice += totalprice2
+                            print(historicalusage3)
+                    except:
+                        break
+                    historicalusage = historicalusage.append(historicalusage3, ignore_index = True)
+        else:
+            number = serial_list[0]
+            sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
+                
+            mycursor.execute(sql, (userdate, number))
+            myresult = mycursor.fetchall()
+            for x in myresult:
+                str = ','.join(x)
+
+            stringlist = str.split(',')
+            channel_names = stringlist[::2]
+            usage = stringlist[1::2]
+            historicalusage = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
+            historicalusage['Usage'] = pd.to_numeric(historicalusage['Usage'], downcast = 'float')
+            total = historicalusage['Usage'].sum()
+            historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
+            totalprice = (total * 0.75)/1000
+
+        channel_names = historicalusage['Channel Names']
+        categories = []
+        for name in channel_names:
+            
+            # make everything lowercase 
+            name_l = name.lower()
+            if 'light' in name_l or 'lights' in name_l or 'lighting' in name_l:
+                categories.append('lighting')
+
+            elif 'hot water' in name_l or 'dhw' in name_l or 'water' in name_l or 'water heater' in name_l:
+                categories.append('hotwater')
+
+            elif 'fan' in name_l or 'heat' in name_l or 'hvac' in name_l or 'cooling' in name_l:
+                categories.append('hvac')
+
+            elif 'motor' in name_l or 'pump' in name_l or 'compressor' in name_l or 'vacuum' in name_l or 'dryer' in name_l:
+                categories.append('equipment')
+            
+            elif 'plug' in name_l or 'plugs' in name_l or 'receptacle' in name_l or 'receptacle' in name_l:
+                categories.append('plugload')
+            
+            else:
+                categories.append('other')
+        historicalusage['Category'] = categories
+        lighttotal = 0
+        watertotal = 0
+        hvactotal = 0
+        equipmenttotal = 0
+        plugtotal = 0
+        othertotal = 0
+        categorytotals = historicalusage.copy()
+        for i in range(0,len(categorytotals.index)):
+            
+            # make everything lowercase 
+            name_l = name.lower()
+            if categorytotals.iloc[i][2] == 'lighting':
+                lighttotal += categorytotals.iloc[i][1]
+
+            elif categorytotals.iloc[i][2] == 'hotwater':
+                watertotal += categorytotals.iloc[i][1]
+
+            elif categorytotals.iloc[i][2] == 'hvac':
+                hvactotal += categorytotals.iloc[i][1]
+
+            elif categorytotals.iloc[i][2] == 'equipment':
+                equipmenttotal += categorytotals.iloc[i][1]
+            
+            elif categorytotals.iloc[i][2] == 'plugload':
+                plugtotal += categorytotals.iloc[i][1]
+            
+            else:
+                othertotal += categorytotals.iloc[i][1]
+
+        lighttotal = lighttotal/1000
+        watertotal = watertotal/1000
+        hvactotal = hvactotal/1000
+        equipmenttotal = equipmenttotal/1000
+        plugtotal = plugtotal/1000
+        othertotal = othertotal/1000
+
+        lightprice = (lighttotal * 0.75)
+        waterprice = (watertotal * 0.75)
+        hvacprice = (hvactotal * 0.75)
+        equipmentprice = (equipmenttotal * 0.75)
+        plugprice = (plugtotal * 0.75)
+        otherprice = (othertotal * 0.75)
+
+        percenttotal = total/1000
+        lightpercent = (lighttotal/percenttotal) * 100
+        waterpercent = (watertotal/percenttotal) * 100
+        hvacpercent = (hvactotal/percenttotal) * 100
+        equipmentpercent = (equipmenttotal/percenttotal) * 100
+        plugpercent = (plugtotal/percenttotal) * 100
+        otherpercent = (othertotal/percenttotal) * 100
+        otherpercent = (othertotal/percenttotal) * 100
+
+        serial_number = 'A2107A04B4B8F009A6CEC4'
+        exteriorwalls =[]
+        roofs = []
+        rooffinishs = []
+        foundations = []
+        heating_usage = 40
+        current_regress = 0
+        light_usage = 20
+        appliance_usage = 10
+        ventilation_usage = 50
+        dhw_usage = 30
+        home_upgrades = [52,39,173,145,143,144,142,142,141,141,140,140,221,137,140,138,137,65,11,116,140,138,180,67]
+        home_upgrades1 = [215,222,229,199,186,195,186,185,185,185,185,185,185,184,257,231,258,224,220,214,217,106,106,107]
+        home_upgrades3 = [42,29,140,139,138,137,136,136,135,135,134,217,131,134,133,131,56,1,109,134,132,132,65]
+        home_upgrades4 = [52,39,173,145,143,144,142,142,141,141,140,140,221,137,140,138,137,65,11,116,140,138,180,67]
+        home_upgrades5 = [215,222,229,199,186,195,186,185,185,185,185,185,185,184,257,231,258,224,220,214,217,106,106,107]
+        home_upgrades6 = [42,29,140,139,138,137,136,136,135,135,134,217,131,134,133,131,56,1,109,134,132,132,65]
+        user_home = [60, 50]
+        average_home = [75,62]
+        historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
+        colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
+        return render_template('historicalusagemonthline.html',weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
+    else:
+        abort(403)
+     
 @commercial.route('/operatinghours', methods=['GET', 'POST'])
 @login_required
 def operatinghours():
