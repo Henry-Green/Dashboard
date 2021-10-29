@@ -734,7 +734,7 @@ def historicalusage():
         historicalusage['Usage'] = pd.to_numeric(historicalusage['Usage'], downcast = 'float')
         total = historicalusage['Usage'].sum()
 
-        totalprice = (total * 0.75)/1000
+        totalprice = (total * 0.09)/1000
 
         if len(serial_list) > 1:
             str = ''
@@ -755,7 +755,7 @@ def historicalusage():
                 historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
                 historicalusage = historicalusage.append(historicalusage2, ignore_index = True)
                 total2 = historicalusage2['Usage'].sum()
-                totalprice2 = (total2 * 0.75)/1000
+                totalprice2 = (total2 * 0.09)/1000
                 total += total2
                 totalprice += totalprice2
         
@@ -819,12 +819,12 @@ def historicalusage():
         plugtotal = plugtotal/1000
         othertotal = othertotal/1000
 
-        lightprice = (lighttotal * 0.75)
-        waterprice = (watertotal * 0.75)
-        hvacprice = (hvactotal * 0.75)
-        equipmentprice = (equipmenttotal * 0.75)
-        plugprice = (plugtotal * 0.75)
-        otherprice = (othertotal * 0.75)
+        lightprice = (lighttotal * 0.09)
+        waterprice = (watertotal * 0.09)
+        hvacprice = (hvactotal * 0.09)
+        equipmentprice = (equipmenttotal * 0.09)
+        plugprice = (plugtotal * 0.09)
+        otherprice = (othertotal * 0.09)
 
         percenttotal = total
         
@@ -898,7 +898,7 @@ def historicalusageline():
         historicalusage['Usage'] = pd.to_numeric(historicalusage['Usage'], downcast = 'float')
         total = historicalusage['Usage'].sum()
 
-        totalprice = (total * 0.75)/1000
+        totalprice = (total * 0.09)/1000
 
         if len(serial_list) > 1:
             str = ''
@@ -918,7 +918,7 @@ def historicalusageline():
                 historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
                 historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
                 total2 = historicalusage2['Usage'].sum()
-                totalprice2 = (total2 * 0.75)/1000
+                totalprice2 = (total2 * 0.09)/1000
                 historicalusage = historicalusage.append(historicalusage2, ignore_index = True)
                 total += total2
                 totalprice += totalprice2
@@ -983,12 +983,12 @@ def historicalusageline():
         plugtotal = plugtotal/1000
         othertotal = othertotal/1000
 
-        lightprice = (lighttotal * 0.75)
-        waterprice = (watertotal * 0.75)
-        hvacprice = (hvactotal * 0.75)
-        equipmentprice = (equipmenttotal * 0.75)
-        plugprice = (plugtotal * 0.75)
-        otherprice = (othertotal * 0.75)
+        lightprice = (lighttotal * 0.09)
+        waterprice = (watertotal * 0.09)
+        hvacprice = (hvactotal * 0.09)
+        equipmentprice = (equipmenttotal * 0.09)
+        plugprice = (plugtotal * 0.09)
+        otherprice = (othertotal * 0.09)
 
         percenttotal = total/1000
         lightpercent = (lighttotal/percenttotal) * 100
@@ -1091,7 +1091,7 @@ def historicalusageweek():
             historicalusage = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
             historicalusage['Usage'] = pd.to_numeric(historicalusage['Usage'], downcast = 'float')
             total = historicalusage['Usage'].sum()
-            totalprice = (total * 0.75)/1000
+            totalprice = (total * 0.09)/1000
             for i in range(0,6):
                 str = ''
                 stringlist = []
@@ -1111,7 +1111,7 @@ def historicalusageweek():
                 historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
                 historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
                 total2 = historicalusage2['Usage'].sum()
-                totalprice2 = (total2 * 0.75)/1000
+                totalprice2 = (total2 * 0.09)/1000
                 historicalusage["Usage"] = historicalusage['Usage'].add(historicalusage2['Usage'], fill_value=0)
                 total += total2
                 totalprice += totalprice2
@@ -1137,7 +1137,7 @@ def historicalusageweek():
                     historicalusage3 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
                     historicalusage3['Usage'] = pd.to_numeric(historicalusage3['Usage'], downcast = 'float')
                     total3 = historicalusage3['Usage'].sum()
-                    totalprice3 = (total3 * 0.75)/1000
+                    totalprice3 = (total3 * 0.09)/1000
                     total += total3
                     totalprice += totalprice3
                     for i in range(0,6):
@@ -1159,7 +1159,7 @@ def historicalusageweek():
                         historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
                         historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
                         total2 = historicalusage2['Usage'].sum()
-                        totalprice2 = (total2 * 0.75)/1000
+                        totalprice2 = (total2 * 0.09)/1000
                         historicalusage3["Usage"] = historicalusage3['Usage'].add(historicalusage2['Usage'], fill_value=0)
                         total += total2
                         totalprice += totalprice2
@@ -1181,7 +1181,7 @@ def historicalusageweek():
             historicalusage['Usage'] = pd.to_numeric(historicalusage['Usage'], downcast = 'float')
             total = historicalusage['Usage'].sum()
             historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
-            totalprice = (total * 0.75)/1000
+            totalprice = (total * 0.09)/1000
 
         channel_names = historicalusage['Channel Names']
         categories = []
@@ -1243,12 +1243,12 @@ def historicalusageweek():
         plugtotal = plugtotal/1000
         othertotal = othertotal/1000
 
-        lightprice = (lighttotal * 0.75)
-        waterprice = (watertotal * 0.75)
-        hvacprice = (hvactotal * 0.75)
-        equipmentprice = (equipmenttotal * 0.75)
-        plugprice = (plugtotal * 0.75)
-        otherprice = (othertotal * 0.75)
+        lightprice = (lighttotal * 0.09)
+        waterprice = (watertotal * 0.09)
+        hvacprice = (hvactotal * 0.09)
+        equipmentprice = (equipmenttotal * 0.09)
+        plugprice = (plugtotal * 0.09)
+        otherprice = (othertotal * 0.09)
 
         percenttotal = total/1000
         lightpercent = (lighttotal/percenttotal) * 100
@@ -1320,7 +1320,7 @@ def historicalusageweekline():
             historicalusage = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
             historicalusage['Usage'] = pd.to_numeric(historicalusage['Usage'], downcast = 'float')
             total = historicalusage['Usage'].sum()
-            totalprice = (total * 0.75)/1000
+            totalprice = (total * 0.09)/1000
             for i in range(0,6):
                 str = ''
                 stringlist = []
@@ -1340,7 +1340,7 @@ def historicalusageweekline():
                 historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
                 historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
                 total2 = historicalusage2['Usage'].sum()
-                totalprice2 = (total2 * 0.75)/1000
+                totalprice2 = (total2 * 0.09)/1000
                 historicalusage["Usage"] = historicalusage['Usage'].add(historicalusage2['Usage'], fill_value=0)
                 total += total2
                 totalprice += totalprice2
@@ -1366,7 +1366,7 @@ def historicalusageweekline():
                     historicalusage3 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
                     historicalusage3['Usage'] = pd.to_numeric(historicalusage3['Usage'], downcast = 'float')
                     total3 = historicalusage3['Usage'].sum()
-                    totalprice3 = (total3 * 0.75)/1000
+                    totalprice3 = (total3 * 0.09)/1000
                     total += total3
                     totalprice += totalprice3
                     for i in range(0,6):
@@ -1388,7 +1388,7 @@ def historicalusageweekline():
                         historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
                         historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
                         total2 = historicalusage2['Usage'].sum()
-                        totalprice2 = (total2 * 0.75)/1000
+                        totalprice2 = (total2 * 0.09)/1000
                         historicalusage3["Usage"] = historicalusage3['Usage'].add(historicalusage2['Usage'], fill_value=0)
                         total += total2
                         totalprice += totalprice2
@@ -1410,7 +1410,7 @@ def historicalusageweekline():
             historicalusage['Usage'] = pd.to_numeric(historicalusage['Usage'], downcast = 'float')
             total = historicalusage['Usage'].sum()
             historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
-            totalprice = (total * 0.75)/1000
+            totalprice = (total * 0.09)/1000
 
         channel_names = historicalusage['Channel Names']
         categories = []
@@ -1472,12 +1472,12 @@ def historicalusageweekline():
         plugtotal = plugtotal/1000
         othertotal = othertotal/1000
 
-        lightprice = (lighttotal * 0.75)
-        waterprice = (watertotal * 0.75)
-        hvacprice = (hvactotal * 0.75)
-        equipmentprice = (equipmenttotal * 0.75)
-        plugprice = (plugtotal * 0.75)
-        otherprice = (othertotal * 0.75)
+        lightprice = (lighttotal * 0.09)
+        waterprice = (watertotal * 0.09)
+        hvacprice = (hvactotal * 0.09)
+        equipmentprice = (equipmenttotal * 0.09)
+        plugprice = (plugtotal * 0.09)
+        otherprice = (othertotal * 0.09)
 
         percenttotal = total/1000
         lightpercent = (lighttotal/percenttotal) * 100
@@ -1533,15 +1533,37 @@ def historicalusagemonth():
         mycursor = mydb.cursor()
         if request.method == "POST":
             weekdate = request.form['date']
-            year = weekdate[0] + weekdate[1] + weekdate[2] + weekdate[3]
-            month = weekdate[5] + weekdate[6]
-            num_days = monthrange(int(year),int(month))
-            num_days = int(num_days[1])
-            dayoftheweek = datetime.datetime(int(year),int(month),1)
+
+        year = weekdate[0] + weekdate[1] + weekdate[2] + weekdate[3]
+        month = weekdate[5] + weekdate[6]
+        num_days = monthrange(int(year),int(month))
+        num_days = int(num_days[1])
+        dayoftheweek = datetime.datetime(int(year),int(month),1)
+        userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
+        number = serial_list[0]
+        sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
+            
+        mycursor.execute(sql, (userdate, number))
+        myresult = mycursor.fetchall()
+        for x in myresult:
+            str = ','.join(x)
+
+        stringlist = str.split(',')
+        channel_names = stringlist[::2]
+        usage = stringlist[1::2]
+        historicalusage = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
+        historicalusage['Usage'] = pd.to_numeric(historicalusage['Usage'], downcast = 'float')
+        historicalusage = historicalusage.drop_duplicates()
+        total = historicalusage['Usage'].sum()
+        totalprice = (total * 0.09)/1000
+        for i in range(0,num_days):
+            str = ''
+            stringlist = []
+            usage = []
+            dayoftheweek = (dayoftheweek + timedelta(days = 1))
             userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
-            number = serial_list[0]
+            
             sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
-                
             mycursor.execute(sql, (userdate, number))
             myresult = mycursor.fetchall()
             for x in myresult:
@@ -1550,18 +1572,24 @@ def historicalusagemonth():
             stringlist = str.split(',')
             channel_names = stringlist[::2]
             usage = stringlist[1::2]
-            historicalusage = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
-            historicalusage['Usage'] = pd.to_numeric(historicalusage['Usage'], downcast = 'float')
-            total = historicalusage['Usage'].sum()
-            totalprice = (total * 0.75)/1000
-            for i in range(0,num_days):
-                try:
-                    str = ''
-                    stringlist = []
-                    usage = []
-                    dayoftheweek = (dayoftheweek + timedelta(days = 1))
+            a = {'Channel Names': channel_names, "Usage": usage}
+            historicalusage2 = pd.DataFrame.from_dict(a, orient='index')
+            historicalusage2 = historicalusage2.transpose()
+            historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
+            historicalusage2 = historicalusage2.drop_duplicates()
+            total2 = historicalusage2['Usage'].sum()
+            totalprice2 = (total2 * 0.09)/1000
+            historicalusage["Usage"] = historicalusage['Usage'].add(historicalusage2['Usage'], fill_value=0)
+            total += total2
+            totalprice += totalprice2
+
+            if len(serial_list) > 1:
+                str = ''
+                stringlist = []
+                for i in range (1, len(serial_list)):
+                    dayoftheweek = datetime.datetime(int(year),int(month),1)
                     userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
-                    
+                    number = serial_list[i]
                     sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
                     mycursor.execute(sql, (userdate, number))
                     myresult = mycursor.fetchall()
@@ -1571,25 +1599,20 @@ def historicalusagemonth():
                     stringlist = str.split(',')
                     channel_names = stringlist[::2]
                     usage = stringlist[1::2]
-                    historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
-                    historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
-                    total2 = historicalusage2['Usage'].sum()
-                    totalprice2 = (total2 * 0.75)/1000
-                    historicalusage["Usage"] = historicalusage['Usage'].add(historicalusage2['Usage'], fill_value=0)
-                    total += total2
-                    totalprice += totalprice2
-                except:
-                    break
-
-            if len(serial_list) > 1:
-                str = ''
-                stringlist = []
-                for i in range (1, len(serial_list)):
-                    try:
-                        dayoftheweek = datetime.datetime(int(year),int(month),1)
+                    historicalusage3 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
+                    historicalusage3['Usage'] = pd.to_numeric(historicalusage3['Usage'], downcast = 'float')
+                    total3 = historicalusage3['Usage'].sum()
+                    totalprice3 = (total3 * 0.09)/1000
+                    total += total3
+                    totalprice += totalprice3
+                    for i in range(0,num_days):
+                        str = ''
+                        stringlist = []
+                        usage = []
+                        dayoftheweek = (dayoftheweek + timedelta(days = 1))
                         userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
-                        number = serial_list[i]
                         sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
+                        
                         mycursor.execute(sql, (userdate, number))
                         myresult = mycursor.fetchall()
                         for x in myresult:
@@ -1598,38 +1621,16 @@ def historicalusagemonth():
                         stringlist = str.split(',')
                         channel_names = stringlist[::2]
                         usage = stringlist[1::2]
-                        historicalusage3 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
-                        historicalusage3['Usage'] = pd.to_numeric(historicalusage3['Usage'], downcast = 'float')
-                        total3 = historicalusage3['Usage'].sum()
-                        totalprice3 = (total3 * 0.75)/1000
-                        total += total3
-                        totalprice += totalprice3
-                        for i in range(0,num_days):
-                            str = ''
-                            stringlist = []
-                            usage = []
-                            dayoftheweek = (dayoftheweek + timedelta(days = 1))
-                            userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
-                            sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
-                            
-                            mycursor.execute(sql, (userdate, number))
-                            myresult = mycursor.fetchall()
-                            for x in myresult:
-                                str = ','.join(x)
-
-                            stringlist = str.split(',')
-                            channel_names = stringlist[::2]
-                            usage = stringlist[1::2]
-                            historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
-                            historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
-                            total2 = historicalusage2['Usage'].sum()
-                            totalprice2 = (total2 * 0.75)/1000
-                            historicalusage3["Usage"] = historicalusage3['Usage'].add(historicalusage2['Usage'], fill_value=0)
-                            total += total2
-                            totalprice += totalprice2
-                            print(historicalusage3)
-                    except:
-                        break
+                        a = {'Channel Names': channel_names, "Usage": usage}
+                        historicalusage2 = pd.DataFrame.from_dict(a, orient='index')
+                        historicalusage2 = historicalusage2.transpose()
+                        historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
+                        historicalusage2 = historicalusage2.drop_duplicates()
+                        total2 = historicalusage2['Usage'].sum()
+                        totalprice2 = (total2 * 0.09)/1000
+                        historicalusage3["Usage"] = historicalusage3['Usage'].add(historicalusage2['Usage'], fill_value=0)
+                        total += total2
+                        totalprice += totalprice2
                     historicalusage = historicalusage.append(historicalusage3, ignore_index = True)
         else:
             number = serial_list[0]
@@ -1643,11 +1644,14 @@ def historicalusagemonth():
             stringlist = str.split(',')
             channel_names = stringlist[::2]
             usage = stringlist[1::2]
-            historicalusage = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
+            a = {'Channel Names': channel_names, "Usage": usage}
+            historicalusage2 = pd.DataFrame.from_dict(a, orient='index')
+            historicalusage2 = historicalusage2.transpose()
             historicalusage['Usage'] = pd.to_numeric(historicalusage['Usage'], downcast = 'float')
+            historicalusage = historicalusage.drop_duplicates()
             total = historicalusage['Usage'].sum()
             historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
-            totalprice = (total * 0.75)/1000
+            totalprice = (total * 0.09)/1000
 
         channel_names = historicalusage['Channel Names']
         categories = []
@@ -1709,12 +1713,12 @@ def historicalusagemonth():
         plugtotal = plugtotal/1000
         othertotal = othertotal/1000
 
-        lightprice = (lighttotal * 0.75)
-        waterprice = (watertotal * 0.75)
-        hvacprice = (hvactotal * 0.75)
-        equipmentprice = (equipmenttotal * 0.75)
-        plugprice = (plugtotal * 0.75)
-        otherprice = (othertotal * 0.75)
+        lightprice = (lighttotal * 0.09)
+        waterprice = (watertotal * 0.09)
+        hvacprice = (hvactotal * 0.09)
+        equipmentprice = (equipmenttotal * 0.09)
+        plugprice = (plugtotal * 0.09)
+        otherprice = (othertotal * 0.09)
 
         percenttotal = total/1000
         lightpercent = (lighttotal/percenttotal) * 100
@@ -1746,6 +1750,7 @@ def historicalusagemonth():
         average_home = [75,62]
         historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
         colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
+        historicalusage = historicalusage.drop_duplicates()
         return render_template('historicalusagemonth.html',weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
@@ -1770,15 +1775,37 @@ def historicalusagemonthline():
         mycursor = mydb.cursor()
         if request.method == "POST":
             weekdate = request.form['date']
-            year = weekdate[0] + weekdate[1] + weekdate[2] + weekdate[3]
-            month = weekdate[5] + weekdate[6]
-            num_days = monthrange(int(year),int(month))
-            num_days = int(num_days[1])
-            dayoftheweek = datetime.datetime(int(year),int(month),1)
+
+        year = weekdate[0] + weekdate[1] + weekdate[2] + weekdate[3]
+        month = weekdate[5] + weekdate[6]
+        num_days = monthrange(int(year),int(month))
+        num_days = int(num_days[1])
+        dayoftheweek = datetime.datetime(int(year),int(month),1)
+        userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
+        number = serial_list[0]
+        sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
+            
+        mycursor.execute(sql, (userdate, number))
+        myresult = mycursor.fetchall()
+        for x in myresult:
+            str = ','.join(x)
+
+        stringlist = str.split(',')
+        channel_names = stringlist[::2]
+        usage = stringlist[1::2]
+        historicalusage = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
+        historicalusage['Usage'] = pd.to_numeric(historicalusage['Usage'], downcast = 'float')
+        historicalusage = historicalusage.drop_duplicates()
+        total = historicalusage['Usage'].sum()
+        totalprice = (total * 0.09)/1000
+        for i in range(0,num_days):
+            str = ''
+            stringlist = []
+            usage = []
+            dayoftheweek = (dayoftheweek + timedelta(days = 1))
             userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
-            number = serial_list[0]
+            
             sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
-                
             mycursor.execute(sql, (userdate, number))
             myresult = mycursor.fetchall()
             for x in myresult:
@@ -1787,18 +1814,24 @@ def historicalusagemonthline():
             stringlist = str.split(',')
             channel_names = stringlist[::2]
             usage = stringlist[1::2]
-            historicalusage = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
-            historicalusage['Usage'] = pd.to_numeric(historicalusage['Usage'], downcast = 'float')
-            total = historicalusage['Usage'].sum()
-            totalprice = (total * 0.75)/1000
-            for i in range(0,num_days):
-                try:
-                    str = ''
-                    stringlist = []
-                    usage = []
-                    dayoftheweek = (dayoftheweek + timedelta(days = 1))
+            a = {'Channel Names': channel_names, "Usage": usage}
+            historicalusage2 = pd.DataFrame.from_dict(a, orient='index')
+            historicalusage2 = historicalusage2.transpose()
+            historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
+            historicalusage2 = historicalusage2.drop_duplicates()
+            total2 = historicalusage2['Usage'].sum()
+            totalprice2 = (total2 * 0.09)/1000
+            historicalusage["Usage"] = historicalusage['Usage'].add(historicalusage2['Usage'], fill_value=0)
+            total += total2
+            totalprice += totalprice2
+
+            if len(serial_list) > 1:
+                str = ''
+                stringlist = []
+                for i in range (1, len(serial_list)):
+                    dayoftheweek = datetime.datetime(int(year),int(month),1)
                     userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
-                    
+                    number = serial_list[i]
                     sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
                     mycursor.execute(sql, (userdate, number))
                     myresult = mycursor.fetchall()
@@ -1808,25 +1841,20 @@ def historicalusagemonthline():
                     stringlist = str.split(',')
                     channel_names = stringlist[::2]
                     usage = stringlist[1::2]
-                    historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
-                    historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
-                    total2 = historicalusage2['Usage'].sum()
-                    totalprice2 = (total2 * 0.75)/1000
-                    historicalusage["Usage"] = historicalusage['Usage'].add(historicalusage2['Usage'], fill_value=0)
-                    total += total2
-                    totalprice += totalprice2
-                except:
-                    break
-
-            if len(serial_list) > 1:
-                str = ''
-                stringlist = []
-                for i in range (1, len(serial_list)):
-                    try:
-                        dayoftheweek = datetime.datetime(int(year),int(month),1)
+                    historicalusage3 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
+                    historicalusage3['Usage'] = pd.to_numeric(historicalusage3['Usage'], downcast = 'float')
+                    total3 = historicalusage3['Usage'].sum()
+                    totalprice3 = (total3 * 0.09)/1000
+                    total += total3
+                    totalprice += totalprice3
+                    for i in range(0,num_days):
+                        str = ''
+                        stringlist = []
+                        usage = []
+                        dayoftheweek = (dayoftheweek + timedelta(days = 1))
                         userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
-                        number = serial_list[i]
                         sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
+                        
                         mycursor.execute(sql, (userdate, number))
                         myresult = mycursor.fetchall()
                         for x in myresult:
@@ -1835,38 +1863,16 @@ def historicalusagemonthline():
                         stringlist = str.split(',')
                         channel_names = stringlist[::2]
                         usage = stringlist[1::2]
-                        historicalusage3 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
-                        historicalusage3['Usage'] = pd.to_numeric(historicalusage3['Usage'], downcast = 'float')
-                        total3 = historicalusage3['Usage'].sum()
-                        totalprice3 = (total3 * 0.75)/1000
-                        total += total3
-                        totalprice += totalprice3
-                        for i in range(0,num_days):
-                            str = ''
-                            stringlist = []
-                            usage = []
-                            dayoftheweek = (dayoftheweek + timedelta(days = 1))
-                            userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
-                            sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
-                            
-                            mycursor.execute(sql, (userdate, number))
-                            myresult = mycursor.fetchall()
-                            for x in myresult:
-                                str = ','.join(x)
-
-                            stringlist = str.split(',')
-                            channel_names = stringlist[::2]
-                            usage = stringlist[1::2]
-                            historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
-                            historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
-                            total2 = historicalusage2['Usage'].sum()
-                            totalprice2 = (total2 * 0.75)/1000
-                            historicalusage3["Usage"] = historicalusage3['Usage'].add(historicalusage2['Usage'], fill_value=0)
-                            total += total2
-                            totalprice += totalprice2
-                            print(historicalusage3)
-                    except:
-                        break
+                        a = {'Channel Names': channel_names, "Usage": usage}
+                        historicalusage2 = pd.DataFrame.from_dict(a, orient='index')
+                        historicalusage2 = historicalusage2.transpose()
+                        historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
+                        historicalusage2 = historicalusage2.drop_duplicates()
+                        total2 = historicalusage2['Usage'].sum()
+                        totalprice2 = (total2 * 0.09)/1000
+                        historicalusage3["Usage"] = historicalusage3['Usage'].add(historicalusage2['Usage'], fill_value=0)
+                        total += total2
+                        totalprice += totalprice2
                     historicalusage = historicalusage.append(historicalusage3, ignore_index = True)
         else:
             number = serial_list[0]
@@ -1880,11 +1886,14 @@ def historicalusagemonthline():
             stringlist = str.split(',')
             channel_names = stringlist[::2]
             usage = stringlist[1::2]
-            historicalusage = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
+            a = {'Channel Names': channel_names, "Usage": usage}
+            historicalusage2 = pd.DataFrame.from_dict(a, orient='index')
+            historicalusage2 = historicalusage2.transpose()
             historicalusage['Usage'] = pd.to_numeric(historicalusage['Usage'], downcast = 'float')
+            historicalusage = historicalusage.drop_duplicates()
             total = historicalusage['Usage'].sum()
             historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
-            totalprice = (total * 0.75)/1000
+            totalprice = (total * 0.09)/1000
 
         channel_names = historicalusage['Channel Names']
         categories = []
@@ -1946,12 +1955,12 @@ def historicalusagemonthline():
         plugtotal = plugtotal/1000
         othertotal = othertotal/1000
 
-        lightprice = (lighttotal * 0.75)
-        waterprice = (watertotal * 0.75)
-        hvacprice = (hvactotal * 0.75)
-        equipmentprice = (equipmenttotal * 0.75)
-        plugprice = (plugtotal * 0.75)
-        otherprice = (othertotal * 0.75)
+        lightprice = (lighttotal * 0.09)
+        waterprice = (watertotal * 0.09)
+        hvacprice = (hvactotal * 0.09)
+        equipmentprice = (equipmenttotal * 0.09)
+        plugprice = (plugtotal * 0.09)
+        otherprice = (othertotal * 0.09)
 
         percenttotal = total/1000
         lightpercent = (lighttotal/percenttotal) * 100
@@ -1983,10 +1992,12 @@ def historicalusagemonthline():
         average_home = [75,62]
         historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
         colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
+        historicalusage = historicalusage.drop_duplicates()
         return render_template('historicalusagemonthline.html',weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
+
      
 @commercial.route('/operatinghours', methods=['GET', 'POST'])
 @login_required
