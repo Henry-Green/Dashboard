@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
     <script src="https://cdn.jsdelivr.net/npm/apexcharts" type="text/javascript"></script>
   </head>
-  <body style="margin: 0; background: #ffffff" onload="getDate(); resetVariables(); getTotal();">
+  <body style="margin: 0; background: #ffffff" onload="resetVariables(); getTotal();">
     <input type="hidden" id="anPageName" name="page" value="historical-usage-lines-display-category" />
     <div class="container-center-horizontal">
       <div class="historical-usage-lines-display-category screen">
@@ -112,7 +112,7 @@
       </div>
         <div class="rectangle-2984-L7BXHD"></div>
         <a href = "{{url_for('commercial.historicalusageweek')}}"><div class="week-L7BXHD avertacy-bold-sapphire-13px">Week</div></a>
-        <div class="month-L7BXHD avertacy-bold-sapphire-13px">Month</div>
+         <a href = "{{url_for('commercial.historicalusagemonth')}}"><div class="month-L7BXHD avertacy-bold-sapphire-13px">Month</div></a>
         <img class="rectangle-3207-L7BXHD" src="{{url_for('static',filename='img/rectangle-3207@2x.svg')}}" />
         <a href = "{{url_for('commercial.historicalusage')}}"><div class="day-L7BXHD">Day</div></a>
         <div class = scrollable>
@@ -260,7 +260,7 @@
         <form onsubmit="setTimeout(function(){window.location.reload();},10);" method = "POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <div class="group-7286-L7BXHD">
-          <input onchange= "submit(); getTotal();" name = 'date' id = 'today2' type = 'date' class="march-18th-2021-tkyWp6">
+          <input onchange= "submit(); getTotal();" name = 'date' id = 'today2' type = 'date' class="march-18th-2021-tkyWp6"value = {{correctdate}}>
         </div>
         </form>
       </div>
@@ -616,7 +616,7 @@ function getTotal() {
   document.getElementById("totalprice").innerHTML =newtotalprice;
   newpercent = 100;
   document.getElementById("percentage").innerHTML = newpercent;
-  document.getElementById("percent3").innerHTML = newpercent + "<span style = 'font-size: 12px;'>%'</span>";
+  document.getElementById("percent3").innerHTML = newpercent + "<span style = 'font-size: 12px;'>%</span>";
   document.getElementById("percent4").innerHTML = newpercent + "<span style = 'font-size: 12px;'>%</span>";
 }
 function resetVariables(){
