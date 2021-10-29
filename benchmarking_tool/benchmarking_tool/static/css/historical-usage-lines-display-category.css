@@ -554,6 +554,7 @@
   text-align: left;
   top: 161px;
   width: auto;
+  z-index: 100;
 }
 
 .historical-usage-lines-display-category .rectangle-3207-L7BXHD {
@@ -575,6 +576,15 @@
   width: 43px;
 }
 
+.historical-usage-lines-display-category .rectangle-3207-month {
+  background-color: transparent;
+  height: 23px;
+  left: 776px;
+  mix-blend-mode: normal;
+  position: absolute;
+  top: 159px;
+  width: 50px;
+}
 .historical-usage-lines-display-category .day-L7BXHD {
   background-color: transparent;
   color: var(--white);
