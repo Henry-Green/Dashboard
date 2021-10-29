@@ -826,7 +826,7 @@ def historicalusage():
         plugprice = (plugtotal * 0.09)
         otherprice = (othertotal * 0.09)
 
-        percenttotal = total
+        percenttotal = total/1000
         
         lightpercent = (lighttotal/percenttotal) * 100
         waterpercent = (watertotal/percenttotal) * 100
