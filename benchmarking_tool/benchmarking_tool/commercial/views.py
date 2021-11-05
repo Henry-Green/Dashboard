@@ -514,6 +514,7 @@ def facilityoverview():
         last = []
         pricelast = []
         paneltotal = []
+        panelpercent = []
         circuitcount = []
         panelcircuits =  pd.DataFrame()
 
@@ -522,7 +523,7 @@ def facilityoverview():
         customer = Emporia_Customer(serial_list[0])
         customer.get_data(days= d)
         customer.get_schedule()
-        customer.get_price_per_channel_hour(0.75)
+        customer.get_price_per_channel_hour(0.09)
         price = customer.channel_cost_hour
         h1, cat1, dat1 = customer.hour_category_usage()
         price['panel name'] = 'Panel 1-A'
@@ -536,7 +537,7 @@ def facilityoverview():
                 customer = Emporia_Customer(serial_list[i])
                 customer.get_data(days= d)
                 customer.get_schedule()
-                customer.get_price_per_channel_hour(0.75)
+                customer.get_price_per_channel_hour(0.09)
                 h2, cat2, dat2 = customer.hour_category_usage()
                 appendprice = customer.channel_cost_hour
                 appendprice['panel name'] = 'Panel 1-B'
@@ -546,7 +547,7 @@ def facilityoverview():
                 circuitcount.append(len(appendprice.index))
         price = price.sort_values(by=['price per hour'], ascending=False)
         home_upgrades = price.copy()
-        home_upgrades['price per hour'] = home_upgrades['price per hour']/(0.75*60*0.000017)
+        home_upgrades['price per hour'] = home_upgrades['price per hour']/(0.09*60*0.000017)
         
         h1 = Counter(h1)
         h2 = Counter(h2)
@@ -637,6 +638,10 @@ def facilityoverview():
                 otherprice += pricecategorytotals.iloc[i][2]
 
 
+        for total in paneltotal:
+            num = (total/sum(paneltotal)) * 100
+            num = math.trunc(num)
+            panelpercent.append(num)
 
 
         percenttotal = home_upgrades['price per hour'].sum()
@@ -652,7 +657,7 @@ def facilityoverview():
         numpanels = home_upgrades['panel name'].nunique()
         panelnames = home_upgrades['panel name'].unique()
         panelnames = sorted(panelnames)
-        return render_template('facilityoverview.html',panelcircuits = panelcircuits,circuitcount = circuitcount,paneltotal = paneltotal,panelnames = panelnames,numpanels = numpanels,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,categoryusage = categoryusage, pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last, len = len(home_upgrades.index), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
+        return render_template('facilityoverview.html',panelpercent = panelpercent, panelcircuits = panelcircuits,circuitcount = circuitcount,paneltotal = paneltotal,panelnames = panelnames,numpanels = numpanels,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,categoryusage = categoryusage, pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last, len = len(home_upgrades.index), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
     else:
         abort(403)
      
