@@ -34,8 +34,8 @@
           <div class="rectangle-2316-33iHaU"></div>
           <div class="chevron-down-33iHaU"><img class="vector-LNtgXx" src="{{url_for('static',filename='img/vector@22x.svg')}}" /></div>
         </div>
-        <img class="sidebar-l6cqYc" src="{{url_for('static',filename='img/sidebar@11x.svg')}}" />
-        <div class="electrical-load-by-panel-l6cqYc avertacy-bold-sapphire-20px">Sort by:</div>
+        <div class = "rightside"></div>
+        <img class = 'heatmap' src = "{{url_for('static',filename='img/heatmap.png')}}"/>
         <div class = 'tab'>
         <button class="category-l6cqYc avertacy-bold-sapphire-15px tablinks" id = "defaultOpen" onclick = "openCity(event, 'Category')">Category</button>
         <button class="panel-l6cqYc avertacy-bold-sapphire-15px tablinks" onclick = "openCity(event, 'Panel');">Panel</button>
@@ -45,7 +45,7 @@
           <div class="group-51-5iNAkV">
             <div class="group-43-9oEgQT">
               <div class="row">
-                    <div class="col-lg-6 col-md-12 col-sm-12"  style ="right: 30px;">
+                    <div class="col-lg-6 col-md-12 col-sm-12"  style ="right: 0px;">
                         <div id="chart"></div>
                         </div>
                           <script>
@@ -65,7 +65,9 @@
         <div class="panel-a2-l6cqYc avertacy-bold-sapphire-12px" onclick = "openNav('{{panelnames[i]}}',{{i}});openCity2(event, 'Specs');">{{panelnames[i]}}</div>
         <div class="x43-l6cqYc avertacy-bold-sapphire-12px" id = "{{panelnames[i]}}"></div>
         <input type= 'checkbox' class="rectangle-30242-l6cqYc"style = "background-color: {{colours[i]}};" id = 'panel1check'checked/><label for = 'panel1check'></label>
-        <div class="info"onclick = "openNav('{{panelnames[i]}}',{{i}});openCity2(event, 'Specs');"><img class="info-image" src="{{url_for('static',filename='img/infoimage.png')}}" onclick = "openNav('{{panelnames[i]}}',{{i}});openCity2(event, 'Specs');"/></div></div>
+        <div class="info"onclick = "openNav('{{panelnames[i]}}',{{i}});openCity2(event, 'Specs');"><img class="info-image" src="{{url_for('static',filename='img/infoimage1.png')}}" onclick = "openNav('{{panelnames[i]}}',{{i}});openCity2(event, 'Specs');"/></div></div>
+        <div class = 'panelpercent avertacy-bold-sapphire-12px'>{{panelpercent[i]}}%</div>
+
         {% endfor %}
     </div>
     </div>
@@ -137,12 +139,12 @@
       </div>
 
     </div>
-        <div id="Category" class="tabcontent">
+        <div id="Category" class="tabcontent categorytabcontent">
         <div class="energy-breakdown-l6cqYc">
           <div class="group-51-5iNAkV">
             <div class="group-43-9oEgQT">
               <div class="row">
-                    <div class="col-lg-6 col-md-12 col-sm-12" style ="right: 30px;">
+                    <div class="col-lg-6 col-md-12 col-sm-12" style ="right: 0px;">
                         <div id="chart2"></div>
                         </div>
                           <script>
@@ -153,7 +155,7 @@
           </div>
         </div>
         <div class="x100-l6cqYc"id = 'percent4'></div>
-        <div class="rectangle-2973-l6cqYc" style = "height: 270px;"></div>
+        <div class="rectangle-2973-l6cqYc"></div>
         <div class="rectangle-2340-l6cqYc"><div class="x43-l6cqYc avertacy-bold-sapphire-12px" id = 'chartLight'></div></div>
         <div class="rectangle-2974-l6cqYc"><div class="x21-l6cqYc avertacy-bold-sapphire-12px"  id = 'chartEquipment'></div></div>
         <div class="rectangle-2975-l6cqYc"><div class="x19-l6cqYc avertacy-bold-sapphire-12px" id = 'chartHVAC'></div></div>

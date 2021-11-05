@@ -34,14 +34,14 @@
           <div class="chevron-down-EuxCkZ"><img class="vector-C9s5vk" src="{{url_for('static',filename='img/vector@2x.svg')}}" /></div>
         </div>
         <div class="your-viewing-L7BXHD">Your Viewing</div>
-        <img class="sidebar-L7BXHD" src="{{url_for('static',filename='img/sidebar@1x.svg')}}" />
-        <div class="electrical-load-by-panel-L7BXHD avertacy-bold-sapphire-20px">Sort by:</div>
+        <div class = "rightside"></div>
+        <img class = 'heatmap' src = "{{url_for('static',filename='img/heatmap.png')}}"/>
         <div class = 'tab'>
         <button class="category-L7BXHD tablinks" onclick = "openCity(event, 'Category')"  id = "defaultOpen">Category</button>
-        <button class="panel-L7BXHD avertacy-bold-sapphire-15px tablinks"onclick = "openCity(event, 'Panel')">Panel</button>
+        <button class="panel-L7BXHD avertacy-bold-sapphire-15px tablinks"onclick = "openCity(event, 'Panel')">Panel</button></div>
         <div id="Category" class="tabcontent">
                     <div class="row">
-                    <div class="col-lg-6 col-md-12 col-sm-12" style ="left:1018px;top:218px; position: absolute;">
+                    <div class="col-lg-6 col-md-12 col-sm-12" style ="left:1050px;top:218px; position: absolute;">
                         <div id="chart"></div>
                         </div>
                           <script>
@@ -49,7 +49,7 @@
                         </script>
                     </div>
         <div class="x100-L7BXHD"id = 'percent3'></div>
-          <div class="rectangle-2973-L7BXHD"  style = "height: 270px;"></div>
+          <div class="rectangle-2973-L7BXHD"></div>
         <div class="rectangle-2340-L7BXHD"></div>
         <div class="rectangle-2974-L7BXHD"></div>
         <div class="rectangle-2975-L7BXHD"></div>
@@ -78,7 +78,7 @@
       </div>
               <div id="Panel" class="tabcontent">
                     <div class="row">
-                    <div class="col-lg-6 col-md-12 col-sm-12" style ="left:1018px;top:218px; position: absolute;">
+                    <div class="col-lg-6 col-md-12 col-sm-12" style ="left:1050px;top:218px; position: absolute;">
                         <div id="chart3"></div>
                         </div>
                           <script>
@@ -243,7 +243,6 @@
                                 var chart = new ApexCharts(document.querySelector("#chart2"), options);
                                 chart.render();
                         </script>
-                      </div>
 
         <h1 class="title-L7BXHD">Historical Usage</h1>
         <img class="rectangle-3269-L7BXHD" src="{{url_for('static',filename='img/rectangle-3269@2x.svg')}}" />
