@@ -12,7 +12,10 @@
   overflow: hidden;
   
 }
-
+body {
+border: 8px solid black;
+border-radius: 8px;
+}
 .row{
 }
 
@@ -1052,7 +1055,7 @@
   height: 1000px;
   width: 400px;
   background-color: transparent;
-  position: absolute;
+  position: relative;
   right: 0px;
   transition: 0.5s;
   overflow: hidden;
