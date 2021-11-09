@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
     <script src="https://cdn.jsdelivr.net/npm/apexcharts" type="text/javascript"></script>
   </head>
-  <body style="margin: 0; background: #ffffff" onload="resetVariables(); getTotal(); changeToKHW(); populatePanel();">
+  <body style="margin: 0; background: #ffffff" onload="resetVariables(); getTotal(); changeToKWH(); populatePanel();">
     <input type="hidden" id="anPageName" name="page" value="overview-main" />
     <div class="container-center-horizontal">
       <div class="overview-main screen">
@@ -60,7 +60,7 @@
         <div class="rectangle-23402-l6cqYc">
         <div class="panel-a2-l6cqYc avertacy-bold-sapphire-12px" onclick = "openNav('{{panelnames[i]}}',{{i}});openCity2(event, 'Specs');">{{panelnames[i]}}</div>
         <div class="x43-l6cqYc avertacy-bold-sapphire-12px" id = "{{panelnames[i]}}"></div>
-        <input type= 'checkbox' class="rectangle-30242-l6cqYc"style = "background-color: {{colours[i]}};" id = 'panel1check'checked/><label for = 'panel1check'></label>
+        <input type= 'checkbox' onclick = 'togglePanel("{{panelnames[i]}}", {{i}}); checkIf0();' class="rectangle-30242-l6cqYc"style = "background-color: {{colours[i]}};" id = 'panel1check'checked/><label for = 'panel1check'></label>
         <div class="info"onclick = "openNav('{{panelnames[i]}}',{{i}});openCity2(event, 'Specs');"><img class="info-image" src="{{url_for('static',filename='img/infoimage1.png')}}" onclick = "openNav('{{panelnames[i]}}',{{i}});openCity2(event, 'Specs');"/></div></div>
         <div class = 'panelpercent avertacy-bold-sapphire-12px'>{{panelpercent[i]}}%</div>
 
@@ -144,41 +144,41 @@
 
         <div class="electrical-panels-l6cqYc avertacy-bold-sapphire-15px">Categories</div>
         <div class="rectangle-15-l6cqYc"></div>
-        
+
         <div class="rectangle-2974-l6cqYc">
-            <input type= 'checkbox'class="rectangle-3024-l6cqYc" id= 'panel1check' onclick= "toggleLighting(); checkIf0();" checked/><label for = 'panel1check'></label>
-            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">Lighting</div>
-            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = 'chartLight'></div>
+            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[0][2]}};' class="rectangle-3024-l6cqYc" id= 'panel1check' onclick= "toggleMaster('{{categoriesdf.iloc[0][0]}}'); checkIf0();" checked/><label for = 'panel1check'></label>
+            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[0][0]}}</div>
+            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = '{{categoriesdf.iloc[0][4]}}'></div>
         </div>
 
         <div class="rectangle-2974-l6cqYc">
-            <input type= 'checkbox' class="rectangle-3025-l6cqYc"id= 'panel2check' onclick= "toggleEquipment(); checkIf0();" checked/><label for = 'panel2check'></label>
-            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">Equipment</div>
-            <div class="x12-l6cqYc avertacy-bold-sapphire-12px"  id = 'chartEquipment'></div>
+            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[1][2]}};' class="rectangle-3025-l6cqYc"id= 'panel2check' onclick= "toggleMaster('{{categoriesdf.iloc[1][0]}}'); checkIf0();" checked/><label for = 'panel2check'></label>
+            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[1][0]}}</div>
+            <div class="x12-l6cqYc avertacy-bold-sapphire-12px"  id = '{{categoriesdf.iloc[1][4]}}'></div>
         </div>
 
         <div class="rectangle-2974-l6cqYc">
-            <input type= 'checkbox' class="rectangle-3026-l6cqYc"id= 'panel1check' onclick= "toggleHVAC(); checkIf0();" checked/><label for = 'panel2check'></label>
-            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">HVAC</div>
-            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = 'chartHVAC'></div>
+            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[2][2]}};' class="rectangle-3026-l6cqYc"id= 'panel1check' onclick= "toggleMaster('{{categoriesdf.iloc[2][0]}}'); checkIf0();" checked/><label for = 'panel2check'></label>
+            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[2][0]}}</div>
+            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = '{{categoriesdf.iloc[2][4]}}'></div>
         </div>
 
         <div class="rectangle-2974-l6cqYc">
-            <input type= 'checkbox' class="rectangle-3027-l6cqYc"id= 'panel1check' onclick= "togglePlugLoad(); checkIf0();" checked/><label for = 'panel2check'></label>
-            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">Plug Load</div>
-            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = 'chartPlug'></div>
+            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[3][2]}};' class="rectangle-3027-l6cqYc"id= 'panel1check' onclick= "toggleMaster('{{categoriesdf.iloc[3][0]}}'); checkIf0();" checked/><label for = 'panel2check'></label>
+            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[3][0]}}</div>
+            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = '{{categoriesdf.iloc[3][4]}}'></div>
         </div>
 
         <div class="rectangle-2974-l6cqYc">
-            <input type= 'checkbox' class="rectangle-3028-l6cqYc"id= 'panel1check' onclick= "toggleHotWater(); checkIf0(); " checked/><label for = 'panel1check'></label>
-            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">Hot Water</div>
-            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = 'chartWater'></div>
+            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[4][2]}};' class="rectangle-3028-l6cqYc"id= 'panel1check' onclick= "toggleMaster('{{categoriesdf.iloc[4][0]}}'); checkIf0(); " checked/><label for = 'panel1check'></label>
+            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[4][0]}}</div>
+            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = '{{categoriesdf.iloc[4][4]}}'></div>
         </div>
 
         <div class="rectangle-2974-l6cqYc">
-            <input type= 'checkbox' class="rectangle-3029-l6cqYc"id= 'panel1check' onclick= "toggleOther(); checkIf0();" checked/><label for = 'panel1check'></label>
-            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">Other</div>
-            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = 'chartOther'></div>
+            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[5][2]}};' class="rectangle-3029-l6cqYc"id= 'panel1check' onclick= "toggleMaster('{{categoriesdf.iloc[5][0]}}'); checkIf0();" checked/><label for = 'panel1check'></label>
+            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[5][0]}}</div>
+            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = '{{categoriesdf.iloc[5][4]}}'></div>
         </div>
     </div>
         </div>
@@ -201,7 +201,7 @@
             <div class="column-names">
                 <div class = 'runningcolumn'>Running</div>
                 <div class = 'percentcolumn'>Percentage</div>
-                <div class = "tabss">
+                <div class = "tabss" style = 'background-color: transparent;'>
                     <input type = 'radio' checked id = 'watts' name = 'liveusagedata' class="k-wh-l6cqYc tablinksss" onclick = " changeToKWH(); openCity2(event, 'KWH');"><label for = 'watts' class=k-wh-l6cqYc>Energy</label>
                     <input type = 'radio' id = 'cost' name = 'liveusagedata' class="x-l6cqYc tablinksss" onclick = " changeTo$(); openCity2(event, '$');" id = "defaultOpenss"><label for = 'cost' class = x-l6cqYc>Cost</label>
             </div>
@@ -388,8 +388,8 @@ function closeNav() {
 }
 else{
   document.getElementById("leftretract").style.width = "248px";
-  document.getElementById("dashboard").style.color = "#6285FB";
-  document.getElementById("liveusage").style.color = "#AFB8CC";
+  document.getElementById("dashboard").style.color = "#AFB8CC";
+  document.getElementById("liveusage").style.color = "#6285FB";
   document.getElementById("historical").style.color = "#AFB8CC";
   document.getElementById("inventory").style.color = "#AFB8CC";
   document.getElementById("utilities").style.color = "#AFB8CC";
@@ -576,6 +576,30 @@ function showSlides(n) {
     var newtotalprice = 0;
     var newpercent = 0;
     var colors = ['{{colours[0]}}','{{colours[1]}}','{{colours[2]}}','{{colours[3]}}','{{colours[4]}}','{{colours[5]}}'];
+    var colors2 = ['{{colours[0]}}','{{colours[1]}}','{{colours[2]}}','{{colours[3]}}','{{colours[4]}}','{{colours[5]}}'];
+
+function toggleMaster(category){
+    console.log(category);
+    if(category == 'Lighting'){
+        toggleLighting();
+    }
+    if(category == 'Plug Load'){
+        togglePlugLoad();
+    }
+    if(category == 'HVAC'){
+        toggleHVAC();
+    }
+    if(category == 'Equipment'){
+        toggleEquipment();
+    }
+    if(category == 'Hot Water'){
+        toggleHotWater();
+    }
+    if(category == 'Other'){
+        toggleOther();
+    }
+}
+
 
     function toggleLighting() {
   var x = document.getElementsByClassName("lighting");
@@ -819,8 +843,10 @@ function toggleOther() {
   }
 }
 
-function togglePanel(panelname) {
+function togglePanel(panelname, num) {
   var x = document.getElementsByClassName(panelname);
+  var paneltotal = {{paneltotal | tojson}};
+  var panelpercent = {{panelpercent | tojson}};
   var i;
   for (i = 0; i < x.length; i++) {
     if (x[i].style.display === "none") {
@@ -830,32 +856,32 @@ function togglePanel(panelname) {
   }
 }
   if (x[0].style.display === "none") {
-    newtotal = (newtotal - {{lighttotal}});
+    newtotal = (newtotal - -Math.abs(paneltotal[num]));
     document.getElementById("total").innerHTML = Math.abs(newtotal).toFixed(2) + 'w';
     newtotalprice = (newtotalprice - {{lightprice}});
     document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toFixed(2) + '/hr';
-    newpercent = (newpercent - {{lightpercent}});
+    newpercent = (newpercent - -Math.abs(panelpercent[num]));
     document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
     document.getElementById("percent2").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
-    removeLighting();
-    chart2.updateOptions({
-  colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
+    colors2[num] = colors[num];
+    chart1.updateOptions({
+  colors: [colors2[0],colors2[1],colors2[2],colors2[3],colors2[4],colors2[5]]
 })
   } else {
-    newtotal = (newtotal - -Math.abs({{lighttotal}}));
+    newtotal = (newtotal - Math.abs(paneltotal[num]));
     document.getElementById("total").innerHTML = Math.abs(newtotal).toFixed(2) + 'w';
     newtotalprice = (newtotalprice - -Math.abs({{lightprice}}));
     document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toFixed(2) + '/hr';
-    newpercent = (newpercent - -Math.abs({{lightpercent}}));
+    newpercent = (newpercent - Math.abs(panelpercent[num]));
     document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
     document.getElementById("percent2").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
-    addLighting();
-        chart2.updateOptions({
-  colors: [colors[0],colors[1],colors[2],colors[3],colors[4],colors[5]]
+    colors2[num] = '#FFFFFF';
+        chart1.updateOptions({
+  colors: [colors2[0],colors2[1],colors2[2],colors2[3],colors2[4],colors2[5]]
 })
   }
 }
