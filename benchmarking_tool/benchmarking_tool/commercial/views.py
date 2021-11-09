@@ -548,6 +548,8 @@ def facilityoverview():
         price = price.sort_values(by=['price per hour'], ascending=False)
         home_upgrades = price.copy()
         home_upgrades['price per hour'] = home_upgrades['price per hour']/(0.09*60*0.000017)
+        for i in range(len(paneltotal)):
+            paneltotal[i] = paneltotal[i]/(0.09*60*0.000017)
         
         h1 = Counter(h1)
         h2 = Counter(h2)
@@ -639,7 +641,7 @@ def facilityoverview():
 
         for total in paneltotal:
             num = (total/sum(paneltotal)) * 100
-            num = math.trunc(num)
+            num = round(num, 2)
             panelpercent.append(num)
 
 
@@ -656,7 +658,15 @@ def facilityoverview():
         numpanels = home_upgrades['panel name'].nunique()
         panelnames = home_upgrades['panel name'].unique()
         panelnames = sorted(panelnames)
-        return render_template('facilityoverview.html',panelpercent = panelpercent, panelcircuits = panelcircuits,circuitcount = circuitcount,paneltotal = paneltotal,panelnames = panelnames,numpanels = numpanels,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,categoryusage = categoryusage, pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last, len = len(home_upgrades.index), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
+        categoriesdf = {'Name':['Lighting','Hot Water','HVAC','Equipment','Plug Load','Other'],'Totals':[lighttotal,watertotal,hvactotal,equipmenttotal,plugtotal,othertotal], 'Colors':['#3649A8','#A6D06D','#EE5937','#3BCDEE','#EE8F37','#DBE2F3'], 'Prices':[lightprice,waterprice,hvacprice,equipmentprice,plugprice,otherprice], 'Charts':['chartLight','chartWater','chartHVAC','chartEquipment','chartPlug','chartOther']}
+        categoriesdf = pd.DataFrame(data=categoriesdf)
+        categoriesdf = categoriesdf.sort_values(by=['Totals'], ascending=False)
+        categoriesdf = categoriesdf.round(2)
+        for i in range(len(paneltotal)):
+           paneltotal[i] = round(paneltotal[i],2)
+           panelpercent[i] = round(panelpercent[i],2)
+        print(panelpercent)
+        return render_template('facilityoverview.html',categoriesdf = categoriesdf,panelpercent = panelpercent, panelcircuits = panelcircuits,circuitcount = circuitcount,paneltotal = paneltotal,panelnames = panelnames,numpanels = numpanels,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,categoryusage = categoryusage, pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last, len = len(home_upgrades.index), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
     else:
         abort(403)
      
