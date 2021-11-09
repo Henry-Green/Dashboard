@@ -590,7 +590,6 @@ def facilityoverview():
         plugprice = 0
         otherprice = 0
         home_upgrades['price per hour'] = home_upgrades['price per hour'].round(2)
-        price['price per hour'] = price['price per hour'].round(2)
         categorytotals = home_upgrades.copy()
         pricecategorytotals = price.copy()
         for i in range(0,len(categorytotals.index)):
