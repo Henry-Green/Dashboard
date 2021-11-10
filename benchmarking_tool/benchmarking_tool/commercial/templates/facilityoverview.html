@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
     <script src="https://cdn.jsdelivr.net/npm/apexcharts" type="text/javascript"></script>
   </head>
-  <body style="margin: 0; background: #ffffff" onload="resetVariables(); getTotal(); changeToKWH(); populatePanel();">
+  <body style="margin: 0; background: #ffffff" onload="resetVariables(); getTotal(); changeToKWH(); populatePanel(); changeDotColourCategory();">
     <input type="hidden" id="anPageName" name="page" value="overview-main" />
     <div class="container-center-horizontal">
       <div class="overview-main screen">
@@ -43,8 +43,8 @@
         <div class = "rightabsolute">
         <div class = 'rightsidetitle'>Load Breakdown</div>
         <div class = 'tab'>
-        <button class="category-l6cqYc avertacy-bold-sapphire-15px tablinks" id = "defaultOpen" onclick = "openCity(event, 'Category')">Category</button>
-        <button class="panel-l6cqYc avertacy-bold-sapphire-15px tablinks" onclick = "openCity(event, 'Panel');">Panel</button>
+        <button class="category-l6cqYc avertacy-bold-sapphire-15px tablinks" id = "defaultOpen" onclick = "openCity(event, 'Category'); changeDotColourCategory();">Category</button>
+        <button class="panel-l6cqYc avertacy-bold-sapphire-15px tablinks" onclick = "openCity(event, 'Panel'); changeDotColourPanel();">Panel</button>
         </div>
         <div id="Panel" class="tabcontent">
         <div class="energy-breakdown-l6cqYc">
@@ -71,7 +71,7 @@
       <div class="frame-1 screen">
         <h1 class="title-VxPVnb"><span id = "panelletter"></span></h1>
         <div class = "tabss">
-        <button class="circuits-VxPVnb avertacy-bold-sapphire-20px tablinksss" onclick = "openCity2(event, 'Circuits');currentSlide(0)">Circuits</button>
+        <button class="circuits-VxPVnb avertacy-bold-sapphire-20px tablinksss" onclick = "openCity2(event, 'Circuits');currentSlide(1)">Circuits</button>
         <button id = 'specs' class="specs-VxPVnb tablinksss" onclick = "openCity2(event, 'Specs');currentSlide(1)">Specs</button></div>
         <div id="Specs" class="tabcontentss">
         <div class = 'mySlides'>
@@ -201,7 +201,7 @@
             <div class="column-names">
                 <div class = 'runningcolumn'>Running</div>
                 <div class = 'percentcolumn'>Percentage</div>
-                <div class = "tabss" style = 'background-color: transparent;'>
+                <div class = "tabss tabssusage" style = 'background-color: transparent;'>
                     <input type = 'radio' checked id = 'watts' name = 'liveusagedata' class="k-wh-l6cqYc tablinksss" onclick = " changeToKWH(); openCity2(event, 'KWH');"><label for = 'watts' class=k-wh-l6cqYc>Energy</label>
                     <input type = 'radio' id = 'cost' name = 'liveusagedata' class="x-l6cqYc tablinksss" onclick = " changeTo$(); openCity2(event, '$');" id = "defaultOpenss"><label for = 'cost' class = x-l6cqYc>Cost</label>
             </div>
@@ -212,7 +212,7 @@
         {% set channelnum = namespace(value=0) %}
         {% for i in range(0, len) %}
         <div class="rectangle-3165-l6cqYc {{home_upgrades.iloc[i][5]}} {{home_upgrades.iloc[i][4]}}">
-        <div class = 'categorycircle {{home_upgrades.iloc[i][5]}}colour' ></div>
+        <div class = 'categorycircle {{home_upgrades.iloc[i][5]}}colour {{home_upgrades.iloc[i][4]}}colour' ></div>
         <div class="lunchroom-lights-l6cqYc avertacy-bold-apple-11px" {% if home_upgrades.iloc[i][2] == 0 %} style = 'color: grey;'{% endif %}>{{home_upgrades.iloc[i][0]}}</div>
         <div class="x233hr-l6cqYc"{% if home_upgrades.iloc[i][2] == 0 %} style = ' color: grey;'{% endif %}>{{"%.2f"|format(home_upgrades.iloc[i][2]|float)}}w</div>
         <div class="rectangle-3184-l6cqYc" {% if home_upgrades.iloc[i][2] == 0 %} style = 'width: 2px; background-color: grey;'{% elif home_upgrades.iloc[i][2] > 0  %} style = 'width: {{250 * (home_upgrades.iloc[i][2]/total) + 5}}px;'{% endif %}>
@@ -230,7 +230,7 @@
         {% set channelnum = namespace(value=0) %}
         {% for i in range(0, pricelength) %}
         <div class="rectangle-3165-l6cqYc {{home_upgrades.iloc[i][5]}} {{home_upgrades.iloc[i][4]}}">
-        <div class = 'categorycircle {{home_upgrades.iloc[i][5]}}colour'></div>
+        <div class = 'categorycircle {{home_upgrades.iloc[i][5]}}colour {{home_upgrades.iloc[i][4]}}colour'></div>
         <div class="lunchroom-lights-l6cqYc avertacy-bold-apple-11px"{% if (price.iloc[i][2]) == 0 %} style = 'color: grey;'{% endif %}>{{price.iloc[i][0]}}</div>
         <div class="x233hr-l6cqYc" {% if price.iloc[i][2] == 0 %} style = 'color: grey;'{% endif %}>{{"$%.2f"|format((price.iloc[i][2])|float)}}/hr</div>
         <div class="rectangle-3184-l6cqYc" {% if price.iloc[i][2] == 0 %} style = 'width: 2px; background-color: grey;'{% elif price.iloc[i][2]> 0  %} style = 'width: {{250 * (price.iloc[i][2]/totalprice) + 5}}px;'{% endif %}>
@@ -312,6 +312,33 @@
                             var chart2 = new ApexCharts(document.querySelector("#chart2"), options);
                             chart2.render();
 
+  </script>
+    <script>
+      function changeDotColourPanel(){
+       var colours = {{colours | tojson}};
+       var x = {{numpanels}};
+       var panelnames = {{panelnames | tojson}};
+       var i;
+       for(i = 0; i < x; i++){
+         var j = document.getElementsByClassName(panelnames[i] + 'colour');
+         for(var l = 0; l < j.length; l++){
+             j[l].style.backgroundColor = colours[i];
+         }
+       }
+       }
+       function changeDotColourCategory(){
+       var colours = {{colours | tojson}};
+       var x = 6;
+       var categorynames = ['lighting','equipment','hvac','plugload','hotwater','other'];
+       var i;
+       for(i = 0; i < x; i++){
+         var j = document.getElementsByClassName(categorynames[i] + 'colour');
+         for(var l = 0; l < j.length; l++){
+            console.log(j[i])
+             j[l].style.backgroundColor = colours[i];
+         }
+       }
+       }
   </script>
   <script>
     var panelnumber = 0;
@@ -522,6 +549,7 @@ document.getElementById("defaultOpen").click();
 
       function openCity2(evt, cityName) {
   // Declare all variables
+  console.log(cityName);
   var i, tabcontentss, tablinksss;
 
   // Get all elements with class="tabcontent" and hide them
@@ -537,8 +565,8 @@ document.getElementById("defaultOpen").click();
   }
 
   // Show the current tab, and add an "active" class to the button that opened the tab
-  // document.getElementById(cityName).style.display = "block";
-  // evt.currentTarget.className += " activess";
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " activess";
 }
 
 
@@ -953,7 +981,6 @@ function resetVariables(){
     document.getElementById("chartPlug").innerHTML = {{plugtotal}}.toFixed(2) + 'w';
     document.getElementById("chartEquipment").innerHTML = {{equipmenttotal}}.toFixed(2) + 'w';
     document.getElementById("chartHVAC").innerHTML = {{hvactotal}}.toFixed(2) + 'w';
-    document.getElementById("PanelA").innerHTML = {{total}}.toFixed(2) + 'w';
     }
     function changeTo$(){
     document.getElementById('KWH').style.display = 'none';
@@ -964,7 +991,6 @@ function resetVariables(){
     document.getElementById("chartPlug").innerHTML = '$' + {{plugprice}}.toFixed(2) + '/hr';
     document.getElementById("chartEquipment").innerHTML = '$' + {{equipmentprice}}.toFixed(2) + '/hr';
     document.getElementById("chartHVAC").innerHTML = '$' + {{hvacprice}}.toFixed(2) + '/hr';
-    document.getElementById("PanelA").innerHTML = '$' + {{totalprice}}.toFixed(2) + '/hr';
     }
   </script>
   <script>
@@ -988,5 +1014,7 @@ function resetVariables(){
         arr.push({{paneltotal[i]}})
         chart1.updateSeries(arr)
       }
+  }
   </script>
+
 </html>
