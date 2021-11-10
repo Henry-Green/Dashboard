@@ -36,7 +36,7 @@ border-radius: 8px;
 .seehistoricalimage{
   width: 133px;
   height: 42px;
-  z-index: 1000;
+  z-index: 500;
   top: 50px;
   left: 50px;
   position: absolute;
@@ -701,14 +701,14 @@ border-radius: 8px;
 .overview-main .sidebar {
   background-color: white;
   position: relative;
-  right: 800px;
-  bottom: 500px;
+  right: 750px;
+  bottom: 530px;
   height: 700px;
   width: 0;
   border-radius: 5px;
-  overflow: hidden;
   transition: 0.5s;
   z-index: 1000;
+  overflow: hidden;
 }
 .overview-main .sidebar-QcASUY {
   background-color: transparent;
@@ -1028,6 +1028,10 @@ border-radius: 8px;
 .tabcontentss {
   animation: fadeEffect 1s; /* Fading effect takes 1 second */
 }
+.absolutespecs{
+  position: absolute;
+  right: 1200px;
+}
 .overview-main .tab{
   position: relative;
   margin: auto;
@@ -1048,7 +1052,6 @@ border-radius: 8px;
   position: absolute;
   right: 0px;
   transition: 0.5s;
-  overflow: hidden;
 }
 
 .rightabsolute{
@@ -1058,7 +1061,6 @@ border-radius: 8px;
   position: relative;
   right: 0px;
   transition: 0.5s;
-  overflow: hidden;
 }
 
 .rightsidetitle{
@@ -1084,12 +1086,21 @@ border-radius: 8px;
   background-color: #FFFFFF;
   color: #6285FB;
 }
+
+.overview-main .tabss button.activess {
+  width: 115px;
+  background-color: #FFFFFF;
+  color: #6285FB;
+}
 .overview-main .tabss {
   background-color: #3044A5;
   color: var(--white);
   background-color: white;
   width: 200px;
   height: 13px;
+  position: relative;
+}
+.tabssusage{
   position: relative;
   left: 100%;
 }
@@ -1217,24 +1228,7 @@ border-radius: 8px;
 
 }
 
-.lightingcolour{
-  background-color: #3649A8
-}
-.equipmentcolour{
-  background-color: #3BCDEE
-}
-.hvaccolour{
-  background-color: #EE5937
-}
-.plugloadcolour{
-  background-color: #EE8F37
-}
-.hotwatercolour{
-  background-color: #90C449
-}
-.othercolour{
-  background-color: #DBE2F3
-}
+
 
 .overview-main .whats-running-l6cqYc {
   background-color: transparent;
