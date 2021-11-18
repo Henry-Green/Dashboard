@@ -8,154 +8,178 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
     <script src="https://cdn.jsdelivr.net/npm/apexcharts" type="text/javascript"></script>
   </head>
-  <body style="margin: 0; background: #ffffff" onload="resetVariables(); getTotal();">
+  <body style="margin: 0; background: #ffffff" onload="resetVariables(); getTotal(); changetoEnergy();">
     <input type="hidden" id="anPageName" name="page" value="historical-usage-lines-display-category" />
     <div class="container-center-horizontal">
       <div class="historical-usage-lines-display-category screen">
-        <div class="rectangle-2893-L7BXHD"></div>
-        <div class="header-L7BXHD"><img class="pollen-2-eSrYGi" src="{{url_for('static',filename='img/pollen-2@2x.png')}}" /></div>
-        <div class="welcome-john-L7BXHD avertacy-bold-sapphire-20px">Welcome John,</div>
-        <a href = "{{url_for('commercial.facilityoverview')}}"><div class="overview-L7BXHD avertacy-bold-sapphire-20px">Overview</div></a>
-        <div class="kpis-L7BXHD avertacy-bold-sapphire-13px">KPI’S</div>
-        <div class="historical-L7BXHD avertacy-bold-sapphire-13px">Historical</div>
-        <div class="inventory-L7BXHD avertacy-bold-sapphire-13px">Inventory</div>
-        <div class="utilities-L7BXHD avertacy-bold-sapphire-13px">Utilities</div>
-        <a href = "{{url_for('accounts.logout')}}"><div class="logout-l6cqYc avertacy-bold-sapphire-13px">Logout</div></a>
-        <div class="group-7235-L7BXHD">
-          <img class="x3-c-path-x3-e-ObAtMx" src="{{url_for('static',filename='img/x3c-path-x3e@2x.svg')}}" />
-          <div class="ellipse-437-ObAtMx"></div>
-        </div>
-        <img class="rectangle-2938-L7BXHD" src="{{url_for('static',filename='img/rectangle-2938@2x.svg')}}" />
-        <img class="kaltire-256-2-L7BXHD" src="{{url_for('static',filename='img/kaltire--256-2@2x.png')}}" />
-        <div class="store-087-L7BXHD">Store #087</div>
-        <p class="x4720-yellowhead-on-ab-t5-l-3-cs-L7BXHD">4720 Yellowhead Trail NW,<br />Edmonton, AB T5L 3CS</p>
-        <div class="group-7195-L7BXHD">
-          <div class="rectangle-2316-EuxCkZ"></div>
-          <div class="chevron-down-EuxCkZ"><img class="vector-C9s5vk" src="{{url_for('static',filename='img/vector@2x.svg')}}" /></div>
-        </div>
-        <div class="your-viewing-L7BXHD">Your Viewing</div>
-        <div class = "rightside"></div>
-        <img class = 'heatmap' src = "{{url_for('static',filename='img/heatmap.png')}}"/>
-        <div class = 'tab'>
-        <button class="category-L7BXHD tablinks" onclick = "openCity(event, 'Category')"  id = "defaultOpen">Category</button>
-        <button class="panel-L7BXHD avertacy-bold-sapphire-15px tablinks"onclick = "openCity(event, 'Panel')">Panel</button></div>
-        <div id="Category" class="tabcontent">
-                    <div class="row">
-                    <div class="col-lg-6 col-md-12 col-sm-12" style ="left:1050px;top:218px; position: absolute;">
-                        <div id="chart"></div>
-                        </div>
-                          <script>
-                           
-                        </script>
-                    </div>
-        <div class="x100-L7BXHD"id = 'percent3'></div>
-          <div class="rectangle-2973-L7BXHD"></div>
-        <div class="rectangle-2340-L7BXHD"></div>
-        <div class="rectangle-2974-L7BXHD"></div>
-        <div class="rectangle-2975-L7BXHD"></div>
-        <div class="rectangle-2976-L7BXHD"></div>
-        <div class="rectangle-2977-L7BXHD"></div>
-        <div class="rectangle-2978-l6cqYc"></div>
-        <div class="rectangle-15-L7BXHD"></div>
-        <div class="lighting-L7BXHD avertacy-bold-sapphire-12px">Lighting</div>
-        <div class="x43-L7BXHD avertacy-bold-sapphire-12px" id = 'lighting'></div>
-        <div class="x21-zsJCYe avertacy-bold-sapphire-12px" id = 'electrical'></div>
-        <div class="x19-L7BXHD avertacy-bold-sapphire-12px" id = 'plugload'></div>
-        <div class="x11-L7BXHD avertacy-bold-sapphire-12px" id = 'dhw'></div>
-        <div class="x6-L7BXHD avertacy-bold-sapphire-12px" id = 'mechanical'></div>
-        <div class="electrical-L7BXHD avertacy-bold-sapphire-12px">Equipment</div>
-        <div class="plug-load-L7BXHD avertacy-bold-sapphire-12px">HVAC</div>
-        <div class="dhw-L7BXHD avertacy-bold-sapphire-12px">Plug Load</div>
-        <div class="mechanical-L7BXHD avertacy-bold-sapphire-12px">Hot Water</div>
-        <div class="panel-f-l6cqYc avertacy-bold-sapphire-12px">Other</div>
-        <input type= 'checkbox'class="rectangle-3024-L7BXHD" id= 'lightingcheck' onclick= "toggleLighting(); checkIf0();" checked/><label for = 'lightingcheck'></label>
-        <input type= 'checkbox' class="rectangle-3032-L7BXHD"id= 'panel2check' onclick= "toggleEquipment(); checkIf0();" checked/><label for = 'panel2check'></label>
-        <input type= 'checkbox' class="rectangle-3033-L7BXHD"id= 'panel3check' onclick= "toggleHVAC(); checkIf0();" checked/><label for = 'panel3check'></label>
-        <input type= 'checkbox' class="rectangle-3034-L7BXHD"id= 'panel4check' onclick= "togglePlugLoad(); checkIf0();" checked/><label for = 'panel4check'></label>
-        <input type= 'checkbox' class="rectangle-3035-L7BXHD"id= 'panel5check' onclick= "toggleHotWater(); checkIf0();" checked/><label for = 'panel5check'></label>
-        <input type= 'checkbox' class="rectangle-30352-l6cqYc"id= 'panel6check' onclick= "toggleOther(); checkIf0();" checked/><label for = 'panel6check'></label>
-        <div class="category-zsJCYe avertacy-bold-sapphire-15px">Category</div>
-      </div>
-              <div id="Panel" class="tabcontent">
-                    <div class="row">
-                    <div class="col-lg-6 col-md-12 col-sm-12" style ="left:1038px;top:218px; position: absolute;">
-                        <div id="chart3"></div>
-                        </div>
-                          <script>
+        <div class="rectangle-2893-l6cqYc"  id = 'leftretract'>
+        <div class = 'activeline'></div>
+        <img class = 'retractbuttonleft' id = 'leftbutton' onclick = "retractleft()" src = "{{url_for('static',filename='img/retractbuttonbackground.png')}}"/><img class = 'retractbuttonarrowleft'  onclick = "retractleft()" id = 'leftarrow' src = "{{url_for('static',filename='img/retractbuttonarrow.png')}}"/>
+        <div class="header-l6cqYc" id = 'logodiv'><img class="pollen-2-7QcJ16" id = logoimage src="{{url_for('static',filename='img/logoimage.png')}}" /></div>
+        <div class="dashboard-l6cqYc" id = 'dashboard'><img class="dashboardimage" src="{{url_for('static',filename='img/dashboardimage.png')}}" />Dashboard</div>
+        <div class="overview-l6cqYc" id = 'liveusage'><img class="liveusageimage" src="{{url_for('static',filename='img/liveusageonimage.png')}}" />Live Usage</div>
+        <a href = "{{url_for('commercial.historicalusage')}}"><div class="historical-l6cqYc avertacy-bold-sapphire-13px" id = 'historical'><img class="historicalimage" src="{{url_for('static',filename='img/historicalimage.png')}}" />Historical</div></a>
+        <div class="inventory-l6cqYc" id = 'inventory'><img class="inventoryimage" src="{{url_for('static',filename='img/inventoryimage.png')}}" />Inventory</div>
+        <div class="utilities-l6cqYc" id = 'utilities'><img class="utilitiesimage" src="{{url_for('static',filename='img/utilitiesimage.png')}}" />Utilities</div>
+        <a href = "{{url_for('accounts.logout')}}"><div class="logout-l6cqYc avertacy-bold-sapphire-13px" id = 'logout'><img class="logoutimage" src="{{url_for('static',filename='img/logoutimage.png')}}" />Logout</div></a>
 
-                        </script>
-                    </div>
-        <div class="x100-L7BXHD"id = 'percent4'></div>
-          <div class="rectangle-2973-L7BXHD"></div>
-        <div class="rectangle-2340-L7BXHD"></div>
-        <div class="rectangle-2974-L7BXHD"></div>
-        <div class="rectangle-2975-L7BXHD"></div>
-        <div class="rectangle-2976-L7BXHD"></div>
-        <div class="rectangle-2977-L7BXHD"></div>
-        <div class="rectangle-15-L7BXHD"></div>
-        <div class="lighting-L7BXHD avertacy-bold-sapphire-12px">Panel A</div>
-        <div class="x43-L7BXHD avertacy-bold-sapphire-12px" id = "panelA"></div>
-        <div class="x21-zsJCYe avertacy-bold-sapphire-12px" id = "panelB"></div>
-        <div class="x19-L7BXHD avertacy-bold-sapphire-12px" id = "panelC"></div>
-        <div class="x11-L7BXHD avertacy-bold-sapphire-12px" id = "panelD"></div>
-        <div class="x6-L7BXHD avertacy-bold-sapphire-12px" id = "panelE"></div>
-        <div class="electrical-L7BXHD avertacy-bold-sapphire-12px">Panel B</div>
-        <div class="plug-load-L7BXHD avertacy-bold-sapphire-12px">Panel C </div>
-        <div class="dhw-L7BXHD avertacy-bold-sapphire-12px">Panel D</div>
-        <div class="mechanical-L7BXHD avertacy-bold-sapphire-12px">Panel E</div>
-        <input type= 'checkbox'class="rectangle-3024-L7BXHD"d= 'panel7check' onclick= "chart.toggleSeries('Panel A');" checked/><label for = 'panel7check'></label>
-        <input type= 'checkbox' class="rectangle-3032-L7BXHD"id= 'panel8check' onclick= "chart.toggleSeries('Panel 2');" checked/><label for = 'panel8check'></label>
-        <input type= 'checkbox' class="rectangle-3033-L7BXHD"id= 'panel9check' onclick= "chart.toggleSeries('Panel 3');" checked/><label for = 'panel9check'></label>
-        <input type= 'checkbox' class="rectangle-3034-L7BXHD"id= 'panel10check' onclick= "chart.toggleSeries('Panel 4');" checked/><label for = 'panel10check'></label>
-        <input type= 'checkbox' class="rectangle-3035-L7BXHD"id= 'panel11check' onclick= "chart.toggleSeries('Panel 5');" checked/><label for = 'panel11check'></label>
-        <div class="category-zsJCYe avertacy-bold-sapphire-15px">Category</div>
+        <div class = 'imageblock' id ='imageblock'>
+        <img class="kaltire-256-2-l6cqYc" src="{{url_for('static',filename='img/kaltire--256-2@22x.png')}}" />
+        <div class = 'buildingname'>Butetown Store</div>
+        <p class="x4720-yellowhead-on-ab-t5-l-3-cs-l6cqYc">4720 Yellowhead Trail NW</p>
+        <div class = 'aboutbutton'><img class="info-imageblue" src="{{url_for('static',filename='img/infoimageblue.png')}}"/>About</div>
+        <div class = 'switchbutton'><img class="info-imageblue" src="{{url_for('static',filename='img/switchimage.png')}}"/>Switch</div>
+        <div class="group-7195-l6cqYc">
+          <div class="rectangle-2316-33iHaU"></div>
+          <div class="chevron-down-33iHaU"><img class="vector-LNtgXx" src="{{url_for('static',filename='img/vector@22x.svg')}}" /></div>
+            </div>
+        </div>
+    </div>
+
+
+                <div class = "rightside" id = 'rightside'>
+        <div class = 'retractblock'>
+        <img class = 'retractbutton'  onclick = "retract()" src = "{{url_for('static',filename='img/retractbuttonbackground.png')}}"/><img class = 'retractbuttonarrowright' id = 'rightarrow'  onclick = "retract()" src = "{{url_for('static',filename='img/retractbuttonarrow.png')}}"/></div>
+        <div class = "rightabsolute">
+        <div class = 'rightsidetitle'>Load Breakdown</div>
+        <div class = 'tab'>
+        <button class="category-l6cqYc avertacy-bold-sapphire-15px tablinks" id = "defaultOpen" onclick = "openCity(event, 'Category'); changeDotColourCategory();">Category</button>
+        <button class="panel-l6cqYc avertacy-bold-sapphire-15px tablinks" onclick = "openCity(event, 'Panel'); changeDotColourPanel();">Panel</button>
+        </div>
+        <div id="Panel" class="tabcontent">
+        <div class="energy-breakdown-l6cqYc">
+                <div id="chart3"></div>
+        </div>
+        <div class="x100-l6cqYc" id = 'percent3'></div>
+        <div class="rectangle-2973-l6cqYc">
+        <div class="rectangle-152-l6cqYc"></div>
+        <div class="electrical-panels-l6cqYc2 avertacy-bold-sapphire-15px">Electrical Panels</div>
+
+        {% for i in range(0, numpanels) %}
+
+        <div class="rectangle-23402-l6cqYc">
+        <div class="panel-a2-l6cqYc avertacy-bold-sapphire-12px" onclick = "openNav('{{panelnames[i]}}',{{i}});openCity2(event, 'Specs');">{{panelnames[i]}}</div>
+        <div class="x43-l6cqYc avertacy-bold-sapphire-12px" id = "{{panelnames[i]}}"></div>
+        <input type= 'checkbox' onclick = 'togglePanel("{{panelnames[i]}}", {{i}}); checkIf0();' class="rectangle-30242-l6cqYc"style = "background-color: {{colours[i]}};" id = 'panel1check'checked/><label for = 'panel1check'></label>
+        <div class="info"onclick = "openNav('{{panelnames[i]}}',{{i}});openCity2(event, 'Specs');"><img class="info-image" src="{{url_for('static',filename='img/infoimage1.png')}}" onclick = "openNav('{{panelnames[i]}}',{{i}});openCity2(event, 'Specs');"/></div></div>
+        <div class = 'panelpercent avertacy-bold-sapphire-12px'>{{panelpercent[i]}}%</div>
+
+        {% endfor %}
+    </div>
+    </div>
+            <div id = 'sidebar' class = 'sidebar'>
+      <div class="frame-1 screen">
+        <h1 class="title-VxPVnb"><span id = "panelletter"></span></h1>
+        <div class = "tabss">
+        <button class="circuits-VxPVnb avertacy-bold-sapphire-20px tablinksss" onclick = "openCity2(event, 'Circuits');currentSlide(1)">Circuits</button>
+        <button id = 'specs' class="specs-VxPVnb tablinksss" onclick = "openCity2(event, 'Specs');currentSlide(1)">Specs</button></div>
       </div>
-        <div class="rectangle-2984-L7BXHD"></div>
+
+    </div>
+        <div id="Category" class="tabcontent categorytabcontent">
+        <div class="energy-breakdown-l6cqYc">
+                <div id="chart"></div>
+        </div>
+        <div class="x100-l6cqYc"id = 'percent4'></div>
+        <div class="rectangle-2973-l6cqYc">
+
+        <div class="electrical-panels-l6cqYc avertacy-bold-sapphire-15px">Categories</div>
+        <div class="rectangle-15-l6cqYc"></div>
+
+        <div class="rectangle-2974-l6cqYc">
+            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[0][2]}};' class="rectangle-3024-l6cqYc" id= 'panel1check' onclick= "toggleMaster('{{categoriesdf.iloc[0][0]}}'); checkIf0();" checked/><label for = 'panel1check'></label>
+            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[0][0]}}</div>
+            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = '{{categoriesdf.iloc[0][4]}}'></div>
+        </div>
+
+        <div class="rectangle-2974-l6cqYc">
+            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[1][2]}};' class="rectangle-3025-l6cqYc"id= 'panel2check' onclick= "toggleMaster('{{categoriesdf.iloc[1][0]}}'); checkIf0();" checked/><label for = 'panel2check'></label>
+            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[1][0]}}</div>
+            <div class="x12-l6cqYc avertacy-bold-sapphire-12px"  id = '{{categoriesdf.iloc[1][4]}}'></div>
+        </div>
+
+        <div class="rectangle-2974-l6cqYc">
+            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[2][2]}};' class="rectangle-3026-l6cqYc"id= 'panel1check' onclick= "toggleMaster('{{categoriesdf.iloc[2][0]}}'); checkIf0();" checked/><label for = 'panel2check'></label>
+            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[2][0]}}</div>
+            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = '{{categoriesdf.iloc[2][4]}}'></div>
+        </div>
+
+        <div class="rectangle-2974-l6cqYc">
+            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[3][2]}};' class="rectangle-3027-l6cqYc"id= 'panel1check' onclick= "toggleMaster('{{categoriesdf.iloc[3][0]}}'); checkIf0();" checked/><label for = 'panel2check'></label>
+            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[3][0]}}</div>
+            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = '{{categoriesdf.iloc[3][4]}}'></div>
+        </div>
+
+        <div class="rectangle-2974-l6cqYc">
+            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[4][2]}};' class="rectangle-3028-l6cqYc"id= 'panel1check' onclick= "toggleMaster('{{categoriesdf.iloc[4][0]}}'); checkIf0(); " checked/><label for = 'panel1check'></label>
+            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[4][0]}}</div>
+            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = '{{categoriesdf.iloc[4][4]}}'></div>
+        </div>
+
+        <div class="rectangle-2974-l6cqYc">
+            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[5][2]}};' class="rectangle-3029-l6cqYc"id= 'panel1check' onclick= "toggleMaster('{{categoriesdf.iloc[5][0]}}'); checkIf0();" checked/><label for = 'panel1check'></label>
+            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[5][0]}}</div>
+            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = '{{categoriesdf.iloc[5][4]}}'></div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+
+        <h1 class="title-L7BXHD">Historical Usage</h1>
+        <div class="rectangle-2984-L7BXHD">
+
+        <div class = 'graph-buttons-block'><a href = "{{url_for('commercial.historicalusage')}}"><div class = 'grah-buttons'><img class = 'graph-buttons-image' src ="{{url_for('static',filename='img/bar-image.PNG')}}"/> </div></a>
+        <a href = "{{url_for('commercial.historicalusageline')}}"><div class = 'grah-buttons'><img class = 'graph-buttons-image' src ="{{url_for('static',filename='img/line-image.PNG')}}"/> </div></div></a>
+
+        <div class = 'total-block'>    
+        <div class = 'total-box'><span style = 'font-size: 20px;'>$</span>{{totalprice|int}}<span class = 'decimal-span' style = 'font-size: 10px;'>.{{(totalprice|string).split('.')[1]|truncate(2, true, '', 0)}}</span><div class = total-box-line>Costs</div></div>
+
+        <div class = 'total-box'>{{(total/1000)|int}}<span class = 'decimal-span' style = 'font-size: 9px; width: 5px;'>.{{((total/1000)|string).split('.')[1]|truncate(2, true, '', 0)}}</span><span class = 'kwh-total'>kWh</span><div class = total-box-line>Usage</div></div>
+
+        <div class = 'total-box'>6<span class = 'decimal-span' style = 'font-size: 9px; width: 5px;'>.09</span><span class = 'kwh-total'>kg/CO2</span><div class = total-box-line>Emmisions</div></div>
+    </div>
+
+        <div class = "graph-background"><img class = 'graph-background-image' src ="{{url_for('static',filename='img/graph-background-image.PNG')}}"/> </div>
+
+        <div class = 'calendar-block'>
         <a href = "{{url_for('commercial.historicalusageweek')}}"><div class="week-L7BXHD avertacy-bold-sapphire-13px">Week</div></a>
          <a href = "{{url_for('commercial.historicalusagemonth')}}"><div class="month-L7BXHD avertacy-bold-sapphire-13px">Month</div></a>
         <img class="rectangle-3207-L7BXHD" src="{{url_for('static',filename='img/rectangle-3207@2x.svg')}}" />
-        <a href = "{{url_for('commercial.historicalusage')}}"><div class="day-L7BXHD">Day</div></a>
+        <a href = "{{url_for('commercial.historicalusage')}}"><div class="day-L7BXHD">Day</div></a></div>
+
+
+        <div class = Historical-Usage-Block>
+         <div class = 'header' id = 'header'>
+          <div class="column-names">
+              <div class = 'runningcolumn'>Circuit</div>
+              <div class = 'percentcolumn'>Percentage</div>
+              <div class = "tabss tabssusage" style = 'background-color: transparent;'>
+                  <input type = 'radio' checked id = 'watts' name = 'liveusagedata' class="k-wh-l6cqYc tablinksss" onclick ="changetoEnergy();"><label for = 'watts' class=k-wh-l6cqYc>Energy</label>
+                  <input type = 'radio' id = 'cost' name = 'liveusagedata' class="x-l6cqYc tablinksss" id = "defaultOpenss" onclick = 'changetoCost();'><label for = 'cost' class = x-l6cqYc>Cost</label>
+          </div>
+          </div>
+      </div>
         <div class = scrollable>
+        <div class = 'Energy' id = 'Energy'>  
         {% for i in range (0, len) %}
 
-        <div class="rectangle-3165-L7BXHD {{historicalusage.iloc[i][2]}}">
-        <div class="lunchroom-lights-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][2]}}">{{historicalusage.iloc[i][0]}}</div>
-        <div class="x345-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][2]}}">{{historicalusage.iloc[i][1]}}w</div>
-        <div class="rectangle-3184-L7BXHD {{historicalusage.iloc[i][2]}}line" {% if historicalusage.iloc[i][1] == 0 %} style = 'width: 2px; background-color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'width: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;'{% endif %}><div class="x21-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][2]}}" {% if historicalusage.iloc[i][1] == 0 %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;  color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 10}}px;'{% endif %}>{{"%.2f"|format(((historicalusage.iloc[i][1]/ total) * 100)|float)}}%</div></div></div>
+        <div class="rectangle-3165-L7BXHD {{historicalusage.iloc[i][3]}} {{historicalusage.iloc[i][4]}}" onclick = "createChart('{{historicalusage.iloc[i][0]}}',{{i}});">
+        <div class="lunchroom-lights-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}">{{historicalusage.iloc[i][0]}}</div>
+        <div class="x345-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}">{{historicalusage.iloc[i][1]}}w</div>
+        <div class="rectangle-3184-L7BXHD {{historicalusage.iloc[i][3]}}line" {% if historicalusage.iloc[i][1] == 0 %} style = 'width: 2px; background-color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'width: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;'{% endif %}><div class="x21-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" {% if historicalusage.iloc[i][1] == 0 %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;  color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 10}}px;'{% endif %}>{{"%.2f"|format(((historicalusage.iloc[i][1]/ total) * 100)|float)}}%</div></div></div>
         {% endfor %}
     </div>
-        <div class="rectangle-3099-L7BXHD"></div>
-        <div class="x1245-L7BXHD avertacy-bold-sapphire-15px">
-          <span class="span0-rNQNIN avertacy-bold-sapphire-15px">$</span
-          ><span class="span1-rNQNIN avertacy-bold-sapphire-25px" id = 'totalprice'></span>
-        </div>
-        <div class="x13212-k-wh-L7BXHD avertacy-bold-sapphire-25px">
-          <span class="span0-84mBJe avertacy-bold-sapphire-25px" id = 'total'></span
-          ><span class="span1-84mBJe avertacy-bold-sapphire-20px">&nbsp;</span
-          ><span class="span2-84mBJe avertacy-bold-sapphire-15px">kWh</span>
-        </div>
-        <div class="costs-L7BXHD avertacy-bold-sapphire-8px">Costs</div>
-        <div class="consumption-L7BXHD avertacy-bold-sapphire-8px">Consumption</div>
-        <a href= "{{url_for('commercial.historicalusage')}}"><div class="group-7245-L7BXHD">
-          <div class="rectangle-2902-nqAY6x"></div>
-          <div class="group-7237-nqAY6x">
-            <div class="group-Svduiw">
-              <img class="vector-Jzmg6z" src="{{url_for('static',filename='img/vector-11111@2x.svg')}}" />
-              <img class="vector-jG2uWN" src="{{url_for('static',filename='img/vector-22222@2x.svg')}}" />
-            </div>
-            <div class="rectangle-2895-Svduiw"></div>
-            <div class="rectangle-2896-Svduiw"></div>
-            <div class="rectangle-2897-Svduiw"></div>
-            <div class="rectangle-2898-Svduiw"></div>
-          </div>
-        </div></a>
-        <a href= "{{url_for('commercial.historicalusageline')}}"><div class="group-7246-L7BXHD">
-          <div class="rectangle-2903-WSB1YA"></div>
-          <div class="group-WSB1YA">
-            <div class="group-WOkfbn"><img class="group-s2WuyE" src="{{url_for('static',filename='img/group@22222x.svg')}}" /></div>
-          </div>
-        </div></a>
-                        <div class="col-lg-6 col-md-12 col-sm-12 " style ="left:330px; width: 400px; z-index: 50; top: 150px;" >
+    <div class = 'Cost' id = 'Cost'>  
+        {% for i in range (0, len) %}
+
+        <div class="rectangle-3165-L7BXHD {{historicalusage.iloc[i][3]}} {{historicalusage.iloc[i][4]}}" onclick = "createChart('{{historicalusage.iloc[i][0]}}',{{i}});">
+        <div class="lunchroom-lights-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}">{{historicalusage.iloc[i][0]}}</div>
+        <div class="x345-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}">${{"%.2f"|format(historicalusage.iloc[i][5]|float)}}/hr</div>
+        <div class="rectangle-3184-L7BXHD {{historicalusage.iloc[i][3]}}line" {% if historicalusage.iloc[i][1] == 0 %} style = 'width: 2px; background-color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'width: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;'{% endif %}><div class="x21-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" {% if historicalusage.iloc[i][1] == 0 %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;  color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 10}}px;'{% endif %}>{{"%.2f"|format(((historicalusage.iloc[i][1]/ total) * 100)|float)}}%</div></div></div>
+        {% endfor %}
+    </div></div></div>
+                        <div class="bar-chart">
                             <div id="chart2"></div>
                         </div>
                           <script>
@@ -164,32 +188,12 @@
                                   series: [
                                   {
                                     name: "Panel A",
-                                    data: [{{home_upgrades[0]}},{{home_upgrades[1]}},{{home_upgrades[2]}},{{home_upgrades[3]}},{{home_upgrades[4]}},{{home_upgrades[5]}},{{home_upgrades[6]}},{{home_upgrades[7]}},{{home_upgrades[8]}},{{home_upgrades[9]}},{{home_upgrades[10]}},{{home_upgrades[11]}},{{home_upgrades[12]}}]
+                                    data: []
                                   },
-                                  {
-                                    name: "Panel 2",
-                                    data: [{{home_upgrades1[0]}},{{home_upgrades1[1]}},{{home_upgrades1[2]}},{{home_upgrades1[3]}},{{home_upgrades1[4]}},{{home_upgrades1[5]}},{{home_upgrades1[6]}},{{home_upgrades1[7]}},{{home_upgrades1[8]}},{{home_upgrades1[9]}},{{home_upgrades1[10]}},{{home_upgrades1[11]}},{{home_upgrades1[12]}}]
-                                  },
-                                  {
-                                    name: "Panel 3",
-                                    data: [{{home_upgrades3[0]}},{{home_upgrades3[1]}},{{home_upgrades3[2]}},{{home_upgrades3[3]}},{{home_upgrades3[4]}},{{home_upgrades3[5]}},{{home_upgrades3[6]}},{{home_upgrades3[7]}},{{home_upgrades3[8]}},{{home_upgrades3[9]}},{{home_upgrades3[10]}},{{home_upgrades3[11]}},{{home_upgrades3[12]}}]
-                                  },
-                                  {
-                                    name: "Panel 4",
-                                    data: [{{home_upgrades4[0]}},{{home_upgrades4[1]}},{{home_upgrades4[2]}},{{home_upgrades4[3]}},{{home_upgrades4[4]}},{{home_upgrades4[5]}},{{home_upgrades4[6]}},{{home_upgrades4[7]}},{{home_upgrades4[8]}},{{home_upgrades4[9]}},{{home_upgrades4[10]}},{{home_upgrades4[11]}},{{home_upgrades4[12]}}]
-                                  },
-                                  {
-                                    name: "Panel 5",
-                                    data: [{{home_upgrades5[0]}},{{home_upgrades5[1]}},{{home_upgrades5[2]}},{{home_upgrades5[3]}},{{home_upgrades5[4]}},{{home_upgrades5[5]}},{{home_upgrades5[6]}},{{home_upgrades5[7]}},{{home_upgrades5[8]}},{{home_upgrades5[9]}},{{home_upgrades5[10]}},{{home_upgrades5[11]}},{{home_upgrades5[12]}}]
-                                  },
-                                  {
-                                    name: "Panel 6",
-                                    data: [{{home_upgrades6[0]}},{{home_upgrades6[1]}},{{home_upgrades6[2]}},{{home_upgrades6[3]}},{{home_upgrades6[4]}},{{home_upgrades6[5]}},{{home_upgrades6[6]}},{{home_upgrades6[7]}},{{home_upgrades6[8]}},{{home_upgrades6[9]}},{{home_upgrades6[10]}},{{home_upgrades6[11]}},{{home_upgrades6[12]}}]
-                                  }
                                 ],
                                   chart: {
-                                  height: '280px',
-                                  width: '300px',
+                                  height: '100%',
+                                  width: '100%',
                                   type: 'bar',
                                   zoom: {
                                     enabled: false
@@ -240,28 +244,21 @@
                                 },
                                 };
 
-                                var chart = new ApexCharts(document.querySelector("#chart2"), options);
-                                chart.render();
+                                var chart2 = new ApexCharts(document.querySelector("#chart2"), options);
+                                chart2.render();
                         </script>
 
-        <h1 class="title-L7BXHD">Historical Usage</h1>
         <img class="rectangle-3269-L7BXHD" src="{{url_for('static',filename='img/rectangle-3269@2x.svg')}}" />
-        <div class="x66-L7BXHD avertacy-bold-sapphire-18px">
-          <span class="span0-nJpIKI avertacy-bold-sapphire-18px" id = 'percentage'></span
-          ><span class="span1-nJpIKI avertacy-bold-sapphire-12px">%</span>
-        </div>
-        <div class="x43kgco2-L7BXHD avertacy-bold-sapphire-18px">
-          <span class="span0-EZZlMT avertacy-bold-sapphire-18px">4.3</span><span class="span1-EZZlMT">kg/CO2</span>
-        </div>
-        <div class="usage-L7BXHD avertacy-bold-sapphire-8px">Usage</div>
-        <div class="emissions-L7BXHD avertacy-bold-sapphire-8px">Emissions</div>
-        <div class="rectangle-3262-L7BXHD"></div>
         <form onsubmit="setTimeout(function(){window.location.reload();},10);" method = "POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <div class="group-7286-L7BXHD">
           <input onchange= "submit(); getTotal();" name = 'date' id = 'today2' type = 'date' class="march-18th-2021-tkyWp6" value = {{correctdate}}>
+          <div id = 'total' style = 'color: transparent;'></div>
+          <div id = 'totalprice' style = 'color: transparent;'></div>
+          <div id = 'percentage' style = 'color: transparent;'></div>
         </div>
         </form>
+      </div>
       </div>
     </div>
   </body>
@@ -293,6 +290,35 @@
                             };
                             var chart = new ApexCharts(document.querySelector("#chart"), options);
                             chart.render();
+</script>
+  <script >var options = {
+                              labels: ["Lighting", "Equipment", "HVAC", "Plug Load", "Hot Water", "Other"],
+                              series: [{{lighttotal}},{{equipmenttotal}},{{hvactotal}},{{plugtotal}},{{watertotal}},{{othertotal}} ],
+                              chart: {
+                              width: 200,
+                              type: 'donut',
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            legend: {
+                                position: 'bottom',
+                                show:false
+                            },
+
+                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3'],
+
+                            responsive: [{
+                              breakpoint: 480,
+                              options: {
+                                chart: {
+                                  width: 300
+                                },
+                              }
+                            }]
+                            };
+                            var chart3 = new ApexCharts(document.querySelector("#chart3"), options);
+                            chart3.render();
 </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
     if ( $('#today2')[0].type != 'date' ) $('#today2').datepicker();
@@ -667,6 +693,49 @@ function resetVariables(){
               document.getElementById("percent4").innerHTML = 0 + "<span style = 'font-size: 12px;'>%</span>";
                     }
     }
+    function changetoEnergy(){
+      document.getElementById('Energy').style.display = 'block';
+      document.getElementById('Cost').style.display = 'none';
+    }
+    function changetoCost(){
+      document.getElementById('Cost').style.display = 'block';
+      document.getElementById('Energy').style.display = 'none';
+    }
+
+    function createChart(name, number){
+        var data = {{schedule | tojson}};
+        var string = data[number];
+        string = string.replace('[', '')
+        string = string.replace(']', '')
+        var datalist = string.split(",");
+        console.log(typeof datalist)
+        console.log(datalist[16])
+        chart2.updateSeries([{ 
+            name: name,
+            data: [datalist[0], datalist[1], datalist[2], datalist[3], datalist[4], datalist[5], datalist[6], datalist[7], datalist[8], datalist[9], datalist[10], datalist[11], datalist[12], datalist[13], datalist[14], datalist[15], datalist[16], datalist[17], datalist[18], datalist[19], datalist[20], datalist[21], datalist[22], datalist[23]]
+        } 
+        ]); 
+    }
+    function toggleMaster(category){
+    if(category == 'Lighting'){
+        toggleLighting();
+    }
+    if(category == 'Plug Load'){
+        togglePlugLoad();
+    }
+    if(category == 'HVAC'){
+        toggleHVAC();
+    }
+    if(category == 'Equipment'){
+        toggleEquipment();
+    }
+    if(category == 'Hot Water'){
+        toggleHotWater();
+    }
+    if(category == 'Other'){
+        toggleOther();
+    }
+}
   </script>
 
 </html>
