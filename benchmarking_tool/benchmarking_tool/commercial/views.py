@@ -718,6 +718,9 @@ def facilityoverviewbubble():
 @commercial.route('/historicalusage', methods=['GET', 'POST'])
 @login_required
 def historicalusage():
+    paneltotal = []
+    panelpercent = []
+    scheduledata = []
     if(current_user.is_authenticated and current_user.is_admin()):
         mydb = mysql.connector.connect(
           host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
@@ -772,7 +775,16 @@ def historicalusage():
                 totalprice2 = (total2 * 0.09)/1000
                 total += total2
                 totalprice += totalprice2
-        
+
+        for serialNumber in serial_list:
+            string = ''
+            sql = "SELECT channel4_schedule, channel5_schedule, channel6_schedule, channel7_schedule, channel8_schedule, channel9_schedule, channel10_schedule, channel11_schedule, channel12_schedule, channel13_schedule, channel14_schedule, channel15_schedule, channel16_schedule, channel17_schedule, channel18_schedule, channel19_schedule FROM emporia_data WHERE date LIKE %s AND serial_number = %s"   
+            mycursor.execute(sql, (userdate, serialNumber))
+            myresult = mycursor.fetchall()
+            for x in myresult:
+                string = "'".join(x)
+            scheduledata.extend(string.split("'"))
+        historicalusage['Schedule'] = scheduledata
         channel_names = historicalusage['Channel Names']
         categories = []
         for name in channel_names:
@@ -808,19 +820,19 @@ def historicalusage():
             
             # make everything lowercase 
             name_l = name.lower()
-            if categorytotals.iloc[i][2] == 'lighting':
+            if categorytotals.iloc[i][3] == 'lighting':
                 lighttotal += categorytotals.iloc[i][1]
 
-            elif categorytotals.iloc[i][2] == 'hotwater':
+            elif categorytotals.iloc[i][3] == 'hotwater':
                 watertotal += categorytotals.iloc[i][1]
 
-            elif categorytotals.iloc[i][2] == 'hvac':
+            elif categorytotals.iloc[i][3] == 'hvac':
                 hvactotal += categorytotals.iloc[i][1]
 
-            elif categorytotals.iloc[i][2] == 'equipment':
+            elif categorytotals.iloc[i][3] == 'equipment':
                 equipmenttotal += categorytotals.iloc[i][1]
             
-            elif categorytotals.iloc[i][2] == 'plugload':
+            elif categorytotals.iloc[i][3] == 'plugload':
                 plugtotal += categorytotals.iloc[i][1]
             
             else:
@@ -851,35 +863,32 @@ def historicalusage():
 
 
         serial_number = 'A2107A04B4B8F009A6CEC4'
-        exteriorwalls =[]
-        roofs = []
-        rooffinishs = []
-        foundations = []
-        heating_usage = 40
-        current_regress = 0
-        light_usage = 20
-        appliance_usage = 10
-        ventilation_usage = 50
-        dhw_usage = 30
-        home_upgrades = [52,39,173,145,143,144,142,142,141,141,140,140,221,137,140,138,137,65,11,116,140,138,180,67]
-        home_upgrades1 = [215,222,229,199,186,195,186,185,185,185,185,185,185,184,257,231,258,224,220,214,217,106,106,107]
-        home_upgrades3 = [42,29,140,139,138,137,136,136,135,135,134,217,131,134,133,131,56,1,109,134,132,132,65]
-        home_upgrades4 = [52,39,173,145,143,144,142,142,141,141,140,140,221,137,140,138,137,65,11,116,140,138,180,67]
-        home_upgrades5 = [215,222,229,199,186,195,186,185,185,185,185,185,185,184,257,231,258,224,220,214,217,106,106,107]
-        home_upgrades6 = [42,29,140,139,138,137,136,136,135,135,134,217,131,134,133,131,56,1,109,134,132,132,65]
-        user_home = [60, 50]
-        average_home = [75,62]
         historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
         colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
         correctdate = userdate[:-1]
-        return render_template('historicalusage.html',correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
-        ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
+        historicalusage['Panel Name'] = 'Panel 1'
+        paneltotal = total
+        panelpercent = 100
+        numpanels = 1
+        categoriesdf = {'Name':['Lighting','Hot Water','HVAC','Equipment','Plug Load','Other'],'Totals':[lighttotal,watertotal,hvactotal,equipmenttotal,plugtotal,othertotal], 'Colors':['#3649A8','#A6D06D','#EE5937','#3BCDEE','#EE8F37','#DBE2F3'], 'Prices':[lightprice,waterprice,hvacprice,equipmentprice,plugprice,otherprice], 'Charts':['chartLight','chartWater','chartHVAC','chartEquipment','chartPlug','chartOther']}
+        categoriesdf = pd.DataFrame(data=categoriesdf)
+        categoriesdf = categoriesdf.sort_values(by=['Totals'], ascending=False)
+        categoriesdf = categoriesdf.round(2)
+        panelnames = ['Panel 1']
+        historicalusage['Price'] = historicalusage['Usage'] * (0.09*168*0.000017)
+        schedule = historicalusage["Schedule"].to_list()
+        print(len(historicalusage))
+        return render_template('historicalusage.html',schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form
+        )
     else:
         abort(403)
 
 @commercial.route('/historicalusageline', methods=['GET', 'POST'])
 @login_required
 def historicalusageline():
+    paneltotal = []
+    panelpercent = []
+    scheduledata = []
     if(current_user.is_authenticated and current_user.is_admin()):
         mydb = mysql.connector.connect(
           host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
@@ -889,8 +898,6 @@ def historicalusageline():
         )
         today = date.today()
         userdate = (today - timedelta(days = 1)).strftime('%Y-%m-%d') + '%'
-        print(userdate)
-        print('userdate')
         form = HistoricalUsageForm()
         serial_numbers = current_user.phone_number
         serial_list = serial_numbers.split()
@@ -931,12 +938,21 @@ def historicalusageline():
                 usage = stringlist[1::2]
                 historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
                 historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
+                historicalusage = historicalusage.append(historicalusage2, ignore_index = True)
                 total2 = historicalusage2['Usage'].sum()
                 totalprice2 = (total2 * 0.09)/1000
-                historicalusage = historicalusage.append(historicalusage2, ignore_index = True)
                 total += total2
                 totalprice += totalprice2
 
+        for serialNumber in serial_list:
+            string = ''
+            sql = "SELECT channel4_schedule, channel5_schedule, channel6_schedule, channel7_schedule, channel8_schedule, channel9_schedule, channel10_schedule, channel11_schedule, channel12_schedule, channel13_schedule, channel14_schedule, channel15_schedule, channel16_schedule, channel17_schedule, channel18_schedule, channel19_schedule FROM emporia_data WHERE date LIKE %s AND serial_number = %s"   
+            mycursor.execute(sql, (userdate, serialNumber))
+            myresult = mycursor.fetchall()
+            for x in myresult:
+                string = "'".join(x)
+            scheduledata.extend(string.split("'"))
+        historicalusage['Schedule'] = scheduledata
         channel_names = historicalusage['Channel Names']
         categories = []
         for name in channel_names:
@@ -972,19 +988,19 @@ def historicalusageline():
             
             # make everything lowercase 
             name_l = name.lower()
-            if categorytotals.iloc[i][2] == 'lighting':
+            if categorytotals.iloc[i][3] == 'lighting':
                 lighttotal += categorytotals.iloc[i][1]
 
-            elif categorytotals.iloc[i][2] == 'hotwater':
+            elif categorytotals.iloc[i][3] == 'hotwater':
                 watertotal += categorytotals.iloc[i][1]
 
-            elif categorytotals.iloc[i][2] == 'hvac':
+            elif categorytotals.iloc[i][3] == 'hvac':
                 hvactotal += categorytotals.iloc[i][1]
 
-            elif categorytotals.iloc[i][2] == 'equipment':
+            elif categorytotals.iloc[i][3] == 'equipment':
                 equipmenttotal += categorytotals.iloc[i][1]
             
-            elif categorytotals.iloc[i][2] == 'plugload':
+            elif categorytotals.iloc[i][3] == 'plugload':
                 plugtotal += categorytotals.iloc[i][1]
             
             else:
@@ -1005,38 +1021,33 @@ def historicalusageline():
         otherprice = (othertotal * 0.09)
 
         percenttotal = total/1000
+        
         lightpercent = (lighttotal/percenttotal) * 100
         waterpercent = (watertotal/percenttotal) * 100
         hvacpercent = (hvactotal/percenttotal) * 100
         equipmentpercent = (equipmenttotal/percenttotal) * 100
         plugpercent = (plugtotal/percenttotal) * 100
         otherpercent = (othertotal/percenttotal) * 100
-        otherpercent = (othertotal/percenttotal) * 100
+
 
         serial_number = 'A2107A04B4B8F009A6CEC4'
-        exteriorwalls =[]
-        roofs = []
-        rooffinishs = []
-        foundations = []
-        heating_usage = 40
-        current_regress = 0
-        light_usage = 20
-        appliance_usage = 10
-        ventilation_usage = 50
-        dhw_usage = 30
-        home_upgrades = [52,39,173,145,143,144,142,142,141,141,140,140,221,137,140,138,137,65,11,116,140,138,180,67]
-        home_upgrades1 = [215,222,229,199,186,195,186,185,185,185,185,185,185,184,257,231,258,224,220,214,217,106,106,107]
-        home_upgrades3 = [42,29,140,139,138,137,136,136,135,135,134,217,131,134,133,131,56,1,109,134,132,132,65]
-        home_upgrades4 = [52,39,173,145,143,144,142,142,141,141,140,140,221,137,140,138,137,65,11,116,140,138,180,67]
-        home_upgrades5 = [215,222,229,199,186,195,186,185,185,185,185,185,185,184,257,231,258,224,220,214,217,106,106,107]
-        home_upgrades6 = [42,29,140,139,138,137,136,136,135,135,134,217,131,134,133,131,56,1,109,134,132,132,65]
-        user_home = [60, 50]
-        average_home = [75,62]
         historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
         colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
         correctdate = userdate[:-1]
-        return render_template('historicalusageline.html',correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
-        ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
+        historicalusage['Panel Name'] = 'Panel 1'
+        paneltotal = total
+        panelpercent = 100
+        numpanels = 1
+        categoriesdf = {'Name':['Lighting','Hot Water','HVAC','Equipment','Plug Load','Other'],'Totals':[lighttotal,watertotal,hvactotal,equipmenttotal,plugtotal,othertotal], 'Colors':['#3649A8','#A6D06D','#EE5937','#3BCDEE','#EE8F37','#DBE2F3'], 'Prices':[lightprice,waterprice,hvacprice,equipmentprice,plugprice,otherprice], 'Charts':['chartLight','chartWater','chartHVAC','chartEquipment','chartPlug','chartOther']}
+        categoriesdf = pd.DataFrame(data=categoriesdf)
+        categoriesdf = categoriesdf.sort_values(by=['Totals'], ascending=False)
+        categoriesdf = categoriesdf.round(2)
+        panelnames = ['Panel 1']
+        historicalusage['Price'] = historicalusage['Usage'] * (0.09*168*0.000017)
+        schedule = historicalusage["Schedule"].to_list()
+        print(len(historicalusage))
+        return render_template('historicalusageline.html',schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form
+        )
     else:
         abort(403)
 @commercial.route('/historicalusagebubble', methods=['GET', 'POST'])
