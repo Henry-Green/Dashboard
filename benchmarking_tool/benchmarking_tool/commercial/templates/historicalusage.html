@@ -37,94 +37,80 @@
     </div>
 
 
-                <div class = "rightside" id = 'rightside'>
-        <div class = 'retractblock'>
-        <img class = 'retractbutton'  onclick = "retract()" src = "{{url_for('static',filename='img/retractbuttonbackground.png')}}"/><img class = 'retractbuttonarrowright' id = 'rightarrow'  onclick = "retract()" src = "{{url_for('static',filename='img/retractbuttonarrow.png')}}"/></div>
-        <div class = "rightabsolute">
-        <div class = 'rightsidetitle'>Load Breakdown</div>
-        <div class = 'tab'>
-        <button class="category-l6cqYc avertacy-bold-sapphire-15px tablinks" id = "defaultOpen" onclick = "openCity(event, 'Category'); changeDotColourCategory();">Category</button>
-        <button class="panel-l6cqYc avertacy-bold-sapphire-15px tablinks" onclick = "openCity(event, 'Panel'); changeDotColourPanel();">Panel</button>
+        <div class = "rightside" id = 'rightside'>
+            <div class = 'retractblock'>
+                <img class = 'retractbutton'  onclick = "retract()" src = "{{url_for('static',filename='img/retractbuttonbackground.png')}}"/><img class = 'retractbuttonarrowright' id = 'rightarrow'  onclick = "retract()" src = "{{url_for('static',filename='img/retractbuttonarrow.png')}}"/>
+            </div>
+            <div class = "rightabsolute">
+                <div class = 'rightsidetitle'>Load Filters</div>
+                <div class = 'load-block'>
+                    <div class = 'load-header'>Inventory</div>
+                    <div class = 'load-content'>
+                        <div class = 'donut-chart' id = 'chart'></div>
+                        <div class = 'breakdown-block'>
+                            <div class = 'breakdown-header'>Breakdown</div>
+                            <div class = 'breakdown-content'>
+                                {% for i in range (0, 3) %}
+                                <div class = 'category-rectangle'>
+                                    <div class = 'category-dot' style = 'background-color: {{categoriesdf.iloc[i][2]}};'></div>
+                                    <div class = 'category-name'>{{categoriesdf.iloc[i][0]}}</div>
+                                    <div class = 'category-percent'>{{categoriesdf.iloc[i][5]}}%</div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class = 'explore-block'>
+                            <div class = 'explore-text'>Explore</div>
+                            <div class = 'load-arrow'> <img class = 'load-arrow-image' src = "{{url_for('static',filename='img/load-arrow.png')}}"/></div>
+                        </div>
+                    </div>
+                </div>
+                <div class = 'load-block'>
+                    <div class = 'load-header'>Panels</div>
+                    <div class = 'load-content'>
+                        <div class = 'donut-chart' id = 'chart3'></div>
+                        <div class = 'breakdown-block'>
+                            <div class = 'breakdown-header'>Breakdown</div>
+                            <div class = 'breakdown-content'>
+                                {% for i in range (0, 3) %}
+                                <div class = 'category-rectangle'>
+                                    <div class = 'category-dot' style = 'background-color: {{categoriesdf.iloc[i][2]}};'></div>
+                                    <div class = 'category-name'>{{categoriesdf.iloc[i][0]}}</div>
+                                    <div class = 'category-percent'>{{categoriesdf.iloc[i][5]}}%</div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class = 'explore-block'>
+                            <div class = 'explore-text'>Explore</div>
+                            <div class = 'load-arrow'> <img class = 'load-arrow-image' src = "{{url_for('static',filename='img/load-arrow.png')}}"/></div>
+                        </div>
+                    </div>
+                </div>
+                <div class = 'load-block'>
+                    <div class = 'load-header'>Time Loads</div>
+                    <div class = 'load-content'>
+                        <div class = 'donut-chart' id = 'chart4'></div>
+                        <div class = 'breakdown-block'>
+                            <div class = 'breakdown-header'>Breakdown</div>
+                            <div class = 'breakdown-content'>
+                                {% for i in range (0, 3) %}
+                                <div class = 'category-rectangle'>
+                                    <div class = 'category-dot' style = 'background-color: {{categoriesdf.iloc[i][2]}};'></div>
+                                    <div class = 'category-name'>{{categoriesdf.iloc[i][0]}}</div>
+                                    <div class = 'category-percent'>{{categoriesdf.iloc[i][5]}}%</div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class = 'explore-block'>
+                            <div class = 'explore-text'>Explore</div>
+                            <div class = 'load-arrow'> <img class = 'load-arrow-image' src = "{{url_for('static',filename='img/load-arrow.png')}}"/></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="Panel" class="tabcontent">
-        <div class="energy-breakdown-l6cqYc">
-                <div id="chart3"></div>
-        </div>
-        <div class="x100-l6cqYc" id = 'percent3'></div>
-        <div class="rectangle-2973-l6cqYc">
-        <div class="rectangle-152-l6cqYc"></div>
-        <div class="electrical-panels-l6cqYc2 avertacy-bold-sapphire-15px">Electrical Panels</div>
-
-        {% for i in range(0, numpanels) %}
-
-        <div class="rectangle-23402-l6cqYc">
-        <div class="panel-a2-l6cqYc avertacy-bold-sapphire-12px" onclick = "openNav('{{panelnames[i]}}',{{i}});openCity2(event, 'Specs');">{{panelnames[i]}}</div>
-        <div class="x43-l6cqYc avertacy-bold-sapphire-12px" id = "{{panelnames[i]}}"></div>
-        <input type= 'checkbox' onclick = 'togglePanel("{{panelnames[i]}}", {{i}}); checkIf0();' class="rectangle-30242-l6cqYc"style = "background-color: {{colours[i]}};" id = 'panel1check'checked/><label for = 'panel1check'></label>
-        <div class="info"onclick = "openNav('{{panelnames[i]}}',{{i}});openCity2(event, 'Specs');"><img class="info-image" src="{{url_for('static',filename='img/infoimage1.png')}}" onclick = "openNav('{{panelnames[i]}}',{{i}});openCity2(event, 'Specs');"/></div></div>
-        <div class = 'panelpercent avertacy-bold-sapphire-12px'>{{panelpercent[i]}}%</div>
-
-        {% endfor %}
-    </div>
-    </div>
-            <div id = 'sidebar' class = 'sidebar'>
-      <div class="frame-1 screen">
-        <h1 class="title-VxPVnb"><span id = "panelletter"></span></h1>
-        <div class = "tabss">
-        <button class="circuits-VxPVnb avertacy-bold-sapphire-20px tablinksss" onclick = "openCity2(event, 'Circuits');currentSlide(1)">Circuits</button>
-        <button id = 'specs' class="specs-VxPVnb tablinksss" onclick = "openCity2(event, 'Specs');currentSlide(1)">Specs</button></div>
-      </div>
-
-    </div>
-        <div id="Category" class="tabcontent categorytabcontent">
-        <div class="energy-breakdown-l6cqYc">
-                <div id="chart"></div>
-        </div>
-        <div class="x100-l6cqYc"id = 'percent4'></div>
-        <div class="rectangle-2973-l6cqYc">
-
-        <div class="electrical-panels-l6cqYc avertacy-bold-sapphire-15px">Categories</div>
-        <div class="rectangle-15-l6cqYc"></div>
-
-        <div class="rectangle-2974-l6cqYc">
-            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[0][2]}};' class="rectangle-3024-l6cqYc" id= 'panel1check' onclick= "toggleMaster('{{categoriesdf.iloc[0][0]}}'); checkIf0();" checked/><label for = 'panel1check'></label>
-            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[0][0]}}</div>
-            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = '{{categoriesdf.iloc[0][4]}}'></div>
-        </div>
-
-        <div class="rectangle-2974-l6cqYc">
-            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[1][2]}};' class="rectangle-3025-l6cqYc"id= 'panel2check' onclick= "toggleMaster('{{categoriesdf.iloc[1][0]}}'); checkIf0();" checked/><label for = 'panel2check'></label>
-            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[1][0]}}</div>
-            <div class="x12-l6cqYc avertacy-bold-sapphire-12px"  id = '{{categoriesdf.iloc[1][4]}}'></div>
-        </div>
-
-        <div class="rectangle-2974-l6cqYc">
-            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[2][2]}};' class="rectangle-3026-l6cqYc"id= 'panel1check' onclick= "toggleMaster('{{categoriesdf.iloc[2][0]}}'); checkIf0();" checked/><label for = 'panel2check'></label>
-            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[2][0]}}</div>
-            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = '{{categoriesdf.iloc[2][4]}}'></div>
-        </div>
-
-        <div class="rectangle-2974-l6cqYc">
-            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[3][2]}};' class="rectangle-3027-l6cqYc"id= 'panel1check' onclick= "toggleMaster('{{categoriesdf.iloc[3][0]}}'); checkIf0();" checked/><label for = 'panel2check'></label>
-            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[3][0]}}</div>
-            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = '{{categoriesdf.iloc[3][4]}}'></div>
-        </div>
-
-        <div class="rectangle-2974-l6cqYc">
-            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[4][2]}};' class="rectangle-3028-l6cqYc"id= 'panel1check' onclick= "toggleMaster('{{categoriesdf.iloc[4][0]}}'); checkIf0(); " checked/><label for = 'panel1check'></label>
-            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[4][0]}}</div>
-            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = '{{categoriesdf.iloc[4][4]}}'></div>
-        </div>
-
-        <div class="rectangle-2974-l6cqYc">
-            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[5][2]}};' class="rectangle-3029-l6cqYc"id= 'panel1check' onclick= "toggleMaster('{{categoriesdf.iloc[5][0]}}'); checkIf0();" checked/><label for = 'panel1check'></label>
-            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[5][0]}}</div>
-            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = '{{categoriesdf.iloc[5][4]}}'></div>
-        </div>
-    </div>
-        </div>
-    </div>
-</div>
 
         <h1 class="title-L7BXHD">Historical Usage</h1>
         <div class="rectangle-2984-L7BXHD">
@@ -319,6 +305,35 @@
                             };
                             var chart3 = new ApexCharts(document.querySelector("#chart3"), options);
                             chart3.render();
+</script>
+  <script >var options = {
+                              labels: ["Lighting", "Equipment", "HVAC", "Plug Load", "Hot Water", "Other"],
+                              series: [{{lighttotal}},{{equipmenttotal}},{{hvactotal}},{{plugtotal}},{{watertotal}},{{othertotal}} ],
+                              chart: {
+                              width: 200,
+                              type: 'donut',
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            legend: {
+                                position: 'bottom',
+                                show:false
+                            },
+
+                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3'],
+
+                            responsive: [{
+                              breakpoint: 480,
+                              options: {
+                                chart: {
+                                  width: 300
+                                },
+                              }
+                            }]
+                            };
+                            var chart4 = new ApexCharts(document.querySelector("#chart4"), options);
+                            chart4.render();
 </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
     if ( $('#today2')[0].type != 'date' ) $('#today2').datepicker();
