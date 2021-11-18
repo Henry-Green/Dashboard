@@ -129,8 +129,8 @@
         <h1 class="title-L7BXHD">Historical Usage</h1>
         <div class="rectangle-2984-L7BXHD">
 
-        <div class = 'graph-buttons-block'><a href = "{{url_for('commercial.historicalusage')}}"><div class = 'grah-buttons'><img class = 'graph-buttons-image' src ="{{url_for('static',filename='img/bar-image.PNG')}}"/> </div></a>
-        <a href = "{{url_for('commercial.historicalusageline')}}"><div class = 'grah-buttons'><img class = 'graph-buttons-image' src ="{{url_for('static',filename='img/line-image.PNG')}}"/> </div></div></a>
+        <div class = 'graph-buttons-block'><a href = "{{url_for('commercial.historicalusage')}}"><div class = 'grah-buttons'><img class = 'graph-buttons-image' src ="{{url_for('static',filename='img/bar-image.png')}}"/> </div></a>
+        <a href = "{{url_for('commercial.historicalusageline')}}"><div class = 'grah-buttons'><img class = 'graph-buttons-image' src ="{{url_for('static',filename='img/line-image.png')}}"/> </div></div></a>
 
         <div class = 'total-block'>    
         <div class = 'total-box'><span style = 'font-size: 20px;'>$</span>{{totalprice|int}}<span class = 'decimal-span' style = 'font-size: 10px;'>.{{(totalprice|string).split('.')[1]|truncate(2, true, '', 0)}}</span><div class = total-box-line>Costs</div></div>
