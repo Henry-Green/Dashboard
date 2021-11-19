@@ -818,7 +818,6 @@ def historicalusage():
         plugtotal = 0
         othertotal = 0
         historicalusage = historicalusage[['Channel Names', 'Usage', 'Schedule', 'Category','Panel']]
-        print(historicalusage)
         categorytotals = historicalusage.copy()
         for i in range(0,len(categorytotals.index)):
             
@@ -881,7 +880,6 @@ def historicalusage():
         paneltotals['Panel Name'] = panelnames
         paneltotals['Percent'] = paneltotals['Percent'].round(2)
         panelchart = paneltotals['Total'].to_list()
-        print(paneltotals)
 
         categoriesdf = {'Name':['Lighting','Hot Water','HVAC','Equipment','Plug Load','Other'],'Totals':[lighttotal,watertotal,hvactotal,equipmenttotal,plugtotal,othertotal], 'Colors':['#3649A8','#A6D06D','#EE5937','#3BCDEE','#EE8F37','#DBE2F3'], 'Prices':[lightprice,waterprice,hvacprice,equipmentprice,plugprice,otherprice], 'Charts':['chartLight','chartWater','chartHVAC','chartEquipment','chartPlug','chartOther'], 'Percent':[lightpercent,waterpercent,hvacpercent,equipmentpercent,plugpercent,otherpercent]}
         categoriesdf = pd.DataFrame(data=categoriesdf)
