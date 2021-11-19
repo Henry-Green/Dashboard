@@ -497,7 +497,7 @@
 
 .historical-usage-lines-display-category .rectangle-2984-L7BXHD {
   background-color: transparent;
-  border-radius: 5px;
+  border-radius: 8px;
   border: 2px solid #E3E7ED;
   height: 696px;
   left: 320px;
@@ -2170,7 +2170,74 @@
   width: auto;
 
 }
+.circuit-block{
+  position: absolute;
+  width: 0px;
+  height: 601px;
+  background-color: white;
+  z-index: 6000;
+  border-radius: 8px;
+  border: 2px solid #E3E7ED;
+  overflow: hidden;
+  transition: 0.5s;
+}
+.circuit-header{
+  position: relative;
+  width: 656px;
+  height: 80px;
+  border-bottom: 2px solid #E3E7ED;
+  margin-right: auto;
+  margin-left: auto;
+}
+.circuit-title{
+  background-color: transparent;
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  height: 50px;
+  position: relative;
+  top: 15px;
+}
+.exit-button{
+  width: 29px;
+  height: 29px;
+  position: relative;
+  left: 650px;
+  bottom: 40px;
+}
+.exit-button-image{
+  width: 100%;
+  height: 100%;
+}
+.past-use{
+  background-color: transparent;
+  color: var(--sapphire);
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  height: 50px;
+  position: relative;
+  top: 15px;
+  left: 40px;
+}
+.circuit-graph-background{
+  position: relative;
+  width: 582px;
+  height: 219px;
+  margin-right: auto;
+  margin-left: auto;
+  bottom: 130px;
+}
+.circuit-graph{
+  position: relative;
+  top: 120px;
+  z-index: 100;
+  left: 10px;
 
+}
 .Historical-Usage-Block{
   background-color: var(--zircon);
   border-radius: 8px;
@@ -2950,7 +3017,7 @@ background-color: #EE5937;
   width: 5px;
   height: 45px;
   position: relative;
-  top: 250px;
+  top: 237px;
   border-radius: 8px;
   
 }
@@ -3074,17 +3141,8 @@ background-color: #EE5937;
   width: auto;
 }
 
-.activeline{
-  background-color: #6285FB;
-  width: 5px;
-  height: 45px;
-  position: relative;
-  top: 180px;
-  border-radius: 8px;
-  
-}
 .historical-usage-lines-display-category .overview-l6cqYc {
-  color: #6285FB;
+  color: #AFB8CC;
   font-family: var(--font-family-averta_cy-bold);
   font-size: 16px;
   font-style: normal;
@@ -3202,7 +3260,7 @@ background-color: #EE5937;
   position: relative;
 }
 .historical-usage-lines-display-category .historical-l6cqYc {
-  color: #AFB8CC;
+  color: #6285FB;
   font-family: var(--font-family-averta_cy-bold);
   font-size: 16px;
   font-style: normal;
