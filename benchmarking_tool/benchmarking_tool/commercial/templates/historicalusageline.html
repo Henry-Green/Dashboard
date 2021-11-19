@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
     <script src="https://cdn.jsdelivr.net/npm/apexcharts" type="text/javascript"></script>
   </head>
-  <body style="margin: 0; background: #ffffff" onload="resetVariables(); getTotal(); changetoEnergy();">
+  <body style="margin: 0; background: #ffffff" onload="resetVariables(); createTotalChart(); changetoEnergy(); getTotal(); ">
     <input type="hidden" id="anPageName" name="page" value="historical-usage-lines-display-category" />
     <div class="container-center-horizontal">
       <div class="historical-usage-lines-display-category screen">
@@ -17,8 +17,8 @@
         <img class = 'retractbuttonleft' id = 'leftbutton' onclick = "retractleft()" src = "{{url_for('static',filename='img/retractbuttonbackground.png')}}"/><img class = 'retractbuttonarrowleft'  onclick = "retractleft()" id = 'leftarrow' src = "{{url_for('static',filename='img/retractbuttonarrow.png')}}"/>
         <div class="header-l6cqYc" id = 'logodiv'><img class="pollen-2-7QcJ16" id = logoimage src="{{url_for('static',filename='img/logoimage.png')}}" /></div>
         <div class="dashboard-l6cqYc" id = 'dashboard'><img class="dashboardimage" src="{{url_for('static',filename='img/dashboardimage.png')}}" />Dashboard</div>
-        <div class="overview-l6cqYc" id = 'liveusage'><img class="liveusageimage" src="{{url_for('static',filename='img/liveusageonimage.png')}}" />Live Usage</div>
-        <a href = "{{url_for('commercial.historicalusage')}}"><div class="historical-l6cqYc avertacy-bold-sapphire-13px" id = 'historical'><img class="historicalimage" src="{{url_for('static',filename='img/historicalimage.png')}}" />Historical</div></a>
+        <div class="overview-l6cqYc" id = 'liveusage'><img class="liveusageimage" src="{{url_for('static',filename='img/liveusageonimageoff.png')}}" />Live Usage</div>
+        <a href = "{{url_for('commercial.historicalusage')}}"><div class="historical-l6cqYc avertacy-bold-sapphire-13px" id = 'historical'><img class="historicalimage" src="{{url_for('static',filename='img/historicalimageon.png')}}" />Historical</div></a>
         <div class="inventory-l6cqYc" id = 'inventory'><img class="inventoryimage" src="{{url_for('static',filename='img/inventoryimage.png')}}" />Inventory</div>
         <div class="utilities-l6cqYc" id = 'utilities'><img class="utilitiesimage" src="{{url_for('static',filename='img/utilitiesimage.png')}}" />Utilities</div>
         <a href = "{{url_for('accounts.logout')}}"><div class="logout-l6cqYc avertacy-bold-sapphire-13px" id = 'logout'><img class="logoutimage" src="{{url_for('static',filename='img/logoutimage.png')}}" />Logout</div></a>
@@ -114,7 +114,24 @@
 
         <h1 class="title-L7BXHD">Historical Usage</h1>
         <div class="rectangle-2984-L7BXHD">
+ <div class = 'circuit-block' id = 'circuit-block'>
+            <div class = 'circuit-header'>
+                <div class = 'circuit-title' id = 'circuit-title'>Name</div>
+                <div class = 'exit-button' onclick = 'closeCircuitBlock();'><img class = 'exit-button-image' src ="{{url_for('static',filename='img/exit-button-image.PNG')}}"/></div>
+            </div>
+            <div class = 'circuit-content'>
+                <div class = 'past-use'>Past-Use</div>
+                    <div class = 'total-block'>    
+                    <div class = 'total-box' style = 'margin-right: 20px;'><span style = 'font-size: 20px;'>$</span>{{totalprice|int}}<span class = 'decimal-span' style = 'font-size: 10px;'>.{{(totalprice|string).split('.')[1]|truncate(2, true, '', 0)}}</span><div class = total-box-line>Costs</div></div>
 
+                    <div class = 'total-box'style = 'margin-right: 20px;'>{{(total/1000)|int}}<span class = 'decimal-span' style = 'font-size: 9px; width: 5px;'>.{{((total/1000)|string).split('.')[1]|truncate(2, true, '', 0)}}</span><span class = 'kwh-total'>kWh</span><div class = total-box-line>Usage</div></div>
+
+                    <div class = 'total-box'>6<span class = 'decimal-span' style = 'font-size: 9px; width: 5px;'>.09</span><span class = 'kwh-total'>kg/CO2</span><div class = total-box-line>Emmisions</div></div>
+                </div>
+                <div class = 'circuit-graph' id = 'chart5'></div>
+                <div class = 'circuit-graph-background'><img class = 'graph-background-image' src ="{{url_for('static',filename='img/graph-background-image.PNG')}}"/></div>
+            </div>
+        </div>
         <div class = 'graph-buttons-block'><a href = "{{url_for('commercial.historicalusage')}}"><div class = 'grah-buttons'><img class = 'graph-buttons-image' src ="{{url_for('static',filename='img/bar-image.png')}}"/> </div></a>
         <a href = "{{url_for('commercial.historicalusageline')}}"><div class = 'grah-buttons'><img class = 'graph-buttons-image' src ="{{url_for('static',filename='img/line-image.png')}}"/> </div></div></a>
 
@@ -233,7 +250,71 @@
                                 var chart2 = new ApexCharts(document.querySelector("#chart2"), options);
                                 chart2.render();
                         </script>
+                          <script>
+                            var options = {
+                                  colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
+                                  series: [
+                                  {
+                                    name: "Panel A",
+                                    data: []
+                                  },
+                                ],
+                                  chart: {
+                                  height: '219px',
+                                  width: '660px',
+                                  type: 'line',
+                                  zoom: {
+                                    enabled: false
+                                  },
+                                  toolbar:{
+                                    show: false,
+                                  },
+                                },
+                                dataLabels: {
+                                  enabled: false
+                                },
+                                legend:{
+                                  show: false
+                                },
+                                stroke: {
+                                  curve: 'smooth'
+                                },
+                                grid: {
+                                  row: {
+                                    colors: ['transparent', 'transparent'], // takes an array which will be repeated on columns
+                                    opacity: 0.5
+                                  },
+                                },
+                                xaxis: {
+                                  labels:{
+                                    show: false
+                                  },
+                                  axisBorder:{
+                                    show: false
+                                  },
+                                  axisTicks:{
+                                    show: false
+                                  },
+                                },
+                                yaxis:{
+                                  labels:{
+                                  style:{
+                                      colors: 'DarkBlue',
+                                      fontFamily: " Helvetica, Averta CY-Bold",
+                                      fontSize: '10px',
+                                      fontWeight: 700,
+                                  },
+                                  maxHeight: undefined,
+                                   "formatter": function (val) {
+                                    return val.toFixed(2)
+                                },
+                                },
+                                },
+                                };
 
+                                var chart5 = new ApexCharts(document.querySelector("#chart5"), options);
+                                chart5.render();
+                        </script>
         <img class="rectangle-3269-L7BXHD" src="{{url_for('static',filename='img/rectangle-3269@2x.svg')}}" />
         <form onsubmit="setTimeout(function(){window.location.reload();},10);" method = "POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
@@ -726,13 +807,14 @@ function resetVariables(){
         string = string.replace('[', '')
         string = string.replace(']', '')
         var datalist = string.split(",");
-        console.log(typeof datalist)
-        console.log(datalist[16])
-        chart2.updateSeries([{ 
+        chart5.updateSeries([{ 
             name: name,
-            data: [datalist[0], datalist[1], datalist[2], datalist[3], datalist[4], datalist[5], datalist[6], datalist[7], datalist[8], datalist[9], datalist[10], datalist[11], datalist[12], datalist[13], datalist[14], datalist[15], datalist[16], datalist[17], datalist[18], datalist[19], datalist[20], datalist[21], datalist[22], datalist[23]]
+            data: datalist,
         } 
         ]); 
+        document.getElementById('circuit-block').style.width = '744px';
+        document.getElementById("circuit-title").innerHTML = name;
+        document.getElementById('circuit-block').style.border = 'border: 2px solid #E3E7ED';
     }
     function toggleMaster(category){
     if(category == 'Lighting'){
@@ -754,6 +836,39 @@ function resetVariables(){
         toggleOther();
     }
 }
+function closeCircuitBlock(){
+    document.getElementById('circuit-block').style.width = '0px';
+    document.getElementById('circuit-block').style.border = "2px solid transparent";
+}
   </script>
+  <script>
+        function createTotalChart(){
+    var data = {{schedule | tojson}};
+    var totalset = [];
+    var string = data[0];
+    string = string.replace('[', '');
+    string = string.replace(']', '');
+    var datalist = string.split(",");
+    totalset.length = datalist.length;
+    totalset.fill(0);
+    for(let i = 0; i < datalist.length; i++){
+        var string = data[i];
+        string = string.replace('[', '');
+        string = string.replace(']', '');
+        var datalist = string.split(",");
+        console.log(datalist.length);
+        for(let k = 0; k < datalist.length; k++){
+        totalset[k] += parseFloat(datalist[k]);
+    }
+    }
+
+
+    chart2.updateSeries([{ 
+        name: 'Historical Usage',
+        data: totalset,
+    } 
+    ]); 
+    }
+</script>
 
 </html>
