@@ -72,11 +72,11 @@
                         <div class = 'breakdown-block'>
                             <div class = 'breakdown-header'>Breakdown</div>
                             <div class = 'breakdown-content'>
-                                {% for i in range (0, 3) %}
+                                {% for i in range (0, numpanels) %}
                                 <div class = 'category-rectangle'>
-                                    <div class = 'category-dot' style = 'background-color: {{categoriesdf.iloc[i][2]}};'></div>
-                                    <div class = 'category-name'>{{categoriesdf.iloc[i][0]}}</div>
-                                    <div class = 'category-percent'>{{categoriesdf.iloc[i][5]}}%</div>
+                                    <div class = 'category-dot' style = 'background-color: {{colours[i]}};'></div>
+                                    <div class = 'category-name'>{{paneltotals.iloc[i][0]}}</div>
+                                    <div class = 'category-percent'>{{paneltotals.iloc[i][2]}}%</div>
                                 </div>
                                 {% endfor %}
                             </div>
@@ -278,9 +278,11 @@
                             var chart = new ApexCharts(document.querySelector("#chart"), options);
                             chart.render();
 </script>
-  <script >var options = {
-                              labels: ["Lighting", "Equipment", "HVAC", "Plug Load", "Hot Water", "Other"],
-                              series: [{{lighttotal}},{{equipmenttotal}},{{hvactotal}},{{plugtotal}},{{watertotal}},{{othertotal}} ],
+  <script >var paneltotals = {{panelchart | tojson}};
+              var panelnames = {{panelnames | tojson}};
+              var options = {
+                              labels: panelnames,
+                              series: paneltotals,
                               chart: {
                               width: 200,
                               type: 'donut',
