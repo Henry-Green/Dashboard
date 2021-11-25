@@ -42,6 +42,191 @@
                 <img class = 'retractbutton'  onclick = "retract()" src = "{{url_for('static',filename='img/retractbuttonbackground.png')}}"/><img class = 'retractbuttonarrowright' id = 'rightarrow'  onclick = "retract()" src = "{{url_for('static',filename='img/retractbuttonarrow.png')}}"/>
             </div>
             <div class = "rightabsolute">
+            <div class = "rightpanel" id = rightpanel>
+                <div class = 'rightsidetitle'>Panels</div>
+                <div id="Panel" class="tabcontent">
+                <div class="energy-breakdown-l6cqYc">
+                <div id="chart6"></div>
+                </div>
+                <div class="x100-l6cqYc" id = 'percent3'></div>
+                <div class="rectangle-2973-l6cqYc">
+                <div class="rectangle-152-l6cqYc"></div>
+                <div class="electrical-panels-l6cqYc2 avertacy-bold-sapphire-15px">Electrical Panels</div>
+
+                {% for i in range(0, numpanels) %}
+
+                <div class="rectangle-23402-l6cqYc">
+                <div class="panel-a2-l6cqYc avertacy-bold-sapphire-12px">{{paneltotals.iloc[i][0]}}</div>
+                <div class="x43-l6cqYc avertacy-bold-sapphire-12px" id = "{{panelnames[i]}}"></div>
+                <input type= 'checkbox' onclick = 'togglePanel("{{panelnames[i]}}", {{i}}); checkIf0();' class="rectangle-30242-l6cqYc"style = "background-color: {{colours[i]}};" id = 'panel1check'checked/><label for = 'panel1check'></label>
+                <div class="info"><img class="info-image" src="{{url_for('static',filename='img/infoimage1.png')}}"/></div></div>
+                <div class = 'panelpercent avertacy-bold-sapphire-12px'>{{paneltotals.iloc[i][2]}}%</div>
+
+                {% endfor %}
+            </div>
+            <div class = 'switch-block'>
+                <div class = 'switch-header'>Inventory</div>
+                <div class = 'graph-box'>
+                    <div class = 'small-donut-chart' id = 'chart7'></div>
+                        {% for i in range (0, 3) %}
+                        <div class = 'small-category-rectangle'>
+                            <div class = 'category-dot' style = 'background-color: {{categoriesdf.iloc[i][2]}};'></div>
+                            <div class = 'category-name'>{{categoriesdf.iloc[i][0]}}</div>
+                            <div class = 'category-percent'>{{categoriesdf.iloc[i][5]}}%</div>
+                        </div>
+                        {% endfor %}
+                </div>
+                <div class = 'switch-image-block' onclick= 'openCategorySidebar()'><img class = 'switch-image' src = "{{url_for('static',filename='img/switch-image.png')}}"/></div>
+            </div>
+
+                <div class = 'switch-block'>
+                <div class = 'switch-header'>Inventory</div>
+                <div class = 'graph-box'>
+                    <div class = 'small-donut-chart' id = 'chart8'></div>
+                        {% for i in range (0, 3) %}
+                        <div class = 'small-category-rectangle'>
+                            <div class = 'category-dot' style = 'background-color: {{timeloads.iloc[i][2]}};'></div>
+                            <div class = 'category-name'>{{timeloads.iloc[i][0]}}</div>
+                            <div class = 'category-percent'>{{timeloads.iloc[i][1]}}%</div>
+                        </div>
+                        {% endfor %}
+                </div>
+                <div class = 'switch-image-block' onclick= 'openTimeSidebar()'><img class = 'switch-image' src = "{{url_for('static',filename='img/switch-image.png')}}"/></div>
+            </div>
+            </div>
+        </div>
+            <div class = "rightpanel" id = rightcategory>
+                <div class = 'rightsidetitle'>Cetegories</div>
+                <div id="Panel" class="tabcontent">
+                <div class="energy-breakdown-l6cqYc">
+                <div id="chart10"></div>
+                </div>
+        <div class="x100-l6cqYc"id = 'percent4'></div>
+        <div class="rectangle-2973-l6cqYc">
+
+        <div class="electrical-panels-l6cqYc avertacy-bold-sapphire-15px">Categories</div>
+        <div class="rectangle-15-l6cqYc"></div>
+
+        <div class="rectangle-2974-l6cqYc">
+            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[0][2]}};' class="rectangle-3024-l6cqYc" id= 'panel1check' onclick= "toggleMaster('{{categoriesdf.iloc[0][0]}}'); checkIf0();" checked/><label for = 'panel1check'></label>
+            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[0][0]}}</div>
+            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = '{{categoriesdf.iloc[0][4]}}'></div>
+        </div>
+
+        <div class="rectangle-2974-l6cqYc">
+            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[1][2]}};' class="rectangle-3025-l6cqYc"id= 'panel2check' onclick= "toggleMaster('{{categoriesdf.iloc[1][0]}}'); checkIf0();" checked/><label for = 'panel2check'></label>
+            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[1][0]}}</div>
+            <div class="x12-l6cqYc avertacy-bold-sapphire-12px"  id = '{{categoriesdf.iloc[1][4]}}'></div>
+        </div>
+
+        <div class="rectangle-2974-l6cqYc">
+            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[2][2]}};' class="rectangle-3026-l6cqYc"id= 'panel1check' onclick= "toggleMaster('{{categoriesdf.iloc[2][0]}}'); checkIf0();" checked/><label for = 'panel2check'></label>
+            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[2][0]}}</div>
+            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = '{{categoriesdf.iloc[2][4]}}'></div>
+        </div>
+
+        <div class="rectangle-2974-l6cqYc">
+            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[3][2]}};' class="rectangle-3027-l6cqYc"id= 'panel1check' onclick= "toggleMaster('{{categoriesdf.iloc[3][0]}}'); checkIf0();" checked/><label for = 'panel2check'></label>
+            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[3][0]}}</div>
+            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = '{{categoriesdf.iloc[3][4]}}'></div>
+        </div>
+
+        <div class="rectangle-2974-l6cqYc">
+            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[4][2]}};' class="rectangle-3028-l6cqYc"id= 'panel1check' onclick= "toggleMaster('{{categoriesdf.iloc[4][0]}}'); checkIf0(); " checked/><label for = 'panel1check'></label>
+            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[4][0]}}</div>
+            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = '{{categoriesdf.iloc[4][4]}}'></div>
+        </div>
+
+        <div class="rectangle-2974-l6cqYc">
+            <input type= 'checkbox' style = 'background-color: {{categoriesdf.iloc[5][2]}};' class="rectangle-3029-l6cqYc"id= 'panel1check' onclick= "toggleMaster('{{categoriesdf.iloc[5][0]}}'); checkIf0();" checked/><label for = 'panel1check'></label>
+            <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[5][0]}}</div>
+            <div class="x12-l6cqYc avertacy-bold-sapphire-12px" id = '{{categoriesdf.iloc[5][4]}}'></div>
+        </div>
+    </div>
+            <div class = 'switch-block'>
+                <div class = 'switch-header'>Inventory</div>
+                <div class = 'graph-box'>
+                    <div class = 'small-donut-chart' id = 'chart11'></div>
+                        {% for i in range (0, numpanels) %}
+                        <div class = 'small-category-rectangle'>
+                            <div class = 'category-dot' style = 'background-color: {{colours[i]}};'></div>
+                            <div class = 'category-name'>{{paneltotals.iloc[i][0]}}</div>
+                            <div class = 'category-percent'>{{paneltotals.iloc[i][2]}}%</div>
+                        </div>
+                        {% endfor %}
+                </div>
+                <div class = 'switch-image-block' onclick= 'openPanelSidebar()'><img class = 'switch-image' src = "{{url_for('static',filename='img/switch-image.png')}}"/></div>
+            </div>
+
+                <div class = 'switch-block'>
+                <div class = 'switch-header'>Inventory</div>
+                <div class = 'graph-box'>
+                    <div class = 'small-donut-chart' id = 'chart12'></div>
+                        {% for i in range (0, 3) %}
+                        <div class = 'small-category-rectangle'>
+                            <div class = 'category-dot' style = 'background-color: {{timeloads.iloc[i][2]}};'></div>
+                            <div class = 'category-name'>{{timeloads.iloc[i][0]}}</div>
+                            <div class = 'category-percent'>{{timeloads.iloc[i][1]}}%</div>
+                        </div>
+                        {% endfor %}
+                </div>
+                <div class = 'switch-image-block' onclick= 'openTimeSidebar()'><img class = 'switch-image' src = "{{url_for('static',filename='img/switch-image.png')}}"/></div>
+            </div>
+            </div>
+        </div>
+                    <div class = "rightpanel" id = righttimeloads>
+                <div class = 'rightsidetitle'>Time Loads</div>
+                <div id="Panel" class="tabcontent">
+                <div class="energy-breakdown-l6cqYc">
+                <div id="chart13"></div>
+                </div>
+                <div class="x100-l6cqYc" id = 'percent3'></div>
+                <div class="rectangle-2973-l6cqYc">
+                <div class="rectangle-152-l6cqYc"></div>
+                <div class="electrical-panels-l6cqYc2 avertacy-bold-sapphire-15px">Electrical Panels</div>
+
+                {% for i in range(0, 3) %}
+
+                <div class="rectangle-23402-l6cqYc">
+                <div class="panel-a2-l6cqYc avertacy-bold-sapphire-12px">{{timeloads.iloc[i][0]}}</div>
+                <div class="x43-l6cqYc avertacy-bold-sapphire-12px"></div>
+                <input type= 'checkbox' class="rectangle-30242-l6cqYc"style = "background-color: {{timeloads.iloc[i][2]}};" id = 'panel1check'checked/><label for = 'panel1check'></label>
+                <div class="info"><img class="info-image" src="{{url_for('static',filename='img/infoimage1.png')}}"/></div></div>
+                <div class = 'panelpercent avertacy-bold-sapphire-12px'>{{timeloads.iloc[i][1]}}%</div>
+
+                {% endfor %}
+            </div>
+            <div class = 'switch-block'>
+                <div class = 'switch-header'>Inventory</div>
+                <div class = 'graph-box'>
+                    <div class = 'small-donut-chart' id = 'chart14'></div>
+                        {% for i in range (0, 3) %}
+                        <div class = 'small-category-rectangle'>
+                            <div class = 'category-dot' style = 'background-color: {{categoriesdf.iloc[i][2]}};'></div>
+                            <div class = 'category-name'>{{categoriesdf.iloc[i][0]}}</div>
+                            <div class = 'category-percent'>{{categoriesdf.iloc[i][5]}}%</div>
+                        </div>
+                        {% endfor %}
+                </div>
+                <div class = 'switch-image-block' onclick= 'openCategorySidebar()'><img class = 'switch-image' src = "{{url_for('static',filename='img/switch-image.png')}}"/></div>
+            </div>
+
+                <div class = 'switch-block'>
+                <div class = 'switch-header'>Inventory</div>
+                <div class = 'graph-box'>
+                    <div class = 'small-donut-chart' id = 'chart15'></div>
+                        {% for i in range (0, numpanels) %}
+                        <div class = 'small-category-rectangle'>
+                            <div class = 'category-dot' style = 'background-color: {{colours[i]}};'></div>
+                            <div class = 'category-name'>{{paneltotals.iloc[i][0]}}</div>
+                            <div class = 'category-percent'>{{paneltotals.iloc[i][2]}}%</div>
+                        </div>
+                        {% endfor %}
+                </div>
+                <div class = 'switch-image-block' onclick= 'openPanelSidebar()'><img class = 'switch-image' src = "{{url_for('static',filename='img/switch-image.png')}}"/></div>
+            </div>
+            </div>
+        </div>
                 <div class = 'rightsidetitle'>Load Filters</div>
                 <div class = 'load-block'>
                     <div class = 'load-header'>Inventory</div>
@@ -59,9 +244,9 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        <div class = 'explore-block'>
-                            <div class = 'explore-text'>Explore</div>
-                            <div class = 'load-arrow'> <img class = 'load-arrow-image' src = "{{url_for('static',filename='img/load-arrow.png')}}"/></div>
+                        <div class = 'explore-block' onclick= 'openCategorySidebar()'>
+                            <div class = 'explore-text' onclick= 'openCategorySidebar()'>Explore</div>
+                            <div class = 'load-arrow' onclick= 'openCategorySidebar()'> <img class = 'load-arrow-image' src = "{{url_for('static',filename='img/load-arrow.png')}}"/></div>
                         </div>
                     </div>
                 </div>
@@ -81,9 +266,9 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        <div class = 'explore-block'>
-                            <div class = 'explore-text'>Explore</div>
-                            <div class = 'load-arrow'> <img class = 'load-arrow-image' src = "{{url_for('static',filename='img/load-arrow.png')}}"/></div>
+                        <div class = 'explore-block' onclick= 'openPanelSidebar()'>
+                            <div class = 'explore-text' onclick= 'openPanelSidebar()'>Explore</div>
+                            <div class = 'load-arrow' onclick= 'openPanelSidebar()'> <img class = 'load-arrow-image' src = "{{url_for('static',filename='img/load-arrow.png')}}"/></div>
                         </div>
                     </div>
                 </div>
@@ -103,9 +288,9 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        <div class = 'explore-block'>
-                            <div class = 'explore-text'>Explore</div>
-                            <div class = 'load-arrow'> <img class = 'load-arrow-image' src = "{{url_for('static',filename='img/load-arrow.png')}}"/></div>
+                        <div class = 'explore-block' onclick= 'openTimeSidebar()'>
+                            <div class = 'explore-text' onclick= 'openTimeSidebar()'>Explore</div>
+                            <div class = 'load-arrow' onclick= 'openTimeSidebar()'> <img class = 'load-arrow-image' src = "{{url_for('static',filename='img/load-arrow.png')}}"/></div>
                         </div>
                     </div>
                 </div>
@@ -122,10 +307,9 @@
             <div class = 'circuit-content'>
                 <div class = 'past-use'>Past-Use</div>
                     <div class = 'total-block'>    
-                    <div class = 'total-box' style = 'margin-right: 20px;'><span style = 'font-size: 20px;'>$</span>{{totalprice|int}}<span class = 'decimal-span' style = 'font-size: 10px;'>.{{(totalprice|string).split('.')[1]|truncate(2, true, '', 0)}}</span><div class = total-box-line>Costs</div></div>
+                    <div class = 'total-box' style = 'margin-right: 20px;'><span style = 'font-size: 20px;'>$</span><span id = 'cost-whole'></span><span class = 'decimal-span' style = 'font-size: 10px;' id = 'cost-decimal'></span><div class = total-box-line>Costs</div></div>
 
-                    <div class = 'total-box'style = 'margin-right: 20px;'>{{(total/1000)|int}}<span class = 'decimal-span' style = 'font-size: 9px; width: 5px;'>.{{((total/1000)|string).split('.')[1]|truncate(2, true, '', 0)}}</span><span class = 'kwh-total'>kWh</span><div class = total-box-line>Usage</div></div>
-
+                    <div class = 'total-box'style = 'margin-right: 20px;'><span id = 'circuit-whole'></span><span class = 'decimal-span' id = 'circuit-decimal' style = 'font-size: 9px; width: 5px;'></span><span class = 'kwh-total'>kWh</span><div class = total-box-line>Usage</div></div>
                     <div class = 'total-box'>6<span class = 'decimal-span' style = 'font-size: 9px; width: 5px;'>.09</span><span class = 'kwh-total'>kg/CO2</span><div class = total-box-line>Emmisions</div></div>
                 </div>
                 <div class = 'circuit-graph' id = 'chart5'></div>
@@ -361,6 +545,89 @@
                             };
                             var chart = new ApexCharts(document.querySelector("#chart"), options);
                             chart.render();
+
+</script>
+  <script >var options = {
+                              labels: ["Lighting", "Equipment", "HVAC", "Plug Load", "Hot Water", "Other"],
+                              series: [{{lighttotal}},{{equipmenttotal}},{{hvactotal}},{{plugtotal}},{{watertotal}},{{othertotal}} ],
+                              chart: {
+                              width: 200,
+                              height: 200,
+                              type: 'donut',
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            legend: {
+                                position: 'bottom',
+                                show:false
+                            },
+
+                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3'],
+
+                            responsive: [{
+                              breakpoint: 480,
+                              options: {
+                              }
+                            }]
+                            };
+                            var chart10 = new ApexCharts(document.querySelector("#chart10"), options);
+                            chart10.render();
+                            
+</script>
+  <script >var options = {
+                              labels: ["Lighting", "Equipment", "HVAC", "Plug Load", "Hot Water", "Other"],
+                              series: [{{lighttotal}},{{equipmenttotal}},{{hvactotal}},{{plugtotal}},{{watertotal}},{{othertotal}} ],
+                              chart: {
+                              width: 100,
+                              height: 100,
+                              type: 'donut',
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            legend: {
+                                position: 'bottom',
+                                show:false
+                            },
+
+                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3'],
+
+                            responsive: [{
+                              breakpoint: 480,
+                              options: {
+                              }
+                            }]
+                            };
+                            var chart7 = new ApexCharts(document.querySelector("#chart7"), options);
+                            chart7.render();
+</script>
+  <script >var options = {
+                              labels: ["Lighting", "Equipment", "HVAC", "Plug Load", "Hot Water", "Other"],
+                              series: [{{lighttotal}},{{equipmenttotal}},{{hvactotal}},{{plugtotal}},{{watertotal}},{{othertotal}} ],
+                              chart: {
+                              width: 100,
+                              height: 100,
+                              type: 'donut',
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            legend: {
+                                position: 'bottom',
+                                show:false
+                            },
+
+                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3'],
+
+                            responsive: [{
+                              breakpoint: 480,
+                              options: {
+                              }
+                            }]
+                            };
+                            var chart14 = new ApexCharts(document.querySelector("#chart14"), options);
+                            chart14.render();
 </script>
   <script >
     var paneltotals = {{panelchart | tojson}};
@@ -394,6 +661,96 @@
                             var chart3 = new ApexCharts(document.querySelector("#chart3"), options);
                             chart3.render();
 </script>
+  <script >
+    var paneltotals = {{panelchart | tojson}};
+    var panelnames = {{panelnames | tojson}};
+    var options = {
+                              labels: panelnames,
+                              series: paneltotals,
+                              chart: {
+                              width: 200,
+                              height: 200,
+                              type: 'donut',
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            legend: {
+                                position: 'bottom',
+                                show:false
+                            },
+
+                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3'],
+
+                            responsive: [{
+                              breakpoint: 480,
+                              options: {
+                              }
+                            }]
+                            };
+                            var chart6 = new ApexCharts(document.querySelector("#chart6"), options);
+                            chart6.render();
+</script>
+  <script >
+    var paneltotals = {{panelchart | tojson}};
+    var panelnames = {{panelnames | tojson}};
+    var options = {
+                              labels: panelnames,
+                              series: paneltotals,
+                              chart: {
+                              width: 100,
+                              height: 100,
+                              type: 'donut',
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            legend: {
+                                position: 'bottom',
+                                show:false
+                            },
+
+                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3'],
+
+                            responsive: [{
+                              breakpoint: 480,
+                              options: {
+                              }
+                            }]
+                            };
+                            var chart11 = new ApexCharts(document.querySelector("#chart11"), options);
+                            chart11.render();
+</script>
+  <script >
+    var paneltotals = {{panelchart | tojson}};
+    var panelnames = {{panelnames | tojson}};
+    var options = {
+                              labels: panelnames,
+                              series: paneltotals,
+                              chart: {
+                              width: 100,
+                              height: 100,
+                              type: 'donut',
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            legend: {
+                                position: 'bottom',
+                                show:false
+                            },
+
+                            colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3'],
+
+                            responsive: [{
+                              breakpoint: 480,
+                              options: {
+                              }
+                            }]
+                            };
+                            var chart15 = new ApexCharts(document.querySelector("#chart15"), options);
+                            chart15.render();
+</script>
   <script >var options = {
                               labels: ['On-Hours','Off-Hours','Always-On'],
                               series: [33,14,11],
@@ -422,6 +779,87 @@
                             };
                             var chart4 = new ApexCharts(document.querySelector("#chart4"), options);
                             chart4.render();
+</script>
+  <script >var options = {
+                              labels: ['On-Hours','Off-Hours','Always-On'],
+                              series: [33,14,11],
+                              chart: {
+                              width: 200,
+                              width: 200,
+                              type: 'donut',
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            legend: {
+                                position: 'bottom',
+                                show:false
+                            },
+
+                            colors:['#22B14C','#EE8F37','#7F7F7F'],
+
+                            responsive: [{
+                              breakpoint: 480,
+                              options: {
+                              }
+                            }]
+                            };
+                            var chart13 = new ApexCharts(document.querySelector("#chart13"), options);
+                            chart13.render();
+</script>
+  <script >var options = {
+                              labels: ['On-Hours','Off-Hours','Always-On'],
+                              series: [33,14,11],
+                              chart: {
+                              width: 100,
+                              height: 100,
+                              type: 'donut',
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            legend: {
+                                position: 'bottom',
+                                show:false
+                            },
+
+                            colors:['#22B14C','#EE8F37','#7F7F7F'],
+
+                            responsive: [{
+                              breakpoint: 480,
+                              options: {
+                              }
+                            }]
+                            };
+                            var chart8 = new ApexCharts(document.querySelector("#chart8"), options);
+                            chart8.render();
+</script>
+  <script >var options = {
+                              labels: ['On-Hours','Off-Hours','Always-On'],
+                              series: [33,14,11],
+                              chart: {
+                              width: 100,
+                              height: 100,
+                              type: 'donut',
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            legend: {
+                                position: 'bottom',
+                                show:false
+                            },
+
+                            colors:['#22B14C','#EE8F37','#7F7F7F'],
+
+                            responsive: [{
+                              breakpoint: 480,
+                              options: {
+                              }
+                            }]
+                            };
+                            var chart12 = new ApexCharts(document.querySelector("#chart12"), options);
+                            chart12.render();
 </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
     if ( $('#today2')[0].type != 'date' ) $('#today2').datepicker();
@@ -499,6 +937,7 @@ function showSlides(n) {
     var newtotalprice = 0;
     var newpercent = 0;
     var colors = ['{{colours[0]}}','{{colours[1]}}','{{colours[2]}}','{{colours[3]}}','{{colours[4]}}','{{colours[5]}}'];
+    var colors2 = ['{{colours[0]}}','{{colours[1]}}','{{colours[2]}}','{{colours[3]}}','{{colours[4]}}','{{colours[5]}}'];
     function toggleLighting() {
   var x = document.getElementsByClassName("lighting");
   var i;
@@ -808,17 +1247,32 @@ function resetVariables(){
     function createChart(name, number){
         var data = {{schedule | tojson}};
         var string = data[number];
-        string = string.replace('[', '')
-        string = string.replace(']', '')
+        string = string.replaceAll('[', '')
+        string = string.replaceAll(']', '')
         var datalist = string.split(",");
         chart5.updateSeries([{ 
             name: name,
             data: datalist,
         } 
         ]); 
+        
+                var sum = 0;
+        for(var i = 0; i < datalist.length; i++){
+            console.log(datalist[i]);
+            sum += (parseFloat(datalist[i]) / 1000);
+        }
+        sum = Math.round(sum * 100) / 100;
+        cost = sum * 0.09;
+        cost = Math.round(cost * 100) / 100;
+        sumSplit = String(sum).split('.')
+        costSplit = String(cost).split('.')
         document.getElementById('circuit-block').style.width = '744px';
         document.getElementById("circuit-title").innerHTML = name;
         document.getElementById('circuit-block').style.border = 'border: 2px solid #E3E7ED';
+        document.getElementById('circuit-whole').textContent = sumSplit[0];
+        document.getElementById('circuit-decimal').textContent = '.' + sumSplit[1];
+        document.getElementById('cost-whole').textContent = costSplit[0];
+        document.getElementById('cost-decimal').textContent = '.' + costSplit[1];
     }
 
     function toggleMaster(category){
@@ -851,15 +1305,15 @@ function closeCircuitBlock(){
     var data = {{schedule | tojson}};
     var totalset = [];
     var string = data[0];
-    string = string.replace('[', '');
-    string = string.replace(']', '');
+    string = string.replaceAll('[', '');
+    string = string.replaceAll(']', '');
     var datalist = string.split(",");
     totalset.length = datalist.length;
     totalset.fill(0);
     for(let i = 0; i < datalist.length; i++){
         var string = data[i];
-        string = string.replace('[', '');
-        string = string.replace(']', '');
+        string = string.replaceAll('[', '');
+        string = string.replaceAll(']', '');
         var datalist = string.split(",");
         console.log(datalist.length);
         for(let k = 0; k < datalist.length; k++){
@@ -1085,5 +1539,63 @@ else{
           document.getElementById('graph-buttons-block').style.left = '750px';
   }
 }
+}
+function togglePanel(panelname, num) {
+  var x = document.getElementsByClassName(panelname);
+  var paneltotal = {{paneltotal | tojson}};
+  var panelpercent = {{panelpercent | tojson}};
+  var i;
+  for (i = 0; i < x.length; i++) {
+    if (x[i].style.display === "none") {
+    x[i].style.display = "block";
+  } else {
+    x[i].style.display = "none";
+  }
+}
+  if (x[0].style.display === "none") {
+    newtotal = (newtotal - Math.abs(paneltotal[num]));
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toFixed(2) + 'w';
+    newtotalprice = (newtotalprice - {{lightprice}});
+    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toFixed(2) + '/hr';
+    newpercent = (newpercent - Math.abs(panelpercent[num]));
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    // document.getElementById("percent2").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
+    // document.getElementById("percent4").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
+    colors2[num] = '#FFFFFF';
+    chart6.updateOptions({
+  colors: [colors2[0],colors2[1],colors2[2],colors2[3],colors2[4],colors2[5]]
+})
+  } else {
+    newtotal = (newtotal - Math.abs(paneltotal[num]));
+    document.getElementById("total").innerHTML = Math.abs(newtotal).toFixed(2) + 'w';
+    newtotalprice = (newtotalprice + Math.abs({{lightprice}}));
+    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toFixed(2) + '/hr';
+    newpercent = (newpercent + Math.abs(panelpercent[num]));
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    // document.getElementById("percent2").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
+    document.getElementById("percent3").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
+    // document.getElementById("percent4").innerHTML = Math.abs(newpercent).toFixed(2) + "<span style = 'font-size: 12px;'>%</span>";
+    colors2[num] = colors[num];
+        chart6.updateOptions({
+  colors: [colors2[0],colors2[1],colors2[2],colors2[3],colors2[4],colors2[5]]
+})
+  }
+}
+function openPanelSidebar(){
+    document.getElementById('rightpanel').style.width = '400px';
+    document.getElementById('rightcategory').style.width = '0px';
+    document.getElementById('righttimeloads').style.width = '0px';
+}
+function openCategorySidebar(){
+    document.getElementById('rightcategory').style.width = '400px';
+    document.getElementById('rightpanel').style.width = '0px';
+    document.getElementById('righttimeloads').style.width = '0px';
+}
+function openTimeSidebar(){
+    document.getElementById('rightcategory').style.width = '0px';
+    document.getElementById('rightpanel').style.width = '0px';
+    document.getElementById('righttimeloads').style.width = '400px';
+
 }
 </script></html>
