@@ -42,6 +42,7 @@
                 <img class = 'retractbutton'  onclick = "retract()" src = "{{url_for('static',filename='img/retractbuttonbackground.png')}}"/><img class = 'retractbuttonarrowright' id = 'rightarrow'  onclick = "retract()" src = "{{url_for('static',filename='img/retractbuttonarrow.png')}}"/>
             </div>
             <div class = "rightabsolute">
+
             <div class = "rightpanel" id = rightpanel>
                 <div class = 'rightsidetitle'>Panels</div>
                 <div id="Panel" class="tabcontent">
@@ -328,7 +329,7 @@
         <div class = 'total-box' id = 'total-box3'>6<span class = 'decimal-span' style = 'font-size: 9px; width: 5px;'>.09</span><span class = 'kwh-total'>kg/CO2</span><div class = total-box-line>Emmisions</div></div>
     </div>
 
-        <div class = "graph-background" id ='graph-background'><img class = 'graph-background-image' src ="{{url_for('static',filename='img/graph-background-image-week.PNG')}}"/> </div>
+        <div class = "graph-background" id ='graph-background'> </div>
 
         <div class = 'calendar-block' id = 'calendar-block'>
         <a href = "{{url_for('commercial.historicalusageweek')}}"><div class="week-L7BXHD avertacy-bold-sapphire-13px" style = "color: white;">Week</div></a>
@@ -375,8 +376,9 @@
                             <div id="chart2"></div>
                         </div>
                           <script>
+                            chart_colors = {{chart_colours | tojson}};
                             var options = {
-                                  colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
+                                  colors:['#0D1758'],
                                   series: [
                                   {
                                     name: "Panel A",
@@ -394,6 +396,17 @@
                                     show: false,
                                   },
                                 },
+                                plotOptions:{
+                                    bar:{
+                                        columnWidth: '120%',
+                                        distributed: true,
+                                        colors: {
+                                          backgroundBarColors: chart_colors,
+                                          backgroundBarOpacity: 1,
+                                          backgroundBarRadius: 0,
+                                      },
+                                    },
+                                },
                                 dataLabels: {
                                   enabled: false
                                 },
@@ -404,12 +417,23 @@
                                   curve: 'smooth'
                                 },
                                 grid: {
-                                  show: false,
-                                  row: {
-                                    colors: ['transparent', 'transparent'], // takes an array which will be repeated on columns
-                                    opacity: 0.5
-                                  },
-                                },
+                                    show: true,
+                                    borderColor: 'black',
+                                    position: 'back',
+                                    column:{
+                                        colors: chart_colors,
+                                    },
+                                    xaxis: {
+                                        lines: {
+                                            show: false
+                                        }
+                                    },   
+                                    yaxis: {
+                                        lines: {
+                                            show: false
+                                        }
+                                    },
+                                                                },
                                 xaxis: {
                                   labels:{
                                     show: false
@@ -424,7 +448,7 @@
                                 yaxis:{
                                   labels:{
                                   style:{
-                                      colors: 'DarkBlue',
+                                      colors: '#AFB8CC',
                                       fontFamily: " Helvetica, Averta CY-Bold",
                                       fontSize: '10px',
                                       fontWeight: 700,

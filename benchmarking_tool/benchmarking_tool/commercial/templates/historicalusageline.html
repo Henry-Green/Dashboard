@@ -310,6 +310,7 @@
                     <div class = 'total-box' style = 'margin-right: 20px;'><span style = 'font-size: 20px;'>$</span><span id = 'cost-whole'></span><span class = 'decimal-span' style = 'font-size: 10px;' id = 'cost-decimal'></span><div class = total-box-line>Costs</div></div>
 
                     <div class = 'total-box'style = 'margin-right: 20px;'><span id = 'circuit-whole'></span><span class = 'decimal-span' id = 'circuit-decimal' style = 'font-size: 9px; width: 5px;'></span><span class = 'kwh-total'>kWh</span><div class = total-box-line>Usage</div></div>
+
                     <div class = 'total-box'>6<span class = 'decimal-span' style = 'font-size: 9px; width: 5px;'>.09</span><span class = 'kwh-total'>kg/CO2</span><div class = total-box-line>Emmisions</div></div>
                 </div>
                 <div class = 'circuit-graph' id = 'chart5'></div>
@@ -327,7 +328,7 @@
         <div class = 'total-box' id = 'total-box3'>6<span class = 'decimal-span' style = 'font-size: 9px; width: 5px;'>.09</span><span class = 'kwh-total'>kg/CO2</span><div class = total-box-line>Emmisions</div></div>
     </div>
 
-        <div class = "graph-background" id ='graph-background'><img class = 'graph-background-image' src ="{{url_for('static',filename='img/graph-background-image.PNG')}}"/> </div>
+        <div class = "graph-background" id ='graph-background'> </div>
 
         <div class = 'calendar-block' id = 'calendar-block'>
         <a href = "{{url_for('commercial.historicalusageweek')}}"><div class="week-L7BXHD avertacy-bold-sapphire-13px">Week</div></a>
@@ -374,6 +375,7 @@
                             <div id="chart2"></div>
                         </div>
                           <script>
+                            chart_colors = {{chart_colours | tojson}};
                             var options = {
                                   colors:['#0D1758'],
                                   series: [
@@ -393,6 +395,17 @@
                                     show: false,
                                   },
                                 },
+                                plotOptions:{
+                                    bar:{
+                                        columnWidth: '120%',
+                                        distributed: true,
+                                        colors: {
+                                          backgroundBarColors: chart_colors,
+                                          backgroundBarOpacity: 1,
+                                          backgroundBarRadius: 0,
+                                      },
+                                    },
+                                },
                                 dataLabels: {
                                   enabled: false
                                 },
@@ -403,11 +416,23 @@
                                   curve: 'smooth'
                                 },
                                 grid: {
-                                  row: {
-                                    colors: ['transparent', 'transparent'], // takes an array which will be repeated on columns
-                                    opacity: 0.5
-                                  },
-                                },
+                                    show: true,
+                                    borderColor: 'black',
+                                    position: 'back',
+                                    column:{
+                                        colors: chart_colors,
+                                    },
+                                    xaxis: {
+                                        lines: {
+                                            show: false
+                                        }
+                                    },   
+                                    yaxis: {
+                                        lines: {
+                                            show: false
+                                        }
+                                    },
+                                                                },
                                 xaxis: {
                                   labels:{
                                     show: false
@@ -439,6 +464,7 @@
                                 chart2.render();
                         </script>
                           <script>
+
                             var options = {
                                   colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
                                   series: [
@@ -469,7 +495,7 @@
                                 },
                                 grid: {
                                   row: {
-                                    colors: ['transparent', 'transparent'], // takes an array which will be repeated on columns
+                                    colors: [transparent, transparent], // takes an array which will be repeated on columns
                                     opacity: 0.5
                                   },
                                 },
@@ -1255,8 +1281,7 @@ function resetVariables(){
             data: datalist,
         } 
         ]); 
-        
-                var sum = 0;
+        var sum = 0;
         for(var i = 0; i < datalist.length; i++){
             console.log(datalist[i]);
             sum += (parseFloat(datalist[i]) / 1000);
