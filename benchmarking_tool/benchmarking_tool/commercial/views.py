@@ -721,6 +721,10 @@ def historicalusage():
     paneltotal = []
     panelpercent = []
     scheduledata = []
+    day = datetime.datetime.now().day
+    cal_month = datetime.datetime.now().month
+    year = datetime.datetime.now().year
+    building_id = 12
     if(current_user.is_authenticated and current_user.is_admin()):
         mydb = mysql.connector.connect(
           host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
@@ -736,15 +740,17 @@ def historicalusage():
         mycursor = mydb.cursor()
         if request.method == "POST":
             userdate = request.form['date'] + '%'
+            cal_month = userdate[5] + userdate[6]
+            day = userdate[8] + day[9]
 
         number = serial_list[0]
         sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"    
         mycursor.execute(sql, (userdate, number))
         myresult = mycursor.fetchall()
         for x in myresult:
-            str = ','.join(x)
+            tempstring = ','.join(x)
 
-        stringlist = str.split(',')
+        stringlist = tempstring.split(',')
         channel_names = stringlist[::2]
         usage = stringlist[1::2]
         historicalusage = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
@@ -755,7 +761,7 @@ def historicalusage():
         totalprice = (total * 0.09)/1000
 
         if len(serial_list) > 1:
-            str = ''
+            tempstring = ''
             stringlist = []
             for i in range (1, len(serial_list)):
                 number = serial_list[i]
@@ -764,9 +770,9 @@ def historicalusage():
                 mycursor.execute(sql, (userdate, number))
                 myresult = mycursor.fetchall()
                 for x in myresult:
-                    str = ','.join(x)
+                    tempstring = ','.join(x)
 
-                stringlist = str.split(',')
+                stringlist = tempstring.split(',')
                 channel_names = stringlist[::2]
                 usage = stringlist[1::2]
                 historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
@@ -893,7 +899,19 @@ def historicalusage():
         timeloads = pd.DataFrame(data = timeloads)
         paneltotal = paneltotals['Total'].to_list()
         panelpercent = paneltotals['Percent'].to_list()
-        return render_template('historicalusage.html',timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
+        chart_colours = ['#E6E9EF'] * 24
+        cal_db = calendar_pull(building_id,year, cal_month)
+        hours = cal_db[int(day) - 1]
+        starthours = hours['start_hours']
+        endhours = hours['end_hours']
+        starthours = str(starthours).split(':')
+        starthours = starthours[0]
+        endhours = str(endhours).split(':')
+        endhours = endhours[0]
+
+        for i in range(int(starthours), int(endhours)):
+            chart_colours[i] = '#FFFFFF'
+        return render_template('historicalusage.html',chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
     else:
         abort(403)
 
@@ -903,6 +921,10 @@ def historicalusageline():
     paneltotal = []
     panelpercent = []
     scheduledata = []
+    day = datetime.datetime.now().day
+    cal_month = datetime.datetime.now().month
+    year = datetime.datetime.now().year
+    building_id = 12
     if(current_user.is_authenticated and current_user.is_admin()):
         mydb = mysql.connector.connect(
           host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
@@ -918,15 +940,17 @@ def historicalusageline():
         mycursor = mydb.cursor()
         if request.method == "POST":
             userdate = request.form['date'] + '%'
+            cal_month = userdate[5] + userdate[6]
+            day = userdate[8] + day[9]
 
         number = serial_list[0]
         sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"    
         mycursor.execute(sql, (userdate, number))
         myresult = mycursor.fetchall()
         for x in myresult:
-            str = ','.join(x)
+            tempstring = ','.join(x)
 
-        stringlist = str.split(',')
+        stringlist = tempstring.split(',')
         channel_names = stringlist[::2]
         usage = stringlist[1::2]
         historicalusage = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
@@ -937,7 +961,7 @@ def historicalusageline():
         totalprice = (total * 0.09)/1000
 
         if len(serial_list) > 1:
-            str = ''
+            tempstring = ''
             stringlist = []
             for i in range (1, len(serial_list)):
                 number = serial_list[i]
@@ -946,9 +970,9 @@ def historicalusageline():
                 mycursor.execute(sql, (userdate, number))
                 myresult = mycursor.fetchall()
                 for x in myresult:
-                    str = ','.join(x)
+                    tempstring = ','.join(x)
 
-                stringlist = str.split(',')
+                stringlist = tempstring.split(',')
                 channel_names = stringlist[::2]
                 usage = stringlist[1::2]
                 historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
@@ -1000,7 +1024,6 @@ def historicalusageline():
         plugtotal = 0
         othertotal = 0
         historicalusage = historicalusage[['Channel Names', 'Usage', 'Schedule', 'Category','Panel']]
-        print(historicalusage)
         categorytotals = historicalusage.copy()
         for i in range(0,len(categorytotals.index)):
             
@@ -1063,7 +1086,6 @@ def historicalusageline():
         paneltotals['Panel Name'] = panelnames
         paneltotals['Percent'] = paneltotals['Percent'].round(2)
         panelchart = paneltotals['Total'].to_list()
-        print(paneltotals)
 
         categoriesdf = {'Name':['Lighting','Hot Water','HVAC','Equipment','Plug Load','Other'],'Totals':[lighttotal,watertotal,hvactotal,equipmenttotal,plugtotal,othertotal], 'Colors':['#3649A8','#A6D06D','#EE5937','#3BCDEE','#EE8F37','#DBE2F3'], 'Prices':[lightprice,waterprice,hvacprice,equipmentprice,plugprice,otherprice], 'Charts':['chartLight','chartWater','chartHVAC','chartEquipment','chartPlug','chartOther'], 'Percent':[lightpercent,waterpercent,hvacpercent,equipmentpercent,plugpercent,otherpercent]}
         categoriesdf = pd.DataFrame(data=categoriesdf)
@@ -1077,7 +1099,19 @@ def historicalusageline():
         timeloads = pd.DataFrame(data = timeloads)
         paneltotal = paneltotals['Total'].to_list()
         panelpercent = paneltotals['Percent'].to_list()
-        return render_template('historicalusageline.html',timeloads = timeloads,panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
+        chart_colours = ['#E6E9EF'] * 24
+        cal_db = calendar_pull(building_id,year, cal_month)
+        hours = cal_db[int(day) - 1]
+        starthours = hours['start_hours']
+        endhours = hours['end_hours']
+        starthours = str(starthours).split(':')
+        starthours = starthours[0]
+        endhours = str(endhours).split(':')
+        endhours = endhours[0]
+
+        for i in range(int(starthours), int(endhours)):
+            chart_colours[i] = '#FFFFFF'
+        return render_template('historicalusageline.html',chart_colours = chart_colours,timeloads = timeloads,panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
     else:
         abort(403)
 @commercial.route('/historicalusagebubble', methods=['GET', 'POST'])
@@ -1117,6 +1151,10 @@ def historicalusageweek():
     scheduledata3 = []
     paneltotal = []
     panelpercent = []
+    week = '2021-W42'
+    cal_month = datetime.datetime.now().month
+    year = datetime.datetime.now().year
+    building_id = 12
     if(current_user.is_authenticated and current_user.is_admin()):
         mydb = mysql.connector.connect(
           host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
@@ -1139,6 +1177,7 @@ def historicalusageweek():
         if request.method == "POST":
             scheduledata = []
             weekdate = request.form['date']
+            week = weekdate
             dayoftheweek = datetime.datetime.strptime(weekdate + '-1', "%Y-W%W-%w")
             userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
         number = serial_list[0]
@@ -1147,9 +1186,9 @@ def historicalusageweek():
         mycursor.execute(sql, (userdate, number))
         myresult = mycursor.fetchall()
         for x in myresult:
-            str = ','.join(x)
+            tempstring = ','.join(x)
 
-        stringlist = str.split(',')
+        stringlist = tempstring.split(',')
         channel_names = stringlist[::2]
         usage = stringlist[1::2]
         historicalusage = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
@@ -1166,7 +1205,7 @@ def historicalusageweek():
         scheduledata.extend(string.split("'"))
 
         for i in range(0,6):
-            str = ''
+            tempstring = ''
             stringlist = []
             usage = []
             dayoftheweek = (dayoftheweek + timedelta(days = 1))
@@ -1176,9 +1215,9 @@ def historicalusageweek():
             mycursor.execute(sql, (userdate, number))
             myresult = mycursor.fetchall()
             for x in myresult:
-                str = ','.join(x)
+                tempstring = ','.join(x)
 
-            stringlist = str.split(',')
+            stringlist = tempstring.split(',')
             channel_names = stringlist[::2]
             usage = stringlist[1::2]
             historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
@@ -1200,7 +1239,7 @@ def historicalusageweek():
             scheduledata = [a + b for a, b in zip(scheduledata, scheduledata2)]
         historicalusage['Panel'] = 'Panel 1-A'
         if len(serial_list) > 1:
-            str = ''
+            tempstring = ''
             stringlist = []
             for i in range (1, len(serial_list)):
                 dayoftheweek = datetime.datetime.strptime(weekdate + '-1', "%Y-W%W-%w")
@@ -1211,9 +1250,9 @@ def historicalusageweek():
                 mycursor.execute(sql, (userdate, number))
                 myresult = mycursor.fetchall()
                 for x in myresult:
-                    str = ','.join(x)
+                    tempstring = ','.join(x)
 
-                stringlist = str.split(',')
+                stringlist = tempstring.split(',')
                 channel_names = stringlist[::2]
                 usage = stringlist[1::2]
                 historicalusage3 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
@@ -1232,7 +1271,7 @@ def historicalusageweek():
                 scheduledata3.extend(string.split("'"))
 
                 for i in range(0,6):
-                    str = ''
+                    tempstring = ''
                     stringlist = []
                     usage = []
                     dayoftheweek = (dayoftheweek + timedelta(days = 1))
@@ -1242,9 +1281,9 @@ def historicalusageweek():
                     mycursor.execute(sql, (userdate, number))
                     myresult = mycursor.fetchall()
                     for x in myresult:
-                        str = ','.join(x)
+                        tempstring = ','.join(x)
 
-                    stringlist = str.split(',')
+                    stringlist = tempstring.split(',')
                     channel_names = stringlist[::2]
                     usage = stringlist[1::2]
                     historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
@@ -1373,7 +1412,25 @@ def historicalusageweek():
         timeloads = pd.DataFrame(data = timeloads)
         paneltotal = paneltotals['Total'].to_list()
         panelpercent = paneltotals['Percent'].to_list()
-        return render_template('historicalusageweek.html',timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule =  schedule,paneltotal = paneltotal, panelpercent = panelpercent, numpanels = numpanels, categoriesdf = categoriesdf, panelnames = panelnames, weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
+
+        chart_colours = ['#E6E9EF'] * 168
+        cal_db = calendar_pull(building_id,year, cal_month)
+        day = datetime.datetime.strptime(week + '-1', "%Y-W%W-%w")
+        for i in range(0, 7):
+            justday = str(day)[8] + str(day)[9]            
+            hours = cal_db[int(justday) - 1]
+            starthours = hours['start_hours']
+            endhours = hours['end_hours']
+            starthours = str(starthours).split(':')
+            starthours = starthours[0]
+            endhours = str(endhours).split(':')
+            endhours = endhours[0]
+            if starthours != 'None':
+                print('pass')
+                for j in range(int(starthours), int(endhours)):
+                    chart_colours[j + (24 * i)] = '#FFFFFF'
+            day = (day + timedelta(days = 1))
+        return render_template('historicalusageweek.html',chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule =  schedule,paneltotal = paneltotal, panelpercent = panelpercent, numpanels = numpanels, categoriesdf = categoriesdf, panelnames = panelnames, weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
     else:
         abort(403)
 
@@ -1385,6 +1442,10 @@ def historicalusageweekline():
     scheduledata3 = []
     paneltotal = []
     panelpercent = []
+    week = '2021-W42'
+    cal_month = datetime.datetime.now().month
+    year = datetime.datetime.now().year
+    building_id = 12
     if(current_user.is_authenticated and current_user.is_admin()):
         mydb = mysql.connector.connect(
           host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
@@ -1407,6 +1468,7 @@ def historicalusageweekline():
         if request.method == "POST":
             scheduledata = []
             weekdate = request.form['date']
+            week = weekdate
             dayoftheweek = datetime.datetime.strptime(weekdate + '-1', "%Y-W%W-%w")
             userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
         number = serial_list[0]
@@ -1415,9 +1477,9 @@ def historicalusageweekline():
         mycursor.execute(sql, (userdate, number))
         myresult = mycursor.fetchall()
         for x in myresult:
-            str = ','.join(x)
+            tempstring = ','.join(x)
 
-        stringlist = str.split(',')
+        stringlist = tempstring.split(',')
         channel_names = stringlist[::2]
         usage = stringlist[1::2]
         historicalusage = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
@@ -1434,7 +1496,7 @@ def historicalusageweekline():
         scheduledata.extend(string.split("'"))
 
         for i in range(0,6):
-            str = ''
+            tempstring = ''
             stringlist = []
             usage = []
             dayoftheweek = (dayoftheweek + timedelta(days = 1))
@@ -1444,9 +1506,9 @@ def historicalusageweekline():
             mycursor.execute(sql, (userdate, number))
             myresult = mycursor.fetchall()
             for x in myresult:
-                str = ','.join(x)
+                tempstring = ','.join(x)
 
-            stringlist = str.split(',')
+            stringlist = tempstring.split(',')
             channel_names = stringlist[::2]
             usage = stringlist[1::2]
             historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
@@ -1468,7 +1530,7 @@ def historicalusageweekline():
             scheduledata = [a + b for a, b in zip(scheduledata, scheduledata2)]
         historicalusage['Panel'] = 'Panel 1-A'
         if len(serial_list) > 1:
-            str = ''
+            tempstring = ''
             stringlist = []
             for i in range (1, len(serial_list)):
                 dayoftheweek = datetime.datetime.strptime(weekdate + '-1', "%Y-W%W-%w")
@@ -1479,9 +1541,9 @@ def historicalusageweekline():
                 mycursor.execute(sql, (userdate, number))
                 myresult = mycursor.fetchall()
                 for x in myresult:
-                    str = ','.join(x)
+                    tempstring = ','.join(x)
 
-                stringlist = str.split(',')
+                stringlist = tempstring.split(',')
                 channel_names = stringlist[::2]
                 usage = stringlist[1::2]
                 historicalusage3 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
@@ -1500,7 +1562,7 @@ def historicalusageweekline():
                 scheduledata3.extend(string.split("'"))
 
                 for i in range(0,6):
-                    str = ''
+                    tempstring = ''
                     stringlist = []
                     usage = []
                     dayoftheweek = (dayoftheweek + timedelta(days = 1))
@@ -1510,9 +1572,9 @@ def historicalusageweekline():
                     mycursor.execute(sql, (userdate, number))
                     myresult = mycursor.fetchall()
                     for x in myresult:
-                        str = ','.join(x)
+                        tempstring = ','.join(x)
 
-                    stringlist = str.split(',')
+                    stringlist = tempstring.split(',')
                     channel_names = stringlist[::2]
                     usage = stringlist[1::2]
                     historicalusage2 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
@@ -1641,7 +1703,25 @@ def historicalusageweekline():
         timeloads = pd.DataFrame(data = timeloads)
         paneltotal = paneltotals['Total'].to_list()
         panelpercent = paneltotals['Percent'].to_list()
-        return render_template('historicalusageweekline.html',timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule =  schedule,paneltotal = paneltotal, panelpercent = panelpercent, numpanels = numpanels, categoriesdf = categoriesdf, panelnames = panelnames, weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
+
+        chart_colours = ['#E6E9EF'] * 168
+        cal_db = calendar_pull(building_id,year, cal_month)
+        day = datetime.datetime.strptime(week + '-1', "%Y-W%W-%w")
+        for i in range(0, 7):
+            justday = str(day)[8] + str(day)[9]            
+            hours = cal_db[int(justday) - 1]
+            starthours = hours['start_hours']
+            endhours = hours['end_hours']
+            starthours = str(starthours).split(':')
+            starthours = starthours[0]
+            endhours = str(endhours).split(':')
+            endhours = endhours[0]
+            if starthours != 'None':
+                print('pass')
+                for j in range(int(starthours), int(endhours)):
+                    chart_colours[j + (24 * i)] = '#FFFFFF'
+            day = (day + timedelta(days = 1))
+        return render_template('historicalusageweekline.html',chart_colours=chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule =  schedule,paneltotal = paneltotal, panelpercent = panelpercent, numpanels = numpanels, categoriesdf = categoriesdf, panelnames = panelnames, weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
     else:
         abort(403)
 @commercial.route('/historicalusagemonth', methods=['GET', 'POST'])
