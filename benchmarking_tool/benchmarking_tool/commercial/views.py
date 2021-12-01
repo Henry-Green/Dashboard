@@ -740,8 +740,8 @@ def historicalusage():
         mycursor = mydb.cursor()
         if request.method == "POST":
             userdate = request.form['date'] + '%'
-            cal_month = userdate[5] + userdate[6]
-            day = userdate[8] + day[9]
+            cal_month = str(userdate)[5] + str(userdate)[6]
+            day = str(userdate)[8] + str(userdate)[9]
 
         number = serial_list[0]
         sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"    
@@ -885,6 +885,7 @@ def historicalusage():
         paneltotals['Percent'] = (paneltotals['Total']/ paneltotals['Total'].sum()) * 100
         paneltotals['Panel Name'] = panelnames
         paneltotals['Percent'] = paneltotals['Percent'].round(2)
+        paneltotals['Price'] = paneltotals['Total'] * (0.09/1000)
         panelchart = paneltotals['Total'].to_list()
 
         categoriesdf = {'Name':['Lighting','Hot Water','HVAC','Equipment','Plug Load','Other'],'Totals':[lighttotal,watertotal,hvactotal,equipmenttotal,plugtotal,othertotal], 'Colors':['#3649A8','#A6D06D','#EE5937','#3BCDEE','#EE8F37','#DBE2F3'], 'Prices':[lightprice,waterprice,hvacprice,equipmentprice,plugprice,otherprice], 'Charts':['chartLight','chartWater','chartHVAC','chartEquipment','chartPlug','chartOther'], 'Percent':[lightpercent,waterpercent,hvacpercent,equipmentpercent,plugpercent,otherpercent]}
@@ -892,15 +893,14 @@ def historicalusage():
         categoriesdf = categoriesdf.sort_values(by=['Totals'], ascending=False)
 
         categoriesdf = categoriesdf.round(2)
-        historicalusage['Price'] = historicalusage['Usage'] * (0.09*168*0.000017)
+        historicalusage['Price'] = historicalusage['Usage'] * (0.09/1000)
         schedule = historicalusage["Schedule"].to_list()
         colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
-        timeloads = {'Name':['On-Hours','Off-Hours','Always-On'], 'Percents':['33','14','11'],'Colors':['#22B14C','#EE8F37','#7F7F7F']}
-        timeloads = pd.DataFrame(data = timeloads)
         paneltotal = paneltotals['Total'].to_list()
         panelpercent = paneltotals['Percent'].to_list()
+        panelprice = paneltotals['Price'].to_list()
         chart_colours = ['#E6E9EF'] * 24
-        cal_db = calendar_pull(building_id,year, cal_month)
+        cal_db = calendar_pull(building_id,year, int(cal_month))
         hours = cal_db[int(day) - 1]
         starthours = hours['start_hours']
         endhours = hours['end_hours']
@@ -911,7 +911,36 @@ def historicalusage():
 
         for i in range(int(starthours), int(endhours)):
             chart_colours[i] = '#FFFFFF'
-        return render_template('historicalusage.html',chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
+        data = schedule
+        totalset = []
+        string = data[0]
+        string = string.replace('[', '')
+        string = string.replace(']', '')
+        datalist = string.split(",")
+        totalset = [0] * len(datalist);
+        offhours = [0] * len(datalist)
+        for i in range(0, len(datalist)):
+            string = data[i]
+            string = string.replace('[', '')
+            string = string.replace(']', '')
+            datalist = string.split(",")
+            floatlist = []
+            for item in datalist:
+                floatlist.append(float(item))
+            for k in range(int(starthours) - 1, int(endhours) + 1):
+                if 0 in floatlist:
+                    totalset[k] += float(datalist[k])
+            for k in range(0, len(datalist)):
+                if ((k >= int(starthours) and k <= int(endhours)) == False) and 0 in floatlist:
+                    offhours[k] += float(datalist[k])
+                    print(k)
+        onHours = ((sum(totalset)) / total * 100).round(2)
+        offHours = ((sum(offhours)) / total * 100).round(2)
+        alwaysOn = (100 - onHours - offHours).round(2)
+
+        timeloads = {'Name':['On-Hours','Off-Hours','Always-On'], 'Percents':[onHours,offHours,alwaysOn],'Colors':['#22B14C','#7F7F7F','#EE8F37']}
+        timeloads = pd.DataFrame(data = timeloads)
+        return render_template('historicalusage.html',alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
     else:
         abort(403)
 
@@ -940,8 +969,8 @@ def historicalusageline():
         mycursor = mydb.cursor()
         if request.method == "POST":
             userdate = request.form['date'] + '%'
-            cal_month = userdate[5] + userdate[6]
-            day = userdate[8] + day[9]
+            cal_month = str(userdate)[5] + str(userdate)[6]
+            day = str(userdate)[8] + str(userdate)[9]
 
         number = serial_list[0]
         sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"    
@@ -1085,6 +1114,7 @@ def historicalusageline():
         paneltotals['Percent'] = (paneltotals['Total']/ paneltotals['Total'].sum()) * 100
         paneltotals['Panel Name'] = panelnames
         paneltotals['Percent'] = paneltotals['Percent'].round(2)
+        paneltotals['Price'] = paneltotals['Total'] * (0.09/1000)
         panelchart = paneltotals['Total'].to_list()
 
         categoriesdf = {'Name':['Lighting','Hot Water','HVAC','Equipment','Plug Load','Other'],'Totals':[lighttotal,watertotal,hvactotal,equipmenttotal,plugtotal,othertotal], 'Colors':['#3649A8','#A6D06D','#EE5937','#3BCDEE','#EE8F37','#DBE2F3'], 'Prices':[lightprice,waterprice,hvacprice,equipmentprice,plugprice,otherprice], 'Charts':['chartLight','chartWater','chartHVAC','chartEquipment','chartPlug','chartOther'], 'Percent':[lightpercent,waterpercent,hvacpercent,equipmentpercent,plugpercent,otherpercent]}
@@ -1092,15 +1122,14 @@ def historicalusageline():
         categoriesdf = categoriesdf.sort_values(by=['Totals'], ascending=False)
 
         categoriesdf = categoriesdf.round(2)
-        historicalusage['Price'] = historicalusage['Usage'] * (0.09*168*0.000017)
+        historicalusage['Price'] = historicalusage['Usage'] * (0.09/1000)
         schedule = historicalusage["Schedule"].to_list()
         colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
-        timeloads = {'Name':['On-Hours','Off-Hours','Always-On'], 'Percents':['33','14','11'],'Colors':['#22B14C','#EE8F37','#7F7F7F']}
-        timeloads = pd.DataFrame(data = timeloads)
         paneltotal = paneltotals['Total'].to_list()
         panelpercent = paneltotals['Percent'].to_list()
+        panelprice = paneltotals['Price'].to_list()
         chart_colours = ['#E6E9EF'] * 24
-        cal_db = calendar_pull(building_id,year, cal_month)
+        cal_db = calendar_pull(building_id,year, int(cal_month))
         hours = cal_db[int(day) - 1]
         starthours = hours['start_hours']
         endhours = hours['end_hours']
@@ -1111,9 +1140,39 @@ def historicalusageline():
 
         for i in range(int(starthours), int(endhours)):
             chart_colours[i] = '#FFFFFF'
-        return render_template('historicalusageline.html',chart_colours = chart_colours,timeloads = timeloads,panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
+        data = schedule
+        totalset = []
+        string = data[0]
+        string = string.replace('[', '')
+        string = string.replace(']', '')
+        datalist = string.split(",")
+        totalset = [0] * len(datalist);
+        offhours = [0] * len(datalist)
+        for i in range(0, len(datalist)):
+            string = data[i]
+            string = string.replace('[', '')
+            string = string.replace(']', '')
+            datalist = string.split(",")
+            floatlist = []
+            for item in datalist:
+                floatlist.append(float(item))
+            for k in range(int(starthours) - 1, int(endhours) + 1):
+                if 0 in floatlist:
+                    totalset[k] += float(datalist[k])
+            for k in range(0, len(datalist)):
+                if ((k >= int(starthours) and k <= int(endhours)) == False) and 0 in floatlist:
+                    offhours[k] += float(datalist[k])
+                    print(k)
+        onHours = ((sum(totalset)) / total * 100).round(2)
+        offHours = ((sum(offhours)) / total * 100).round(2)
+        alwaysOn = (100 - onHours - offHours).round(2)
+
+        timeloads = {'Name':['On-Hours','Off-Hours','Always-On'], 'Percents':[onHours,offHours,alwaysOn],'Colors':['#22B14C','#7F7F7F','#EE8F37']}
+        timeloads = pd.DataFrame(data = timeloads)
+        return render_template('historicalusageline.html',alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
     else:
         abort(403)
+
 @commercial.route('/historicalusagebubble', methods=['GET', 'POST'])
 @login_required
 def historicalusagebubble():
@@ -1398,6 +1457,7 @@ def historicalusageweek():
         paneltotals['Percent'] = (paneltotals['Total']/ paneltotals['Total'].sum()) * 100
         paneltotals['Panel Name'] = panelnames
         paneltotals['Percent'] = paneltotals['Percent'].round(2)
+        paneltotals['Price'] = paneltotals['Total'] * (0.09/1000)
         panelchart = paneltotals['Total'].to_list()
         categoriesdf = {'Name':['Lighting','Hot Water','HVAC','Equipment','Plug Load','Other'],'Totals':[lighttotal,watertotal,hvactotal,equipmenttotal,plugtotal,othertotal], 'Colors':['#3649A8','#A6D06D','#EE5937','#3BCDEE','#EE8F37','#DBE2F3'], 'Prices':[lightprice,waterprice,hvacprice,equipmentprice,plugprice,otherprice], 'Charts':['chartLight','chartWater','chartHVAC','chartEquipment','chartPlug','chartOther'], 'Percent':[lightpercent,waterpercent,hvacpercent,equipmentpercent,plugpercent,otherpercent]}
         categoriesdf = pd.DataFrame(data=categoriesdf)
@@ -1408,10 +1468,9 @@ def historicalusageweek():
         colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
         historicalusage['Price'] = historicalusage['Usage'] * (0.09*168*0.000017)
         schedule = historicalusage["Schedule"].to_list()
-        timeloads = {'Name':['On-Hours','Off-Hours','Always-On'], 'Percents':['33','14','11'],'Colors':['#22B14C','#EE8F37','#7F7F7F']}
-        timeloads = pd.DataFrame(data = timeloads)
         paneltotal = paneltotals['Total'].to_list()
         panelpercent = paneltotals['Percent'].to_list()
+        panelprice = paneltotals['Price'].to_list()
 
         chart_colours = ['#E6E9EF'] * 168
         cal_db = calendar_pull(building_id,year, cal_month)
@@ -1426,11 +1485,50 @@ def historicalusageweek():
             endhours = str(endhours).split(':')
             endhours = endhours[0]
             if starthours != 'None':
-                print('pass')
                 for j in range(int(starthours), int(endhours)):
                     chart_colours[j + (24 * i)] = '#FFFFFF'
             day = (day + timedelta(days = 1))
-        return render_template('historicalusageweek.html',chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule =  schedule,paneltotal = paneltotal, panelpercent = panelpercent, numpanels = numpanels, categoriesdf = categoriesdf, panelnames = panelnames, weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
+        for i in range(int(starthours), int(endhours)):
+            chart_colours[i] = '#FFFFFF'
+        data = schedule
+        totalset = []
+        string = data[0]
+        string = string.replace('[', '')
+        string = string.replace(']', ',')
+        datalist = string.split(",")
+        totalset = [0] * len(datalist);
+        offhours = [0] * len(datalist)
+        print(len(data))
+        print(len(datalist))
+        for i in range(0, len(data)):
+            string = data[i]
+            string = string.replace('[', '')
+            string = string.replace(']', ',')
+            datalist = string.split(",")
+            floatlist = []
+            for item in datalist:
+                if item != '':
+                    floatlist.append(float(item))
+
+            for k in range(int(starthours) - 1, int(endhours) + 1):
+                if 0 in floatlist:
+                    if datalist[k] != '':
+                        totalset[k] += float(datalist[k])
+                        print(datalist[k])
+            for k in range(0, len(datalist)):
+                if ((k >= int(starthours) and k <= int(endhours)) == False) and 0 in floatlist:
+                    if datalist[k] != '' and (math.isnan(float(datalist[k]))) == False:
+                        offhours[k] += float(datalist[k])
+                        
+        print(sum(totalset))
+        print(sum(offhours))     
+        onHours = ((sum(totalset)) / total * 100).round(2)
+        offHours = ((sum(offhours)) / total * 100).round(2)
+        alwaysOn = (100 - onHours - offHours).round(2)
+
+        timeloads = {'Name':['On-Hours','Off-Hours','Always-On'], 'Percents':[onHours,offHours,alwaysOn],'Colors':['#22B14C','#7F7F7F','#EE8F37']}
+        timeloads = pd.DataFrame(data = timeloads)
+        return render_template('historicalusageweek.html',alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule =  schedule,paneltotal = paneltotal, panelpercent = panelpercent, numpanels = numpanels, categoriesdf = categoriesdf, panelnames = panelnames, weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
     else:
         abort(403)
 
@@ -1689,20 +1787,19 @@ def historicalusageweekline():
         paneltotals['Percent'] = (paneltotals['Total']/ paneltotals['Total'].sum()) * 100
         paneltotals['Panel Name'] = panelnames
         paneltotals['Percent'] = paneltotals['Percent'].round(2)
+        paneltotals['Price'] = paneltotals['Total'] * (0.09/1000)
         panelchart = paneltotals['Total'].to_list()
         categoriesdf = {'Name':['Lighting','Hot Water','HVAC','Equipment','Plug Load','Other'],'Totals':[lighttotal,watertotal,hvactotal,equipmenttotal,plugtotal,othertotal], 'Colors':['#3649A8','#A6D06D','#EE5937','#3BCDEE','#EE8F37','#DBE2F3'], 'Prices':[lightprice,waterprice,hvacprice,equipmentprice,plugprice,otherprice], 'Charts':['chartLight','chartWater','chartHVAC','chartEquipment','chartPlug','chartOther'], 'Percent':[lightpercent,waterpercent,hvacpercent,equipmentpercent,plugpercent,otherpercent]}
         categoriesdf = pd.DataFrame(data=categoriesdf)
         categoriesdf = categoriesdf.sort_values(by=['Totals'], ascending=False)
         categoriesdf = categoriesdf.round(2)
-        print(paneltotals)
         historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
         colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
         historicalusage['Price'] = historicalusage['Usage'] * (0.09*168*0.000017)
         schedule = historicalusage["Schedule"].to_list()
-        timeloads = {'Name':['On-Hours','Off-Hours','Always-On'], 'Percents':['33','14','11'],'Colors':['#22B14C','#EE8F37','#7F7F7F']}
-        timeloads = pd.DataFrame(data = timeloads)
         paneltotal = paneltotals['Total'].to_list()
         panelpercent = paneltotals['Percent'].to_list()
+        panelprice = paneltotals['Price'].to_list()
 
         chart_colours = ['#E6E9EF'] * 168
         cal_db = calendar_pull(building_id,year, cal_month)
@@ -1717,11 +1814,50 @@ def historicalusageweekline():
             endhours = str(endhours).split(':')
             endhours = endhours[0]
             if starthours != 'None':
-                print('pass')
                 for j in range(int(starthours), int(endhours)):
                     chart_colours[j + (24 * i)] = '#FFFFFF'
             day = (day + timedelta(days = 1))
-        return render_template('historicalusageweekline.html',chart_colours=chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule =  schedule,paneltotal = paneltotal, panelpercent = panelpercent, numpanels = numpanels, categoriesdf = categoriesdf, panelnames = panelnames, weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
+        for i in range(int(starthours), int(endhours)):
+            chart_colours[i] = '#FFFFFF'
+        data = schedule
+        totalset = []
+        string = data[0]
+        string = string.replace('[', '')
+        string = string.replace(']', ',')
+        datalist = string.split(",")
+        totalset = [0] * len(datalist);
+        offhours = [0] * len(datalist)
+        print(len(data))
+        print(len(datalist))
+        for i in range(0, len(data)):
+            string = data[i]
+            string = string.replace('[', '')
+            string = string.replace(']', ',')
+            datalist = string.split(",")
+            floatlist = []
+            for item in datalist:
+                if item != '':
+                    floatlist.append(float(item))
+
+            for k in range(int(starthours) - 1, int(endhours) + 1):
+                if 0 in floatlist:
+                    if datalist[k] != '':
+                        totalset[k] += float(datalist[k])
+                        print(datalist[k])
+            for k in range(0, len(datalist)):
+                if ((k >= int(starthours) and k <= int(endhours)) == False) and 0 in floatlist:
+                    if datalist[k] != '' and (math.isnan(float(datalist[k]))) == False:
+                        offhours[k] += float(datalist[k])
+                        
+        print(sum(totalset))
+        print(sum(offhours))     
+        onHours = ((sum(totalset)) / total * 100).round(2)
+        offHours = ((sum(offhours)) / total * 100).round(2)
+        alwaysOn = (100 - onHours - offHours).round(2)
+
+        timeloads = {'Name':['On-Hours','Off-Hours','Always-On'], 'Percents':[onHours,offHours,alwaysOn],'Colors':['#22B14C','#7F7F7F','#EE8F37']}
+        timeloads = pd.DataFrame(data = timeloads)
+        return render_template('historicalusageweekline.html',alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule =  schedule,paneltotal = paneltotal, panelpercent = panelpercent, numpanels = numpanels, categoriesdf = categoriesdf, panelnames = panelnames, weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
     else:
         abort(403)
 @commercial.route('/historicalusagemonth', methods=['GET', 'POST'])
@@ -1732,6 +1868,10 @@ def historicalusagemonth():
     scheduledata3 = []
     paneltotal = []
     panelpercent = []
+    week = '2021-W42'
+    cal_month = datetime.datetime.now().month
+    year = datetime.datetime.now().year
+    building_id = 12
     if(current_user.is_authenticated and current_user.is_admin()):
         mydb = mysql.connector.connect(
           host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
@@ -1761,15 +1901,16 @@ def historicalusagemonth():
         mycursor.execute(sql, (userdate, number))
         myresult = mycursor.fetchall()
         for x in myresult:
-            str = ','.join(x)
+            tempstring = ','.join(x)
 
-        stringlist = str.split(',')
+        stringlist = tempstring.split(',')
         channel_names = stringlist[::2]
         usage = stringlist[1::2]
         historicalusage = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
         historicalusage['Usage'] = pd.to_numeric(historicalusage['Usage'], downcast = 'float')
         historicalusage = historicalusage.drop_duplicates()
         total = historicalusage['Usage'].sum()
+        historicalusage['Panel'] = 'Panel 1-A'
         totalprice = (total * 0.09)/1000
         string = ''
         sql = "SELECT channel4_schedule, channel5_schedule, channel6_schedule, channel7_schedule, channel8_schedule, channel9_schedule, channel10_schedule, channel11_schedule, channel12_schedule, channel13_schedule, channel14_schedule, channel15_schedule, channel16_schedule, channel17_schedule, channel18_schedule, channel19_schedule FROM emporia_data WHERE date LIKE %s AND serial_number = %s"   
@@ -1779,7 +1920,7 @@ def historicalusagemonth():
             string = "'".join(x)
         scheduledata.extend(string.split("'"))
         for i in range(0,num_days):
-            str = ''
+            tempstring = ''
             stringlist = []
             usage = []
             dayoftheweek = (dayoftheweek + timedelta(days = 1))
@@ -1789,9 +1930,9 @@ def historicalusagemonth():
             mycursor.execute(sql, (userdate, number))
             myresult = mycursor.fetchall()
             for x in myresult:
-                str = ','.join(x)
+                tempstring = ','.join(x)
 
-            stringlist = str.split(',')
+            stringlist = tempstring.split(',')
             channel_names = stringlist[::2]
             usage = stringlist[1::2]
             a = {'Channel Names': channel_names, "Usage": usage}
@@ -1813,8 +1954,9 @@ def historicalusagemonth():
                 string = "'".join(x)
             scheduledata2.extend(string.split("'"))
             scheduledata = [a + b for a, b in zip(scheduledata, scheduledata2)]
+            historicalusage['Panel'] = 'Panel 1-A'
             if len(serial_list) > 1:
-                str = ''
+                tempstring = ''
                 stringlist = []
                 for i in range (1, len(serial_list)):
                     dayoftheweek = datetime.datetime(int(year),int(month),1)
@@ -1824,14 +1966,15 @@ def historicalusagemonth():
                     mycursor.execute(sql, (userdate, number))
                     myresult = mycursor.fetchall()
                     for x in myresult:
-                        str = ','.join(x)
+                        tempstring = ','.join(x)
 
-                    stringlist = str.split(',')
+                    stringlist = tempstring.split(',')
                     channel_names = stringlist[::2]
                     usage = stringlist[1::2]
                     historicalusage3 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
                     historicalusage3['Usage'] = pd.to_numeric(historicalusage3['Usage'], downcast = 'float')
                     total3 = historicalusage3['Usage'].sum()
+                    historicalusage3['Panel'] = 'Panel 1-B'
                     totalprice3 = (total3 * 0.09)/1000
                     total += total3
                     totalprice += totalprice3
@@ -1844,7 +1987,7 @@ def historicalusagemonth():
                         string = "'".join(x)
                     scheduledata3.extend(string.split("'"))
                     for i in range(0,num_days):
-                        str = ''
+                        tempstring = ''
                         stringlist = []
                         usage = []
                         dayoftheweek = (dayoftheweek + timedelta(days = 1))
@@ -1854,9 +1997,9 @@ def historicalusagemonth():
                         mycursor.execute(sql, (userdate, number))
                         myresult = mycursor.fetchall()
                         for x in myresult:
-                            str = ','.join(x)
+                            tempstring = ','.join(x)
 
-                        stringlist = str.split(',')
+                        stringlist = tempstring.split(',')
                         channel_names = stringlist[::2]
                         usage = stringlist[1::2]
                         a = {'Channel Names': channel_names, "Usage": usage}
@@ -1865,6 +2008,7 @@ def historicalusagemonth():
                         historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
                         historicalusage2 = historicalusage2.drop_duplicates()
                         total2 = historicalusage2['Usage'].sum()
+                        historicalusage2['Panel'] = 'Panel 1-B'
                         totalprice2 = (total2 * 0.09)/1000
                         historicalusage3["Usage"] = historicalusage3['Usage'].add(historicalusage2['Usage'], fill_value=0)
                         total += total2
@@ -1888,9 +2032,9 @@ def historicalusagemonth():
             mycursor.execute(sql, (userdate, number))
             myresult = mycursor.fetchall()
             for x in myresult:
-                str = ','.join(x)
+                tempstring = ','.join(x)
 
-            stringlist = str.split(',')
+            stringlist = tempstring.split(',')
             channel_names = stringlist[::2]
             usage = stringlist[1::2]
             a = {'Channel Names': channel_names, "Usage": usage}
@@ -1899,6 +2043,7 @@ def historicalusagemonth():
             historicalusage['Usage'] = pd.to_numeric(historicalusage['Usage'], downcast = 'float')
             historicalusage = historicalusage.drop_duplicates()
             total = historicalusage['Usage'].sum()
+            historicalusage['Panel'] = 'Panel 1-A'
             historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
             totalprice = (total * 0.09)/1000
 
@@ -1910,7 +2055,7 @@ def historicalusagemonth():
                 string = "'".join(x)
             scheduledata.extend(string.split("'"))
 
-        scheduledata = scheduledata[:32]
+        # scheduledata = scheduledata[:32]
         historicalusage['Schedule'] = scheduledata
         historicalusage['Schedule'] = historicalusage['Schedule'].fillna(0)
         channel_names = historicalusage['Channel Names']
@@ -1943,6 +2088,7 @@ def historicalusagemonth():
         equipmenttotal = 0
         plugtotal = 0
         othertotal = 0
+        historicalusage = historicalusage[['Channel Names', 'Usage', 'Schedule', 'Category','Panel']]
         categorytotals = historicalusage.copy()
         for i in range(0,len(categorytotals.index)):
             
@@ -2014,7 +2160,16 @@ def historicalusagemonth():
         historicalusage['Panel Name'] = 'Panel 1'
         paneltotal = total
         panelpercent = 100
-        numpanels = 1
+        numpanels = historicalusage['Panel'].nunique()
+        panelnames = historicalusage['Panel'].unique()
+        panelnames = sorted(panelnames)
+        paneltotals = pd.DataFrame(columns=['Panel Name', 'Total'])
+        paneltotals['Total'] = historicalusage.groupby(["Panel"]).sum()['Usage']
+        paneltotals['Percent'] = (paneltotals['Total']/ paneltotals['Total'].sum()) * 100
+        paneltotals['Panel Name'] = panelnames
+        paneltotals['Percent'] = paneltotals['Percent'].round(2)
+        paneltotals['Price'] = paneltotals['Total'] * (0.09/1000)
+        panelchart = paneltotals['Total'].to_list()
         categoriesdf = {'Name':['Lighting','Hot Water','HVAC','Equipment','Plug Load','Other'],'Totals':[lighttotal,watertotal,hvactotal,equipmenttotal,plugtotal,othertotal], 'Colors':['#3649A8','#A6D06D','#EE5937','#3BCDEE','#EE8F37','#DBE2F3'], 'Prices':[lightprice,waterprice,hvacprice,equipmentprice,plugprice,otherprice], 'Charts':['chartLight','chartWater','chartHVAC','chartEquipment','chartPlug','chartOther'], 'Percent':[lightpercent,waterpercent,hvacpercent,equipmentpercent,plugpercent,otherpercent]}
         categoriesdf = pd.DataFrame(data=categoriesdf)
         categoriesdf = categoriesdf.sort_values(by=['Totals'], ascending=False)
@@ -2024,7 +2179,70 @@ def historicalusagemonth():
         colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
         historicalusage['Price'] = historicalusage['Usage'] * (0.09*168*0.000017)
         schedule = historicalusage["Schedule"].to_list()
-        return render_template('historicalusagemonth.html',schedule =  schedule,paneltotal = paneltotal, panelpercent = panelpercent, numpanels = numpanels, categoriesdf = categoriesdf, panelnames = panelnames,weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        paneltotal = paneltotals['Total'].to_list()
+        panelpercent = paneltotals['Percent'].to_list()
+        panelprice = paneltotals['Price'].to_list()
+        chart_colours = ['#E6E9EF'] * 730
+        cal_db = calendar_pull(building_id,year, cal_month)
+        day = datetime.datetime.strptime(week + '-1', "%Y-W%W-%w")
+        for i in range(0, 7):
+            justday = str(day)[8] + str(day)[9]            
+            hours = cal_db[int(justday) - 1]
+            starthours = hours['start_hours']
+            endhours = hours['end_hours']
+            starthours = str(starthours).split(':')
+            starthours = starthours[0]
+            endhours = str(endhours).split(':')
+            endhours = endhours[0]
+            if starthours != 'None':
+                for j in range(int(starthours), int(endhours)):
+                    chart_colours[j + (24 * i)] = '#FFFFFF'
+            day = (day + timedelta(days = 1))
+        for i in range(int(starthours), int(endhours)):
+            chart_colours[i] = '#FFFFFF'
+        data = schedule
+        totalset = []
+        string = data[0]
+        string = string.replace('[', '')
+        string = string.replace(']', ',')
+        datalist = string.split(",")
+        totalset = [0] * len(datalist);
+        offhours = [0] * len(datalist)
+        print(len(data))
+        print(len(datalist))
+        for i in range(0, len(data)):
+            string = data[i]
+            string = string.replace('[', '')
+            string = string.replace(']', ',')
+            datalist = string.split(",")
+            floatlist = []
+            for item in datalist:
+                try:
+                    floatlist.append(float(item))
+                except:
+                    print('whoops')
+
+            for k in range(int(starthours) - 1, int(endhours) + 1):
+                if 0 in floatlist:
+                    if datalist[k] != '':
+                        totalset[k] += float(datalist[k])
+                        print(datalist[k])
+            for k in range(0, len(datalist)):
+                if ((k >= int(starthours) and k <= int(endhours)) == False) and 0 in floatlist:
+                    try:
+                        if datalist[k] != '' and (math.isnan(float(datalist[k]))) == False:
+                                offhours[k] += float(datalist[k])
+                    except:
+                        ('whoops')
+        print(sum(totalset))
+        print(sum(offhours))     
+        onHours = ((sum(totalset)) / total * 100).round(2)
+        offHours = ((sum(offhours)) / total * 100).round(2)
+        alwaysOn = (100 - onHours - offHours).round(2)
+
+        timeloads = {'Name':['On-Hours','Off-Hours','Always-On'], 'Percents':[onHours,offHours,alwaysOn],'Colors':['#22B14C','#7F7F7F','#EE8F37']}
+        timeloads = pd.DataFrame(data = timeloads)
+        return render_template('historicalusagemonth.html',chart_colours = chart_colours, timeloads = timeloads,panelprice = panelprice, panelchart = panelchart,paneltotals = paneltotals,schedule =  schedule,paneltotal = paneltotal, panelpercent = panelpercent, numpanels = numpanels, categoriesdf = categoriesdf, panelnames = panelnames,weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
@@ -2037,6 +2255,10 @@ def historicalusagemonthline():
     scheduledata3 = []
     paneltotal = []
     panelpercent = []
+    week = '2021-W42'
+    cal_month = datetime.datetime.now().month
+    year = datetime.datetime.now().year
+    building_id = 12
     if(current_user.is_authenticated and current_user.is_admin()):
         mydb = mysql.connector.connect(
           host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
@@ -2066,15 +2288,16 @@ def historicalusagemonthline():
         mycursor.execute(sql, (userdate, number))
         myresult = mycursor.fetchall()
         for x in myresult:
-            str = ','.join(x)
+            tempstring = ','.join(x)
 
-        stringlist = str.split(',')
+        stringlist = tempstring.split(',')
         channel_names = stringlist[::2]
         usage = stringlist[1::2]
         historicalusage = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
         historicalusage['Usage'] = pd.to_numeric(historicalusage['Usage'], downcast = 'float')
         historicalusage = historicalusage.drop_duplicates()
         total = historicalusage['Usage'].sum()
+        historicalusage['Panel'] = 'Panel 1-A'
         totalprice = (total * 0.09)/1000
         string = ''
         sql = "SELECT channel4_schedule, channel5_schedule, channel6_schedule, channel7_schedule, channel8_schedule, channel9_schedule, channel10_schedule, channel11_schedule, channel12_schedule, channel13_schedule, channel14_schedule, channel15_schedule, channel16_schedule, channel17_schedule, channel18_schedule, channel19_schedule FROM emporia_data WHERE date LIKE %s AND serial_number = %s"   
@@ -2084,7 +2307,7 @@ def historicalusagemonthline():
             string = "'".join(x)
         scheduledata.extend(string.split("'"))
         for i in range(0,num_days):
-            str = ''
+            tempstring = ''
             stringlist = []
             usage = []
             dayoftheweek = (dayoftheweek + timedelta(days = 1))
@@ -2094,9 +2317,9 @@ def historicalusagemonthline():
             mycursor.execute(sql, (userdate, number))
             myresult = mycursor.fetchall()
             for x in myresult:
-                str = ','.join(x)
+                tempstring = ','.join(x)
 
-            stringlist = str.split(',')
+            stringlist = tempstring.split(',')
             channel_names = stringlist[::2]
             usage = stringlist[1::2]
             a = {'Channel Names': channel_names, "Usage": usage}
@@ -2118,8 +2341,9 @@ def historicalusagemonthline():
                 string = "'".join(x)
             scheduledata2.extend(string.split("'"))
             scheduledata = [a + b for a, b in zip(scheduledata, scheduledata2)]
+            historicalusage['Panel'] = 'Panel 1-A'
             if len(serial_list) > 1:
-                str = ''
+                tempstring = ''
                 stringlist = []
                 for i in range (1, len(serial_list)):
                     dayoftheweek = datetime.datetime(int(year),int(month),1)
@@ -2129,14 +2353,15 @@ def historicalusagemonthline():
                     mycursor.execute(sql, (userdate, number))
                     myresult = mycursor.fetchall()
                     for x in myresult:
-                        str = ','.join(x)
+                        tempstring = ','.join(x)
 
-                    stringlist = str.split(',')
+                    stringlist = tempstring.split(',')
                     channel_names = stringlist[::2]
                     usage = stringlist[1::2]
                     historicalusage3 = pd.DataFrame({'Channel Names': channel_names, "Usage": usage})
                     historicalusage3['Usage'] = pd.to_numeric(historicalusage3['Usage'], downcast = 'float')
                     total3 = historicalusage3['Usage'].sum()
+                    historicalusage3['Panel'] = 'Panel 1-B'
                     totalprice3 = (total3 * 0.09)/1000
                     total += total3
                     totalprice += totalprice3
@@ -2149,7 +2374,7 @@ def historicalusagemonthline():
                         string = "'".join(x)
                     scheduledata3.extend(string.split("'"))
                     for i in range(0,num_days):
-                        str = ''
+                        tempstring = ''
                         stringlist = []
                         usage = []
                         dayoftheweek = (dayoftheweek + timedelta(days = 1))
@@ -2159,9 +2384,9 @@ def historicalusagemonthline():
                         mycursor.execute(sql, (userdate, number))
                         myresult = mycursor.fetchall()
                         for x in myresult:
-                            str = ','.join(x)
+                            tempstring = ','.join(x)
 
-                        stringlist = str.split(',')
+                        stringlist = tempstring.split(',')
                         channel_names = stringlist[::2]
                         usage = stringlist[1::2]
                         a = {'Channel Names': channel_names, "Usage": usage}
@@ -2170,6 +2395,7 @@ def historicalusagemonthline():
                         historicalusage2['Usage'] = pd.to_numeric(historicalusage2['Usage'], downcast = 'float')
                         historicalusage2 = historicalusage2.drop_duplicates()
                         total2 = historicalusage2['Usage'].sum()
+                        historicalusage2['Panel'] = 'Panel 1-B'
                         totalprice2 = (total2 * 0.09)/1000
                         historicalusage3["Usage"] = historicalusage3['Usage'].add(historicalusage2['Usage'], fill_value=0)
                         total += total2
@@ -2193,9 +2419,9 @@ def historicalusagemonthline():
             mycursor.execute(sql, (userdate, number))
             myresult = mycursor.fetchall()
             for x in myresult:
-                str = ','.join(x)
+                tempstring = ','.join(x)
 
-            stringlist = str.split(',')
+            stringlist = tempstring.split(',')
             channel_names = stringlist[::2]
             usage = stringlist[1::2]
             a = {'Channel Names': channel_names, "Usage": usage}
@@ -2204,6 +2430,7 @@ def historicalusagemonthline():
             historicalusage['Usage'] = pd.to_numeric(historicalusage['Usage'], downcast = 'float')
             historicalusage = historicalusage.drop_duplicates()
             total = historicalusage['Usage'].sum()
+            historicalusage['Panel'] = 'Panel 1-A'
             historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
             totalprice = (total * 0.09)/1000
 
@@ -2215,7 +2442,7 @@ def historicalusagemonthline():
                 string = "'".join(x)
             scheduledata.extend(string.split("'"))
 
-        scheduledata = scheduledata[:32]
+        # scheduledata = scheduledata[:32]
         historicalusage['Schedule'] = scheduledata
         historicalusage['Schedule'] = historicalusage['Schedule'].fillna(0)
         channel_names = historicalusage['Channel Names']
@@ -2248,6 +2475,7 @@ def historicalusagemonthline():
         equipmenttotal = 0
         plugtotal = 0
         othertotal = 0
+        historicalusage = historicalusage[['Channel Names', 'Usage', 'Schedule', 'Category','Panel']]
         categorytotals = historicalusage.copy()
         for i in range(0,len(categorytotals.index)):
             
@@ -2319,7 +2547,16 @@ def historicalusagemonthline():
         historicalusage['Panel Name'] = 'Panel 1'
         paneltotal = total
         panelpercent = 100
-        numpanels = 1
+        numpanels = historicalusage['Panel'].nunique()
+        panelnames = historicalusage['Panel'].unique()
+        panelnames = sorted(panelnames)
+        paneltotals = pd.DataFrame(columns=['Panel Name', 'Total'])
+        paneltotals['Total'] = historicalusage.groupby(["Panel"]).sum()['Usage']
+        paneltotals['Percent'] = (paneltotals['Total']/ paneltotals['Total'].sum()) * 100
+        paneltotals['Panel Name'] = panelnames
+        paneltotals['Percent'] = paneltotals['Percent'].round(2)
+        paneltotals['Price'] = paneltotals['Total'] * (0.09/1000)
+        panelchart = paneltotals['Total'].to_list()
         categoriesdf = {'Name':['Lighting','Hot Water','HVAC','Equipment','Plug Load','Other'],'Totals':[lighttotal,watertotal,hvactotal,equipmenttotal,plugtotal,othertotal], 'Colors':['#3649A8','#A6D06D','#EE5937','#3BCDEE','#EE8F37','#DBE2F3'], 'Prices':[lightprice,waterprice,hvacprice,equipmentprice,plugprice,otherprice], 'Charts':['chartLight','chartWater','chartHVAC','chartEquipment','chartPlug','chartOther'], 'Percent':[lightpercent,waterpercent,hvacpercent,equipmentpercent,plugpercent,otherpercent]}
         categoriesdf = pd.DataFrame(data=categoriesdf)
         categoriesdf = categoriesdf.sort_values(by=['Totals'], ascending=False)
@@ -2329,7 +2566,70 @@ def historicalusagemonthline():
         colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
         historicalusage['Price'] = historicalusage['Usage'] * (0.09*168*0.000017)
         schedule = historicalusage["Schedule"].to_list()
-        return render_template('historicalusagemonthline.html',schedule =  schedule,paneltotal = paneltotal, panelpercent = panelpercent, numpanels = numpanels, categoriesdf = categoriesdf, panelnames = panelnames,weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
+        paneltotal = paneltotals['Total'].to_list()
+        panelpercent = paneltotals['Percent'].to_list()
+        panelprice = paneltotals['Price'].to_list()
+        chart_colours = ['#E6E9EF'] * 730
+        cal_db = calendar_pull(building_id,year, cal_month)
+        day = datetime.datetime.strptime(week + '-1', "%Y-W%W-%w")
+        for i in range(0, 7):
+            justday = str(day)[8] + str(day)[9]            
+            hours = cal_db[int(justday) - 1]
+            starthours = hours['start_hours']
+            endhours = hours['end_hours']
+            starthours = str(starthours).split(':')
+            starthours = starthours[0]
+            endhours = str(endhours).split(':')
+            endhours = endhours[0]
+            if starthours != 'None':
+                for j in range(int(starthours), int(endhours)):
+                    chart_colours[j + (24 * i)] = '#FFFFFF'
+            day = (day + timedelta(days = 1))
+        for i in range(int(starthours), int(endhours)):
+            chart_colours[i] = '#FFFFFF'
+        data = schedule
+        totalset = []
+        string = data[0]
+        string = string.replace('[', '')
+        string = string.replace(']', ',')
+        datalist = string.split(",")
+        totalset = [0] * len(datalist);
+        offhours = [0] * len(datalist)
+        print(len(data))
+        print(len(datalist))
+        for i in range(0, len(data)):
+            string = data[i]
+            string = string.replace('[', '')
+            string = string.replace(']', ',')
+            datalist = string.split(",")
+            floatlist = []
+            for item in datalist:
+                try:
+                    floatlist.append(float(item))
+                except:
+                    print('whoops')
+
+            for k in range(int(starthours) - 1, int(endhours) + 1):
+                if 0 in floatlist:
+                    if datalist[k] != '':
+                        totalset[k] += float(datalist[k])
+                        print(datalist[k])
+            for k in range(0, len(datalist)):
+                if ((k >= int(starthours) and k <= int(endhours)) == False) and 0 in floatlist:
+                    try:
+                        if datalist[k] != '' and (math.isnan(float(datalist[k]))) == False:
+                                offhours[k] += float(datalist[k])
+                    except:
+                        ('whoops')
+        print(sum(totalset))
+        print(sum(offhours))     
+        onHours = ((sum(totalset)) / total * 100).round(2)
+        offHours = ((sum(offhours)) / total * 100).round(2)
+        alwaysOn = (100 - onHours - offHours).round(2)
+
+        timeloads = {'Name':['On-Hours','Off-Hours','Always-On'], 'Percents':[onHours,offHours,alwaysOn],'Colors':['#22B14C','#7F7F7F','#EE8F37']}
+        timeloads = pd.DataFrame(data = timeloads)
+        return render_template('historicalusagemonthline.html',chart_colours = chart_colours, timeloads = timeloads,panelprice = panelprice, panelchart = panelchart,paneltotals = paneltotals,schedule =  schedule,paneltotal = paneltotal, panelpercent = panelpercent, numpanels = numpanels, categoriesdf = categoriesdf, panelnames = panelnames,weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form,light_usage=light_usage,dhw_usage=dhw_usage, heating_usage = heating_usage,
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
