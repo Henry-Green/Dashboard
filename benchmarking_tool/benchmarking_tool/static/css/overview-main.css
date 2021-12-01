@@ -10,7 +10,11 @@
   -moz-transform: scale(1.1); 
   -moz-transform-origin: 0 0;
   overflow: hidden;
+  border-radius: 8px;
   
+}
+.container-center-horizontal{
+  border-radius: 8px;
 }
 body {
 border: 8px solid black;
@@ -671,7 +675,7 @@ border-radius: 8px;
 
 .overview-main .x100-l6cqYc {
   background-color: transparent;
-  color: #3649A8;
+  color: #0D1758;
   font-family: var(--font-family-averta_cy-bold);
   font-size: var(--font-size-xxxxl);
   font-style: normal;
@@ -695,8 +699,9 @@ border-radius: 8px;
   margin: auto;
   mix-blend-mode: normal;
   position: relative;
-  top: 210px;
+  top: 190px;
   width: 293px;
+  border-radius: 8px;
 }
 .overview-main .sidebar {
   background-color: white;
@@ -911,7 +916,7 @@ border-radius: 8px;
 }
 
 .overview-main .rectangle-3024-l6cqYc {
-  background-color: #3649a8;
+  background-color: #0D1758;
   height: 10px;
   left: 10px;
   mix-blend-mode: normal;
@@ -921,7 +926,7 @@ border-radius: 8px;
   border-radius: 50%;
 }
 .overview-main .rectangle-3025-l6cqYc {
-  background-color: #3649a8;
+  background-color: #0D1758;
   height: 10px;
   left: 10px;
   mix-blend-mode: normal;
@@ -931,7 +936,7 @@ border-radius: 8px;
   border-radius: 50%;
 }
 .overview-main .rectangle-3026-l6cqYc {
-  background-color: #3649a8;
+  background-color: #0D1758;
   height: 10px;
   left: 10px;
   mix-blend-mode: normal;
@@ -941,7 +946,7 @@ border-radius: 8px;
   border-radius: 50%;
 }
 .overview-main .rectangle-3027-l6cqYc {
-  background-color: #3649a8;
+  background-color: #0D1758;
   height: 10px;
   left: 10px;
   mix-blend-mode: normal;
@@ -951,7 +956,7 @@ border-radius: 8px;
   border-radius: 50%;
 }
 .overview-main .rectangle-3028-l6cqYc {
-  background-color: #3649a8;
+  background-color: #0D1758;
   height: 10px;
   left: 10px;
   mix-blend-mode: normal;
@@ -961,7 +966,7 @@ border-radius: 8px;
   border-radius: 50%;
 }
 .overview-main .rectangle-3029-l6cqYc {
-  background-color: #3649a8;
+  background-color: #0D1758;
   height: 10px;
   left: 10px;
   mix-blend-mode: normal;
@@ -972,7 +977,7 @@ border-radius: 8px;
 }
 
 .overview-main .rectangle-30242-l6cqYc {
-  background-color: #3649a8;
+  background-color: #0D1758;
   border-radius: 1px;
   height: 10px;
   left: 10px;

@@ -515,7 +515,7 @@
   mix-blend-mode: normal;
   position: absolute;
   top: 80px;
-  width: 744px;
+  width: 50%;
   transition: 0.5s;
 }
 
@@ -2189,7 +2189,7 @@
   background-color: white;
   z-index: 6000;
   border-radius: 8px;
-  border: 2px solid #E3E7ED;
+  border: 2px solid transparent;
   overflow: hidden;
   transition: 0.5s;
 }
@@ -3877,8 +3877,13 @@ margin-left: 3px;
 }
 
 .decimal-span{
+  display: inline-block;
 position: relative;
 bottom: 25px;
+width: 2.3ch;
+overflow: hidden;
+ white-space: nowrap;
+
 }
 
 .bar-chart{
@@ -7349,3 +7354,4 @@ bottom: 25px;
   left: 2px;
   color: white;
 }
+
