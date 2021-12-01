@@ -42,7 +42,6 @@
                 <img class = 'retractbutton'  onclick = "retract()" src = "{{url_for('static',filename='img/retractbuttonbackground.png')}}"/><img class = 'retractbuttonarrowright' id = 'rightarrow'  onclick = "retract()" src = "{{url_for('static',filename='img/retractbuttonarrow.png')}}"/>
             </div>
             <div class = "rightabsolute">
-
             <div class = "rightpanel" id = rightpanel>
                 <div class = 'rightsidetitle'>Panels</div>
                 <div id="Panel" class="tabcontent">
@@ -81,7 +80,7 @@
             </div>
 
                 <div class = 'switch-block'>
-                <div class = 'switch-header'>Inventory</div>
+                <div class = 'switch-header'>Time Loads</div>
                 <div class = 'graph-box'>
                     <div class = 'small-donut-chart' id = 'chart8'></div>
                         {% for i in range (0, 3) %}
@@ -145,7 +144,7 @@
         </div>
     </div>
             <div class = 'switch-block'>
-                <div class = 'switch-header'>Inventory</div>
+                <div class = 'switch-header'>Electrical Panels</div>
                 <div class = 'graph-box'>
                     <div class = 'small-donut-chart' id = 'chart11'></div>
                         {% for i in range (0, numpanels) %}
@@ -160,7 +159,7 @@
             </div>
 
                 <div class = 'switch-block'>
-                <div class = 'switch-header'>Inventory</div>
+                <div class = 'switch-header'>Time Loads</div>
                 <div class = 'graph-box'>
                     <div class = 'small-donut-chart' id = 'chart12'></div>
                         {% for i in range (0, 3) %}
@@ -191,7 +190,7 @@
                 <div class="rectangle-23402-l6cqYc">
                 <div class="panel-a2-l6cqYc avertacy-bold-sapphire-12px">{{timeloads.iloc[i][0]}}</div>
                 <div class="x43-l6cqYc avertacy-bold-sapphire-12px"></div>
-                <input type= 'checkbox' class="rectangle-30242-l6cqYc"style = "background-color: {{timeloads.iloc[i][2]}};" id = 'panel1check'checked/><label for = 'panel1check'></label>
+                <input onclick = 'toggleTimeLoads();' type= 'checkbox' class="rectangle-30242-l6cqYc"style = "background-color: {{timeloads.iloc[i][2]}};" id = 'panel1check'checked/><label for = 'panel1check'></label>
                 <div class="info"><img class="info-image" src="{{url_for('static',filename='img/infoimage1.png')}}"/></div></div>
                 <div class = 'panelpercent avertacy-bold-sapphire-12px'>{{timeloads.iloc[i][1]}}%</div>
 
@@ -213,7 +212,7 @@
             </div>
 
                 <div class = 'switch-block'>
-                <div class = 'switch-header'>Inventory</div>
+                <div class = 'switch-header'>Electrical Panels</div>
                 <div class = 'graph-box'>
                     <div class = 'small-donut-chart' id = 'chart15'></div>
                         {% for i in range (0, numpanels) %}
@@ -228,7 +227,7 @@
             </div>
             </div>
         </div>
-                <div class = 'rightsidetitle'>Load Filters</div>
+                <div class = 'rightsidetitle' id = title></div>
                 <div class = 'load-block'>
                     <div class = 'load-header'>Inventory</div>
                     <div class = 'load-content'>
@@ -315,19 +314,19 @@
                     <div class = 'total-box'>6<span class = 'decimal-span' style = 'font-size: 9px; width: 5px;'>.09</span><span class = 'kwh-total'>kg/CO2</span><div class = total-box-line>Emmisions</div></div>
                 </div>
                 <div class = 'circuit-graph' id = 'chart5'></div>
-                <div class = 'circuit-graph-background'><img class = 'graph-background-image' src ="{{url_for('static',filename='img/graph-background-image.PNG')}}"/></div>
+                <div class = 'circuit-graph-background'></div>
             </div>
         </div>
-        <div class = 'graph-buttons-block' id = 'graph-buttons-block'><a href = "{{url_for('commercial.historicalusageweek')}}"><div class = 'grah-buttons'><img class = 'graph-buttons-image' src ="{{url_for('static',filename='img/bar-image.png')}}"/> </div></a>
+        <div class = 'graph-buttons-block' id = 'graph-buttons-block'><a href = "{{url_for('commercial.historicalusage')}}"><div class = 'grah-buttons'><img class = 'graph-buttons-image' src ="{{url_for('static',filename='img/bar-image.png')}}"/> </div></a>
         <a href = "{{url_for('commercial.historicalusageweekline')}}"><div class = 'grah-buttons'><img class = 'graph-buttons-image' src ="{{url_for('static',filename='img/line-image.png')}}"/> </div></div></a>
 
-        <div class = 'total-block' id = 'total-block'>    
-        <div class = 'total-box' id = 'total-box1'><span style = 'font-size: 20px;'>$</span>{{totalprice|int}}<span class = 'decimal-span' style = 'font-size: 10px;'>.{{(totalprice|string).split('.')[1]|truncate(2, true, '', 0)}}</span><div class = total-box-line>Costs</div></div>
+            <div class = 'total-block'>    
+            <div class = 'total-box' style = 'margin-right: 20px;'><span style = 'font-size: 20px;'>$</span><span id = 'totalprice-whole'></span><span class = 'decimal-span' style = 'font-size: 10px;' id = 'totalprice-decimal'></span><div class = total-box-line>Costs</div></div>
 
-        <div class = 'total-box' id = 'total-box2'>{{(total/1000)|int}}<span class = 'decimal-span' style = 'font-size: 9px; width: 5px;'>.{{((total/1000)|string).split('.')[1]|truncate(2, true, '', 0)}}</span><span class = 'kwh-total'>kWh</span><div class = total-box-line>Usage</div></div>
+            <div class = 'total-box'style = 'margin-right: 20px;'><span id = 'total-whole'></span><span class = 'decimal-span' id = 'total-decimal' style = 'font-size: 9px;'></span><span class = 'kwh-total'>kWh</span><div class = total-box-line>Usage</div></div>
 
-        <div class = 'total-box' id = 'total-box3'>6<span class = 'decimal-span' style = 'font-size: 9px; width: 5px;'>.09</span><span class = 'kwh-total'>kg/CO2</span><div class = total-box-line>Emmisions</div></div>
-    </div>
+            <div class = 'total-box'>6<span class = 'decimal-span' style = 'font-size: 9px; width: 15px;'>.09</span><span class = 'kwh-total'>kg/CO2</span><div class = total-box-line>Emmisions</div></div>
+        </div>
 
         <div class = "graph-background" id ='graph-background'> </div>
 
@@ -354,9 +353,9 @@
         {% for i in range (0, len) %}
 
         <div class="rectangle-3165-L7BXHD {{historicalusage.iloc[i][3]}} {{historicalusage.iloc[i][4]}}" id = '{{historicalusage.iloc[i][0]}}' onclick = 'exploreCircuit("{{historicalusage.iloc[i][0]}}")'>
-        <div class="lunchroom-lights-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}">{{historicalusage.iloc[i][0]}}</div>
-        <div class="x345-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}">{{historicalusage.iloc[i][1]}}w</div>
-        <div class="rectangle-3184-L7BXHD {{historicalusage.iloc[i][3]}}line" {% if historicalusage.iloc[i][1] == 0 %} style = 'width: 2px; background-color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'width: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;'{% endif %}><div class="x21-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" {% if historicalusage.iloc[i][1] == 0 %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;  color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 10}}px;'{% endif %}>{{"%.2f"|format(((historicalusage.iloc[i][1]/ total) * 100)|float)}}%</div></div>
+        <div class="lunchroom-lights-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}energyname'>{{historicalusage.iloc[i][0]}}</div>
+        <div class="x345-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}energy'>{{"%.1f"|format(historicalusage.iloc[i][1]|float)}}w</div>
+        <div class="rectangle-3184-L7BXHD {{historicalusage.iloc[i][3]}}line" id = '{{historicalusage.iloc[i][0]}}energybar' {% if historicalusage.iloc[i][1] == 0 %} style = 'width: 2px; background-color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'width: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;'{% endif %}><div class="x21-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}energypercent' {% if historicalusage.iloc[i][1] == 0 %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;  color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 10}}px;'{% endif %}>{{"%.2f"|format(((historicalusage.iloc[i][1]/ total) * 100)|float)}}%</div></div>
         <div class = 'explore-image-box' id = '{{historicalusage.iloc[i][0]}}image' onclick = "createChart('{{historicalusage.iloc[i][0]}}',{{i}});"><img class="explore-image" src="{{url_for('static',filename='img/explore-image.png')}}" /></div>
     </div>
         {% endfor %}
@@ -365,9 +364,9 @@
         {% for i in range (0, len) %}
 
         <div class="rectangle-3165-L7BXHD {{historicalusage.iloc[i][3]}} {{historicalusage.iloc[i][4]}}" id = '{{historicalusage.iloc[i][0]}}cost' onclick = 'exploreCircuit("{{historicalusage.iloc[i][0]}}")'>
-        <div class="lunchroom-lights-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}">{{historicalusage.iloc[i][0]}}</div>
-        <div class="x345-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}">${{"%.2f"|format(historicalusage.iloc[i][5]|float)}}/hr</div>
-        <div class="rectangle-3184-L7BXHD {{historicalusage.iloc[i][3]}}line" {% if historicalusage.iloc[i][1] == 0 %} style = 'width: 2px; background-color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'width: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;'{% endif %}><div class="x21-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" {% if historicalusage.iloc[i][1] == 0 %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;  color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 10}}px;'{% endif %}>{{"%.2f"|format(((historicalusage.iloc[i][1]/ total) * 100)|float)}}%</div></div>
+        <div class="lunchroom-lights-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}namecost'>{{historicalusage.iloc[i][0]}}</div>
+        <div class="x345-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}price'>${{"%.2f"|format(historicalusage.iloc[i][5]|float)}}/hr</div>
+        <div class="rectangle-3184-L7BXHD {{historicalusage.iloc[i][3]}}line" id = '{{historicalusage.iloc[i][0]}}costbar' {% if historicalusage.iloc[i][1] == 0 %} style = 'width: 2px; background-color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'width: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;'{% endif %}><div class="x21-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}costpercent' {% if historicalusage.iloc[i][1] == 0 %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;  color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 10}}px;'{% endif %}>{{"%.2f"|format(((historicalusage.iloc[i][1]/ total) * 100)|float)}}%</div></div>
         <div class = 'explore-image-box' id = '{{historicalusage.iloc[i][0]}}costimage'  onclick = "createChart('{{historicalusage.iloc[i][0]}}',{{i}});"><img class="explore-image" src="{{url_for('static',filename='img/explore-image.png')}}" /></div>
         </div>
         {% endfor %}
@@ -465,8 +464,9 @@
                                 chart2.render();
                         </script>
                           <script>
+
                             var options = {
-                                  colors:['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#DBE2F3'],
+                                  colors:['#0D1758'],
                                   series: [
                                   {
                                     name: "Panel A",
@@ -476,13 +476,24 @@
                                   chart: {
                                   height: '219px',
                                   width: '660px',
-                                  type: 'bar',
+                                  type: 'line',
                                   zoom: {
                                     enabled: false
                                   },
                                   toolbar:{
                                     show: false,
                                   },
+                                },
+                                plotOptions:{
+                                    bar:{
+                                        columnWidth: '120%',
+                                        distributed: true,
+                                        colors: {
+                                          backgroundBarColors: chart_colors,
+                                          backgroundBarOpacity: 1,
+                                          backgroundBarRadius: 0,
+                                      },
+                                    },
                                 },
                                 dataLabels: {
                                   enabled: false
@@ -494,11 +505,23 @@
                                   curve: 'smooth'
                                 },
                                 grid: {
-                                  row: {
-                                    colors: ['transparent', 'transparent'], // takes an array which will be repeated on columns
-                                    opacity: 0.5
-                                  },
-                                },
+                                    show: true,
+                                    borderColor: 'black',
+                                    position: 'back',
+                                    column:{
+                                        colors: chart_colors,
+                                    },
+                                    xaxis: {
+                                        lines: {
+                                            show: false
+                                        }
+                                    },   
+                                    yaxis: {
+                                        lines: {
+                                            show: false
+                                        }
+                                    },
+                                                                },
                                 xaxis: {
                                   labels:{
                                     show: false
@@ -513,7 +536,7 @@
                                 yaxis:{
                                   labels:{
                                   style:{
-                                      colors: 'DarkBlue',
+                                      colors: '#AFB8CC',
                                       fontFamily: " Helvetica, Averta CY-Bold",
                                       fontSize: '10px',
                                       fontWeight: 700,
@@ -550,6 +573,9 @@
                               width: 200,
                               type: 'donut',
                             },
+                            tooltip: {
+                                enabled: false,
+                            },
                             dataLabels: {
                               enabled: false
                             },
@@ -581,6 +607,9 @@
                               height: 200,
                               type: 'donut',
                             },
+                            tooltip: {
+                                enabled: false,
+                            },
                             dataLabels: {
                               enabled: false
                             },
@@ -609,6 +638,9 @@
                               height: 100,
                               type: 'donut',
                             },
+                            tooltip: {
+                                enabled: false,
+                            },
                             dataLabels: {
                               enabled: false
                             },
@@ -635,6 +667,9 @@
                               width: 100,
                               height: 100,
                               type: 'donut',
+                            },
+                            tooltip: {
+                                enabled: false,
                             },
                             dataLabels: {
                               enabled: false
@@ -664,6 +699,9 @@
                               chart: {
                               width: 200,
                               type: 'donut',
+                            },
+                            tooltip: {
+                                enabled: false,
                             },
                             dataLabels: {
                               enabled: false
@@ -698,6 +736,9 @@
                               height: 200,
                               type: 'donut',
                             },
+                            tooltip: {
+                                enabled: false,
+                            },
                             dataLabels: {
                               enabled: false
                             },
@@ -727,6 +768,9 @@
                               width: 100,
                               height: 100,
                               type: 'donut',
+                            },
+                            tooltip: {
+                                enabled: false,
                             },
                             dataLabels: {
                               enabled: false
@@ -758,6 +802,9 @@
                               height: 100,
                               type: 'donut',
                             },
+                            tooltip: {
+                                enabled: false,
+                            },
                             dataLabels: {
                               enabled: false
                             },
@@ -779,10 +826,13 @@
 </script>
   <script >var options = {
                               labels: ['On-Hours','Off-Hours','Always-On'],
-                              series: [33,14,11],
+                              series: [{{onHours}},{{offHours}},{{alwaysOn}}],
                               chart: {
                               width: 200,
                               type: 'donut',
+                            },
+                            tooltip: {
+                                enabled: false,
                             },
                             dataLabels: {
                               enabled: false
@@ -792,7 +842,7 @@
                                 show:false
                             },
 
-                            colors:['#22B14C','#EE8F37','#7F7F7F'],
+                            colors:['#22B14C','#7F7F7F','#EE8F37'],
 
                             responsive: [{
                               breakpoint: 480,
@@ -808,11 +858,14 @@
 </script>
   <script >var options = {
                               labels: ['On-Hours','Off-Hours','Always-On'],
-                              series: [33,14,11],
+                              series: [{{onHours}},{{offHours}},{{alwaysOn}}],
                               chart: {
                               width: 200,
                               width: 200,
                               type: 'donut',
+                            },
+                            tooltip: {
+                                enabled: false,
                             },
                             dataLabels: {
                               enabled: false
@@ -822,7 +875,7 @@
                                 show:false
                             },
 
-                            colors:['#22B14C','#EE8F37','#7F7F7F'],
+                            colors:['#22B14C','#7F7F7F','#EE8F37'],
 
                             responsive: [{
                               breakpoint: 480,
@@ -835,11 +888,14 @@
 </script>
   <script >var options = {
                               labels: ['On-Hours','Off-Hours','Always-On'],
-                              series: [33,14,11],
+                              series: [{{onHours}},{{offHours}},{{alwaysOn}}],
                               chart: {
                               width: 100,
                               height: 100,
                               type: 'donut',
+                            },
+                            tooltip: {
+                                enabled: false,
                             },
                             dataLabels: {
                               enabled: false
@@ -849,7 +905,7 @@
                                 show:false
                             },
 
-                            colors:['#22B14C','#EE8F37','#7F7F7F'],
+                            colors:['#22B14C','#7F7F7F','#EE8F37'],
 
                             responsive: [{
                               breakpoint: 480,
@@ -862,11 +918,14 @@
 </script>
   <script >var options = {
                               labels: ['On-Hours','Off-Hours','Always-On'],
-                              series: [33,14,11],
+                              series: [{{onHours}},{{offHours}},{{alwaysOn}}],
                               chart: {
                               width: 100,
                               height: 100,
                               type: 'donut',
+                            },
+                            tooltip: {
+                                enabled: false,
                             },
                             dataLabels: {
                               enabled: false
@@ -876,7 +935,7 @@
                                 show:false
                             },
 
-                            colors:['#22B14C','#EE8F37','#7F7F7F'],
+                            colors:['#22B14C','#7F7F7F','#EE8F37'],
 
                             responsive: [{
                               breakpoint: 480,
@@ -976,11 +1035,17 @@ function showSlides(n) {
 }
   if (x[0].style.display === "none") {
     newtotal = (newtotal - {{lighttotal}});
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalSplit = String(newtotal).split('.')
+    document.getElementById("total-whole").innerHTML = Math.abs(totalSplit[0])
+    document.getElementById("total-decimal").innerHTML = '.' + Math.abs(totalSplit[1])
     newtotalprice = (newtotalprice - {{lightprice}});
-    document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+
+    totalpriceSplit = String(newtotalprice).split('.')
+    document.getElementById("totalprice-whole").innerHTML =Math.abs(totalpriceSplit[0])
+    document.getElementById("totalprice-decimal").innerHTML ='.' + Math.abs(totalpriceSplit[1])
     newpercent = (newpercent - {{lightpercent}});
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2)
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     removeLighting();
@@ -989,11 +1054,17 @@ function showSlides(n) {
 })
   } else {
     newtotal = (newtotal - -Math.abs({{lighttotal}}));
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalSplit = String(newtotal).split('.')
+    document.getElementById("total-whole").innerHTML = Math.abs(totalSplit[0])
+    document.getElementById("total-decimal").innerHTML = '.' + Math.abs(totalSplit[1])
     newtotalprice = (newtotalprice - -Math.abs({{lightprice}}));
-    document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalpriceSplit = String(newtotalprice).split('.')
+    document.getElementById("totalprice-whole").innerHTML =Math.abs(totalpriceSplit[0])
+    document.getElementById("totalprice-decimal").innerHTML ='.' + Math.abs(totalpriceSplit[1])
     newpercent = (newpercent - -Math.abs({{lightpercent}}));
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2)
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     addLighting();
@@ -1014,11 +1085,17 @@ function toggleEquipment() {
   }
     if (x[0].style.display === "none") {
     newtotal = (newtotal - {{equipmenttotal}});
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalSplit = String(newtotal).split('.')
+    document.getElementById("total-whole").innerHTML = Math.abs(totalSplit[0])
+    document.getElementById("total-decimal").innerHTML = '.' + Math.abs(totalSplit[1])
     newtotalprice = (newtotalprice - {{equipmentprice}});
-    document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalpriceSplit = String(newtotalprice).split('.')
+    document.getElementById("totalprice-whole").innerHTML =Math.abs(totalpriceSplit[0])
+    document.getElementById("totalprice-decimal").innerHTML ='.' + Math.abs(totalpriceSplit[1])
     newpercent = (newpercent - {{equipmentpercent}});
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2)
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     removeEquipment();
@@ -1027,11 +1104,17 @@ function toggleEquipment() {
 })
   } else {
     newtotal = (newtotal - -Math.abs({{equipmenttotal}}));
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalSplit = String(newtotal).split('.')
+    document.getElementById("total-whole").innerHTML = Math.abs(totalSplit[0])
+    document.getElementById("total-decimal").innerHTML = '.' + Math.abs(totalSplit[1])
     newtotalprice = (newtotalprice - -Math.abs({{equipmentprice}}));
-    document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalpriceSplit = String(newtotalprice).split('.')
+    document.getElementById("totalprice-whole").innerHTML =Math.abs(totalpriceSplit[0])
+    document.getElementById("totalprice-decimal").innerHTML ='.' + Math.abs(totalpriceSplit[1])
     newpercent = (newpercent - -Math.abs({{equipmentpercent}}));
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2)
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     addEquipment();
@@ -1052,11 +1135,17 @@ function toggleHVAC() {
   }
       if (x[0].style.display === "none") {
     newtotal = (newtotal - {{hvactotal}});
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalSplit = String(newtotal).split('.')
+    document.getElementById("total-whole").innerHTML = Math.abs(totalSplit[0])
+    document.getElementById("total-decimal").innerHTML = '.' + Math.abs(totalSplit[1])
     newtotalprice = (newtotalprice - {{hvacprice}});
-    document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalpriceSplit = String(newtotalprice).split('.')
+    document.getElementById("totalprice-whole").innerHTML =Math.abs(totalpriceSplit[0])
+    document.getElementById("totalprice-decimal").innerHTML ='.' + Math.abs(totalpriceSplit[1])
     newpercent = (newpercent - {{hvacpercent}});
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2)
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     removeHVAC();
@@ -1065,11 +1154,17 @@ function toggleHVAC() {
 })
   } else {
     newtotal = (newtotal - -Math.abs({{hvactotal}}));
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalSplit = String(newtotal).split('.')
+    document.getElementById("total-whole").innerHTML = Math.abs(totalSplit[0])
+    document.getElementById("total-decimal").innerHTML = '.' + Math.abs(totalSplit[1])
     newtotalprice = (newtotalprice - -Math.abs({{hvacprice}}));
-    document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalpriceSplit = String(newtotalprice).split('.')
+    document.getElementById("totalprice-whole").innerHTML =Math.abs(totalpriceSplit[0])
+    document.getElementById("totalprice-decimal").innerHTML ='.' + Math.abs(totalpriceSplit[1])
     newpercent = (newpercent - -Math.abs({{hvacpercent}}));
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2)
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     addHVAC();
@@ -1090,11 +1185,17 @@ function togglePlugLoad() {
   }
       if (x[0].style.display === "none") {
     newtotal = (newtotal - {{plugtotal}});
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalSplit = String(newtotal).split('.')
+    document.getElementById("total-whole").innerHTML = Math.abs(totalSplit[0])
+    document.getElementById("total-decimal").innerHTML = '.' + Math.abs(totalSplit[1])
     newtotalprice = (newtotalprice - {{plugprice}});
-    document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalpriceSplit = String(newtotalprice).split('.')
+    document.getElementById("totalprice-whole").innerHTML =Math.abs(totalpriceSplit[0])
+    document.getElementById("totalprice-decimal").innerHTML ='.' + Math.abs(totalpriceSplit[1])
     newpercent = (newpercent - {{plugpercent}});
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2)
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     removePlug();
@@ -1103,11 +1204,17 @@ function togglePlugLoad() {
 })
   } else {
     newtotal = (newtotal - -Math.abs({{plugtotal}}));
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalSplit = String(newtotal).split('.')
+    document.getElementById("total-whole").innerHTML = Math.abs(totalSplit[0])
+    document.getElementById("total-decimal").innerHTML = '.' + Math.abs(totalSplit[1])
     newtotalprice = (newtotalprice - -Math.abs({{plugprice}}));
-    document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalpriceSplit = String(newtotalprice).split('.')
+    document.getElementById("totalprice-whole").innerHTML =Math.abs(totalpriceSplit[0])
+    document.getElementById("totalprice-decimal").innerHTML ='.' + Math.abs(totalpriceSplit[1])
     newpercent = (newpercent - -Math.abs({{plugpercent}}));
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2)
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     addPlug();
@@ -1128,11 +1235,17 @@ function toggleHotWater() {
   }
       if (x[0].style.display === "none") {
     newtotal = (newtotal - {{watertotal}});
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalSplit = String(newtotal).split('.')
+    document.getElementById("total-whole").innerHTML = Math.abs(totalSplit[0])
+    document.getElementById("total-decimal").innerHTML = '.' + Math.abs(totalSplit[1])
     newtotalprice = (newtotalprice - {{waterprice}});
-    document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalpriceSplit = String(newtotalprice).split('.')
+    document.getElementById("totalprice-whole").innerHTML =Math.abs(totalpriceSplit[0])
+    document.getElementById("totalprice-decimal").innerHTML ='.' + Math.abs(totalpriceSplit[1])
     newpercent = (newpercent - {{waterpercent}});
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2)
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     removeWater();
@@ -1141,11 +1254,17 @@ function toggleHotWater() {
 })
   } else {
     newtotal = (newtotal - -Math.abs({{watertotal}}));
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalSplit = String(newtotal).split('.')
+    document.getElementById("total-whole").innerHTML = Math.abs(totalSplit[0])
+    document.getElementById("total-decimal").innerHTML = '.' + Math.abs(totalSplit[1])
     newtotalprice = (newtotalprice - -Math.abs({{waterprice}}));
-    document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalpriceSplit = String(newtotalprice).split('.')
+    document.getElementById("totalprice-whole").innerHTML =Math.abs(totalpriceSplit[0])
+    document.getElementById("totalprice-decimal").innerHTML ='.' + Math.abs(totalpriceSplit[1])
     newpercent = (newpercent - -Math.abs({{waterpercent}}));
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2)
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     addWater();
@@ -1166,11 +1285,17 @@ function toggleOther() {
   }
       if (x[0].style.display === "none") {
     newtotal = (newtotal - {{othertotal}});
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalSplit = String(newtotal).split('.')
+    document.getElementById("total-whole").innerHTML = Math.abs(totalSplit[0])
+    document.getElementById("total-decimal").innerHTML = '.' + Math.abs(totalSplit[1])
     newtotalprice = (newtotalprice - {{otherprice}});
-    document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalpriceSplit = String(newtotalprice).split('.')
+    document.getElementById("totalprice-whole").innerHTML =Math.abs(totalpriceSplit[0])
+    document.getElementById("totalprice-decimal").innerHTML ='.' + Math.abs(totalpriceSplit[1])
     newpercent = (newpercent - {{otherpercent}});
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2)
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     removeOther();
@@ -1179,11 +1304,17 @@ function toggleOther() {
 })
   } else {
     newtotal = (newtotal - -Math.abs({{othertotal}}));
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalSplit = String(newtotal).split('.')
+    document.getElementById("total-whole").innerHTML = Math.abs(totalSplit[0])
+    document.getElementById("total-decimal").innerHTML =  '.' + Math.abs(totalSplit[1])
     newtotalprice = (newtotalprice - -Math.abs({{otherprice}}));
-    document.getElementById("totalprice").innerHTML =Math.abs(newtotalprice).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    
+    totalpriceSplit = String(newtotalprice).split('.')
+    document.getElementById("totalprice-whole").innerHTML =Math.abs(totalpriceSplit[0])
+    document.getElementById("totalprice-decimal").innerHTML = '.' + Math.abs(totalpriceSplit[1])
     newpercent = (newpercent - -Math.abs({{otherpercent}}));
-    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2)
     document.getElementById("percent3").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     document.getElementById("percent4").innerHTML = Math.abs(newpercent).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] + "<span style = 'font-size: 12px;'>%</span>";
     addOther();
@@ -1196,13 +1327,18 @@ function toggleOther() {
 
 function getTotal() {
   newtotal = {{"%.2f"|format(total/1000)|float}};
-  document.getElementById("total").innerHTML = newtotal;
+  totalSplit = String(newtotal).split('.')
+  document.getElementById("total-whole").innerHTML = totalSplit[0];
+  document.getElementById("total-decimal").innerHTML = '.' + totalSplit[1];
   newtotalprice = {{"%.2f"|format(totalprice)|float}}
-  document.getElementById("totalprice").innerHTML =newtotalprice;
+  priceSplit = String(newtotalprice).split('.')
+  document.getElementById("totalprice-whole").innerHTML = priceSplit[0];
+  document.getElementById("totalprice-decimal").innerHTML = '.' + priceSplit[1];
   newpercent = 100;
   document.getElementById("percentage").innerHTML = newpercent;
   document.getElementById("percent3").innerHTML = newpercent + "<span style = 'font-size: 12px;'>%</span>";
   document.getElementById("percent4").innerHTML = newpercent + "<span style = 'font-size: 12px;'>%</span>";
+  document.getElementById("title").innerHTML = 'Load Filters'
 }
 function resetVariables(){
   newtotal = 0;
@@ -1256,10 +1392,20 @@ function resetVariables(){
               document.getElementById("total").innerHTML = 0;
               document.getElementById("totalprice").innerHTML =0;
               document.getElementById("percentage").innerHTML = 0;
-              document.getElementById("percent2").innerHTML = 0;
-              document.getElementById("percent3").innerHTML = 0 + "<span style = 'font-size: 12px;'>%</span>";
-              document.getElementById("percent4").innerHTML = 0 + "<span style = 'font-size: 12px;'>%</span>";
+              // document.getElementById("percent2").innerHTML = 0;
+              // document.getElementById("percent3").innerHTML = 0 + "<span style = 'font-size: 12px;'>%</span>";
+              // document.getElementById("percent4").innerHTML = 0 + "<span style = 'font-size: 12px;'>%</span>";
                     }
+        if(colors2[0] == '#FFFFFF' && colors2[1] == '#FFFFFF'){
+      document.getElementById("total-whole").innerHTML = 0;
+      document.getElementById("totalprice-whole").innerHTML =0;
+      document.getElementById("total-decimal").innerHTML = 0;
+      document.getElementById("totalprice-decimal").innerHTML =0;
+      document.getElementById("percentage").innerHTML = 0;
+      // document.getElementById("percent2").innerHTML = 0;
+      // document.getElementById("percent3").innerHTML = 0 + "<span style = 'font-size: 12px;'>%</span>";
+      // document.getElementById("percent4").innerHTML = 0 + "<span style = 'font-size: 12px;'>%</span>";
+            }
     }
     function changetoEnergy(){
       document.getElementById('Energy').style.display = 'block';
@@ -1273,15 +1419,17 @@ function resetVariables(){
     function createChart(name, number){
         var data = {{schedule | tojson}};
         var string = data[number];
-        string = string.replaceAll('[', '')
-        string = string.replaceAll(']', '')
+        string = string.replace('[', '')
+        string = string.replace(']', '')
         var datalist = string.split(",");
+        console.log(name)
+        console.log(datalist)
         chart5.updateSeries([{ 
             name: name,
             data: datalist,
         } 
         ]); 
-                var sum = 0;
+        var sum = 0;
         for(var i = 0; i < datalist.length; i++){
             console.log(datalist[i]);
             sum += (parseFloat(datalist[i]) / 1000);
@@ -1299,6 +1447,7 @@ function resetVariables(){
         document.getElementById('cost-whole').textContent = costSplit[0];
         document.getElementById('cost-decimal').textContent = '.' + costSplit[1];
     }
+
     function toggleMaster(category){
     if(category == 'Lighting'){
         toggleLighting();
@@ -1318,6 +1467,10 @@ function resetVariables(){
     if(category == 'Other'){
         toggleOther();
     }
+}
+
+function toggleTimeLoads(){
+    
 }
 function closeCircuitBlock(){
     document.getElementById('circuit-block').style.width = '0px';
@@ -1354,9 +1507,16 @@ function closeCircuitBlock(){
     } 
     ]); 
     }
-        function exploreCircuit(circuitname){
+
+    function exploreCircuit(circuitname){
         var x = document.getElementsByClassName('rectangle-3165-L7BXHD');
         var y = document.getElementsByClassName('explore-image-box');
+        var lighting = document.getElementsByClassName('lighting');
+        var equipment = document.getElementsByClassName('equipment');
+        var hvac = document.getElementsByClassName('hvac');
+        var plugload = document.getElementsByClassName('plugload');
+        var hotwater = document.getElementsByClassName('hotwater');
+        var other = document.getElementsByClassName('other');
         for(var i = 0; i < x.length; i++){
             x[i].style.backgroundColor = 'white';
             y[i].style.display = 'none';
@@ -1368,7 +1528,7 @@ function closeCircuitBlock(){
         document.getElementById(circuitname + 'cost').style.backgroundColor = '#0D1758';
         document.getElementById(circuitname + 'costimage').style.display = 'block';
     }
-     function retractleft() {
+ function retractleft() {
     if(document.getElementById("leftretract").style.width != "80px"){
   document.getElementById("leftretract").style.width = "80px";
   document.getElementById("dashboard").style.color = "white";
@@ -1563,6 +1723,7 @@ function togglePanel(panelname, num) {
   var x = document.getElementsByClassName(panelname);
   var paneltotal = {{paneltotal | tojson}};
   var panelpercent = {{panelpercent | tojson}};
+  var panelprice = {{panelprice | tojson}};
   var i;
   for (i = 0; i < x.length; i++) {
     if (x[i].style.display === "none") {
@@ -1572,10 +1733,14 @@ function togglePanel(panelname, num) {
   }
 }
   if (x[0].style.display === "none") {
-    newtotal = (newtotal - Math.abs(paneltotal[num]));
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toFixed(2) + 'w';
-    newtotalprice = (newtotalprice - {{lightprice}});
-    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toFixed(2) + '/hr';
+    newtotal = (newtotal - Math.abs(paneltotal[num]/1000));
+    totalSplit = String(newtotal).split('.')
+    document.getElementById("total-whole").innerHTML = Math.abs(totalSplit[0])
+    document.getElementById("total-decimal").innerHTML =  '.' + Math.abs(totalSplit[1])
+    newtotalprice = (newtotalprice - panelprice[num]);
+    totalpriceSplit = String(newtotalprice).split('.')
+    document.getElementById("totalprice-whole").innerHTML =Math.abs(totalpriceSplit[0])
+    document.getElementById("totalprice-decimal").innerHTML = '.' + Math.abs(totalpriceSplit[1])
     newpercent = (newpercent - Math.abs(panelpercent[num]));
     document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
     // document.getElementById("percent2").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
@@ -1586,10 +1751,14 @@ function togglePanel(panelname, num) {
   colors: [colors2[0],colors2[1],colors2[2],colors2[3],colors2[4],colors2[5]]
 })
   } else {
-    newtotal = (newtotal - Math.abs(paneltotal[num]));
-    document.getElementById("total").innerHTML = Math.abs(newtotal).toFixed(2) + 'w';
-    newtotalprice = (newtotalprice + Math.abs({{lightprice}}));
-    document.getElementById("totalprice").innerHTML = '$' + Math.abs(newtotalprice).toFixed(2) + '/hr';
+    newtotal = (newtotal + Math.abs(paneltotal[num]/1000));
+    totalSplit = String(newtotal).split('.')
+    document.getElementById("total-whole").innerHTML = Math.abs(totalSplit[0])
+    document.getElementById("total-decimal").innerHTML =  '.' + Math.abs(totalSplit[1])
+    newtotalprice = (newtotalprice + Math.abs(panelprice[num]));
+    totalpriceSplit = String(newtotalprice).split('.')
+    document.getElementById("totalprice-whole").innerHTML =Math.abs(totalpriceSplit[0])
+    document.getElementById("totalprice-decimal").innerHTML = '.' + Math.abs(totalpriceSplit[1])
     newpercent = (newpercent + Math.abs(panelpercent[num]));
     document.getElementById("percentage").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
     // document.getElementById("percent2").innerHTML = Math.abs(newpercent).toFixed(2) + '%';
@@ -1605,17 +1774,19 @@ function openPanelSidebar(){
     document.getElementById('rightpanel').style.width = '400px';
     document.getElementById('rightcategory').style.width = '0px';
     document.getElementById('righttimeloads').style.width = '0px';
+    document.getElementById('title').innerHTML = 'Electrical Panels';
 }
 function openCategorySidebar(){
     document.getElementById('rightcategory').style.width = '400px';
     document.getElementById('rightpanel').style.width = '0px';
     document.getElementById('righttimeloads').style.width = '0px';
+    document.getElementById('title').innerHTML = 'Inventory';
 }
 function openTimeSidebar(){
     document.getElementById('rightcategory').style.width = '0px';
     document.getElementById('rightpanel').style.width = '0px';
     document.getElementById('righttimeloads').style.width = '400px';
+    document.getElementById('title').innerHTML = 'Time Loads';
 
 }
-</script>
-</html>
+</script></html>

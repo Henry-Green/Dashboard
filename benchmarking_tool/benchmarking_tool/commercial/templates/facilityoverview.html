@@ -53,7 +53,7 @@
         <div class="x100-l6cqYc" id = 'percent3'></div>
         <div class="rectangle-2973-l6cqYc">
         <div class="rectangle-152-l6cqYc"></div>
-        <div class="electrical-panels-l6cqYc2 avertacy-bold-sapphire-15px">Electrical Panels</div>
+        <div class="electrical-panels-l6cqYc2 avertacy-bold-sapphire-15px" style = 'color: #0D1758;'>Electrical Panels</div>
 
         {% for i in range(0, numpanels) %}
 
@@ -142,7 +142,7 @@
         <div class="x100-l6cqYc"id = 'percent4'></div>
         <div class="rectangle-2973-l6cqYc">
 
-        <div class="electrical-panels-l6cqYc avertacy-bold-sapphire-15px">Categories</div>
+        <div class="electrical-panels-l6cqYc avertacy-bold-sapphire-15px" style = 'color: #0D1758;'>Categories</div>
         <div class="rectangle-15-l6cqYc"></div>
 
         <div class="rectangle-2974-l6cqYc">
@@ -196,7 +196,7 @@
             <h1 class="title-l6cqYc">Live Usage</h1>
             <div class = 'viewselector'>
                 <img class="categoryview" src="{{url_for('static',filename='img/bubbleviewimage.png')}}" />
-                <img class="categoryview" src="{{url_for('static',filename='img/categoryviewimage.png')}}" />
+                <img class="categoryview" src="{{url_for('static',filename='img/bar-image.png')}}" />
             </div>
             <div class="column-names">
                 <div class = 'runningcolumn'>Running</div>
@@ -232,7 +232,7 @@
         <div class="rectangle-3165-l6cqYc {{home_upgrades.iloc[i][5]}} {{home_upgrades.iloc[i][4]}}">
         <div class = 'categorycircle {{home_upgrades.iloc[i][5]}}colour {{home_upgrades.iloc[i][4]}}colour'></div>
         <div class="lunchroom-lights-l6cqYc avertacy-bold-apple-11px"{% if (price.iloc[i][2]) == 0 %} style = 'color: grey;'{% endif %}>{{price.iloc[i][0]}}</div>
-        <div class="x233hr-l6cqYc" {% if price.iloc[i][2] == 0 %} style = 'color: grey;'{% endif %}>{{"$%.2f"|format((price.iloc[i][2])|float)}}/hr</div>
+        <div class="x233hr-l6cqYc" {% if price.iloc[i][2] == 0 %} style = 'color: grey;'{% endif %}>{% if price.iloc[i][2] >= 0.01 or price.iloc[i][2] == 0 %}{{"$%.2f"|format(price.iloc[i][2]|float)}}/hr {% endif %} {% if price.iloc[i][2] < 0.01 and price.iloc[i][2] > 0 %}>$0.01/hr {% endif %} </div>
         <div class="rectangle-3184-l6cqYc" {% if price.iloc[i][2] == 0 %} style = 'width: 2px; background-color: grey;'{% elif price.iloc[i][2]> 0  %} style = 'width: {{250 * (price.iloc[i][2]/totalprice) + 5}}px;'{% endif %}>
         <div class="x21-Al4pJ9" {% if price.iloc[i][2] == 0 %} style = 'left: {{250 * (price.iloc[i][2]/totalprice) + 5}}px; background-color: grey; color: grey;'{% elif price.iloc[i][2] > 0  %} style = 'left: {{250 * (price.iloc[i][2]/totalprice) + 5}}px;'{% endif %}>{{"%.2f"|format(((price.iloc[i][2]/ totalprice) * 100)|float)}}%</div></div></div>
         {% set channelnum.value = channelnum.value + 1 %}
@@ -334,7 +334,6 @@
        for(i = 0; i < x; i++){
          var j = document.getElementsByClassName(categorynames[i] + 'colour');
          for(var l = 0; l < j.length; l++){
-            console.log(j[i])
              j[l].style.backgroundColor = colours[i];
          }
        }
@@ -549,7 +548,6 @@ document.getElementById("defaultOpen").click();
 
       function openCity2(evt, cityName) {
   // Declare all variables
-  console.log(cityName);
   var i, tabcontentss, tablinksss;
 
   // Get all elements with class="tabcontent" and hide them
@@ -607,7 +605,6 @@ function showSlides(n) {
     var colors2 = ['{{colours[0]}}','{{colours[1]}}','{{colours[2]}}','{{colours[3]}}','{{colours[4]}}','{{colours[5]}}'];
 
 function toggleMaster(category){
-    console.log(category);
     if(category == 'Lighting'){
         toggleLighting();
     }
