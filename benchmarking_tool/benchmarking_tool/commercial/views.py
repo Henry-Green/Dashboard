@@ -925,6 +925,7 @@ def historicalusage():
             string = string.replace(']', '')
             datalist = string.split(",")
             floatlist = []
+            for item in datalist:
                 try:
                     floatlist.append(float(item))
                 except:
@@ -1158,6 +1159,7 @@ def historicalusageline():
             string = string.replace(']', '')
             datalist = string.split(",")
             floatlist = []
+            for item in datalist:
                 try:
                     floatlist.append(float(item))
                 except:
