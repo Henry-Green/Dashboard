@@ -925,15 +925,19 @@ def historicalusage():
             string = string.replace(']', '')
             datalist = string.split(",")
             floatlist = []
-            for item in datalist:
-                floatlist.append(float(item))
+                try:
+                    floatlist.append(float(item))
+                except:
+                    print('whoops')
             for k in range(int(starthours) - 1, int(endhours) + 1):
                 if 0 in floatlist:
                     totalset[k] += float(datalist[k])
             for k in range(0, len(datalist)):
-                if ((k >= int(starthours) and k <= int(endhours)) == False) and 0 in floatlist:
-                    offhours[k] += float(datalist[k])
-                    print(k)
+                    try:
+                        if datalist[k] != '' and (math.isnan(float(datalist[k]))) == False:
+                                offhours[k] += float(datalist[k])
+                    except:
+                        ('whoops')
         onHours = ((sum(totalset)) / total * 100).round(2)
         offHours = ((sum(offhours)) / total * 100).round(2)
         alwaysOn = (100 - onHours - offHours).round(2)
@@ -1154,15 +1158,19 @@ def historicalusageline():
             string = string.replace(']', '')
             datalist = string.split(",")
             floatlist = []
-            for item in datalist:
-                floatlist.append(float(item))
+                try:
+                    floatlist.append(float(item))
+                except:
+                    print('whoops')
             for k in range(int(starthours) - 1, int(endhours) + 1):
                 if 0 in floatlist:
                     totalset[k] += float(datalist[k])
             for k in range(0, len(datalist)):
-                if ((k >= int(starthours) and k <= int(endhours)) == False) and 0 in floatlist:
-                    offhours[k] += float(datalist[k])
-                    print(k)
+                    try:
+                        if datalist[k] != '' and (math.isnan(float(datalist[k]))) == False:
+                                offhours[k] += float(datalist[k])
+                    except:
+                        ('whoops')
         onHours = ((sum(totalset)) / total * 100).round(2)
         offHours = ((sum(offhours)) / total * 100).round(2)
         alwaysOn = (100 - onHours - offHours).round(2)
@@ -1507,8 +1515,10 @@ def historicalusageweek():
             datalist = string.split(",")
             floatlist = []
             for item in datalist:
-                if item != '':
+                try:
                     floatlist.append(float(item))
+                except:
+                    print('whoops')
 
             for k in range(int(starthours) - 1, int(endhours) + 1):
                 if 0 in floatlist:
@@ -1517,8 +1527,11 @@ def historicalusageweek():
                         print(datalist[k])
             for k in range(0, len(datalist)):
                 if ((k >= int(starthours) and k <= int(endhours)) == False) and 0 in floatlist:
-                    if datalist[k] != '' and (math.isnan(float(datalist[k]))) == False:
-                        offhours[k] += float(datalist[k])
+                    try:
+                        if datalist[k] != '' and (math.isnan(float(datalist[k]))) == False:
+                                offhours[k] += float(datalist[k])
+                    except:
+                        ('whoops')
                         
         print(sum(totalset))
         print(sum(offhours))     
@@ -1836,8 +1849,10 @@ def historicalusageweekline():
             datalist = string.split(",")
             floatlist = []
             for item in datalist:
-                if item != '':
+                try:
                     floatlist.append(float(item))
+                except:
+                    print('whoops')
 
             for k in range(int(starthours) - 1, int(endhours) + 1):
                 if 0 in floatlist:
@@ -1846,9 +1861,11 @@ def historicalusageweekline():
                         print(datalist[k])
             for k in range(0, len(datalist)):
                 if ((k >= int(starthours) and k <= int(endhours)) == False) and 0 in floatlist:
-                    if datalist[k] != '' and (math.isnan(float(datalist[k]))) == False:
-                        offhours[k] += float(datalist[k])
-                        
+                    try:
+                        if datalist[k] != '' and (math.isnan(float(datalist[k]))) == False:
+                                offhours[k] += float(datalist[k])
+                    except:
+                        ('whoops')                        
         print(sum(totalset))
         print(sum(offhours))     
         onHours = ((sum(totalset)) / total * 100).round(2)
