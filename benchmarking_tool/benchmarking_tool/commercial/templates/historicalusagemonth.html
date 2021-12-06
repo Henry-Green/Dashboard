@@ -354,7 +354,7 @@
 
         <div class="rectangle-3165-L7BXHD {{historicalusage.iloc[i][3]}} {{historicalusage.iloc[i][4]}}" id = '{{historicalusage.iloc[i][0]}}' onclick = 'exploreCircuit("{{historicalusage.iloc[i][0]}}")'>
         <div class="lunchroom-lights-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}energyname'>{{historicalusage.iloc[i][0]}}</div>
-        <div class="x345-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}energy'>{{"%.1f"|format(historicalusage.iloc[i][1]|float)}}w</div>
+        <div class="x345-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}energy'>{% if historicalusage.iloc[i][1] < 1000 %}{{"%.1f"|format(historicalusage.iloc[i][1]|float)}}w{% endif %} {% if historicalusage.iloc[i][1] > 1000 %}{{"%.1f"|format(historicalusage.iloc[i][1]/1000|float)}}kWH{% endif %}</div>
         <div class="rectangle-3184-L7BXHD {{historicalusage.iloc[i][3]}}line" id = '{{historicalusage.iloc[i][0]}}energybar' {% if historicalusage.iloc[i][1] == 0 %} style = 'width: 2px; background-color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'width: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;'{% endif %}><div class="x21-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}energypercent' {% if historicalusage.iloc[i][1] == 0 %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;  color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 10}}px;'{% endif %}>{{"%.2f"|format(((historicalusage.iloc[i][1]/ total) * 100)|float)}}%</div></div>
         <div class = 'explore-image-box' id = '{{historicalusage.iloc[i][0]}}image' onclick = "createChart('{{historicalusage.iloc[i][0]}}',{{i}});"><img class="explore-image" src="{{url_for('static',filename='img/explore-image.png')}}" /></div>
     </div>
@@ -1789,4 +1789,28 @@ function openTimeSidebar(){
     document.getElementById('title').innerHTML = 'Time Loads';
 
 }
+      function changeDotColourPanel(){
+       var colours = {{colours | tojson}};
+       var x = {{numpanels}};
+       var panelnames = {{panelnames | tojson}};
+       var i;
+       for(i = 0; i < x; i++){
+         var j = document.getElementsByClassName(panelnames[i] + 'colour');
+         for(var l = 0; l < j.length; l++){
+             j[l].style.backgroundColor = colours[i];
+         }
+       }
+       }
+       function changeDotColourCategory(){
+       var colours = {{colours | tojson}};
+       var x = 6;
+       var categorynames = ['lighting','equipment','hvac','plugload','hotwater','other'];
+       var i;
+       for(i = 0; i < x; i++){
+         var j = document.getElementsByClassName(categorynames[i] + 'colour');
+         for(var l = 0; l < j.length; l++){
+             j[l].style.backgroundColor = colours[i];
+         }
+       }
+       }
 </script></html>

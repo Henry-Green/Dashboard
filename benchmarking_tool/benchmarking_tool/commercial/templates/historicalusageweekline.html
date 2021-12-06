@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
     <script src="https://cdn.jsdelivr.net/npm/apexcharts" type="text/javascript"></script>
   </head>
-  <body style="margin: 0; background: #ffffff" onload="resetVariables(); createTotalChart(); changetoEnergy(); getTotal(); ">
+  <body style="margin: 0; background: #ffffff" onload="resetVariables(); createTotalChart(); changetoEnergy(); getTotal(); changeDotColourCategory(); ">
     <input type="hidden" id="anPageName" name="page" value="historical-usage-lines-display-category" />
     <div class="container-center-horizontal">
       <div class="historical-usage-lines-display-category screen">
@@ -76,7 +76,7 @@
                         </div>
                         {% endfor %}
                 </div>
-                <div class = 'switch-image-block' onclick= 'openCategorySidebar()'><img class = 'switch-image' src = "{{url_for('static',filename='img/switch-image.png')}}"/></div>
+                <div class = 'switch-image-block' onclick= 'openCategorySidebar(); changeDotColourCategory()'><img class = 'switch-image' src = "{{url_for('static',filename='img/switch-image.png')}}"/></div>
             </div>
 
                 <div class = 'switch-block'>
@@ -155,7 +155,7 @@
                         </div>
                         {% endfor %}
                 </div>
-                <div class = 'switch-image-block' onclick= 'openPanelSidebar()'><img class = 'switch-image' src = "{{url_for('static',filename='img/switch-image.png')}}"/></div>
+                <div class = 'switch-image-block' onclick= 'openPanelSidebar(); changeDotColourPanel()'><img class = 'switch-image' src = "{{url_for('static',filename='img/switch-image.png')}}"/></div>
             </div>
 
                 <div class = 'switch-block'>
@@ -208,7 +208,7 @@
                         </div>
                         {% endfor %}
                 </div>
-                <div class = 'switch-image-block' onclick= 'openCategorySidebar()'><img class = 'switch-image' src = "{{url_for('static',filename='img/switch-image.png')}}"/></div>
+                <div class = 'switch-image-block' onclick= 'openCategorySidebar(); changeDotColourCategory()'><img class = 'switch-image' src = "{{url_for('static',filename='img/switch-image.png')}}"/></div>
             </div>
 
                 <div class = 'switch-block'>
@@ -223,7 +223,7 @@
                         </div>
                         {% endfor %}
                 </div>
-                <div class = 'switch-image-block' onclick= 'openPanelSidebar()'><img class = 'switch-image' src = "{{url_for('static',filename='img/switch-image.png')}}"/></div>
+                <div class = 'switch-image-block' onclick= 'openPanelSidebar(); changeDotColourPanel()'><img class = 'switch-image' src = "{{url_for('static',filename='img/switch-image.png')}}"/></div>
             </div>
             </div>
         </div>
@@ -244,9 +244,9 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        <div class = 'explore-block' onclick= 'openCategorySidebar()'>
-                            <div class = 'explore-text' onclick= 'openCategorySidebar()'>Explore</div>
-                            <div class = 'load-arrow' onclick= 'openCategorySidebar()'> <img class = 'load-arrow-image' src = "{{url_for('static',filename='img/load-arrow.png')}}"/></div>
+                        <div class = 'explore-block' onclick= 'openCategorySidebar(); changeDotColourCategory()'>
+                            <div class = 'explore-text' onclick= 'openCategorySidebar(); changeDotColourCategory()'>Explore</div>
+                            <div class = 'load-arrow' onclick= 'openCategorySidebar(); changeDotColourCategory()'> <img class = 'load-arrow-image' src = "{{url_for('static',filename='img/load-arrow.png')}}"/></div>
                         </div>
                     </div>
                 </div>
@@ -266,9 +266,9 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        <div class = 'explore-block' onclick= 'openPanelSidebar()'>
-                            <div class = 'explore-text' onclick= 'openPanelSidebar()'>Explore</div>
-                            <div class = 'load-arrow' onclick= 'openPanelSidebar()'> <img class = 'load-arrow-image' src = "{{url_for('static',filename='img/load-arrow.png')}}"/></div>
+                        <div class = 'explore-block' onclick= 'openPanelSidebar(); changeDotColourPanel()'>
+                            <div class = 'explore-text' onclick= 'openPanelSidebar(); changeDotColourPanel()'>Explore</div>
+                            <div class = 'load-arrow' onclick= 'openPanelSidebar(); changeDotColourPanel()'> <img class = 'load-arrow-image' src = "{{url_for('static',filename='img/load-arrow.png')}}"/></div>
                         </div>
                     </div>
                 </div>
@@ -309,12 +309,42 @@
                     <div class = 'total-block'>    
                     <div class = 'total-box' style = 'margin-right: 20px;'><span style = 'font-size: 20px;'>$</span><span id = 'cost-whole'></span><span class = 'decimal-span' style = 'font-size: 10px;' id = 'cost-decimal'></span><div class = total-box-line>Costs</div></div>
 
-                    <div class = 'total-box'style = 'margin-right: 20px;'><span id = 'circuit-whole'></span><span class = 'decimal-span' id = 'circuit-decimal' style = 'font-size: 9px; width: 5px;'></span><span class = 'kwh-total'>kWh</span><div class = total-box-line>Usage</div></div>
+                    <div class = 'total-box'style = 'margin-right: 20px;'><span id = 'circuit-whole'></span><span class = 'decimal-span' id = 'circuit-decimal' style = 'font-size: 9px;'></span><span class = 'kwh-total'>kWh</span><div class = total-box-line>Usage</div></div>
 
-                    <div class = 'total-box'>6<span class = 'decimal-span' style = 'font-size: 9px; width: 5px;'>.09</span><span class = 'kwh-total'>kg/CO2</span><div class = total-box-line>Emmisions</div></div>
+                    <div class = 'total-box'style = 'margin-right: 20px;'><span id = 'circuitemission-whole'></span><span class = 'decimal-span' id = 'circuitemission-decimal' style = 'font-size: 9px;'></span><span class = 'kwh-total'>kg/CO2</span><div class = total-box-line>Usage</div></div>
                 </div>
+                                <div class = 'week-day-block-circuit'>
+                                {% for day in daysinthisweek  %}
+                                <div class = 'week-day'>{{day}}</div>
+                                {% endfor %}
+                            </div>
+                            <div class = week-day-dividers-block-circuit>
+                                <div class = week-day-dividers></div>
+                                <div class = week-day-dividers></div>
+                                <div class = week-day-dividers></div>
+                                <div class = week-day-dividers></div>
+                                <div class = week-day-dividers></div>
+                                <div class = week-day-dividers></div>
+                            </div>
+                            <div class = week-day-offimage-block-circuit-week>
+                                <div class = offimage-frame><img class = week-day-offimage src="{{url_for('static',filename='img/offHours.png')}}" /></div>
+                                <div class = offimage-frame><img class = week-day-offimage src="{{url_for('static',filename='img/offHours.png')}}" ></div>
+                                <div class = offimage-frame><img class = week-day-offimage src="{{url_for('static',filename='img/offHours.png')}}" ></div>
+                                <div class = offimage-frame><img class = week-day-offimage src="{{url_for('static',filename='img/offHours.png')}}" ></div>
+                                <div class = offimage-frame><img class = week-day-offimage src="{{url_for('static',filename='img/offHours.png')}}" ></div>
+                                <div class = offimage-frame><img class = week-day-offimage src="{{url_for('static',filename='img/offHours.png')}}" ></div>
+                            </div>
+                            <div class = week-day-onimage-block-circuit-week>
+                                <div class = onimage-frame><img class = week-day-onimage src="{{url_for('static',filename='img/onHours.png')}}" /></div>
+                                <div class = onimage-frame><img class = week-day-onimage src="{{url_for('static',filename='img/onHours.png')}}" ></div>
+                                <div class = onimage-frame><img class = week-day-onimage src="{{url_for('static',filename='img/onHours.png')}}" ></div>
+                                <div class = onimage-frame><img class = week-day-onimage src="{{url_for('static',filename='img/onHours.png')}}" ></div>
+                                <div class = onimage-frame><img class = week-day-onimage src="{{url_for('static',filename='img/onHours.png')}}" ></div>
+                                <div class = onimage-frame><img class = week-day-onimage src="{{url_for('static',filename='img/onHours.png')}}" ></div>
+                                <div class = onimage-frame><img class = week-day-onimage src="{{url_for('static',filename='img/onHours.png')}}" ></div>
+                            </div>
                 <div class = 'circuit-graph' id = 'chart5'></div>
-                <div class = 'circuit-graph-background'></div>
+
             </div>
         </div>
         <div class = 'graph-buttons-block' id = 'graph-buttons-block'><a href = "{{url_for('commercial.historicalusage')}}"><div class = 'grah-buttons'><img class = 'graph-buttons-image' src ="{{url_for('static',filename='img/bar-image.png')}}"/> </div></a>
@@ -353,8 +383,9 @@
         {% for i in range (0, len) %}
 
         <div class="rectangle-3165-L7BXHD {{historicalusage.iloc[i][3]}} {{historicalusage.iloc[i][4]}}" id = '{{historicalusage.iloc[i][0]}}' onclick = 'exploreCircuit("{{historicalusage.iloc[i][0]}}")'>
+        <div class = 'categorycircle {{historicalusage.iloc[i][3]}}colour {{historicalusage.iloc[i][4]}}colour' ></div>
         <div class="lunchroom-lights-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}energyname'>{{historicalusage.iloc[i][0]}}</div>
-        <div class="x345-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}energy'>{{"%.1f"|format(historicalusage.iloc[i][1]|float)}}w</div>
+        <div class="x345-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}energy'>{% if historicalusage.iloc[i][1] < 1000 %}{{"%.1f"|format(historicalusage.iloc[i][1]|float)}}w{% endif %} {% if historicalusage.iloc[i][1] > 1000 %}{{"%.1f"|format(historicalusage.iloc[i][1]/1000|float)}}kWH{% endif %}</div>
         <div class="rectangle-3184-L7BXHD {{historicalusage.iloc[i][3]}}line" id = '{{historicalusage.iloc[i][0]}}energybar' {% if historicalusage.iloc[i][1] == 0 %} style = 'width: 2px; background-color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'width: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;'{% endif %}><div class="x21-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}energypercent' {% if historicalusage.iloc[i][1] == 0 %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;  color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 10}}px;'{% endif %}>{{"%.2f"|format(((historicalusage.iloc[i][1]/ total) * 100)|float)}}%</div></div>
         <div class = 'explore-image-box' id = '{{historicalusage.iloc[i][0]}}image' onclick = "createChart('{{historicalusage.iloc[i][0]}}',{{i}});"><img class="explore-image" src="{{url_for('static',filename='img/explore-image.png')}}" /></div>
     </div>
@@ -364,14 +395,45 @@
         {% for i in range (0, len) %}
 
         <div class="rectangle-3165-L7BXHD {{historicalusage.iloc[i][3]}} {{historicalusage.iloc[i][4]}}" id = '{{historicalusage.iloc[i][0]}}cost' onclick = 'exploreCircuit("{{historicalusage.iloc[i][0]}}")'>
+        <div class = 'categorycircle {{historicalusage.iloc[i][3]}}colour {{historicalusage.iloc[i][4]}}colour' ></div>
         <div class="lunchroom-lights-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}namecost'>{{historicalusage.iloc[i][0]}}</div>
-        <div class="x345-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}price'>${{"%.2f"|format(historicalusage.iloc[i][5]|float)}}/hr</div>
+        <div class="x345-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}price'>${{"%.2f"|format(historicalusage.iloc[i][6]|float)}}/hr</div>
         <div class="rectangle-3184-L7BXHD {{historicalusage.iloc[i][3]}}line" id = '{{historicalusage.iloc[i][0]}}costbar' {% if historicalusage.iloc[i][1] == 0 %} style = 'width: 2px; background-color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'width: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;'{% endif %}><div class="x21-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}costpercent' {% if historicalusage.iloc[i][1] == 0 %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;  color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 10}}px;'{% endif %}>{{"%.2f"|format(((historicalusage.iloc[i][1]/ total) * 100)|float)}}%</div></div>
         <div class = 'explore-image-box' id = '{{historicalusage.iloc[i][0]}}costimage'  onclick = "createChart('{{historicalusage.iloc[i][0]}}',{{i}});"><img class="explore-image" src="{{url_for('static',filename='img/explore-image.png')}}" /></div>
         </div>
         {% endfor %}
     </div></div></div>
                         <div class="bar-chart" id = 'bar-chart'>
+                            <div class = 'week-day-block'>
+                                {% for day in daysinthisweek  %}
+                                <div class = 'week-day'>{{day}}</div>
+                                {% endfor %}
+                            </div>
+                            <div class = week-day-dividers-block>
+                                <div class = week-day-dividers></div>
+                                <div class = week-day-dividers></div>
+                                <div class = week-day-dividers></div>
+                                <div class = week-day-dividers></div>
+                                <div class = week-day-dividers></div>
+                                <div class = week-day-dividers></div>
+                            </div>
+                            <div class = week-day-offimage-block>
+                                <div class = offimage-frame><img class = week-day-offimage src="{{url_for('static',filename='img/offHours.png')}}" /></div>
+                                <div class = offimage-frame><img class = week-day-offimage src="{{url_for('static',filename='img/offHours.png')}}" ></div>
+                                <div class = offimage-frame><img class = week-day-offimage src="{{url_for('static',filename='img/offHours.png')}}" ></div>
+                                <div class = offimage-frame><img class = week-day-offimage src="{{url_for('static',filename='img/offHours.png')}}" ></div>
+                                <div class = offimage-frame><img class = week-day-offimage src="{{url_for('static',filename='img/offHours.png')}}" ></div>
+                                <div class = offimage-frame><img class = week-day-offimage src="{{url_for('static',filename='img/offHours.png')}}" ></div>
+                            </div>
+                            <div class = week-day-onimage-block>
+                                <div class = onimage-frame><img class = week-day-onimage src="{{url_for('static',filename='img/onHours.png')}}" /></div>
+                                <div class = onimage-frame><img class = week-day-onimage src="{{url_for('static',filename='img/onHours.png')}}" ></div>
+                                <div class = onimage-frame><img class = week-day-onimage src="{{url_for('static',filename='img/onHours.png')}}" ></div>
+                                <div class = onimage-frame><img class = week-day-onimage src="{{url_for('static',filename='img/onHours.png')}}" ></div>
+                                <div class = onimage-frame><img class = week-day-onimage src="{{url_for('static',filename='img/onHours.png')}}" ></div>
+                                <div class = onimage-frame><img class = week-day-onimage src="{{url_for('static',filename='img/onHours.png')}}" ></div>
+                                <div class = onimage-frame><img class = week-day-onimage src="{{url_for('static',filename='img/onHours.png')}}" ></div>
+                            </div>
                             <div id="chart2"></div>
                         </div>
                           <script>
@@ -1439,6 +1501,10 @@ function resetVariables(){
         cost = Math.round(cost * 100) / 100;
         sumSplit = String(sum).split('.')
         costSplit = String(cost).split('.')
+        emission = sum * 0.82;
+        emissionSplit = String(emission).split('.')
+        document.getElementById("circuitemission-whole").innerHTML = Math.abs(emissionSplit[0]);
+        document.getElementById("circuitemission-decimal").innerHTML = '.' + Math.abs(emissionSplit[1]);
         document.getElementById('circuit-block').style.width = '744px';
         document.getElementById("circuit-title").innerHTML = name;
         document.getElementById('circuit-block').style.border = 'border: 2px solid #E3E7ED';
@@ -1789,4 +1855,28 @@ function openTimeSidebar(){
     document.getElementById('title').innerHTML = 'Time Loads';
 
 }
+      function changeDotColourPanel(){
+       var colours = {{colours | tojson}};
+       var x = {{numpanels}};
+       var panelnames = {{panelnames | tojson}};
+       var i;
+       for(i = 0; i < x; i++){
+         var j = document.getElementsByClassName(panelnames[i] + 'colour');
+         for(var l = 0; l < j.length; l++){
+             j[l].style.backgroundColor = colours[i];
+         }
+       }
+       }
+       function changeDotColourCategory(){
+       var colours = {{colours | tojson}};
+       var x = 6;
+       var categorynames = ['lighting','equipment','hvac','plugload','hotwater','other'];
+       var i;
+       for(i = 0; i < x; i++){
+         var j = document.getElementsByClassName(categorynames[i] + 'colour');
+         for(var l = 0; l < j.length; l++){
+             j[l].style.backgroundColor = colours[i];
+         }
+       }
+       }
 </script></html>
