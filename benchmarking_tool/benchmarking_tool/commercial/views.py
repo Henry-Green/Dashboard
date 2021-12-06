@@ -87,6 +87,7 @@ from report_functions.edit_weekday_calendar import edit_weekday_calendar
 import mysql.connector
 from collections import Counter, defaultdict
 from calendar import monthrange
+import calendar
 #for photo upload
 commercial = Blueprint('commercial',__name__,template_folder='templates')
 app_root = Path(__file__).parents[1]
