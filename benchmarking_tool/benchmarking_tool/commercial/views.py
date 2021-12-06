@@ -909,6 +909,10 @@ def historicalusage():
         endhours = str(endhours).split(':')
         endhours = endhours[0]
 
+        if starthours == 'None':
+            starthours = 24
+            endhours = 0
+
         for i in range(int(starthours), int(endhours)):
             chart_colours[i] = '#FFFFFF'
         data = schedule
@@ -925,20 +929,17 @@ def historicalusage():
             string = string.replace(']', '')
             datalist = string.split(",")
             floatlist = []
-            for item in datalist:
-                try:
-                    floatlist.append(float(item))
-                except:
-                    print('whoops')
+            try:
+                floatlist.append(float(item))
+            except:
+                print('whoops')
             for k in range(int(starthours) - 1, int(endhours) + 1):
                 if 0 in floatlist:
                     totalset[k] += float(datalist[k])
             for k in range(0, len(datalist)):
-                    try:
-                        if datalist[k] != '' and (math.isnan(float(datalist[k]))) == False:
-                                offhours[k] += float(datalist[k])
-                    except:
-                        ('whoops')
+                if ((k >= int(starthours) and k <= int(endhours)) == False) and 0 in floatlist:
+                    offhours[k] += float(datalist[k])
+                    print(k)
         onHours = ((sum(totalset)) / total * 100).round(2)
         offHours = ((sum(offhours)) / total * 100).round(2)
         alwaysOn = (100 - onHours - offHours).round(2)
@@ -1143,6 +1144,10 @@ def historicalusageline():
         endhours = str(endhours).split(':')
         endhours = endhours[0]
 
+        if starthours == 'None':
+            starthours = 24
+            endhours = 0
+
         for i in range(int(starthours), int(endhours)):
             chart_colours[i] = '#FFFFFF'
         data = schedule
@@ -1159,11 +1164,10 @@ def historicalusageline():
             string = string.replace(']', '')
             datalist = string.split(",")
             floatlist = []
-            for item in datalist:
-                try:
-                    floatlist.append(float(item))
-                except:
-                    print('whoops')
+            try:
+                floatlist.append(float(item))
+            except:
+                print('whoops')
             for k in range(int(starthours) - 1, int(endhours) + 1):
                 if 0 in floatlist:
                     totalset[k] += float(datalist[k])
@@ -1220,7 +1224,8 @@ def historicalusageweek():
     scheduledata3 = []
     paneltotal = []
     panelpercent = []
-    week = '2021-W42'
+    daysinthisweek = []
+    week = '2021-W48'
     cal_month = datetime.datetime.now().month
     year = datetime.datetime.now().year
     building_id = 12
@@ -1234,8 +1239,9 @@ def historicalusageweek():
         today = date.today()
         userdate = (today - timedelta(days = 1)).strftime('%Y-%m-%d') + '%'
         year, week_num, day_of_week = today.isocalendar()
-        weekdate = "2021-W42"
+        weekdate = "2021-W48"
         dayoftheweek = datetime.datetime.strptime(weekdate + '-1', "%Y-W%W-%w")
+        daysinthisweek.append(dayoftheweek)
         userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
         print(userdate)
         print('userdate')
@@ -1245,9 +1251,12 @@ def historicalusageweek():
         mycursor = mydb.cursor()
         if request.method == "POST":
             scheduledata = []
+            daysinthisweek = []
             weekdate = request.form['date']
             week = weekdate
             dayoftheweek = datetime.datetime.strptime(weekdate + '-1', "%Y-W%W-%w")
+            cal_month = dayoftheweek.month
+            daysinthisweek.append(dayoftheweek)
             userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
         number = serial_list[0]
         sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
@@ -1278,6 +1287,7 @@ def historicalusageweek():
             stringlist = []
             usage = []
             dayoftheweek = (dayoftheweek + timedelta(days = 1))
+            daysinthisweek.append(dayoftheweek)
             userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
             sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
             
@@ -1488,18 +1498,23 @@ def historicalusageweek():
         for i in range(0, 7):
             justday = str(day)[8] + str(day)[9]            
             hours = cal_db[int(justday) - 1]
+            print(hours)
             starthours = hours['start_hours']
             endhours = hours['end_hours']
             starthours = str(starthours).split(':')
             starthours = starthours[0]
             endhours = str(endhours).split(':')
             endhours = endhours[0]
-            if starthours != 'None':
-                for j in range(int(starthours), int(endhours)):
-                    chart_colours[j + (24 * i)] = '#FFFFFF'
+            if starthours == 'None':
+                starthours = 24
+                endhours = 0
+                print('closed')
+                print(i)
+            for j in range(int(starthours), int(endhours)):
+                chart_colours[j + (24 * i)] = '#FFFFFF'
             day = (day + timedelta(days = 1))
-        for i in range(int(starthours), int(endhours)):
-            chart_colours[i] = '#FFFFFF'
+
+
         data = schedule
         totalset = []
         string = data[0]
@@ -1508,8 +1523,6 @@ def historicalusageweek():
         datalist = string.split(",")
         totalset = [0] * len(datalist);
         offhours = [0] * len(datalist)
-        print(len(data))
-        print(len(datalist))
         for i in range(0, len(data)):
             string = data[i]
             string = string.replace('[', '')
@@ -1526,7 +1539,6 @@ def historicalusageweek():
                 if 0 in floatlist:
                     if datalist[k] != '':
                         totalset[k] += float(datalist[k])
-                        print(datalist[k])
             for k in range(0, len(datalist)):
                 if ((k >= int(starthours) and k <= int(endhours)) == False) and 0 in floatlist:
                     try:
@@ -1534,16 +1546,23 @@ def historicalusageweek():
                                 offhours[k] += float(datalist[k])
                     except:
                         ('whoops')
-                        
-        print(sum(totalset))
-        print(sum(offhours))     
+                            
         onHours = ((sum(totalset)) / total * 100).round(2)
         offHours = ((sum(offhours)) / total * 100).round(2)
         alwaysOn = (100 - onHours - offHours).round(2)
 
         timeloads = {'Name':['On-Hours','Off-Hours','Always-On'], 'Percents':[onHours,offHours,alwaysOn],'Colors':['#22B14C','#7F7F7F','#EE8F37']}
         timeloads = pd.DataFrame(data = timeloads)
-        return render_template('historicalusageweek.html',alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule =  schedule,paneltotal = paneltotal, panelpercent = panelpercent, numpanels = numpanels, categoriesdf = categoriesdf, panelnames = panelnames, weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
+
+        for i in range(len(daysinthisweek)):
+            weekname = calendar.day_name[daysinthisweek[i].weekday()]
+            monthname = daysinthisweek[i].strftime("%B")
+            daynum = daysinthisweek[i].day
+            weekname = weekname[0] + weekname[1]
+            monthname = monthname[0] + monthname[1] + monthname[2]
+            daysinthisweek[i] = str(weekname) + ' ' + str(monthname) + ' ' + str(daynum)
+
+        return render_template('historicalusageweek.html',daysinthisweek = daysinthisweek, alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule =  schedule,paneltotal = paneltotal, panelpercent = panelpercent, numpanels = numpanels, categoriesdf = categoriesdf, panelnames = panelnames, weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
     else:
         abort(403)
 
@@ -1555,7 +1574,8 @@ def historicalusageweekline():
     scheduledata3 = []
     paneltotal = []
     panelpercent = []
-    week = '2021-W42'
+    daysinthisweek = []
+    week = '2021-W48'
     cal_month = datetime.datetime.now().month
     year = datetime.datetime.now().year
     building_id = 12
@@ -1569,8 +1589,9 @@ def historicalusageweekline():
         today = date.today()
         userdate = (today - timedelta(days = 1)).strftime('%Y-%m-%d') + '%'
         year, week_num, day_of_week = today.isocalendar()
-        weekdate = "2021-W42"
+        weekdate = "2021-W48"
         dayoftheweek = datetime.datetime.strptime(weekdate + '-1', "%Y-W%W-%w")
+        daysinthisweek.append(dayoftheweek)
         userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
         print(userdate)
         print('userdate')
@@ -1580,9 +1601,12 @@ def historicalusageweekline():
         mycursor = mydb.cursor()
         if request.method == "POST":
             scheduledata = []
+            daysinthisweek = []
             weekdate = request.form['date']
             week = weekdate
             dayoftheweek = datetime.datetime.strptime(weekdate + '-1', "%Y-W%W-%w")
+            cal_month = dayoftheweek.month
+            daysinthisweek.append(dayoftheweek)
             userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
         number = serial_list[0]
         sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
@@ -1613,6 +1637,7 @@ def historicalusageweekline():
             stringlist = []
             usage = []
             dayoftheweek = (dayoftheweek + timedelta(days = 1))
+            daysinthisweek.append(dayoftheweek)
             userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
             sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
             
@@ -1808,6 +1833,7 @@ def historicalusageweekline():
         categoriesdf = pd.DataFrame(data=categoriesdf)
         categoriesdf = categoriesdf.sort_values(by=['Totals'], ascending=False)
         categoriesdf = categoriesdf.round(2)
+        print(paneltotals)
         historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
         colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
         historicalusage['Price'] = historicalusage['Usage'] * (0.09*168*0.000017)
@@ -1822,18 +1848,23 @@ def historicalusageweekline():
         for i in range(0, 7):
             justday = str(day)[8] + str(day)[9]            
             hours = cal_db[int(justday) - 1]
+            print(hours)
             starthours = hours['start_hours']
             endhours = hours['end_hours']
             starthours = str(starthours).split(':')
             starthours = starthours[0]
             endhours = str(endhours).split(':')
             endhours = endhours[0]
-            if starthours != 'None':
-                for j in range(int(starthours), int(endhours)):
-                    chart_colours[j + (24 * i)] = '#FFFFFF'
+            if starthours == 'None':
+                starthours = 24
+                endhours = 0
+                print('closed')
+                print(i)
+            for j in range(int(starthours), int(endhours)):
+                chart_colours[j + (24 * i)] = '#FFFFFF'
             day = (day + timedelta(days = 1))
-        for i in range(int(starthours), int(endhours)):
-            chart_colours[i] = '#FFFFFF'
+
+
         data = schedule
         totalset = []
         string = data[0]
@@ -1842,8 +1873,6 @@ def historicalusageweekline():
         datalist = string.split(",")
         totalset = [0] * len(datalist);
         offhours = [0] * len(datalist)
-        print(len(data))
-        print(len(datalist))
         for i in range(0, len(data)):
             string = data[i]
             string = string.replace('[', '')
@@ -1860,23 +1889,30 @@ def historicalusageweekline():
                 if 0 in floatlist:
                     if datalist[k] != '':
                         totalset[k] += float(datalist[k])
-                        print(datalist[k])
             for k in range(0, len(datalist)):
                 if ((k >= int(starthours) and k <= int(endhours)) == False) and 0 in floatlist:
                     try:
                         if datalist[k] != '' and (math.isnan(float(datalist[k]))) == False:
                                 offhours[k] += float(datalist[k])
                     except:
-                        ('whoops')                        
-        print(sum(totalset))
-        print(sum(offhours))     
+                        ('whoops')
+                            
         onHours = ((sum(totalset)) / total * 100).round(2)
         offHours = ((sum(offhours)) / total * 100).round(2)
         alwaysOn = (100 - onHours - offHours).round(2)
 
         timeloads = {'Name':['On-Hours','Off-Hours','Always-On'], 'Percents':[onHours,offHours,alwaysOn],'Colors':['#22B14C','#7F7F7F','#EE8F37']}
         timeloads = pd.DataFrame(data = timeloads)
-        return render_template('historicalusageweekline.html',alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule =  schedule,paneltotal = paneltotal, panelpercent = panelpercent, numpanels = numpanels, categoriesdf = categoriesdf, panelnames = panelnames, weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
+
+        for i in range(len(daysinthisweek)):
+            weekname = calendar.day_name[daysinthisweek[i].weekday()]
+            monthname = daysinthisweek[i].strftime("%B")
+            daynum = daysinthisweek[i].day
+            weekname = weekname[0] + weekname[1]
+            monthname = monthname[0] + monthname[1] + monthname[2]
+            daysinthisweek[i] = str(weekname) + ' ' + str(monthname) + ' ' + str(daynum)
+
+        return render_template('historicalusageweekline.html',daysinthisweek = daysinthisweek, alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule =  schedule,paneltotal = paneltotal, panelpercent = panelpercent, numpanels = numpanels, categoriesdf = categoriesdf, panelnames = panelnames, weekdate = weekdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
     else:
         abort(403)
 @commercial.route('/historicalusagemonth', methods=['GET', 'POST'])
@@ -2217,6 +2253,10 @@ def historicalusagemonth():
                 for j in range(int(starthours), int(endhours)):
                     chart_colours[j + (24 * i)] = '#FFFFFF'
             day = (day + timedelta(days = 1))
+
+        if starthours == 'None':
+            starthours = 24
+            endhours = 0
         for i in range(int(starthours), int(endhours)):
             chart_colours[i] = '#FFFFFF'
         data = schedule
@@ -2604,6 +2644,10 @@ def historicalusagemonthline():
                 for j in range(int(starthours), int(endhours)):
                     chart_colours[j + (24 * i)] = '#FFFFFF'
             day = (day + timedelta(days = 1))
+
+        if starthours == 'None':
+            starthours = 24
+            endhours = 0
         for i in range(int(starthours), int(endhours)):
             chart_colours[i] = '#FFFFFF'
         data = schedule
@@ -2652,6 +2696,8 @@ def historicalusagemonthline():
         ventilation_usage = ventilation_usage,appliance_usage = appliance_usage,home_upgrades3 = home_upgrades3,home_upgrades4 = home_upgrades4,home_upgrades5 = home_upgrades5,home_upgrades6 = home_upgrades6,home_upgrades1 = home_upgrades1,user_home = user_home, average_home = average_home,home_upgrades = home_upgrades, roofs = roofs, exteriorwalls = exteriorwalls, rooffinishs = rooffinishs, foundations = foundations)
     else:
         abort(403)
+
+
      
 @commercial.route('/operatinghours', methods=['GET', 'POST'])
 @login_required
