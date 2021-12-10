@@ -931,16 +931,18 @@ def historicalusage():
             datalist = string.split(",")
             floatlist = []
             try:
-                floatlist.append(float(item))
+                for item in datalist:
+                    floatlist.append(float(item))
             except:
-                print('whoops')
+                print('whoops1')
             for k in range(int(starthours) - 1, int(endhours) + 1):
                 if 0 in floatlist:
                     totalset[k] += float(datalist[k])
+                    print('here')
             for k in range(0, len(datalist)):
                 if ((k >= int(starthours) and k <= int(endhours)) == False) and 0 in floatlist:
                     offhours[k] += float(datalist[k])
-                    print(k)
+                    print('here2')
         onHours = ((sum(totalset)) / total * 100).round(2)
         offHours = ((sum(offhours)) / total * 100).round(2)
         alwaysOn = (100 - onHours - offHours).round(2)
@@ -1166,18 +1168,18 @@ def historicalusageline():
             datalist = string.split(",")
             floatlist = []
             try:
-                floatlist.append(float(item))
+                for item in datalist:
+                    floatlist.append(float(item))
             except:
-                print('whoops')
+                print('whoops1')
             for k in range(int(starthours) - 1, int(endhours) + 1):
                 if 0 in floatlist:
                     totalset[k] += float(datalist[k])
+                    print('here')
             for k in range(0, len(datalist)):
-                    try:
-                        if datalist[k] != '' and (math.isnan(float(datalist[k]))) == False:
-                                offhours[k] += float(datalist[k])
-                    except:
-                        ('whoops')
+                if ((k >= int(starthours) and k <= int(endhours)) == False) and 0 in floatlist:
+                    offhours[k] += float(datalist[k])
+                    print('here2')
         onHours = ((sum(totalset)) / total * 100).round(2)
         offHours = ((sum(offhours)) / total * 100).round(2)
         alwaysOn = (100 - onHours - offHours).round(2)
