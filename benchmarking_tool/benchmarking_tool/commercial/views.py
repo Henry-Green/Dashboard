@@ -504,6 +504,7 @@ def get_seconds(minute, channel_names,serial_number):
 
     return seconds_df
 
+@commercial.route('/', methods=['GET', 'POST'])
 @commercial.route('/facilityoverview', methods=['GET', 'POST'])
 @login_required
 def facilityoverview():
