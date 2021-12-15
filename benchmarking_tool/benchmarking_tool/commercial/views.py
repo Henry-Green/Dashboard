@@ -1101,16 +1101,15 @@ def historicalusage():
             except:
                 print('whoops1')
             for k in range(int(starthours) - 1, int(endhours) + 1):
-                if 0 in floatlist:
-                    totalset[k] += float(datalist[k])
-                    print('here')
+                totalset[k] += float(datalist[k])
+                print('here')
             for k in range(0, len(datalist)):
-                if ((k >= int(starthours) and k <= int(endhours)) == False) and 0 in floatlist:
+                if ((k >= int(starthours) and k <= int(endhours)) == False):
                     offhours[k] += float(datalist[k])
                     print('here2')
         onHours = ((sum(totalset)) / total * 100).round(2)
         offHours = ((sum(offhours)) / total * 100).round(2)
-        alwaysOn = (100 - onHours - offHours).round(2)
+        alwaysOn = 0
 
         timeloads = {'Name':['On-Hours','Off-Hours','Always-On'], 'Percents':[onHours,offHours,alwaysOn],'Colors':['#22B14C','#7F7F7F','#EE8F37']}
         timeloads = pd.DataFrame(data = timeloads)
@@ -1338,16 +1337,15 @@ def historicalusageline():
             except:
                 print('whoops1')
             for k in range(int(starthours) - 1, int(endhours) + 1):
-                if 0 in floatlist:
-                    totalset[k] += float(datalist[k])
-                    print('here')
+                totalset[k] += float(datalist[k])
+                print('here')
             for k in range(0, len(datalist)):
-                if ((k >= int(starthours) and k <= int(endhours)) == False) and 0 in floatlist:
+                if ((k >= int(starthours) and k <= int(endhours)) == False):
                     offhours[k] += float(datalist[k])
                     print('here2')
         onHours = ((sum(totalset)) / total * 100).round(2)
         offHours = ((sum(offhours)) / total * 100).round(2)
-        alwaysOn = (100 - onHours - offHours).round(2)
+        alwaysOn = 0
 
         timeloads = {'Name':['On-Hours','Off-Hours','Always-On'], 'Percents':[onHours,offHours,alwaysOn],'Colors':['#22B14C','#7F7F7F','#EE8F37']}
         timeloads = pd.DataFrame(data = timeloads)
