@@ -2186,11 +2186,10 @@
 .circuit-block{
   position: absolute;
   width: 0px;
-  height: 601px;
+  height: 694px;
   background-color: white;
   z-index: 6000;
   border-radius: 8px;
-  border: 2px solid transparent;
   overflow: hidden;
   transition: 0.5s;
 }
@@ -2233,8 +2232,11 @@
   font-weight: 700;
   height: 50px;
   position: relative;
-  top: 15px;
+  top: 45px;
   left: 40px;
+  width: 90%;
+  border-bottom: solid 2px #ECE9F1;
+  text-align: left;
 }
 .circuit-graph-background{
   position: relative;
@@ -3834,12 +3836,21 @@ background-color: #EE5937;
   height: 90px;
   width: 450px;
   position: relative;
-  top: 20px;
-  left: 30px;
+  top: 30px;
+  left: 40px;
   overflow: hidden;
   transition: 0.5s;
 }
 
+.total-block1{
+  height: 90px;
+  width: 750px;
+  position: relative;
+  top: 80px;
+  left: 90px;
+  overflow: hidden;
+  transition: 0.5s;
+}
 .total-box{
   color: #0D1758;
   font-family: var(--font-family-averta_cy-bold);
@@ -7590,3 +7601,275 @@ overflow: hidden;
   color: white;
 }
 
+.popup-selector{
+  width: 100px;
+  height: 26px;
+  left: 40px;
+  top: 30px;
+  position: relative;
+}
+
+.pastuse-popup{
+  width: 24px;
+  height: 24px;
+  margin-right: 20px;
+  float: left;
+}
+
+.pastuse-image{
+  width: 100%;
+  height: 100%;
+}
+
+.overview-stats-block{
+  width: 656px;
+  height: 460px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.general-info-block{
+  width: 204px;
+  height: 188px;
+  border: solid 1px #ECE9F1;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+.general-info-header{
+  width: 176px;
+  height: 25px;
+  top: 10px;
+  margin-right: auto;
+  margin-left: auto;
+  border-bottom: solid 1px #ECE9F1;
+  color: #0D1758;
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  position: relative;
+}
+
+.general-info-rectangle{
+  width: 176px;
+  height: 20px;
+  position: relative;
+  border: solid 2px transparent;
+  margin-right: auto;
+  margin-left: auto;
+  top: 20px;
+  color: #7F7F7F;
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  position: relative;
+}
+.general-info-title{
+  float: left;
+  width: auto;
+}
+.general-info-panel-circle{
+  background-color: blue;
+  width: 8px;
+  height: 8px;
+  border-radius: 8px; 
+  position: relative;
+  top: 5px;
+  float: right;
+  
+}
+
+.general-info-data{
+  position: relative;
+  width: auto;
+  float: right;
+  margin-left: 10px;
+}
+
+.general-info-rectangle-time{
+  width: 146px;
+  height: 20px;
+  position: relative;
+  border: solid 2px transparent;
+  margin-left: auto;
+  top: 20px;
+  color: #0D1758;
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  position: relative;
+}
+
+.run-times-block{
+  width: 204px;
+  height: 142px;
+  border: solid 1px #ECE9F1;
+  border-radius: 8px;
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
+.run-times-header{
+  width: 176px;
+  height: 25px;
+  top: 10px;
+  margin-right: auto;
+  margin-left: auto;
+  border-bottom: solid 1px #ECE9F1;
+  color: #0D1758;
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  position: relative;
+}
+
+.run-times-rectangle{
+  width: 166px;
+  height: 40px;
+  position: relative;
+  border: solid 2px transparent;
+  margin-right: auto;
+  margin-left: auto;
+  top: 20px;
+
+}
+.run-times-title{
+  float: left;
+  width: 56px;
+  color: #7F7F7F;
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  position: relative;
+}
+
+.run-times-data{
+  position: relative;
+  width: auto;
+  float: right;
+  margin-left: 10px;
+  color: #0D1758;
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  position: relative;
+}
+
+.load-predict-block{
+  width: 204px;
+  height: 96px;
+  border: solid 1px #ECE9F1;
+  border-radius: 8px;
+  margin-top: 10px;
+  margin-right: auto;
+  margin-right: 20px;
+}
+
+.load-predict-header{
+  width: 176px;
+  height: 25px;
+  top: 10px;
+  margin-right: auto;
+  margin-left: auto;
+  border-bottom: solid 1px #ECE9F1;
+  color: #0D1758;
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  position: relative;
+}
+
+.monthly-data{
+  position: relative;
+  width: 39px;
+  height: auto;
+  float: right;
+  margin-left: 10px;
+  color: #0D1758;
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  position: relative;
+  text-align: center;
+}
+
+.power-draw-title{
+  float: left;
+  width: 68px;
+  color: #7F7F7F;
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  position: relative;
+}
+
+.power-data{
+  position: relative;
+  width: 39px;
+  height: auto;
+  float: right;
+  color: #0D1758;
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  position: relative;
+  right: 25px;
+}
+
+.carbon-levy-rectangle{
+  width: 50%;
+  height: 90px;
+  position: relative;
+  border: solid 2px transparent;
+  float: left;
+  top: 20px;
+  text-align: center;
+
+}
+.carbon-levy-title{
+  width: 100%;
+  color: #7F7F7F;
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.carbon-levy-data{
+  position: relative;
+  width: auto;
+  color: #0D1758;
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  position: relative;
+  margin-bottom: 10px;
+}
+.carbon-levy-bottom-title{
+  width: auto;
+  color: #7F7F7F;
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  position: relative;
+}
