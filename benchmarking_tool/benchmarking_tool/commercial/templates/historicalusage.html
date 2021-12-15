@@ -305,13 +305,17 @@
                 <div class = 'exit-button' onclick = 'closeCircuitBlock();'><img class = 'exit-button-image' src ="{{url_for('static',filename='img/exit-button-image.png')}}"/></div>
             </div>
             <div class = 'circuit-content'>
+                <div class = 'popup-selector'>
+                    <div class = 'pastuse-popup' onclick= "openOverview()"><img class = 'pastuse-image' src ="{{url_for('static',filename='img/overviewoffpopup.png')}}"/></div>
+                    <div class = 'pastuse-popup'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/pastuseonpopup.png')}}"/></div>
+                </div>
                 <div class = 'past-use'>Past-Use</div>
-                    <div class = 'total-block'>    
+                    <div class = 'total-block1'>    
                     <div class = 'total-box' style = 'margin-right: 20px;'><span style = 'font-size: 20px;'>$</span><span id = 'cost-whole'></span><span class = 'decimal-span' style = 'font-size: 10px;' id = 'cost-decimal'></span><div class = total-box-line>Costs</div></div>
 
                     <div class = 'total-box'style = 'margin-right: 20px;'><span id = 'circuit-whole'></span><span class = 'decimal-span' id = 'circuit-decimal' style = 'font-size: 9px;'></span><span class = 'kwh-total'>kWh</span><div class = total-box-line>Usage</div></div>
 
-                    <div class = 'total-box'style = 'margin-right: 20px;'><span id = 'circuitemission-whole'></span><span class = 'decimal-span' id = 'circuitemission-decimal' style = 'font-size: 9px;'></span><span class = 'kwh-total'>kg/CO2</span><div class = total-box-line>Usage</div></div>
+                    <div class = 'total-box'style = 'margin-right: 60px;'><span id = 'circuitemission-whole'></span><span class = 'decimal-span' id = 'circuitemission-decimal' style = 'font-size: 9px;'></span><span class = 'kwh-total'>kg/CO2</span><div class = total-box-line>Usage</div></div>
                 </div>
                  <div class = week-day-offimage-block-circuit>
                     <div class = offimage-frame><img class = week-day-offimage src="{{url_for('static',filename='img/offHours.png')}}" /></div>
@@ -321,6 +325,122 @@
                     <div class = onimage-frame-day><img class = week-day-onimage src="{{url_for('static',filename='img/onHours.png')}}" /></div>
                 </div>
                 <div class = 'circuit-graph' id = 'chart5'></div>
+            </div>
+        </div>
+        <div class = 'circuit-block' id = 'overview'>
+            <div class = 'circuit-header'>
+                <div class = 'circuit-title' id = 'overview-title'>Name</div>
+                <div class = 'exit-button' onclick = 'closeCircuitBlock();'><img class = 'exit-button-image' src ="{{url_for('static',filename='img/exit-button-image.png')}}"/></div>
+            </div>
+            <div class = 'circuit-content'>
+                <div class = 'popup-selector'>
+                    <div class = 'pastuse-popup'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/overviewpopup.png')}}"/></div>
+                    <div class = 'pastuse-popup' onclick= "closeOverview()"><img class = 'pastuse-image' src ="{{url_for('static',filename='img/pastusepopup.png')}}"/></div>
+                </div>
+                <div class = 'past-use'>Overview</div>
+                <div class = 'overview-stats-block'>
+                    <div class = 'general-info-block'>
+                        <div class = 'general-info-header'>General Info</div>
+                        <div class = 'general-info-content'>
+                            <div class = 'general-info-rectangle'>
+                                <div class = 'general-info-title'>Panel</div>
+                                <div class = 'general-info-data' id = 'general-info-panel'></div>
+                                <div class = 'general-info-panel-circle' id = 'panel-circle-color'></div>
+
+                            </div>
+                            <div class = 'general-info-rectangle'>
+                                <div class = 'general-info-title'>Category</div>
+                                <div class = 'general-info-data' id = 'general-info-category'></div>
+                                <div class = 'general-info-panel-circle' id = 'category-circle-color'></div>
+                            </div>
+                            <div class = 'general-info-rectangle' style = 'margin-top: 25px'>
+                                <div class = 'general-info-title'>Time Loads</div>
+                            </div>
+                            <div class = 'general-info-rectangle-time'>
+                                <div class = 'general-info-title' id = 'on-hours-circuit'>26.5%</div>
+                                <div class = 'general-info-data' id = 'general-info-data'>On-Hours</div>
+                                <div class = 'general-info-panel-circle' id = 'time-on-circle'></div>
+                            </div>
+                            <div class = 'general-info-rectangle-time'>
+                                <div class = 'general-info-title' id = 'off-hours-circuit'>73.5%</div>
+                                <div class = 'general-info-data' id = 'general-info-data'>Off-Hours</div>
+                                <div class = 'general-info-panel-circle' id = 'time-off-circle'></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = 'run-times-block'>
+                        <div class = 'run-times-header'>Run Times</div>
+                        <div class = 'run-times-content'>
+                            <div class = 'run-times-rectangle'>
+                                <div class = 'run-times-title'>Avg times on/month</div>
+                                <div class = 'run-times-data' id = 'run-times-category'>24x</div>
+                            </div>
+                            <div class = 'run-times-rectangle'>
+                                <div class = 'run-times-title'>Avg run time</div>
+                                <div class = 'run-times-data' id = 'run-times-time' style = 'font-size: 15px;'>4h 33m</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = 'load-predict-block'>
+                        <div class = 'load-predict-header'>Load Pred. Score</div>
+                        <div class = 'load-predict-content'>
+                        </div>
+                    </div>
+                    <div class = 'run-times-block'>
+                        <div class = 'run-times-header'>Monthly Stats</div>
+                        <div class = 'run-times-content'>
+                            <div class = 'run-times-rectangle'>
+                                <div class = 'run-times-title' style = 'width: 59px'>Avg cost per month</div>
+                                <div class = 'run-times-data' id = 'monthly-avg-cost'>24x</div>
+                            </div>
+                            <div class = 'run-times-rectangle'>
+                                <div class = 'run-times-title'>Est. kWh /month</div>
+                                <div class = 'monthly-data' id = 'monthly-avg-kwh' style = 'font-size: 15px;'>4h 33m</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = 'run-times-block'>
+                        <div class = 'run-times-header'>Annual Stats</div>
+                        <div class = 'run-times-content'>
+                            <div class = 'run-times-rectangle'>
+                                <div class = 'run-times-title' style = 'width: 59px'>Avg cost per year</div>
+                                <div class = 'run-times-data' id = 'yearly-avg-cost'>24x</div>
+                            </div>
+                            <div class = 'run-times-rectangle'>
+                                <div class = 'run-times-title'>Est. kWh / year</div>
+                                <div class = 'monthly-data' id = 'yearly-avg-kwh' style = 'font-size: 15px;'>4h 33m</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = 'run-times-block'>
+                        <div class = 'run-times-header'>Power Draw %</div>
+                        <div class = 'run-times-content'>
+                            <div class = 'run-times-rectangle'>
+                                <div class = 'power-draw-title'>Avg % of total energy</div>
+                                <div class = 'run-times-data' id = 'avg-circuit-total-percent'>24x</div>
+                            </div>
+                            <div class = 'run-times-rectangle'>
+                                <div class = 'power-draw-title' style = 'width: 74px;'>Avg % of panel energy</div>
+                                <div class = 'power-data' id = 'avg-circuit-panel-percent'>4h 33m</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = 'run-times-block'>
+                        <div class = 'run-times-header'>Carbon Levy</div>
+                        <div class = 'run-times-content'>
+                            <div class = 'carbon-levy-rectangle' style = 'border-right: solid 1px #ECE9F1;'>
+                                <div class = 'carbon-levy-title'>Est. Emissions</div>
+                                <div class = 'carbon-levy-data' id = 'carbon-levy-kg'>24x</div>
+                                <div class = 'carbon-levy-bottom-title'>kg/CO2</div>
+                            </div>
+                            <div class = 'carbon-levy-rectangle'>
+                                <div class = 'carbon-levy-title'>Est. Costs</div>
+                                <div class = 'carbon-levy-data' id = 'carbon-levy-cost'>4h</div>
+                                <div class = 'carbon-levy-bottom-title'>annually</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class = 'graph-buttons-block' id = 'graph-buttons-block'><a href = "{{url_for('commercial.historicalusage')}}"><div class = 'grah-buttons'><img class = 'graph-buttons-image' src ="{{url_for('static',filename='img/bar-image.png')}}"/> </div></a>
@@ -363,7 +483,7 @@
         <div class="lunchroom-lights-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}energyname'>{{historicalusage.iloc[i][0]}}</div>
         <div class="x345-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}energy'>{% if historicalusage.iloc[i][1] < 1000 %}{{"%.1f"|format(historicalusage.iloc[i][1]|float)}}w{% endif %} {% if historicalusage.iloc[i][1] > 1000 %}{{"%.1f"|format(historicalusage.iloc[i][1]/1000|float)}}kWH{% endif %}</div>
         <div class="rectangle-3184-L7BXHD {{historicalusage.iloc[i][3]}}line" id = '{{historicalusage.iloc[i][0]}}energybar' {% if historicalusage.iloc[i][1] == 0 %} style = 'width: 2px; background-color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'width: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;'{% endif %}><div class="x21-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}energypercent' {% if historicalusage.iloc[i][1] == 0 %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;  color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 10}}px;'{% endif %}>{{"%.2f"|format(((historicalusage.iloc[i][1]/ total) * 100)|float)}}%</div></div>
-        <div class = 'explore-image-box' id = '{{historicalusage.iloc[i][0]}}image' onclick = "createChart('{{historicalusage.iloc[i][0]}}',{{i}});"><img class="explore-image" src="{{url_for('static',filename='img/explore-image.png')}}" /></div>
+        <div class = 'explore-image-box' id = '{{historicalusage.iloc[i][0]}}image' onclick = "createChart('{{historicalusage.iloc[i][0]}}',{{i}}, '{{historicalusage.iloc[i][4]}}', '{{historicalusage.iloc[i][3]}}', '{{((historicalusage.iloc[i][1]/ total) * 100)}}');"><img class="explore-image" src="{{url_for('static',filename='img/explore-image.png')}}" /></div>
     </div>
         {% endfor %}
     </div>
@@ -376,7 +496,7 @@
         <div class="lunchroom-lights-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}namecost'>{{historicalusage.iloc[i][0]}}</div>
         <div class="x345-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}price'>${{"%.2f"|format(historicalusage.iloc[i][5]|float)}}/hr</div>
         <div class="rectangle-3184-L7BXHD {{historicalusage.iloc[i][3]}}line" id = '{{historicalusage.iloc[i][0]}}costbar' {% if historicalusage.iloc[i][1] == 0 %} style = 'width: 2px; background-color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'width: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;'{% endif %}><div class="x21-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}costpercent' {% if historicalusage.iloc[i][1] == 0 %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;  color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 10}}px;'{% endif %}>{{"%.2f"|format(((historicalusage.iloc[i][1]/ total) * 100)|float)}}%</div></div>
-        <div class = 'explore-image-box' id = '{{historicalusage.iloc[i][0]}}costimage'  onclick = "createChart('{{historicalusage.iloc[i][0]}}',{{i}});"><img class="explore-image" src="{{url_for('static',filename='img/explore-image.png')}}" /></div>
+        <div class = 'explore-image-box' id = '{{historicalusage.iloc[i][0]}}costimage'  onclick = "createChart('{{historicalusage.iloc[i][0]}}',{{i}}, '{{historicalusage.iloc[i][4]}}', '{{historicalusage.iloc[i][3]}}', '{{((historicalusage.iloc[i][1]/ total) * 100)}}');"><img class="explore-image" src="{{url_for('static',filename='img/explore-image.png')}}" /></div>
         </div>
         {% endfor %}
     </div></div></div>
@@ -1042,6 +1162,7 @@ function showSlides(n) {
     var newemmision = 0;
     var colors = ['{{colours[0]}}','{{colours[1]}}','{{colours[2]}}','{{colours[3]}}','{{colours[4]}}','{{colours[5]}}'];
     var colors2 = ['{{colours[0]}}','{{colours[1]}}','{{colours[2]}}','{{colours[3]}}','{{colours[4]}}','{{colours[5]}}'];
+    var panelcolours = ['{{colours[0]}}','{{colours[1]}}','{{colours[2]}}','{{colours[3]}}','{{colours[4]}}','{{colours[5]}}'];
     function toggleLighting() {
   var x = document.getElementsByClassName("lighting");
   var i;
@@ -1473,9 +1594,10 @@ function resetVariables(){
       document.getElementById('Cost').style.display = 'block';
       document.getElementById('Energy').style.display = 'none';
     }
-
-    function createChart(name, number){
+    function createChart(name, number, panel, category, percent){
         var data = {{schedule | tojson}};
+        var panelnames = {{panelnames | tojson}};
+        var paneltotals = {{panelchart | tojson}};
         var string = data[number];
         string = string.replace('[', '')
         string = string.replace(']', '')
@@ -1488,9 +1610,12 @@ function resetVariables(){
         } 
         ]); 
         var sum = 0;
+        var runtime = 0;
         for(var i = 0; i < datalist.length; i++){
-            console.log(datalist[i]);
             sum += (parseFloat(datalist[i]) / 1000);
+            if(datalist[i] != 0){
+                runtime += 1;
+            }
         }
         sum = Math.round(sum * 100) / 100;
         cost = sum * 0.09;
@@ -1503,11 +1628,53 @@ function resetVariables(){
         document.getElementById("circuitemission-decimal").innerHTML = '.' + Math.abs(emissionSplit[1]);
         document.getElementById('circuit-block').style.width = '744px';
         document.getElementById("circuit-title").innerHTML = name;
+        document.getElementById("overview-title").innerHTML = name;
         document.getElementById('circuit-block').style.border = 'border: 2px solid #E3E7ED';
         document.getElementById('circuit-whole').textContent = sumSplit[0];
         document.getElementById('circuit-decimal').textContent = '.' + sumSplit[1];
         document.getElementById('cost-whole').textContent = costSplit[0];
         document.getElementById('cost-decimal').textContent = '.' + costSplit[1];
+        document.getElementById("general-info-category").innerHTML = category;
+        document.getElementById("general-info-panel").innerHTML = panel;
+        document.getElementById("on-hours-circuit").innerHTML = {{timeloads.iloc[0][1]}} + '%';
+        document.getElementById("off-hours-circuit").innerHTML = {{timeloads.iloc[1][1]}} + '%';
+        document.getElementById('time-on-circle').style.backgroundColor = '{{timeloads.iloc[0][2]}}';
+        document.getElementById('time-off-circle').style.backgroundColor = '{{timeloads.iloc[1][2]}}';
+        document.getElementById("run-times-time").innerHTML = runtime + 'h';
+        document.getElementById("monthly-avg-kwh").innerHTML = (sum * 30).toFixed(2) + ' kWh';
+        document.getElementById("monthly-avg-cost").innerHTML = '$' + (cost * 30).toFixed(2);
+        document.getElementById("yearly-avg-kwh").innerHTML = (sum * 365).toFixed(2) + ' kWh';
+        document.getElementById("yearly-avg-cost").innerHTML = '$' + (cost * 365).toFixed(2);
+        document.getElementById("avg-circuit-total-percent").innerHTML = (percent * 1).toFixed(2) + '%';
+        document.getElementById("carbon-levy-kg").innerHTML = (sum * 0.82).toFixed(2);
+        document.getElementById("carbon-levy-kg").innerHTML = (sum * 0.82).toFixed(2);
+        
+
+    if(category == 'lighting'){
+        document.getElementById('category-circle-color').style.backgroundColor = '#3649A8';
+    }
+    if(category == 'plugload'){
+        document.getElementById('category-circle-color').style.backgroundColor = '#EE8F37';
+    }
+    if(category == 'hvac'){
+        document.getElementById('category-circle-color').style.backgroundColor = '#EE5937';
+    }
+    if(category == 'equipment'){
+        document.getElementById('category-circle-color').style.backgroundColor = '#3BCDEE';
+    }
+    if(category == 'hotwater'){
+        document.getElementById('category-circle-color').style.backgroundColor = '#90C449';
+    }
+    if(category == 'other'){
+        document.getElementById('category-circle-color').style.backgroundColor = '#DBE2F3';
+    }
+
+    for(var i = 0; i < panelnames.length; i++){
+        if(panel == panelnames[i]){
+            document.getElementById('panel-circle-color').style.backgroundColor = panelcolours[i];
+            document.getElementById("avg-circuit-panel-percent").innerHTML = (((sum * 1000) / paneltotals[i]) * 100).toFixed(2) + '%';
+        }
+    }
     }
 
     function toggleMaster(category){
@@ -1537,6 +1704,7 @@ function toggleTimeLoads(){
 function closeCircuitBlock(){
     document.getElementById('circuit-block').style.width = '0px';
     document.getElementById('circuit-block').style.border = "2px solid transparent";
+    document.getElementById('overview').style.width = '0px';
 }
   </script>
   <script>
@@ -1880,5 +2048,12 @@ function openTimeSidebar(){
              j[l].style.backgroundColor = colours[i];
          }
        }
+       }
+
+       function openOverview(){
+        document.getElementById('overview').style.width = '744px';
+       }
+       function closeOverview(){
+        document.getElementById('overview').style.width = '0px';
        }
 </script></html>
