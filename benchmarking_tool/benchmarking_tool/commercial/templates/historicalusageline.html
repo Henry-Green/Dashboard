@@ -190,7 +190,7 @@
                 <div class="rectangle-23402-l6cqYc">
                 <div class="panel-a2-l6cqYc avertacy-bold-sapphire-12px">{{timeloads.iloc[i][0]}}</div>
                 <div class="x43-l6cqYc avertacy-bold-sapphire-12px"></div>
-                <input onclick = 'toggleTimeLoads();' type= 'checkbox' class="rectangle-30242-l6cqYc"style = "background-color: {{timeloads.iloc[i][2]}};" id = 'panel1check'checked/><label for = 'panel1check'></label>
+                <input onclick = 'toggleTimeLoads({{i}});' type= 'checkbox' class="rectangle-30242-l6cqYc"style = "background-color: {{timeloads.iloc[i][2]}};" id = 'panel1check'checked/><label for = 'panel1check'></label>
                 <div class="info"><img class="info-image" src="{{url_for('static',filename='img/infoimage1.png')}}"/></div></div>
                 <div class = 'panelpercent avertacy-bold-sapphire-12px'>{{timeloads.iloc[i][1]}}%</div>
 
@@ -317,6 +317,16 @@
 
                     <div class = 'total-box'style = 'margin-right: 60px;'><span id = 'circuitemission-whole'></span><span class = 'decimal-span' id = 'circuitemission-decimal' style = 'font-size: 9px;'></span><span class = 'kwh-total'>kg/CO2</span><div class = total-box-line>Usage</div></div>
                 </div>
+                    <img class="rectangle-3269-L7BXHD" id = 'todayrectangle' src="{{url_for('static',filename='img/rectangle-3269@2x.svg')}}" style = 'top: 256px; left: 525px'/>
+                    <form onsubmit="setTimeout(function(){window.location.reload();},10);" method = "POST" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <div class="group-7286-L7BXHD" style = 'top: 270px; left: 535px;'>
+                      <input onchange= "submit(); getTotal();" name = 'date' id = 'today3' type = 'date' class="march-18th-2021-tkyWp6" value = {{correctdate}}>
+                      <div id = 'total' style = 'color: transparent;'></div>
+                      <div id = 'totalprice' style = 'color: transparent;'></div>
+                      <div id = 'percentage' style = 'color: transparent;'></div>
+                    </div>
+                    </form>
                  <div class = week-day-offimage-block-circuit>
                     <div class = offimage-frame><img class = week-day-offimage src="{{url_for('static',filename='img/offHours.png')}}" /></div>
                     <div class = offimage-frame><img class = week-day-offimage src="{{url_for('static',filename='img/offHours.png')}}" ></div>
@@ -1163,6 +1173,8 @@ function showSlides(n) {
     var colors = ['{{colours[0]}}','{{colours[1]}}','{{colours[2]}}','{{colours[3]}}','{{colours[4]}}','{{colours[5]}}'];
     var colors2 = ['{{colours[0]}}','{{colours[1]}}','{{colours[2]}}','{{colours[3]}}','{{colours[4]}}','{{colours[5]}}'];
     var panelcolours = ['{{colours[0]}}','{{colours[1]}}','{{colours[2]}}','{{colours[3]}}','{{colours[4]}}','{{colours[5]}}'];
+    var timeloadscolours = {{timeloadscolours | tojson}};
+    var originaltimeloadscolours = {{timeloadscolours | tojson}};
     function toggleLighting() {
   var x = document.getElementsByClassName("lighting");
   var i;
@@ -1648,6 +1660,7 @@ function resetVariables(){
         document.getElementById("avg-circuit-total-percent").innerHTML = (percent * 1).toFixed(2) + '%';
         document.getElementById("carbon-levy-kg").innerHTML = (sum * 0.82).toFixed(2);
         document.getElementById("carbon-levy-kg").innerHTML = (sum * 0.82).toFixed(2);
+        document.getElementById("circuit-block").style.boxShadow  = "0 0 0 10000px rgba(0,0,0,.50)";
         
 
     if(category == 'lighting'){
@@ -1698,13 +1711,32 @@ function resetVariables(){
     }
 }
 
-function toggleTimeLoads(){
+function toggleTimeLoads(num){
+    if(timeloadscolours[num] == '#FFFFFF'){
+        timeloadscolours[num] = originaltimeloadscolours[num];
+    }
+    else{
+        timeloadscolours[num] = '#FFFFFF';
+    }
+    chart12.updateOptions({
+  colors: [timeloadscolours[0],timeloadscolours[1],timeloadscolours[2]]
+})
+    chart8.updateOptions({
+  colors: [timeloadscolours[0],timeloadscolours[1],timeloadscolours[2]]
+})
+    chart13.updateOptions({
+  colors: [timeloadscolours[0],timeloadscolours[1],timeloadscolours[2]]
+})
+    chart4.updateOptions({
+  colors: [timeloadscolours[0],timeloadscolours[1],timeloadscolours[2]]
+})
     
 }
 function closeCircuitBlock(){
     document.getElementById('circuit-block').style.width = '0px';
     document.getElementById('circuit-block').style.border = "2px solid transparent";
     document.getElementById('overview').style.width = '0px';
+    document.getElementById("circuit-block").style.boxShadow  = "0 0 0 0px rgba(0,0,0,.50)";
 }
   </script>
   <script>

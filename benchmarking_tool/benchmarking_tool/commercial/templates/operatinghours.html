@@ -10,26 +10,29 @@
     <input type="hidden" id="anPageName" name="page" value="operating-hours" />
     <div class="container-center-horizontal">
       <div class="operating-hours screen">
-        <div class="overlap-group31">
-          <div class="rectangle-2893"></div>
-          <div class="header"></div>
-          <div class="welcome-john avertacy-bold-sapphire-20px">Welcome John,</div>
-          <div class="kpis avertacy-bold-sapphire-13px">KPI’S</div>
-          <div class="historical avertacy-bold-sapphire-13px">Historical</div>
-          <div class="inventory avertacy-bold-sapphire-13px">Inventory</div>
-          <div class="utilities avertacy-bold-sapphire-13px">Utilities</div>
-          <div class="operating-hours-1 avertacy-bold-sapphire-13px">Operating Hours</div>
-          <div class="group-7235">
-            <div class="ellipse-437"></div>
-          </div>
-          <img class="rectangle-2938" src="{{url_for('static',filename='img/rectangle-2938@22x.svg')}}" />
-          <img class="kaltire-256-2" src="{{url_for('static',filename='img/kaltire--256-2@22x.png')}}" />
-          <div class="store-087 avertacy-bold-sapphire-16px">Store #087</div>
-          <p class="address avertacy-bold-sapphire-10px">4720 Yellowhead Trail NW,<br />Edmonton, AB T5L 3CS</p>
-          <div class="group-7195"><img class="chevron-down" src="{{url_for('static',filename='img/vector@22x.svg')}}" /></div>
-          <div class="your-viewing avertacy-bold-sapphire-16px">Your Viewing</div>
-          <div class="live-usage avertacy-bold-sapphire-13px">Live Usage</div>
+        <div class="rectangle-2893-l6cqYc"  id = 'leftretract'>
+        <div class = 'activeline'></div>
+        <img class = 'retractbuttonleft' id = 'leftbutton' onclick = "retractleft()" src = "{{url_for('static',filename='img/retractbuttonbackground.png')}}"/><img class = 'retractbuttonarrowleft'  onclick = "retractleft()" id = 'leftarrow' src = "{{url_for('static',filename='img/retractbuttonarrow.png')}}"/>
+        <div class="header-l6cqYc" id = 'logodiv'><img class="pollen-2-7QcJ16" id = logoimage src="{{url_for('static',filename='img/logoimage.png')}}" /></div>
+        <div class="dashboard-l6cqYc" id = 'dashboard'><img class="dashboardimage" src="{{url_for('static',filename='img/dashboardimage.png')}}" />Dashboard</div>
+        <a href = '{{url_for("commercial.facilityoverview")}}'><div class="overview-l6cqYc" id = 'liveusage' ><img class="liveusageimage" src="{{url_for('static',filename='img/liveusageonimage.png')}}" />Live Usage</div></a>
+        <a href = "{{url_for('commercial.historicalusage')}}"><div class="historical-l6cqYc avertacy-bold-sapphire-13px" id = 'historical'><img class="historicalimage" src="{{url_for('static',filename='img/historicalimage.png')}}" />Historical</div></a>
+        <div class="inventory-l6cqYc" id = 'inventory'><img class="inventoryimage" src="{{url_for('static',filename='img/inventoryimage.png')}}" />Inventory</div>
+        <div class="utilities-l6cqYc" id = 'utilities'><img class="utilitiesimage" src="{{url_for('static',filename='img/utilitiesimage.png')}}" />Utilities</div>
+        <a href = "{{url_for('accounts.logout')}}"><div class="logout-l6cqYc avertacy-bold-sapphire-13px" id = 'logout'><img class="logoutimage" src="{{url_for('static',filename='img/logoutimage.png')}}" />Logout</div></a>
+
+        <div class = 'imageblock' id ='imageblock'>
+        <img class="kaltire-256-2-l6cqYc" src="{{url_for('static',filename='img/kaltire--256-2@22x.png')}}" />
+        <div class = 'buildingname'>Butetown Store</div>
+        <p class="x4720-yellowhead-on-ab-t5-l-3-cs-l6cqYc">4720 Yellowhead Trail NW</p>
+        <a href = "{{url_for('commercial.liveusage')}}"><div class = 'aboutbutton'><img class="info-imageblue" src="{{url_for('static',filename='img/infoimageblue.png')}}"/>About</div></a>
+        <div class = 'switchbutton'><img class="info-imageblue" src="{{url_for('static',filename='img/switchimage.png')}}"/>Switch</div>
+        <div class="group-7195-l6cqYc">
+          <div class="rectangle-2316-33iHaU"></div>
+          <div class="chevron-down-33iHaU"><img class="vector-LNtgXx" src="{{url_for('static',filename='img/vector@22x.svg')}}" /></div>
+            </div>
         </div>
+    </div>
         <div class="overlap-group32">
           <div class="flex-row">
             <h1 class="title avertacy-bold-sapphire-38px">Operating Hours</h1>
