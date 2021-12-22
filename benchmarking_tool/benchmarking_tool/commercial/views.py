@@ -882,6 +882,14 @@ def facilityoverviewbubble():
         return render_template('facilityoverviewbubble.html')
     else:
         abort(403)
+        
+@commercial.route('/utilities', methods=['GET', 'POST'])
+@login_required
+def utilities():
+    form = HistoricalUsageForm()
+    electricaldata = [24414.698, 22040.66, 21331.894, 2199.79, 1463.055, 1157.159, 993.769, 30008.4, 27142.474, 27874.592, 23514.175, 21275.932]
+    gasdata = [22693.97,18731.975,18502.919,2174.78,1771.2,1464.326,1570.184,29242.583,25235.188,24928.529,26363.419,28816.214]
+    return render_template('utilities.html', form = form, electricaldata = electricaldata, gasdata= gasdata)
 @commercial.route('/historicalusage', methods=['GET', 'POST'])
 @login_required
 def historicalusage():
