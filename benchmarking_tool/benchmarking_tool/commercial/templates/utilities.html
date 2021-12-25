@@ -147,6 +147,7 @@
         <img class="rectangle-3269-L7BXHD2" id = 'todayrectangle' src="{{url_for('static',filename='img/rectangle-3269@2x.svg')}}" />
         <form onsubmit="setTimeout(function(){window.location.reload();},10);" method = "POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
+        <div class = 'file-box'><input type = "file" name = "file" /></div>
         <div class="group-7286-L7BXHD2">
           <input onchange= "submit(); getTotal();" name = 'date' id = 'today2' type = 'number' class="march-18th-2021-tkyWp62" min="1900" max="2099" step="1" value="2019" />
           <div id = 'total' style = 'color: transparent;'></div>
@@ -167,7 +168,7 @@
                                   series: [
                                   {
                                     name: "Electricity",
-                                    data: [24414.698, 22040.66, 21331.894, 2199.79, 1463.055, 1157.159, 993.769, 30008.4, 27142.474, 27874.592, 23514.175, 21275.932]
+                                    data: []
                                   },
                                 ],
                                   chart: {
