@@ -8360,3 +8360,9 @@ overflow: hidden;
   margin-right: 5px;
   float: right;
 }
+
+.file-box{
+  position: absolute;
+  left: 55%;
+  top: 100px;
+}
