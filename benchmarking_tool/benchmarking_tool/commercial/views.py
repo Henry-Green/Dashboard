@@ -6490,6 +6490,10 @@ class ClientForm(FlaskForm):
 class HistoricalUsageForm(FlaskForm):
     date = StringField("Date")
 
+class UtilityForm(FlaskForm):
+    date = StringField("Date")
+    file = FileField(validators=[FileRequired()])
+    
 class OperatingHoursForm(FlaskForm):
     month = StringField("Month")
     changed = StringField("Changed")
