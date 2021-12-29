@@ -1152,18 +1152,18 @@ border-radius: 8px;
 }
 .Live-Usage2{
   height: 662px;
-  width: 744px;
-  left: 320px;
+  width: 1100px;
+  left: 350px;
   top: 120px;
   position: absolute;
   background-color: white;
   transition: 0.5s;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .live-usage-block{
-  width: 356px;
-  height: 261px;
+  width: 386px;
+  height: 291px;
   border: 2px solid #E3E7ED;
   float: left;
   margin-right: 15px;
