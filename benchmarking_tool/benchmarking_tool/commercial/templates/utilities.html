@@ -106,17 +106,17 @@
                     <div class = 'totals-block'>
                         <div class = 'totals-rectangle' style = 'border-bottom: 2px solid #E3E7ED; '>
                             <div class = 'total-cost'>Total Cost</div>
-                            <div class = 'total-cost-number'>$1,233,45</div>
+                            <div class = 'total-cost-number' id = sumcost></div>
                         </div>
                         <div class = 'totals-rectangle'>
-                            <div class = 'total-cost'>Total Cost</div>
-                            <div class = 'total-cost-number'>$1,233,45</div>
+                            <div class = 'total-cost'>Total KWH</div>
+                            <div class = 'total-cost-number' id = sum></div>
                         </div>
                     </div>
                     <div class = 'squarefoot-block'>
                         <div class = 'squarefoot-header'>Per sqft</div>
-                        <div class = 'squarefoot-rectangle'>$1.22</div>
-                        <div class = 'squarefoot-rectangle'>14.1</div>
+                        <div class = 'squarefoot-rectangle' id = 'sqftcost'></div>
+                        <div class = 'squarefoot-rectangle' id = 'sqft'></div>
                     </div>
                     <div id="chart2" style = 'position: relative; top: 40px;'></div>
                     <div class = 'compare-block'>
@@ -133,11 +133,11 @@
                     <div class = 'carbonlevy-block'>
                         <div class = 'compare-header'>Carbon Levy <div class = 'compare-image-block2'><img class = 'compare-image' src = "{{url_for('static',filename='img/compareimage.png')}}"/></div></div>
                         <div class = 'compare-rectangle' style = 'border-right: 2px solid #E3E7ED; '>
-                            <div class = 'carbonlevy-numbers'>127.8</div>
+                            <div class = 'carbonlevy-numbers' id = 'levy'></div>
                             <div class = 'carbonlevy-text'>tons/CO2</div>
                         </div>
                         <div class = 'compare-rectangle'>
-                            <div class = 'carbonlevy-numbers'>$6,390</div>
+                            <div class = 'carbonlevy-numbers' id = 'levycost'></div>
                             <div class = 'carbonlevy-text' style = 'width: 72px'>Carbon Levy</div>
                         </div>
                     </div>
@@ -502,7 +502,22 @@ else{
 
 function changeToGas(){
     gasdata = {{gasdata | tojson}};
+    var sum = 0;
+    for(var i = 0; i < gasdata.length; i++){
+        sum += parseFloat(gasdata[i]);
+    }
+    var sumcost = sum * 0.09;
+    var levy = (sum * 0.82) / 1000;
+    var levycost = levy * 40;
+    var sqft = sum / 29040;
+    var sqftcost = sqft * 0.09;
     document.getElementById('utility-title').innerHTML = 'Natural Gas';
+    document.getElementById('sum').innerHTML = sum.toFixed(2);
+    document.getElementById('sumcost').innerHTML = '$' + sumcost.toFixed(2);
+    document.getElementById('levy').innerHTML = levy.toFixed(2);
+    document.getElementById('levycost').innerHTML = '$' + levycost.toFixed(2);
+    document.getElementById('sqft').innerHTML = sqft.toFixed(2);
+    document.getElementById('sqftcost').innerHTML = '$' + sqftcost.toFixed(2);
         chart2.updateOptions({
   colors: ['#FF7F27']
 })
@@ -515,7 +530,22 @@ function changeToGas(){
 
 function changeToElectricity(){
     electricaldata = {{electricaldata | tojson}};
+    var sum = 0;
+    for(var i = 0; i < electricaldata.length; i++){
+        sum += parseFloat(electricaldata[i]);
+    }
+    var sumcost = sum * 0.09;
+    var levy = (sum * 0.82) / 1000;
+    var levycost = levy * 40;
+    var sqft = sum / 29040;
+    var sqftcost = sqft * 0.09;
     document.getElementById('utility-title').innerHTML = 'Electricity';
+    document.getElementById('sum').innerHTML = sum.toFixed(2);
+    document.getElementById('sumcost').innerHTML = '$' + sumcost.toFixed(2);
+    document.getElementById('levy').innerHTML = levy.toFixed(2);
+    document.getElementById('levycost').innerHTML = '$' + levycost.toFixed(2);
+    document.getElementById('sqft').innerHTML = sqft.toFixed(2);
+    document.getElementById('sqftcost').innerHTML = '$' + sqftcost.toFixed(2);
         chart2.updateOptions({
   colors: ['#FFC90E']
 })
