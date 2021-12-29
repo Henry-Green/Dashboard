@@ -8029,6 +8029,7 @@ overflow: hidden;
   font-weight: 700;
   position: relative;
   margin-left: auto;
+  padding-top: 10px;
 }
 .totals-block{
   width: 278px;
