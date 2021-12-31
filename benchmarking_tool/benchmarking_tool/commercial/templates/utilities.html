@@ -104,14 +104,20 @@
                 <div class = 'electricity-header' id = 'utility-title'></div>
                 <div class = 'electricity-content'>
                     <div class = 'totals-block'>
+                        <div class = 'total-header'>Facility Total</div>
                         <div class = 'totals-rectangle' style = 'border-bottom: 2px solid #E3E7ED; '>
-                            <div class = 'total-cost'>Total Cost</div>
+                            <div class = 'total-cost'></div>
                             <div class = 'total-cost-number' id = sumcost></div>
                         </div>
                         <div class = 'totals-rectangle'>
-                            <div class = 'total-cost'>Total KWH</div>
+                            <div class = 'total-cost'></div>
                             <div class = 'total-cost-number' id = sum></div>
                         </div>
+                    </div>
+                    <div class = 'squarefoot-block'>
+                        <div class = 'squarefoot-header'>Per sqm</div>
+                        <div class = 'squarefoot-rectangle' id = 'sqmcost'></div>
+                        <div class = 'squarefoot-rectangle' id = 'sqm'></div>
                     </div>
                     <div class = 'squarefoot-block'>
                         <div class = 'squarefoot-header'>Per sqft</div>
@@ -511,13 +517,17 @@ function changeToGas(){
     var levycost = levy * 40;
     var sqft = sum / 29040;
     var sqftcost = sqft * 0.09;
+    var sqm = sum / 8851.392;
+    var sqmcost = sqm * 0.09;
     document.getElementById('utility-title').innerHTML = 'Natural Gas';
-    document.getElementById('sum').innerHTML = sum.toFixed(2);
+    document.getElementById('sum').innerHTML = sum.toFixed(2)  + ' <span style = "font-size: 12px">kWh</span>';
     document.getElementById('sumcost').innerHTML = '$' + sumcost.toFixed(2);
     document.getElementById('levy').innerHTML = levy.toFixed(2);
     document.getElementById('levycost').innerHTML = '$' + levycost.toFixed(2);
-    document.getElementById('sqft').innerHTML = sqft.toFixed(2);
+    document.getElementById('sqft').innerHTML = sqft.toFixed(2)  + ' <span style = "font-size: 12px">kWh</span>';
     document.getElementById('sqftcost').innerHTML = '$' + sqftcost.toFixed(2);
+    document.getElementById('sqm').innerHTML = sqm.toFixed(2)  + ' <span style = "font-size: 12px">kWh</span>';
+    document.getElementById('sqmcost').innerHTML = '$' + sqmcost.toFixed(2);
         chart2.updateOptions({
   colors: ['#FF7F27']
 })
@@ -539,13 +549,17 @@ function changeToElectricity(){
     var levycost = levy * 40;
     var sqft = sum / 29040;
     var sqftcost = sqft * 0.09;
+    var sqm = sum / 8851.392;
+    var sqmcost = sqm * 0.09;
     document.getElementById('utility-title').innerHTML = 'Electricity';
-    document.getElementById('sum').innerHTML = sum.toFixed(2);
+    document.getElementById('sum').innerHTML = sum.toFixed(2) + ' <span style = "font-size: 12px">kWh</span>';
     document.getElementById('sumcost').innerHTML = '$' + sumcost.toFixed(2);
     document.getElementById('levy').innerHTML = levy.toFixed(2);
     document.getElementById('levycost').innerHTML = '$' + levycost.toFixed(2);
-    document.getElementById('sqft').innerHTML = sqft.toFixed(2);
+    document.getElementById('sqft').innerHTML = sqft.toFixed(2)  + ' <span style = "font-size: 12px">kWh</span>';
     document.getElementById('sqftcost').innerHTML = '$' + sqftcost.toFixed(2);
+    document.getElementById('sqm').innerHTML = sqm.toFixed(2) + ' <span style = "font-size: 12px">kWh</span>';
+    document.getElementById('sqmcost').innerHTML = '$' + sqmcost.toFixed(2);
         chart2.updateOptions({
   colors: ['#FFC90E']
 })
