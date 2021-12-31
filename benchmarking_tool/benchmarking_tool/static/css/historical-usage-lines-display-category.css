@@ -2654,7 +2654,7 @@
 .rectangle-3269-L7BXHD2 {
   background-color: transparent;
   height: 39px;
-  left: 880px;
+  left: 896px;
   mix-blend-mode: normal;
   position: absolute;
   top: 190px;
@@ -2992,7 +2992,7 @@ transition: 0.5s;
 
 .calendar-block2{
 position: absolute;
-left: 198.5px;
+left: 215px;
 top: 0px;
 z-index: 1000;
 transition: 0.5s;
@@ -8032,7 +8032,7 @@ overflow: hidden;
   padding-top: 10px;
 }
 .totals-block{
-  width: 278px;
+  width: 230px;
   height: 138px;
   border: 2px solid #E3E7ED;
   position: relative;
@@ -8043,8 +8043,8 @@ overflow: hidden;
 }
 
 .totals-rectangle{
-  height: 50%;
-  width: 237px;
+  height: 38%;
+  width: 210px;
   margin-left: auto;
   margin-right: auto;
   
@@ -8068,7 +8068,9 @@ overflow: hidden;
   font-weight: 700;
   position: relative;
   top: 15px;
-  left: 140px;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
 }
 
 .squarefoot-block{
@@ -8077,9 +8079,10 @@ overflow: hidden;
   border-radius: 8px;
   border: 2px solid #E3E7ED;
   float: left;
-  left: 90px;
+  left: 55px;
   top: 30px;
   position: relative;
+  margin-right: 10px;
 }
 
 .squarefoot-header{
@@ -8366,4 +8369,25 @@ overflow: hidden;
   position: absolute;
   left: 55%;
   top: 100px;
+}
+
+.total-header{
+  width: 210px;
+  height: 35px;
+  padding-top: 8px;
+  border-bottom: 2px solid #E3E7ED; 
+  margin-right: auto;
+  margin-left: auto;
+  color: #7F7F7F;
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.kwh-span{
+  font-size: 8px;
+  position: relative;
+  width: 20px;
+  height: 20px;
 }
