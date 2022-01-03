@@ -986,7 +986,7 @@ def historicalusage():
         panelpercent = paneltotals['Percent'].to_list()
         panelprice = paneltotals['Price'].to_list()
         chart_colours = ['#E6E9EF'] * 24
-        cal_db = calendar_pull(building_id,year, int(cal_month))
+        cal_db = calendar_pull(building_id,2021, int(cal_month))
         hours = cal_db[int(day) - 1]
         starthours = hours['start_hours']
         endhours = hours['end_hours']
@@ -1223,7 +1223,7 @@ def historicalusageline():
         panelpercent = paneltotals['Percent'].to_list()
         panelprice = paneltotals['Price'].to_list()
         chart_colours = ['#E6E9EF'] * 24
-        cal_db = calendar_pull(building_id,year, int(cal_month))
+        cal_db = calendar_pull(building_id,2021, int(cal_month))
         hours = cal_db[int(day) - 1]
         starthours = hours['start_hours']
         endhours = hours['end_hours']
@@ -1270,7 +1270,8 @@ def historicalusageline():
 
         timeloads = {'Name':['On-Hours','Off-Hours','Always-On'], 'Percents':[onHours,offHours,alwaysOn],'Colors':['#22B14C','#7F7F7F','#EE8F37']}
         timeloads = pd.DataFrame(data = timeloads)
-        return render_template('historicalusageline.html',alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
+        timeloadscolours = ['#22B14C','#7F7F7F','#EE8F37']
+        return render_template('historicalusageline.html',timeloadscolours = timeloadscolours,alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
     else:
         abort(403)
 
