@@ -8,6 +8,11 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
     <script src="https://cdn.jsdelivr.net/npm/apexcharts" type="text/javascript"></script>
   </head>
+{% if error %}
+  <header>
+        <div class=error><strong>Error:</strong> {{ error }}</div>
+  </header>
+{% endif %}
   <body style="margin: 0; background: #ffffff" onload="resetVariables(); createTotalChart(); changetoEnergy(); getTotal(); changeDotColourCategory(); ">
     <input type="hidden" id="anPageName" name="page" value="historical-usage-lines-display-category" />
     <div class="container-center-horizontal">
@@ -296,6 +301,7 @@
                 </div>
             </div>
         </div>
+
 
         <h1 class="title-L7BXHD">Historical Usage</h1>
         <div class="rectangle-2984-L7BXHD" id = 'Live-Usage'>
