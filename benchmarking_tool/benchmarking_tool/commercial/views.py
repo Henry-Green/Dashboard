@@ -811,6 +811,7 @@ def historicalusage():
     cal_month = datetime.datetime.now().month
     year = datetime.datetime.now().year
     building_id = 12
+    error = None
     if(current_user.is_authenticated and current_user.is_admin()):
         mydb = mysql.connector.connect(
           host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
@@ -828,11 +829,27 @@ def historicalusage():
             userdate = request.form['date'] + '%'
             cal_month = str(userdate)[5] + str(userdate)[6]
             day = str(userdate)[8] + str(userdate)[9]
+            if datetime.datetime.strptime(request.form['date'], '%Y-%m-%d') >= datetime.datetime.today():
+                userdate = (today - timedelta(days = 1)).strftime('%Y-%m-%d') + '%'
+                cal_month = str(userdate)[5] + str(userdate)[6]
+                day = str(userdate)[8] + str(userdate)[9]
+                year = datetime.datetime.now().year
+                error = 'Cannot select future dates'
 
         number = serial_list[0]
         sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"    
         mycursor.execute(sql, (userdate, number))
         myresult = mycursor.fetchall()
+        if myresult == []:
+            userdate = (today - timedelta(days = 1)).strftime('%Y-%m-%d') + '%'
+            cal_month = str(userdate)[5] + str(userdate)[6]
+            day = str(userdate)[8] + str(userdate)[9]
+            year = datetime.datetime.now().year
+            error = 'No data for selected date'
+            number = serial_list[0]
+            sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"    
+            mycursor.execute(sql, (userdate, number))
+            myresult = mycursor.fetchall()
         for x in myresult:
             tempstring = ','.join(x)
 
@@ -1022,11 +1039,9 @@ def historicalusage():
                 print('whoops1')
             for k in range(int(starthours) - 1, int(endhours) + 1):
                 totalset[k] += float(datalist[k])
-                print('here')
             for k in range(0, len(datalist)):
                 if ((k >= int(starthours) and k <= int(endhours)) == False):
                     offhours[k] += float(datalist[k])
-                    print('here2')
         onHours = ((sum(totalset)) / total * 100).round(2)
         offHours = ((sum(offhours)) / total * 100).round(2)
         alwaysOn = 0
@@ -1034,7 +1049,7 @@ def historicalusage():
         timeloads = {'Name':['On-Hours','Off-Hours','Always-On'], 'Percents':[onHours,offHours,alwaysOn],'Colors':['#22B14C','#7F7F7F','#EE8F37']}
         timeloads = pd.DataFrame(data = timeloads)
         timeloadscolours = ['#22B14C','#7F7F7F','#EE8F37']
-        return render_template('historicalusage.html',timeloadscolours = timeloadscolours,alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
+        return render_template('historicalusage.html',error = error, timeloadscolours = timeloadscolours,alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
     else:
         abort(403)
 
@@ -1048,6 +1063,7 @@ def historicalusageline():
     cal_month = datetime.datetime.now().month
     year = datetime.datetime.now().year
     building_id = 12
+    error = None
     if(current_user.is_authenticated and current_user.is_admin()):
         mydb = mysql.connector.connect(
           host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
@@ -1065,11 +1081,27 @@ def historicalusageline():
             userdate = request.form['date'] + '%'
             cal_month = str(userdate)[5] + str(userdate)[6]
             day = str(userdate)[8] + str(userdate)[9]
+            if datetime.datetime.strptime(request.form['date'], '%Y-%m-%d') >= datetime.datetime.today():
+                userdate = (today - timedelta(days = 1)).strftime('%Y-%m-%d') + '%'
+                cal_month = str(userdate)[5] + str(userdate)[6]
+                day = str(userdate)[8] + str(userdate)[9]
+                year = datetime.datetime.now().year
+                error = 'Cannot select future dates'
 
         number = serial_list[0]
         sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"    
         mycursor.execute(sql, (userdate, number))
         myresult = mycursor.fetchall()
+        if myresult == []:
+            userdate = (today - timedelta(days = 1)).strftime('%Y-%m-%d') + '%'
+            cal_month = str(userdate)[5] + str(userdate)[6]
+            day = str(userdate)[8] + str(userdate)[9]
+            year = datetime.datetime.now().year
+            error = 'No data for selected date'
+            number = serial_list[0]
+            sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"    
+            mycursor.execute(sql, (userdate, number))
+            myresult = mycursor.fetchall()
         for x in myresult:
             tempstring = ','.join(x)
 
@@ -1259,11 +1291,9 @@ def historicalusageline():
                 print('whoops1')
             for k in range(int(starthours) - 1, int(endhours) + 1):
                 totalset[k] += float(datalist[k])
-                print('here')
             for k in range(0, len(datalist)):
                 if ((k >= int(starthours) and k <= int(endhours)) == False):
                     offhours[k] += float(datalist[k])
-                    print('here2')
         onHours = ((sum(totalset)) / total * 100).round(2)
         offHours = ((sum(offhours)) / total * 100).round(2)
         alwaysOn = 0
@@ -1271,10 +1301,9 @@ def historicalusageline():
         timeloads = {'Name':['On-Hours','Off-Hours','Always-On'], 'Percents':[onHours,offHours,alwaysOn],'Colors':['#22B14C','#7F7F7F','#EE8F37']}
         timeloads = pd.DataFrame(data = timeloads)
         timeloadscolours = ['#22B14C','#7F7F7F','#EE8F37']
-        return render_template('historicalusageline.html',timeloadscolours = timeloadscolours,alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
+        return render_template('historicalusageline.html',error = error, timeloadscolours = timeloadscolours,alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
     else:
         abort(403)
-
 
 @commercial.route('/historicalusagebubble', methods=['GET', 'POST'])
 @login_required
