@@ -1867,7 +1867,7 @@ function resetVariables(){
         document.getElementById("circuit-block").style.boxShadow  = "0 0 0 10000px rgba(0,0,0,.50)";
         document.getElementById("typical-load").innerHTML = (sum - 2).toFixed(2) + 'kWh' + '-' + (sum + 2).toFixed() + 'kWh';
         document.getElementById("load-fluctuation").innerHTML = (percent - 2).toFixed(2) + '%' + ' - ' + (percent - -1).toFixed(2) + "%";
-        document.getElementById('score-percent').innerHTML = (100 - current_line_error).toFixed(2) + "<span style = 'font-size: 14px;'>%</span>";
+        document.getElementById('score-percent').innerHTML = (100 - (current_line_error * 100)).toFixed(2) + "<span style = 'font-size: 14px;'>%</span>";
         document.getElementById('highnumber').innerHTML = (Math.max( ...current_line_data) * 1000).toFixed(0) + "<span style = 'font-size: 14px;'>w</span>";
         document.getElementById('lownumber').innerHTML = (Math.min( ...current_line_data) * 1000).toFixed(0) + "<span style = 'font-size: 14px;'>w</span>";
         document.getElementById('averagenumber').innerHTML = ((current_line_sum / current_line_data.length) * 1000).toFixed(0) + "<span style = 'font-size: 14px;'>w</span>";
