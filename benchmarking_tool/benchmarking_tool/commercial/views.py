@@ -84,6 +84,7 @@ import pandas as pd
 from PartnerApiClient.Emporia_Customer import Emporia_Customer
 from report_functions import calendar_init, calendar_update, calendar_pull, calendar_edit, operating_hours
 from report_functions.edit_weekday_calendar import edit_weekday_calendar
+from channel_prediction.channel_predictions import *
 import mysql.connector
 from collections import Counter, defaultdict
 from calendar import monthrange
@@ -1049,7 +1050,31 @@ def historicalusage():
         timeloads = {'Name':['On-Hours','Off-Hours','Always-On'], 'Percents':[onHours,offHours,alwaysOn],'Colors':['#22B14C','#7F7F7F','#EE8F37']}
         timeloads = pd.DataFrame(data = timeloads)
         timeloadscolours = ['#22B14C','#7F7F7F','#EE8F37']
-        return render_template('historicalusage.html',error = error, timeloadscolours = timeloadscolours,alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
+
+        predicted_line = {}
+        last_week_full = {}
+        for i in range(0,len(serial_list)):
+            data = get_weekly_data(serial_list[i],30)
+            channel_dict, dates = weekday_organization(data)
+            last_week_cd, last_week_dp = last_week_usage(data)
+            predicted_line.update(weekly_predicted_line(channel_dict, last_week_cd))
+            last_week_full.update(last_week_cd)
+        weeklabels = ['M']
+        weeklabels += ([''] * 23)
+        weeklabels.append('T')
+        weeklabels += ([''] * 23)
+        weeklabels.append('W')
+        weeklabels += ([''] * 23)
+        weeklabels.append('T')
+        weeklabels += ([''] * 23)
+        weeklabels.append('F')
+        weeklabels += ([''] * 23)
+        weeklabels.append('S')
+        weeklabels += ([''] * 23)
+        weeklabels.append('S')
+        weeklabels += ([''] * 23)
+        print(predicted_line['car wash exhaust fan'])
+        return render_template('historicalusage.html',weeklabels = weeklabels, last_week_cd = last_week_full,predicted_line = predicted_line,error = error, timeloadscolours = timeloadscolours,alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
     else:
         abort(403)
 
@@ -1301,7 +1326,31 @@ def historicalusageline():
         timeloads = {'Name':['On-Hours','Off-Hours','Always-On'], 'Percents':[onHours,offHours,alwaysOn],'Colors':['#22B14C','#7F7F7F','#EE8F37']}
         timeloads = pd.DataFrame(data = timeloads)
         timeloadscolours = ['#22B14C','#7F7F7F','#EE8F37']
-        return render_template('historicalusageline.html',error = error, timeloadscolours = timeloadscolours,alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
+
+        predicted_line = {}
+        last_week_full = {}
+        for i in range(0,len(serial_list)):
+            data = get_weekly_data(serial_list[i],30)
+            channel_dict, dates = weekday_organization(data)
+            last_week_cd, last_week_dp = last_week_usage(data)
+            predicted_line.update(weekly_predicted_line(channel_dict, last_week_cd))
+            last_week_full.update(last_week_cd)
+        weeklabels = ['M']
+        weeklabels += ([''] * 23)
+        weeklabels.append('T')
+        weeklabels += ([''] * 23)
+        weeklabels.append('W')
+        weeklabels += ([''] * 23)
+        weeklabels.append('T')
+        weeklabels += ([''] * 23)
+        weeklabels.append('F')
+        weeklabels += ([''] * 23)
+        weeklabels.append('S')
+        weeklabels += ([''] * 23)
+        weeklabels.append('S')
+        weeklabels += ([''] * 23)
+        print(predicted_line['car wash exhaust fan'])
+        return render_template('historicalusageline.html',weeklabels = weeklabels, last_week_cd = last_week_full,predicted_line = predicted_line,error = error, timeloadscolours = timeloadscolours,alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
     else:
         abort(403)
 
