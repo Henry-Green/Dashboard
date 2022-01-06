@@ -314,6 +314,9 @@
                 <div class = 'popup-selector'>
                     <div class = 'pastuse-popup' onclick= "openOverview()"><img class = 'pastuse-image' src ="{{url_for('static',filename='img/overviewoffpopup.png')}}"/></div>
                     <div class = 'pastuse-popup'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/pastuseonpopup.png')}}"/></div>
+                    <div class = 'pastuse-popup' style = 'width: 32px; height: 32px; bottom: 3px; position: relative;'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/co2image.png')}}"/></div>
+                    <div class = 'pastuse-popup' style = 'width: 32px; height: 32px; bottom: 2px; position: relative;'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/doubleringimage.png')}}"/></div>
+                    <div class = 'pastuse-popup'onclick= "openLoadPredict()"><img class = 'pastuse-image' src ="{{url_for('static',filename='img/loadpredictimage.png')}}"/></div>
                 </div>
                 <div class = 'past-use'>Past-Use</div>
                     <div class = 'total-block1'>    
@@ -352,6 +355,9 @@
                 <div class = 'popup-selector'>
                     <div class = 'pastuse-popup'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/overviewpopup.png')}}"/></div>
                     <div class = 'pastuse-popup' onclick= "closeOverview()"><img class = 'pastuse-image' src ="{{url_for('static',filename='img/pastusepopup.png')}}"/></div>
+                    <div class = 'pastuse-popup' style = 'width: 32px; height: 32px; bottom: 3px; position: relative;'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/co2image.png')}}"/></div>
+                    <div class = 'pastuse-popup' style = 'width: 32px; height: 32px; bottom: 2px; position: relative;'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/doubleringimage.png')}}"/></div>
+                    <div class = 'pastuse-popup'onclick= "openLoadPredict()"><img class = 'pastuse-image' src ="{{url_for('static',filename='img/loadpredictimage.png')}}"/></div>
                 </div>
                 <div class = 'past-use'>Overview</div>
                 <div class = 'overview-stats-block'>
@@ -472,6 +478,52 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+        <div class = 'circuit-block' id = 'load-predict'>
+            <div class = 'circuit-header'>
+                <div class = 'circuit-title' id = 'load-title'>Name</div>
+                <div class = 'exit-button' onclick = 'closeCircuitBlock();'><img class = 'exit-button-image' src ="{{url_for('static',filename='img/exit-button-image.png')}}"/></div>
+            </div>
+            <div class = 'circuit-content'>
+                <div class = 'popup-selector'>
+                    <div class = 'pastuse-popup' onclick= "openOverview()"><img class = 'pastuse-image' src ="{{url_for('static',filename='img/overviewoffpopup.png')}}"/></div>
+                    <div class = 'pastuse-popup' onclick = 'closeLoadPredict()'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/pastusepopup.png')}}"/></div>
+                    <div class = 'pastuse-popup' style = 'width: 32px; height: 32px; bottom: 3px; position: relative;'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/co2image.png')}}"/></div>
+                    <div class = 'pastuse-popup' style = 'width: 32px; height: 32px; bottom: 2px; position: relative;'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/doubleringimage.png')}}"/></div>
+                    <div class = 'pastuse-popup'onclick= "openLoadPredict()" style = 'width: 32px; height: 32px; bottom: 2px; right: 5px; position: relative;'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/loadpredictimageon.png')}}"/></div>
+                </div>
+                <div class = 'past-use'>Load Predictability</div>
+                    <div class = 'predict-block'>
+                        <div class = 'score-block'>
+                            <div class = score-header>Load Pred. Score</div>
+                            <div class = 'score content'>
+                                <div class = 'score-percent' id = 'score-percent'>99.9</div>
+                                <div class = 'score-chart' id = chart0></div>
+                            </div>
+                        </div>
+                        <div class = 'typical-block'>
+                            <div class = 'typical-header'>Typical Load</div>
+                                <div class = typical-rectangle style = 'border-right: 2px solid #E3E7ED;'>
+                                    <div class = 'typical-number' id = 'highnumber'>1105w</div>
+                                    <div class = 'typical-title'>High</div>
+                                </div>
+                                <div class = typical-rectangle style = 'border-right: 2px solid #E3E7ED;'>
+                                    <div class = 'typical-number' id = 'lownumber'>1105w</div>
+                                    <div class = 'typical-title'>Low</div>
+                                </div>
+                                <div class = typical-rectangle>
+                                    <div class = 'typical-number' id = 'averagenumber'>1105w</div>
+                                    <div class = 'typical-title'>Avg</div>
+                                </div>
+                        </div>
+                        <div class = 'fluctuation-block'>
+                            <div class = 'fluctuation-header'>Load Fluctuation</div>
+                            <div class = 'fluctuation-content' id = 'fluctuation-percent'></div>
+                        </div>
+                        <div id = chart01></div>
+                    </div>
+                <div class = 'circuit-graph' id = 'chart5'></div>
             </div>
         </div>
         <div class = 'graph-buttons-block' id = 'graph-buttons-block'><a href = "{{url_for('commercial.historicalusage')}}"><div class = 'grah-buttons'><img class = 'graph-buttons-image' src ="{{url_for('static',filename='img/bar-image.png')}}"/> </div></a>
@@ -1115,6 +1167,94 @@
                             var chart12 = new ApexCharts(document.querySelector("#chart12"), options);
                             chart12.render();
 </script>
+  <script >var options = {
+                              labels: ['Accuracy', 'Inaccuracy'],
+                              series: [99.9, 0.1],
+                              chart: {
+                              width: 100,
+                              height: 100,
+                              type: 'donut',
+                            },
+                            tooltip: {
+                                enabled: false,
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            legend: {
+                                position: 'bottom',
+                                show:false
+                            },
+
+                            colors:['#00A2E8','#FFFFFF'],
+
+                            responsive: [{
+                              breakpoint: 480,
+                              options: {
+                              }
+                            }]
+                            };
+                            var chart0 = new ApexCharts(document.querySelector("#chart0"), options);
+                            chart0.render();
+                            
+</script>
+<script>
+                        weeklabels = {{weeklabels | tojson}};
+                            var options = {
+                                  series: [
+                                  {
+                                    name: "Predicted",
+                                    data: [28, 29, 33, 36, 32, 32, 33]
+                                  },
+                                  {
+                                    name: "Last Weeks Usage",
+                                    data: [12, 11, 14, 18, 17, 13, 13]
+                                  }
+                                ],
+                                  chart: {
+                                  height: 350,
+                                  type: 'line',
+                                  toolbar: {
+                                    show: false
+                                  }
+                                },
+                                colors: ['#0409C5', '#216721'],
+                                dataLabels: {
+                                  enabled: false,
+                                },
+                                stroke: {
+                                  curve: 'straight',
+                                  width: 2,
+                                },
+                                title: {
+                                  text: 'Weekly Prediction',
+                                  align: 'left'
+                                },
+                                grid: {
+                                  show: false,
+                                },
+                                xaxis: {
+                                  type: 'category',
+                                  categories: weeklabels,
+                                  labels:{
+                                    showDuplicates: false,
+                                  },
+                                },
+                                yaxis: {
+                                },
+                                legend: {
+                                  position: 'top',
+                                  horizontalAlign: 'right',
+                                  floating: true,
+                                  offsetY: -25,
+                                  offsetX: -5
+                                }
+                                };
+
+                                var chart01 = new ApexCharts(document.querySelector("#chart01"), options);
+                                chart01.render();
+      
+                        </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
     if ( $('#today2')[0].type != 'date' ) $('#today2').datepicker();
   </script>
@@ -1627,21 +1767,58 @@ function resetVariables(){
       document.getElementById('Cost').style.display = 'block';
       document.getElementById('Energy').style.display = 'none';
     }
+
+    function array(newarray){
+        return newarray;
+    }
     function createChart(name, number, panel, category, percent){
         var data = {{schedule | tojson}};
         var panelnames = {{panelnames | tojson}};
         var paneltotals = {{panelchart | tojson}};
+        var predicted_line = {{predicted_line | safe}};
+        var last_week_cd = {{last_week_cd | safe}};
+        var current_last_week = last_week_cd[name];
+        var monday = current_last_week[0];
+        var tuesday = current_last_week[1];
+        var wednesday = current_last_week[2];
+        var thursday = current_last_week[3];
+        var friday = current_last_week[4];
+        var saturday = current_last_week[5];
+        var sunday = current_last_week[6];
+        var last_week_data =  [];
+        var current_line = predicted_line[name];
+        var current_line_data = current_line['week_line'];
+        var current_line_error = current_line['Error'];
+        var current_line_sum = 0;
         var string = data[number];
         string = string.replace('[', '')
         string = string.replace(']', '')
         var datalist = string.split(",");
-        console.log(name)
-        console.log(datalist)
         chart5.updateSeries([{ 
             name: name,
             data: datalist,
         } 
         ]); 
+
+        last_week_data = Object.values(monday[0]);
+        last_week_data = last_week_data.concat(tuesday[0])
+        last_week_data = last_week_data.concat(wednesday[0])
+        last_week_data = last_week_data.concat(thursday[0])
+        last_week_data = last_week_data.concat(friday[0])
+        last_week_data = last_week_data.concat(saturday[0])
+        last_week_data = last_week_data.concat(sunday[0])
+        console.log(last_week_data);
+        chart01.updateSeries([
+        { 
+            name: 'Predicted',
+            data: current_line_data,
+        },
+        {   
+            name: 'Last Weeks Usage',
+            data: last_week_data,
+        }, 
+        ]); 
+        chart0.updateSeries(100 - current_line_error, current_line_error);
         var sum = 0;
         var runtime = 0;
         for(var i = 0; i < datalist.length; i++){
@@ -1649,6 +1826,9 @@ function resetVariables(){
             if(datalist[i] != 0){
                 runtime += 1;
             }
+        }
+        for(var p = 0; p < current_line_data.length; p++){
+            current_line_sum += current_line_data[p]
         }
         sum = Math.round(sum * 100) / 100;
         cost = sum * 0.09;
@@ -1660,8 +1840,10 @@ function resetVariables(){
         document.getElementById("circuitemission-whole").innerHTML = Math.abs(emissionSplit[0]);
         document.getElementById("circuitemission-decimal").innerHTML = '.' + Math.abs(emissionSplit[1]);
         document.getElementById('circuit-block').style.width = '744px';
+        document.getElementById('load-predict').style.width = '0px';
         document.getElementById("circuit-title").innerHTML = name;
         document.getElementById("overview-title").innerHTML = name;
+        document.getElementById("load-title").innerHTML = name;
         document.getElementById('circuit-block').style.border = 'border: 2px solid #E3E7ED';
         document.getElementById('circuit-whole').textContent = sumSplit[0];
         document.getElementById('circuit-decimal').textContent = '.' + sumSplit[1];
@@ -1684,6 +1866,11 @@ function resetVariables(){
         document.getElementById("circuit-block").style.boxShadow  = "0 0 0 10000px rgba(0,0,0,.50)";
         document.getElementById("typical-load").innerHTML = (sum - 2).toFixed(2) + 'kWh' + '-' + (sum + 2).toFixed() + 'kWh';
         document.getElementById("load-fluctuation").innerHTML = (percent - 2).toFixed(2) + '%' + ' - ' + (percent - -1).toFixed(2) + "%";
+        document.getElementById('score-percent').innerHTML = (100 - current_line_error).toFixed(2) + "<span style = 'font-size: 14px;'>%</span>";
+        document.getElementById('highnumber').innerHTML = (Math.max( ...current_line_data) * 1000).toFixed(0) + "<span style = 'font-size: 14px;'>w</span>";
+        document.getElementById('lownumber').innerHTML = (Math.min( ...current_line_data) * 1000).toFixed(0) + "<span style = 'font-size: 14px;'>w</span>";
+        document.getElementById('averagenumber').innerHTML = ((current_line_sum / current_line_data.length) * 1000).toFixed(0) + "<span style = 'font-size: 14px;'>w</span>";
+        document.getElementById("fluctuation-percent").innerHTML = (((Math.min( ...current_line_data) * 1000)/{{total}}) * 100).toFixed(2) + "<span style = 'font-size: 14px;'>%</span>" + ' - ' + (((Math.max( ...current_line_data) * 1000)/{{total}}) * 100).toFixed(2) + "<span style = 'font-size: 14px;'>%</span>"
 
     if(category == 'lighting'){
         document.getElementById('category-circle-color').style.backgroundColor = '#3649A8';
@@ -1758,6 +1945,7 @@ function closeCircuitBlock(){
     document.getElementById('circuit-block').style.width = '0px';
     document.getElementById('circuit-block').style.border = "2px solid transparent";
     document.getElementById('overview').style.width = '0px';
+    document.getElementById('load-predict').style.width = '0px';
     document.getElementById("circuit-block").style.boxShadow  = "0 0 0 0px rgba(0,0,0,.50)";
 }
   </script>
@@ -2106,8 +2294,14 @@ function openTimeSidebar(){
 
        function openOverview(){
         document.getElementById('overview').style.width = '744px';
+        document.getElementById('load-predict').style.width = '0px'
        }
        function closeOverview(){
         document.getElementById('overview').style.width = '0px';
+       }
+
+       function openLoadPredict(){
+        document.getElementById('load-predict').style.width = '744px';
+        document.getElementById('overview').style.width = '0px'
        }
 </script></html>
