@@ -558,7 +558,7 @@
                         <div class = 'annual-emmisions-block' style ='width: 177px;'>
                             <div class = annual-emmisions-header style ='width: 147px;'>Total Est. Emissions</div>
                             <div class = 'annual-emmisions-content'>
-                                <div class = 'annual-emmisions' id = 'annual-emmisions'>598.07</div>
+                                <div class = 'annual-emmisions' id = 'carbon-levy-total'>598.07</div>
                                 <div class = 'annual-emmisions-label'>kg/CO2</div>
                             </div>
                         </div>
@@ -573,57 +573,57 @@
                                 <div class = 'levy-schedule-rectangle'>
                                     <div class = 'year-schedule'>2020</div>
                                     <div class = 'price-per-ton'>$30</div>
-                                    <div class = 'estimated-levy'>$1.63</div>
+                                    <div class = 'estimated-levy' id = 'estimate1'>$1.63</div>
                                 </div>
                                 <div class = 'levy-schedule-rectangle'>
                                     <div class = 'year-schedule'>2021</div>
                                     <div class = 'price-per-ton'>$40</div>
-                                    <div class = 'estimated-levy'>$2.17</div>
+                                    <div class = 'estimated-levy' id = 'estimate2'>$2.17</div>
                                 </div>
                                 <div class = 'levy-schedule-rectangle'>
                                     <div class = 'year-schedule'>2022</div>
                                     <div class = 'price-per-ton'>$50</div>
-                                    <div class = 'estimated-levy'>$2.71</div>
+                                    <div class = 'estimated-levy' id = 'estimate3'>$2.71</div>
                                 </div>
                                 <div class = 'levy-schedule-rectangle'>
                                     <div class = 'year-schedule'>2023</div>
                                     <div class = 'price-per-ton'>$65</div>
-                                    <div class = 'estimated-levy'>$3.53</div>
+                                    <div class = 'estimated-levy' id = 'estimate4'>$3.53</div>
                                 </div>
                                 <div class = 'levy-schedule-rectangle'>
                                     <div class = 'year-schedule'>2024</div>
                                     <div class = 'price-per-ton'>$80</div>
-                                    <div class = 'estimated-levy'>$4.35</div>
+                                    <div class = 'estimated-levy' id = 'estimate5'>$4.35</div>
                                 </div>
                                 <div class = 'levy-schedule-rectangle'>
                                     <div class = 'year-schedule'>2025</div>
                                     <div class = 'price-per-ton'>$95</div>
-                                    <div class = 'estimated-levy'>$5.17</div>
+                                    <div class = 'estimated-levy' id = 'estimate6'>$5.17</div>
                                 </div>
                                 <div class = 'levy-schedule-rectangle'>
                                     <div class = 'year-schedule'>2026</div>
                                     <div class = 'price-per-ton'>$110</div>
-                                    <div class = 'estimated-levy'>$5.98</div>
+                                    <div class = 'estimated-levy' id = 'estimate7'>$5.98</div>
                                 </div>
                                 <div class = 'levy-schedule-rectangle'>
                                     <div class = 'year-schedule'>2027</div>
                                     <div class = 'price-per-ton'>$125</div>
-                                    <div class = 'estimated-levy'>$6.80</div>
+                                    <div class = 'estimated-levy' id = 'estimate8'>$6.80</div>
                                 </div>
                                 <div class = 'levy-schedule-rectangle'>
                                     <div class = 'year-schedule'>2028</div>
                                     <div class = 'price-per-ton'>$140</div>
-                                    <div class = 'estimated-levy'>$7.61</div>
+                                    <div class = 'estimated-levy' id = 'estimate9'>$7.61</div>
                                 </div>
                                 <div class = 'levy-schedule-rectangle'>
                                     <div class = 'year-schedule'>2029</div>
                                     <div class = 'price-per-ton'>$155</div>
-                                    <div class = 'estimated-levy'>$8.42</div>
+                                    <div class = 'estimated-levy' id = 'estimate10'>$8.42</div>
                                 </div>
                                 <div class = 'levy-schedule-rectangle'>
                                     <div class = 'year-schedule'>2030</div>
                                     <div class = 'price-per-ton'>$170</div>
-                                    <div class = 'estimated-levy'>$9.24</div>
+                                    <div class = 'estimated-levy' id = 'estimate11'>$9.24</div>
                                 </div>
                             </div>
                         </div>
@@ -1975,7 +1975,19 @@ function resetVariables(){
         document.getElementById("carbon-levy-kg").innerHTML = (sum * 0.82).toFixed(2);
         document.getElementById("carbon-levy-kg").innerHTML = (sum * 0.82).toFixed(2);
         document.getElementById("carbon-levy-annual").innerHTML = (((sum * 0.82) * 365)/1000).toFixed(2);
+        document.getElementById("carbon-levy-total").innerHTML = ((((sum * 0.82) * 365)/1000) * 11).toFixed(2);
         document.getElementById("carbon-cost-annual").innerHTML = '$' + ((((sum * 0.82) * 40) * 365)/1000).toFixed(2);
+        document.getElementById("estimate1").innerHTML = '$' + ((((sum * 0.82) * 30) * 365)/1000).toFixed(2);
+        document.getElementById("estimate2").innerHTML = '$' + ((((sum * 0.82) * 40) * 365)/1000).toFixed(2);
+        document.getElementById("estimate3").innerHTML = '$' + ((((sum * 0.82) * 50) * 365)/1000).toFixed(2);
+        document.getElementById("estimate4").innerHTML = '$' + ((((sum * 0.82) * 65) * 365)/1000).toFixed(2);
+        document.getElementById("estimate5").innerHTML = '$' + ((((sum * 0.82) * 80) * 365)/1000).toFixed(2);
+        document.getElementById("estimate6").innerHTML = '$' + ((((sum * 0.82) * 95) * 365)/1000).toFixed(2);
+        document.getElementById("estimate7").innerHTML = '$' + ((((sum * 0.82) * 110) * 365)/1000).toFixed(2);
+        document.getElementById("estimate8").innerHTML = '$' + ((((sum * 0.82) * 125) * 365)/1000).toFixed(2);
+        document.getElementById("estimate9").innerHTML = '$' + ((((sum * 0.82) * 140) * 365)/1000).toFixed(2);
+        document.getElementById("estimate10").innerHTML = '$' + ((((sum * 0.82) * 155) * 365)/1000).toFixed(2);
+        document.getElementById("estimate11").innerHTML = '$' + ((((sum * 0.82) * 170) * 365)/1000).toFixed(2);
         document.getElementById("circuit-block").style.boxShadow  = "0 0 0 10000px rgba(0,0,0,.50)";
         document.getElementById("typical-load").innerHTML = (sum - 2).toFixed(2) + 'kWh' + '-' + (sum + 2).toFixed() + 'kWh';
         document.getElementById("load-fluctuation").innerHTML = (percent - 2).toFixed(2) + '%' + ' - ' + (percent - -1).toFixed(2) + "%";
