@@ -305,7 +305,7 @@
 
         <h1 class="title-L7BXHD">Historical Usage</h1>
         <div class="rectangle-2984-L7BXHD" id = 'Live-Usage'>
-        <div class = 'circuit-block' id = 'circuit-block'>
+        <div class = 'circuit-block' id = 'circuit-block' style = 'transition: 0.5s;'>
             <div class = 'circuit-header'>
                 <div class = 'circuit-title' id = 'circuit-title'>Name</div>
                 <div class = 'exit-button' onclick = 'closeCircuitBlock();'><img class = 'exit-button-image' src ="{{url_for('static',filename='img/exit-button-image.png')}}"/></div>
@@ -314,7 +314,7 @@
                 <div class = 'popup-selector'>
                     <div class = 'pastuse-popup' onclick= "openOverview()"><img class = 'pastuse-image' src ="{{url_for('static',filename='img/overviewoffpopup.png')}}"/></div>
                     <div class = 'pastuse-popup'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/pastuseonpopup.png')}}"/></div>
-                    <div class = 'pastuse-popup' style = 'width: 32px; height: 32px; bottom: 3px; position: relative;'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/co2image.png')}}"/></div>
+                    <div class = 'pastuse-popup' style = 'width: 32px; height: 32px; bottom: 3px; position: relative;' onclick="openCarbonLevy()"><img class = 'pastuse-image' src ="{{url_for('static',filename='img/co2image.png')}}"/></div>
                     <div class = 'pastuse-popup' style = 'width: 32px; height: 32px; bottom: 2px; position: relative;'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/doubleringimage.png')}}"/></div>
                     <div class = 'pastuse-popup'onclick= "openLoadPredict()"><img class = 'pastuse-image' src ="{{url_for('static',filename='img/loadpredictimage.png')}}"/></div>
                 </div>
@@ -355,7 +355,7 @@
                 <div class = 'popup-selector'>
                     <div class = 'pastuse-popup'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/overviewpopup.png')}}"/></div>
                     <div class = 'pastuse-popup' onclick= "closeOverview()"><img class = 'pastuse-image' src ="{{url_for('static',filename='img/pastusepopup.png')}}"/></div>
-                    <div class = 'pastuse-popup' style = 'width: 32px; height: 32px; bottom: 3px; position: relative;'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/co2image.png')}}"/></div>
+                    <div class = 'pastuse-popup' style = 'width: 32px; height: 32px; bottom: 3px; position: relative;'  onclick="openCarbonLevy()"><img class = 'pastuse-image' src ="{{url_for('static',filename='img/co2image.png')}}"/></div>
                     <div class = 'pastuse-popup' style = 'width: 32px; height: 32px; bottom: 2px; position: relative;'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/doubleringimage.png')}}"/></div>
                     <div class = 'pastuse-popup'onclick= "openLoadPredict()"><img class = 'pastuse-image' src ="{{url_for('static',filename='img/loadpredictimage.png')}}"/></div>
                 </div>
@@ -489,7 +489,7 @@
                 <div class = 'popup-selector'>
                     <div class = 'pastuse-popup' onclick= "openOverview()"><img class = 'pastuse-image' src ="{{url_for('static',filename='img/overviewoffpopup.png')}}"/></div>
                     <div class = 'pastuse-popup' onclick = 'closeLoadPredict()'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/pastusepopup.png')}}"/></div>
-                    <div class = 'pastuse-popup' style = 'width: 32px; height: 32px; bottom: 3px; position: relative;'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/co2image.png')}}"/></div>
+                    <div class = 'pastuse-popup' style = 'width: 32px; height: 32px; bottom: 3px; position: relative;' onclick="openCarbonLevy()"><img class = 'pastuse-image' src ="{{url_for('static',filename='img/co2image.png')}}"/></div>
                     <div class = 'pastuse-popup' style = 'width: 32px; height: 32px; bottom: 2px; position: relative;'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/doubleringimage.png')}}"/></div>
                     <div class = 'pastuse-popup'onclick= "openLoadPredict()" style = 'width: 32px; height: 32px; bottom: 2px; right: 5px; position: relative;'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/loadpredictimageon.png')}}"/></div>
                 </div>
@@ -520,6 +520,115 @@
                         <div class = 'fluctuation-block'>
                             <div class = 'fluctuation-header'>Load Fluctuation</div>
                             <div class = 'fluctuation-content' id = 'fluctuation-percent'></div>
+                        </div>
+                        <div id = chart01></div>
+                    </div>
+                <div class = 'circuit-graph' id = 'chart5'></div>
+            </div>
+        </div>
+        <div class = 'circuit-block' id = 'carbon-levy'>
+            <div class = 'circuit-header'>
+                <div class = 'circuit-title' id = 'levy-title'>Name</div>
+                <div class = 'exit-button' onclick = 'closeCircuitBlock();'><img class = 'exit-button-image' src ="{{url_for('static',filename='img/exit-button-image.png')}}"/></div>
+            </div>
+            <div class = 'circuit-content'>
+                <div class = 'popup-selector'>
+                    <div class = 'pastuse-popup' onclick= "openOverview()"><img class = 'pastuse-image' src ="{{url_for('static',filename='img/overviewoffpopup.png')}}"/></div>
+                    <div class = 'pastuse-popup' onclick = 'closeCarbonLevy()'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/pastusepopup.png')}}"/></div>
+                    <div class = 'pastuse-popup' style = 'width: 32px; height: 32px; bottom: 3px; position: relative;' onclick= "openCarbonLevy()"><img class = 'pastuse-image' src ="{{url_for('static',filename='img/co2imageon.png')}}"/></div>
+                    <div class = 'pastuse-popup' style = 'width: 32px; height: 32px; bottom: 2px; position: relative;'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/doubleringimage.png')}}"/></div>
+                    <div class = 'pastuse-popup'onclick= "openLoadPredict()" style = 'width: 24px; height: 24px; bottom: 0px; right: 0px; position: relative;'><img class = 'pastuse-image' src ="{{url_for('static',filename='img/loadpredictimage.png')}}"/></div>
+                </div>
+                <div class = 'past-use'>Carbon Levy</div>
+                    <div class = 'predict-block'>
+                        <div class = 'annual-emmisions-block'>
+                            <div class = annual-emmisions-header>Est. Annual Emmisions</div>
+                            <div class = 'annual-emmisions-content'>
+                                <div class = 'annual-emmisions' id = 'carbon-levy-annual'>54.37</div>
+                                <div class = 'annual-emmisions-label'>kg/CO2</div>
+                            </div>
+                        </div>
+                        <div class = 'total-levy-block'>
+                            <div class = total-levy-header>Total Levy Spent</div>
+                            <div class = 'total-levy-content'>
+                                <div class = 'annual-emmisions' id = 'carbon-cost-annual'>$57.61</div>
+                                <div class = 'annual-emmisions-label'>by 2030</div>
+                            </div>
+                        </div>
+                        <div class = 'annual-emmisions-block' style ='width: 177px;'>
+                            <div class = annual-emmisions-header style ='width: 147px;'>Total Est. Emissions</div>
+                            <div class = 'annual-emmisions-content'>
+                                <div class = 'annual-emmisions' id = 'annual-emmisions'>598.07</div>
+                                <div class = 'annual-emmisions-label'>kg/CO2</div>
+                            </div>
+                        </div>
+                        <div class = 'levy-schedule-block'>
+                            <div class = levy-schedule-header>Total Est. Emissions</div>
+                            <div class = 'annual-emmisions-content'>
+                                <div class = 'levy-schedule-rectangle'>
+                                    <div class = 'year-schedule' style = 'color: #0D1758;'>Year</div>
+                                    <div class = 'price-per-ton' style = 'color: #0D1758;'>$/Ton</div>
+                                    <div class = 'estimated-levy' style = 'color: #0D1758;'>Est. Levy</div>
+                                </div>
+                                <div class = 'levy-schedule-rectangle'>
+                                    <div class = 'year-schedule'>2020</div>
+                                    <div class = 'price-per-ton'>$30</div>
+                                    <div class = 'estimated-levy'>$1.63</div>
+                                </div>
+                                <div class = 'levy-schedule-rectangle'>
+                                    <div class = 'year-schedule'>2021</div>
+                                    <div class = 'price-per-ton'>$40</div>
+                                    <div class = 'estimated-levy'>$2.17</div>
+                                </div>
+                                <div class = 'levy-schedule-rectangle'>
+                                    <div class = 'year-schedule'>2022</div>
+                                    <div class = 'price-per-ton'>$50</div>
+                                    <div class = 'estimated-levy'>$2.71</div>
+                                </div>
+                                <div class = 'levy-schedule-rectangle'>
+                                    <div class = 'year-schedule'>2023</div>
+                                    <div class = 'price-per-ton'>$65</div>
+                                    <div class = 'estimated-levy'>$3.53</div>
+                                </div>
+                                <div class = 'levy-schedule-rectangle'>
+                                    <div class = 'year-schedule'>2024</div>
+                                    <div class = 'price-per-ton'>$80</div>
+                                    <div class = 'estimated-levy'>$4.35</div>
+                                </div>
+                                <div class = 'levy-schedule-rectangle'>
+                                    <div class = 'year-schedule'>2025</div>
+                                    <div class = 'price-per-ton'>$95</div>
+                                    <div class = 'estimated-levy'>$5.17</div>
+                                </div>
+                                <div class = 'levy-schedule-rectangle'>
+                                    <div class = 'year-schedule'>2026</div>
+                                    <div class = 'price-per-ton'>$110</div>
+                                    <div class = 'estimated-levy'>$5.98</div>
+                                </div>
+                                <div class = 'levy-schedule-rectangle'>
+                                    <div class = 'year-schedule'>2027</div>
+                                    <div class = 'price-per-ton'>$125</div>
+                                    <div class = 'estimated-levy'>$6.80</div>
+                                </div>
+                                <div class = 'levy-schedule-rectangle'>
+                                    <div class = 'year-schedule'>2028</div>
+                                    <div class = 'price-per-ton'>$140</div>
+                                    <div class = 'estimated-levy'>$7.61</div>
+                                </div>
+                                <div class = 'levy-schedule-rectangle'>
+                                    <div class = 'year-schedule'>2029</div>
+                                    <div class = 'price-per-ton'>$155</div>
+                                    <div class = 'estimated-levy'>$8.42</div>
+                                </div>
+                                <div class = 'levy-schedule-rectangle'>
+                                    <div class = 'year-schedule'>2030</div>
+                                    <div class = 'price-per-ton'>$170</div>
+                                    <div class = 'estimated-levy'>$9.24</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = levy-graph>
+                            <img class = levy-graph-image src ="{{url_for('static',filename='img/levygraph.png')}}"/>
                         </div>
                         <div id = chart01></div>
                     </div>
@@ -1212,7 +1321,7 @@
                                   }
                                 ],
                                   chart: {
-                                  height: 350,
+                                  height: 340,
                                   type: 'line',
                                   toolbar: {
                                     show: false
@@ -1238,6 +1347,7 @@
                                   categories: weeklabels,
                                   labels:{
                                     showDuplicates: false,
+                                    rotate: 0,
                                   },
                                 },
                                 yaxis: {
@@ -1844,6 +1954,7 @@ function resetVariables(){
         document.getElementById("circuit-title").innerHTML = name;
         document.getElementById("overview-title").innerHTML = name;
         document.getElementById("load-title").innerHTML = name;
+        document.getElementById("levy-title").innerHTML = name;
         document.getElementById('circuit-block').style.border = 'border: 2px solid #E3E7ED';
         document.getElementById('circuit-whole').textContent = sumSplit[0];
         document.getElementById('circuit-decimal').textContent = '.' + sumSplit[1];
@@ -1863,10 +1974,12 @@ function resetVariables(){
         document.getElementById("avg-circuit-total-percent").innerHTML = (percent * 1).toFixed(2) + '%';
         document.getElementById("carbon-levy-kg").innerHTML = (sum * 0.82).toFixed(2);
         document.getElementById("carbon-levy-kg").innerHTML = (sum * 0.82).toFixed(2);
+        document.getElementById("carbon-levy-annual").innerHTML = (((sum * 0.82) * 365)/1000).toFixed(2);
+        document.getElementById("carbon-cost-annual").innerHTML = '$' + ((((sum * 0.82) * 40) * 365)/1000).toFixed(2);
         document.getElementById("circuit-block").style.boxShadow  = "0 0 0 10000px rgba(0,0,0,.50)";
         document.getElementById("typical-load").innerHTML = (sum - 2).toFixed(2) + 'kWh' + '-' + (sum + 2).toFixed() + 'kWh';
         document.getElementById("load-fluctuation").innerHTML = (percent - 2).toFixed(2) + '%' + ' - ' + (percent - -1).toFixed(2) + "%";
-        document.getElementById('score-percent').innerHTML = (100 - current_line_error).toFixed(2) + "<span style = 'font-size: 14px;'>%</span>";
+        document.getElementById('score-percent').innerHTML = (100 - (current_line_error * 100)).toFixed(2) + "<span style = 'font-size: 14px;'>%</span>";
         document.getElementById('highnumber').innerHTML = (Math.max( ...current_line_data) * 1000).toFixed(0) + "<span style = 'font-size: 14px;'>w</span>";
         document.getElementById('lownumber').innerHTML = (Math.min( ...current_line_data) * 1000).toFixed(0) + "<span style = 'font-size: 14px;'>w</span>";
         document.getElementById('averagenumber').innerHTML = ((current_line_sum / current_line_data.length) * 1000).toFixed(0) + "<span style = 'font-size: 14px;'>w</span>";
@@ -1946,6 +2059,7 @@ function closeCircuitBlock(){
     document.getElementById('circuit-block').style.border = "2px solid transparent";
     document.getElementById('overview').style.width = '0px';
     document.getElementById('load-predict').style.width = '0px';
+    document.getElementById('carbon-levy').style.width = '0px';
     document.getElementById("circuit-block").style.boxShadow  = "0 0 0 0px rgba(0,0,0,.50)";
 }
   </script>
@@ -2295,13 +2409,26 @@ function openTimeSidebar(){
        function openOverview(){
         document.getElementById('overview').style.width = '744px';
         document.getElementById('load-predict').style.width = '0px'
+        document.getElementById('carbon-levy').style.width = '0px'
        }
        function closeOverview(){
         document.getElementById('overview').style.width = '0px';
+       }
+       function closeLoadPredict(){
+        document.getElementById('load-predict').style.width = '0px';
        }
 
        function openLoadPredict(){
         document.getElementById('load-predict').style.width = '744px';
         document.getElementById('overview').style.width = '0px'
+        document.getElementById('carbon-levy').style.width = '0px'
+       }
+       function openCarbonLevy(){
+        document.getElementById('load-predict').style.width = '0px';
+        document.getElementById('overview').style.width = '0px'
+        document.getElementById('carbon-levy').style.width = '744px'
+       }
+       function closeCarbonLevy(){
+        document.getElementById('carbon-levy').style.width = '0px';
        }
 </script></html>
