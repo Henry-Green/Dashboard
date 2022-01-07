@@ -2235,7 +2235,6 @@
   z-index: 6000;
   border-radius: 8px;
   overflow: hidden;
-  transition: 0.5s;
 }
 .circuit-header{
   position: relative;
@@ -2277,8 +2276,9 @@
   height: 50px;
   position: relative;
   top: 45px;
-  left: 40px;
   width: 90%;
+  float: left;
+  left: 20px;
   border-bottom: solid 2px #ECE9F1;
   text-align: left;
 }
@@ -8545,4 +8545,141 @@ header{
   font-weight: 700;
   text-align: center;
   padding-top: 20px;
+}
+
+.annual-emmisions-block{
+  width: 193px;
+  height: 121px;
+  float: left;
+  border: 2px solid #E3E7ED; 
+  border-radius: 8px;
+  margin-right: 50px;
+}
+
+.annual-emmisions-header{
+  width: 162px;
+  height: 30px;
+  border-bottom: 2px solid #E3E7ED; 
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 8px;
+  color: #0D1758;
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+}
+.annual-emmisions{
+  color: #0D1758;
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  position: relative;
+  width: 100%;
+  height: auto;
+  text-align: center;
+  padding-top: 8px;
+  margin-bottom: 5px;
+}
+.annual-emmisions-label{
+  color: #7F7F7F;
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  position: relative;
+  width: 100%;
+  height: auto;
+  text-align: center;
+}
+
+.total-levy-block{
+  width: 154px;
+  height: 121px;
+  float: left;
+  border: 2px solid #E3E7ED; 
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+.total-levy-header{
+  width: 125px;
+  height: 30px;
+  border-bottom: 2px solid #E3E7ED; 
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 8px;
+  color: #0D1758;
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.levy-schedule-block{
+  width: 250px;
+  height: 299px;
+  float: left;
+  border: 2px solid #E3E7ED; 
+  border-radius: 8px;
+  margin-right: 50px;
+  margin-top: 20px;
+}
+
+.levy-schedule-header{
+  width: 217px;
+  height: 40px;
+  border-bottom: 2px solid #E3E7ED; 
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 8px;
+  color: #0D1758;
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.levy-schedule-rectangle{
+  width: 218px;
+  height: 20px;
+  padding-top: 8px;
+  color: #7F7F7F;
+  font-family: var(--font-family-averta_cy-bold);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+  margin-right: auto;
+  margin-left: auto;
+
+}
+
+.year-schedule{
+  margin-right: 60px;
+  float: left;
+}
+
+.price-per-ton{
+  float: left;
+}
+.estimated-levy{
+  float: right;
+}
+
+.levy-graph{
+  width: 354px;
+  height: 281px;
+  float: left;
+  position: relative;
+  top: 40px;
+  right: 40px;
+}
+
+.levy-graph-image{
+  width: 100%;
+  height: 100%;
 }
