@@ -1947,6 +1947,7 @@ function resetVariables(){
         costSplit = String(cost).split('.')
         emission = sum * 0.82;
         emissionSplit = String(emission).split('.')
+        var totallevyspent = ((((sum * 0.82) * 30) * 365)/1000) + ((((sum * 0.82) * 40) * 365)/1000) +((((sum * 0.82) * 50) * 365)/1000) +((((sum * 0.82) * 65) * 365)/1000) +((((sum * 0.82) * 80) * 365)/1000) +((((sum * 0.82) * 95) * 365)/1000) +((((sum * 0.82) * 110) * 365)/1000) +((((sum * 0.82) * 125) * 365)/1000) +((((sum * 0.82) * 140) * 365)/1000) +((((sum * 0.82) * 155) * 365)/1000) +((((sum * 0.82) * 170) * 365)/1000)
         document.getElementById("circuitemission-whole").innerHTML = Math.abs(emissionSplit[0]);
         document.getElementById("circuitemission-decimal").innerHTML = '.' + Math.abs(emissionSplit[1]);
         document.getElementById('circuit-block').style.width = '744px';
@@ -1976,7 +1977,7 @@ function resetVariables(){
         document.getElementById("carbon-levy-kg").innerHTML = (sum * 0.82).toFixed(2);
         document.getElementById("carbon-levy-annual").innerHTML = (((sum * 0.82) * 365)/1000).toFixed(2);
         document.getElementById("carbon-levy-total").innerHTML = ((((sum * 0.82) * 365)/1000) * 11).toFixed(2);
-        document.getElementById("carbon-cost-annual").innerHTML = '$' + ((((sum * 0.82) * 40) * 365)/1000).toFixed(2);
+        document.getElementById("carbon-cost-annual").innerHTML = '$' + totallevyspent.toFixed(2);
         document.getElementById("estimate1").innerHTML = '$' + ((((sum * 0.82) * 30) * 365)/1000).toFixed(2);
         document.getElementById("estimate2").innerHTML = '$' + ((((sum * 0.82) * 40) * 365)/1000).toFixed(2);
         document.getElementById("estimate3").innerHTML = '$' + ((((sum * 0.82) * 50) * 365)/1000).toFixed(2);
