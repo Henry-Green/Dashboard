@@ -8683,3 +8683,143 @@ header{
   width: 100%;
   height: 100%;
 }
+
+@font-face {
+  font-family: "Averta";
+  src: url("./fonts/AvertaDemoPECuttedDemo-Regular.otf");
+  font-style: "Regular";
+}
+@font-face {
+  font-family: "Averta-2";
+  src: url("./fonts/AvertaDemoPE-ExtraBold.otf");
+  font-style: "Regular";
+}
+.chart-figma {
+  font-family: "Averta";
+  display: flex;
+  position: absolute;
+  bottom: 330px;
+  left: 20px;
+}
+.chart-figma * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.chart-figma__container {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  height: 220px;
+}
+.chart-figma__container .chart-yaxis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 90%;
+  align-self: flex-end;
+  width: 50px;
+}
+.chart-figma__container .chart-yaxis .num-y {
+  color: #AFB8CC;
+  font-size: 12.33px;
+}
+.chart-figma__container .chart-xaxis {
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+.chart-figma__container .chart-xaxis .icon-svg-day {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: auto;
+  margin: auto;
+  display: block;
+  z-index: 99999;
+  bottom: 0;
+}
+.chart-figma__container .chart-xaxis .morning span:last-child {
+  margin-right: 0;
+}
+.chart-figma__container .chart-xaxis .morning::after {
+  content: "";
+  position: absolute;
+  top: -15%;
+  left: 0;
+  height: 15%;
+  width: 100%;
+  background-color: #E6E9EF;
+}
+.chart-figma__container .chart-xaxis .afternoon p.title {
+  right: 0;
+  left: 0;
+  margin: auto;
+  text-align: center;
+}
+.chart-figma__container .chart-xaxis .afternoon::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0.880734px;
+  width: 100%;
+  background-color: #E6E9EF;
+}
+.chart-figma__container .chart-xaxis .afternoon::before {
+  content: "";
+  position: absolute;
+  top: 40%;
+  left: 0;
+  height: 0.880734px;
+  width: 100%;
+  background-color: #E6E9EF;
+}
+.chart-figma__container .chart-xaxis .night {
+  padding-left: 0;
+}
+.chart-figma__container .chart-xaxis .night p.title {
+  right: 0;
+}
+.chart-figma__container .chart-xaxis .night span:first-child {
+  margin-left: 0;
+}
+.chart-figma__container .chart-xaxis .night::after {
+  content: "";
+  position: absolute;
+  top: -15%;
+  left: 0;
+  height: 15%;
+  width: 100%;
+  background-color: #E6E9EF;
+}
+.chart-figma__container .chart-xaxis .morning, .chart-figma__container .chart-xaxis .night {
+  background-color: #E6E9EF;
+}
+.chart-figma__container .chart-xaxis .morning, .chart-figma__container .chart-xaxis .afternoon, .chart-figma__container .chart-xaxis .night {
+  max-width: 100%;
+  max-width: 100%;
+  height: 90%;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+.chart-figma__container .chart-xaxis .morning p.title, .chart-figma__container .chart-xaxis .afternoon p.title, .chart-figma__container .chart-xaxis .night p.title {
+  position: absolute;
+  bottom: -35px;
+  color: #AFB8CC;
+  font-size: 12.33px;
+}
+.chart-figma__container .chart-xaxis .morning span, .chart-figma__container .chart-xaxis .afternoon span, .chart-figma__container .chart-xaxis .night span {
+  display: inline-block;
+  width: 18px;
+  height: 50%;
+  background-color: #0D1758;
+  border-radius: 11px 11px 0px 0px;
+  align-self: flex-end;
+  margin: 0 4px;
+  position: relative;
+}
+
+/*# sourceMappingURL=style.css.map */
