@@ -1,0 +1,176 @@
+{
+  "morningData": [
+    {
+      "value": 1756.37,
+      "hours": 1,
+      "price": 2.76,
+      "velocity": 1.756,
+      "gas": 5.1
+    },
+    {
+      "value": 1820.31,
+      "hours": 2,
+      "price": 6.76,
+      "velocity": 1.820,
+      "gas": 7.2
+    },
+    {
+      "value": 1729.03,
+      "hours": 3,
+      "price": 3.76,
+      "velocity": 1.729,
+      "gas": 6.5
+    },
+    {
+      "value": 1777.47,
+      "hours": 4,
+      "price": 6.76,
+      "velocity": 1.777,
+      "gas": 34
+    },
+    {
+      "value": 1837.5,
+      "hours": 5,
+      "price": 6.76,
+      "velocity": 1.837,
+      "gas": 4.1
+    },
+    {
+      "value": 1726.94,
+      "hours": 6,
+      "price": 1.76,
+      "velocity": 1.726,
+      "gas": 2.6
+    },
+    {
+      "value": 1649.1,
+      "hours": 7,
+      "price": 1.76,
+      "velocity": 1.649,
+      "gas": 2.6
+    },
+    {
+      "value": 1691.07,
+      "hours": 8,
+      "price": 1.76,
+      "velocity": 1.691,
+      "gas": 2.6
+    }
+  ],
+  "AfterNoonData": [
+    {
+      "value": 1748.51,
+      "hours": 9,
+      "price": 2.76,
+      "velocity": 1.748,
+      "gas": 5.1
+    },
+    {
+      "value": 1662.58,
+      "hours": 10,
+      "price": 6.76,
+      "velocity": 1.662,
+      "gas": 7.2
+    },
+    {
+      "value": 1668.22,
+      "hours": 11,
+      "price": 3.76,
+      "velocity": 1.668,
+      "gas": 6.5
+    },
+    {
+      "value": 1796.03,
+      "hours": 12,
+      "price": 6.76,
+      "velocity": 1.796,
+      "gas": 34
+    },
+    {
+      "value": 1690.77,
+      "hours": 13,
+      "price": 6.76,
+      "velocity": 1.690,
+      "gas": 4.1
+    },
+    {
+      "value": 1588.73,
+      "hours": 14,
+      "price": 1.76,
+      "velocity": 1.588,
+      "gas": 2.6
+    },
+    {
+      "value": 887,
+      "hours": 15,
+      "price": 1.76,
+      "velocity": 0.887,
+      "gas": 2.6
+    },
+    {
+      "value": 1866.23,
+      "hours": 16,
+      "price": 1.76,
+      "velocity": 1.866,
+      "gas": 2.6
+    },
+    {
+      "value": 2224.58,
+      "hours": 17,
+      "price": 1.76,
+      "velocity": 2.224,
+      "gas": 2.6
+    }
+  ],
+  "NightData": [
+    {
+      "value": 2717.03,
+      "hours": 18,
+      "price": 2.76,
+      "velocity": 2.717,
+      "gas": 5.1
+    },
+    {
+      "value": 2445.29,
+      "hours": 17,
+      "price": 6.76,
+      "velocity": 2.445,
+      "gas": 7.2
+    },
+    {
+      "value": 1947.43,
+      "hours": 19,
+      "price": 3.76,
+      "velocity": 1.947,
+      "gas": 6.5
+    },
+    {
+      "value": 2323.19,
+      "hours": 20,
+      "price": 6.76,
+      "velocity": 2.323,
+      "gas": 34
+    },
+    {
+      "value": 2515.98,
+      "hours": 21,
+      "price": 6.76,
+      "velocity": 2.515,
+      "gas": 4.1
+    },
+    {
+      "value": 2235.20,
+      "hours": 22,
+      "price": 1.76,
+      "velocity": 2.235,
+      "gas": 2.6
+    },
+    {
+      "value": 2882.73,
+      "hours": 23,
+      "price": 1.76,
+      "velocity": 2.882,
+      "gas": 2.6
+    }
+  ]
+}
