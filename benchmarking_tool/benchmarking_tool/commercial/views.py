@@ -725,6 +725,35 @@ def facilityoverviewbubble():
     else:
         abort(403)
         
+@commercial.route('/inventory', methods=['GET', 'POST'])
+@login_required
+def inventory():
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+
+
+    return render_template('inventory.html')
+
+
+@commercial.route('/datastream', methods=['GET', 'POST'])
+@login_required
+def datastream():
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+
+
+    return render_template('datastream.html')
+
 @commercial.route('/utilities', methods=['GET', 'POST'])
 @login_required
 def utilities():
