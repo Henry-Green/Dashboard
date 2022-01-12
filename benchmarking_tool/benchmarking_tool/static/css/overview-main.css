@@ -283,9 +283,28 @@ border-radius: 8px;
   transition: .31s;
 }
 
-.overview-main .inventory-l6cqYc {
+.inventory-l6cqYc {
   color: #AFB8CC;
-  font-family: var(--font-family-averta_cy-bold);
+  font-family: var(--font-family-averta_cy-semibold);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  background-color: transparent;
+  height: auto;
+  left: 50px;
+  letter-spacing: 0.26px;
+  line-height: normal;
+  mix-blend-mode: normal;
+  position: absolute;
+  text-align: left;
+  top: 240px;
+  width: auto;
+  transition: .31s;
+}
+
+.utilities-l6cqYc {
+  color: #AFB8CC;
+  font-family: var(--font-family-averta_cy-semibold);
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
@@ -298,26 +317,7 @@ border-radius: 8px;
   position: absolute;
   text-align: left;
   top: 300px;
-  width: auto;
-  transition: .31s;
-}
-
-.overview-main .utilities-l6cqYc {
-  color: #AFB8CC;
-  font-family: var(--font-family-averta_cy-bold);
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 700;
-  background-color: transparent;
-  height: auto;
-  left: 50px;
-  letter-spacing: 0.26px;
-  line-height: normal;
-  mix-blend-mode: normal;
-  position: absolute;
-  text-align: left;
-  top: 360px;
-  width: auto;
+  width: 130px;
   transition: .31s;
 }
 .overview-main .logout-l6cqYc {
