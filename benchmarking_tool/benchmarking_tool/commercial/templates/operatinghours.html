@@ -15,10 +15,9 @@
         <img class = 'retractbuttonleft' id = 'leftbutton' onclick = "retractleft()" src = "{{url_for('static',filename='img/retractbuttonbackground.png')}}"/><img class = 'retractbuttonarrowleft'  onclick = "retractleft()" id = 'leftarrow' src = "{{url_for('static',filename='img/retractbuttonarrow.png')}}"/>
         <div class="header-l6cqYc" id = 'logodiv'><img class="pollen-2-7QcJ16" id = logoimage src="{{url_for('static',filename='img/logoimage.png')}}" /></div>
         <div class="dashboard-l6cqYc" id = 'dashboard'><img class="dashboardimage" src="{{url_for('static',filename='img/dashboardimage.png')}}" />Dashboard</div>
-        <a href = '{{url_for("commercial.facilityoverview")}}'><div class="overview-l6cqYc" id = 'liveusage' ><img class="liveusageimage" src="{{url_for('static',filename='img/liveusageonimage.png')}}" />Live Usage</div></a>
-        <a href = "{{url_for('commercial.historicalusage')}}"><div class="historical-l6cqYc avertacy-bold-sapphire-13px" id = 'historical'><img class="historicalimage" src="{{url_for('static',filename='img/historicalimage.png')}}" />Historical</div></a>
+        <div class="overview-l6cqYc" id = 'liveusage'><img class="liveusageimage" src="{{url_for('static',filename='img/liveusageonimage.png')}}" />Data Stream</div>
         <div class="inventory-l6cqYc" id = 'inventory'><img class="inventoryimage" src="{{url_for('static',filename='img/inventoryimage.png')}}" />Inventory</div>
-        <div class="utilities-l6cqYc" id = 'utilities'><img class="utilitiesimage" src="{{url_for('static',filename='img/utilitiesimage.png')}}" />Utilities</div>
+         <a href = "{{url_for('commercial.utilities')}}"><div class="utilities-l6cqYc" id = 'utilities'><img class="utilitiesimage" src="{{url_for('static',filename='img/utilitiesimage.png')}}" />Utilities & Alternatives</div></a>
         <a href = "{{url_for('accounts.logout')}}"><div class="logout-l6cqYc avertacy-bold-sapphire-13px" id = 'logout'><img class="logoutimage" src="{{url_for('static',filename='img/logoutimage.png')}}" />Logout</div></a>
 
         <div class = 'imageblock' id ='imageblock'>

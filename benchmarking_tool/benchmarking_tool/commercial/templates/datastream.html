@@ -23,8 +23,8 @@
         <img class = 'retractbuttonleft' id = 'leftbutton' onclick = "retractleft()" src = "{{url_for('static',filename='img/retractbuttonbackground.png')}}"/><img class = 'retractbuttonarrowleft'  onclick = "retractleft()" id = 'leftarrow' src = "{{url_for('static',filename='img/retractbuttonarrow.png')}}"/>
         <div class="header-l6cqYc" id = 'logodiv'><img class="pollen-2-7QcJ16" id = logoimage src="{{url_for('static',filename='img/logoimage.png')}}" /></div>
         <div class="dashboard-l6cqYc" id = 'dashboard'><img class="dashboardimage" src="{{url_for('static',filename='img/dashboardimage.png')}}" />Dashboard</div>
-        <a href = '{{url_for("commercial.datastream")}}'><div class="overview-l6cqYc" id = 'liveusage'><img class="liveusageimage" src="{{url_for('static',filename='img/liveusageonimageoff.png')}}" />Data Stream</div></a>
-        <div class="inventory-l6cqYc" id = 'inventory'  style = 'color: #6285FB;'><img class="inventoryimage" src="{{url_for('static',filename='img/inventoryimageon.png')}}" />Inventory</div>
+        <a href = '{{url_for("commercial.datastream")}}'><div class="overview-l6cqYc" id = 'liveusage' style = 'color: #6285FB;'><img class="liveusageimage" src="{{url_for('static',filename='img/liveusageonimage.png')}}" />Data Stream</div></a>
+        <div class="inventory-l6cqYc" id = 'inventory'><img class="inventoryimage" src="{{url_for('static',filename='img/inventoryimage.png')}}" />Inventory</div>
         <a href = "{{url_for('commercial.utilities')}}"><div class="utilities-l6cqYc" id = 'utilities'><img class="utilitiesimage" src="{{url_for('static',filename='img/utilitiesimage.png')}}" />Utilities & Alternatives</div></a>
         <a href = "{{url_for('accounts.logout')}}"><div class="logout-l6cqYc avertacy-bold-sapphire-13px" id = 'logout'><img class="logoutimage" src="{{url_for('static',filename='img/logoutimage.png')}}" />Logout</div></a>
 
@@ -41,14 +41,28 @@
         </div>
     </div>
 
-    <h1 class="title-L7BXHD2" id = title style = 'bottom: 60px;'>About Facility</h1>
+    <h1 class="title-L7BXHD2" id = title style = 'bottom: 20px;'>Data Stream</h1>
     <div class = 'data-stream'>
-            <div class = 'about-facility-block'><img class="equipment-image" src="{{url_for('static',filename='img/generaloverviewimage.png')}}" /></div>
-            <div class = 'about-facility-block'><img class="equipment-arrow-image" src="{{url_for('static',filename='img/locationinfoimage.png')}}" /></div>
-
-            <a href = "{{url_for('commercial.operatinghours')}}"><div class = 'about-facility-block'><img class="equipment-image" src="{{url_for('static',filename='img/operatinghoursimage.png')}}" /></div></a>
-            <div class = 'about-facility-block2'><img class="equipment-image" src="{{url_for('static',filename='img/comparisonsimage.png')}}" /></div>
-            <div class = 'about-facility-block2'><img class="equipment-image" src="{{url_for('static',filename='img/weatherimage.png')}}" /></div>
+        <div class = 'data-block'>
+            <div class = 'data-header'>Electricity</div>
+            <a href = "{{url_for('commercial.facilityoverview')}}"><div class = 'data-image-block'><img class="equipment-image" src="{{url_for('static',filename='img/bycircuitimage.png')}}" /></div></a>
+            <div class = 'data-image-block'><img class="equipment-arrow-image" src="{{url_for('static',filename='img/bycategoryimage.png')}}" /></div>
+        </div>
+        <div class = 'data-block'>
+            <div class = 'data-header'>Gas</div>
+            <div class = 'data-image-block'><img class="equipment-image" src="{{url_for('static',filename='img/firstgasimage.png')}}" /></div>
+            <div class = 'data-image-block'><img class="equipment-arrow-image" src="{{url_for('static',filename='img/secondgasimage.png')}}" /></div>
+        </div>
+        <div class = 'data-block'>
+            <div class = 'data-header'>Past Use</div>
+            <div class = 'data-image-block'><img class="equipment-image" src="{{url_for('static',filename='img/learningmodeimage.png')}}" /></div>
+            <a href = "{{url_for('commercial.historicalusage')}}"><div class = 'data-image-block'><img class="equipment-arrow-image" src="{{url_for('static',filename='img/pastuseimage.png')}}" /></div></a>
+        </div>
+        <div class = 'data-block'>
+            <div class = 'data-header'>Water</div>
+            <div class = 'data-image-block'><img class="equipment-image" src="{{url_for('static',filename='img/waterleftimage.png')}}" /></div>
+            <div class = 'data-image-block'><img class="equipment-arrow-image" src="{{url_for('static',filename='img/waterrightimage.png')}}" /></div>
+        </div>
     </div>
 
       </div>

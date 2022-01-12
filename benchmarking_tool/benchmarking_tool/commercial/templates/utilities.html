@@ -17,8 +17,7 @@
         <img class = 'retractbuttonleft' id = 'leftbutton' onclick = "retractleft()" src = "{{url_for('static',filename='img/retractbuttonbackground.png')}}"/><img class = 'retractbuttonarrowleft'  onclick = "retractleft()" id = 'leftarrow' src = "{{url_for('static',filename='img/retractbuttonarrow.png')}}"/>
         <div class="header-l6cqYc" id = 'logodiv'><img class="pollen-2-7QcJ16" id = logoimage src="{{url_for('static',filename='img/logoimage.png')}}" /></div>
         <div class="dashboard-l6cqYc" id = 'dashboard'><img class="dashboardimage" src="{{url_for('static',filename='img/dashboardimage.png')}}" />Dashboard</div>
-        <a href = '{{url_for("commercial.facilityoverview")}}'><div class="overview-l6cqYc" id = 'liveusage'><img class="liveusageimage" src="{{url_for('static',filename='img/liveusageonimageoff.png')}}" />Live Usage</div></a>
-        <a href = "{{url_for('commercial.historicalusage')}}"><div class="historical-l6cqYc avertacy-bold-sapphire-13px" id = 'historical' style = 'color: #AFB8CC;'><img class="historicalimage" src="{{url_for('static',filename='img/historicalimage.png')}}" />Historical</div></a>
+        <a href = '{{url_for("commercial.datastream")}}'><div class="overview-l6cqYc" id = 'liveusage'><img class="liveusageimage" src="{{url_for('static',filename='img/liveusageonimageoff.png')}}" />Live Usage</div></a>
         <div class="inventory-l6cqYc" id = 'inventory'><img class="inventoryimage" src="{{url_for('static',filename='img/inventoryimage.png')}}" />Inventory</div>
         <div class="utilities-l6cqYc" id = 'utilities' style = 'color: #6285FB;'><img class="utilitiesimage" src="{{url_for('static',filename='img/utilitiesimageon.png')}}" />Utilities</div>
         <a href = "{{url_for('accounts.logout')}}"><div class="logout-l6cqYc avertacy-bold-sapphire-13px" id = 'logout'><img class="logoutimage" src="{{url_for('static',filename='img/logoutimage.png')}}" />Logout</div></a>
@@ -252,7 +251,7 @@
   <script >
     var options = {
                               labels: ['Retailer', 'Trans/Distr.','3rd Party','Carbon Levy'],
-                              series: [1000, 1000, 200, 200],
+                              series: [],
                               chart: {
                               width: 150,
                               height: 150,
@@ -519,6 +518,8 @@ function changeToGas(){
     var sqftcost = sqft * 0.09;
     var sqm = sum / 8851.392;
     var sqmcost = sqm * 0.09;
+    var gaspie = [1508.294,5779.51,452.5,levycost]
+    console.log(gasdata);
     document.getElementById('utility-title').innerHTML = 'Natural Gas';
     document.getElementById('sum').innerHTML = sum.toFixed(2)  + ' <span style = "font-size: 12px">kWh</span>';
     document.getElementById('sumcost').innerHTML = '$' + sumcost.toFixed(2);
@@ -535,6 +536,7 @@ function changeToGas(){
             data: gasdata,
         } 
         ]);
+        chart6.updateSeries(gaspie);
 }
         
 
@@ -551,6 +553,7 @@ function changeToElectricity(){
     var sqftcost = sqft * 0.09;
     var sqm = sum / 8851.392;
     var sqmcost = sqm * 0.09;
+    var electricpie = [34414.7,1914.6,1455.571,levycost];
     document.getElementById('utility-title').innerHTML = 'Electricity';
     document.getElementById('sum').innerHTML = sum.toFixed(2) + ' <span style = "font-size: 12px">kWh</span>';
     document.getElementById('sumcost').innerHTML = '$' + sumcost.toFixed(2);
@@ -567,5 +570,6 @@ function changeToElectricity(){
             data: electricaldata,
         } 
         ]);
+        chart6.updateSeries(electricpie);
 }
 </script>

@@ -22,10 +22,9 @@
         <img class = 'retractbuttonleft' id = 'leftbutton' onclick = "retractleft()" src = "{{url_for('static',filename='img/retractbuttonbackground.png')}}"/><img class = 'retractbuttonarrowleft'  onclick = "retractleft()" id = 'leftarrow' src = "{{url_for('static',filename='img/retractbuttonarrow.png')}}"/>
         <div class="header-l6cqYc" id = 'logodiv'><img class="pollen-2-7QcJ16" id = logoimage src="{{url_for('static',filename='img/logoimage.png')}}" /></div>
         <div class="dashboard-l6cqYc" id = 'dashboard'><img class="dashboardimage" src="{{url_for('static',filename='img/dashboardimage.png')}}" />Dashboard</div>
-        <a href = '{{url_for("commercial.facilityoverview")}}'><div class="overview-l6cqYc" id = 'liveusage'><img class="liveusageimage" src="{{url_for('static',filename='img/liveusageonimageoff.png')}}" />Live Usage</div></a>
-        <a href = "{{url_for('commercial.historicalusage')}}"><div class="historical-l6cqYc avertacy-bold-sapphire-13px" id = 'historical'><img class="historicalimage" src="{{url_for('static',filename='img/historicalimageon.png')}}" />Historical</div></a>
+        <a href = '{{url_for("commercial.datastream")}}'><div class="overview-l6cqYc" id = 'liveusage' style = 'color: #6285FB;'><img class="liveusageimage" src="{{url_for('static',filename='img/liveusageonimageoff.png')}}" />Data Stream</div></a>
         <div class="inventory-l6cqYc" id = 'inventory'><img class="inventoryimage" src="{{url_for('static',filename='img/inventoryimage.png')}}" />Inventory</div>
-        <a href = "{{url_for('commercial.utilities')}}"><div class="utilities-l6cqYc" id = 'utilities'><img class="utilitiesimage" src="{{url_for('static',filename='img/utilitiesimage.png')}}" />Utilities</div></a>
+        <a href = "{{url_for('commercial.utilities')}}"><div class="utilities-l6cqYc" id = 'utilities'><img class="utilitiesimage" src="{{url_for('static',filename='img/utilitiesimage.png')}}" />Utilities & Alternatives</div></a>
         <a href = "{{url_for('accounts.logout')}}"><div class="logout-l6cqYc avertacy-bold-sapphire-13px" id = 'logout'><img class="logoutimage" src="{{url_for('static',filename='img/logoutimage.png')}}" />Logout</div></a>
 
         <div class = 'imageblock' id ='imageblock'>
@@ -692,7 +691,7 @@
         </div>
         {% endfor %}
     </div></div></div>
-                            <div class="chart-figma">
+    <div class="chart-figma">
       <div class="chart-figma__container">
         <div class="chart-yaxis">
           <span class="num-y">400</span>
@@ -702,14 +701,14 @@
         </div>
         <div class="chart-xaxis">
           <div class="morning">
-              <p class="title">12:am</p>
+              <p class="title">12 am</p>
               <svg class="icon-svg-day" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M18.9999 10.79C18.8426 12.4922 18.2038 14.1144 17.1581 15.4668C16.1125 16.8192 14.7034 17.8458 13.0956 18.4265C11.4878 19.0073 9.74789 19.1181 8.0794 18.7461C6.41092 18.3741 4.8829 17.5345 3.67413 16.3258C2.46536 15.117 1.62584 13.589 1.25381 11.9205C0.881777 10.252 0.992617 8.51208 1.57336 6.9043C2.15411 5.29651 3.18073 3.88737 4.53311 2.84175C5.8855 1.79614 7.5077 1.15731 9.2099 1C8.21331 2.34827 7.73375 4.00945 7.85843 5.68141C7.98312 7.35338 8.70376 8.92506 9.8893 10.1106C11.0748 11.2961 12.6465 12.0168 14.3185 12.1415C15.9905 12.2662 17.6516 11.7866 18.9999 10.79V10.79Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
                 
           </div>
           <div class="afternoon">
-            <p class="title">Noon</p>
+            <p class="title">noon</p>
             <svg class="icon-svg-day" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M12 1V3" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -724,7 +723,7 @@
                 
           </div>
           <div class="night">
-            <p class="title">Night</p>
+            <p class="title">12 am</p>
             <svg class="icon-svg-day" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M18.9999 10.79C18.8426 12.4922 18.2038 14.1144 17.1581 15.4668C16.1125 16.8192 14.7034 17.8458 13.0956 18.4265C11.4878 19.0073 9.74789 19.1181 8.0794 18.7461C6.41092 18.3741 4.8829 17.5345 3.67413 16.3258C2.46536 15.117 1.62584 13.589 1.25381 11.9205C0.881777 10.252 0.992617 8.51208 1.57336 6.9043C2.15411 5.29651 3.18073 3.88737 4.53311 2.84175C5.8855 1.79614 7.5077 1.15731 9.2099 1C8.21331 2.34827 7.73375 4.00945 7.85843 5.68141C7.98312 7.35338 8.70376 8.92506 9.8893 10.1106C11.0748 11.2961 12.6465 12.0168 14.3185 12.1415C15.9905 12.2662 17.6516 11.7866 18.9999 10.79V10.79Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -732,82 +731,8 @@
         </div>
       </div>
     </div>
-    <script>//Morining
-    var data = {{schedule | tojson}};
-    var starthours = {{starthours}};
-    var endhours = {{endhours}};
-    var totalset = [];
-    var string = data[0];
-    string = string.replaceAll('[', '');
-    string = string.replaceAll(']', '');
-    var datalist = string.split(",");
-    totalset.length = datalist.length;
-    totalset.fill(0);
-    for(let i = 0; i < datalist.length; i++){
-        var string = data[i];
-        string = string.replaceAll('[', '');
-        string = string.replaceAll(']', '');
-        var datalist = string.split(",");
-        console.log(datalist.length);
-        for(let k = 0; k < datalist.length; k++){
-        totalset[k] += parseFloat(datalist[k]);
-    }
-    }
-const heightMorinig = [];
-const heightAfternnon = [];
-const heightNight = [];
-for(var j = 0; j < starthours; j++){
-    heightMorinig.push(totalset[j]);
-}
-for(var m = endhours; m < totalset.length; m++){
-    heightNight.push(totalset[m]);
-}
-for(var n = starthours; n < endhours; n++){
-    heightAfternnon.push(totalset[n]);
-}
-
-console.log(heightMorinig);
-console.log(heightAfternnon);
-console.log(heightNight);
-console.log(totalset.length);
-console.log("^^^^^^^^^^^^^^^^");
-
-
-const createSpan = (classContent, arrayDay) => {
-  const partDay = document.querySelector(classContent);
-
-  for (const x of arrayDay) {
-    const span = document.createElement("span");
-
-    partDay.appendChild(span);
-    //display the height
-
-    span.style.height = x/50 + "%";
-  }
-};
-
-createSpan(".morning", heightMorinig);
-createSpan(".afternoon", heightAfternnon);
-createSpan(".night", heightNight);
-
-//set the position of the icon
-
-const setIconPosition = () => {
-  //concat all array
-
-  const allArrays = heightMorinig.concat(heightAfternnon, heightNight);
-  const maxValue = Math.max(...allArrays);
-  const iconSvg = document.querySelectorAll('.icon-svg-day')
-
-  iconSvg.forEach((item)=>{
-
-    item.style.bottom = maxValue/50 + 2.5 +"%"
-  })
-
-};
-
-setIconPosition();
-</script>
+    </div>
+    <script src="{{url_for('static',filename='scripts/code.js')}}"></script>
                           <script>
                             chart_colors = {{chart_colours | tojson}};
                             var options = {

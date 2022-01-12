@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1360, maximum-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/historical-usage-lines-display-category.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/styleguide.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts" type="text/javascript"></script>
+  </head>
+{% if error %}
+  <header>
+        <div class=error><strong>Error:</strong> {{ error }}</div>
+  </header>
+{% endif %}
+  <body style="margin: 0; background: #ffffff" onload="resetVariables(); changetoEnergy(); getTotal(); changeDotColourCategory(); ">
+    <input type="hidden" id="anPageName" name="page" value="historical-usage-lines-display-category" />
+    <div class="container-center-horizontal">
+      <div class="historical-usage-lines-display-category screen">
+
+        <div class="rectangle-2893-l6cqYc"  id = 'leftretract'>
+        <div class = 'activelineinventory'></div>
+        <img class = 'retractbuttonleft' id = 'leftbutton' onclick = "retractleft()" src = "{{url_for('static',filename='img/retractbuttonbackground.png')}}"/><img class = 'retractbuttonarrowleft'  onclick = "retractleft()" id = 'leftarrow' src = "{{url_for('static',filename='img/retractbuttonarrow.png')}}"/>
+        <div class="header-l6cqYc" id = 'logodiv'><img class="pollen-2-7QcJ16" id = logoimage src="{{url_for('static',filename='img/logoimage.png')}}" /></div>
+        <div class="dashboard-l6cqYc" id = 'dashboard'><img class="dashboardimage" src="{{url_for('static',filename='img/dashboardimage.png')}}" />Dashboard</div>
+        <a href = '{{url_for("commercial.facilityoverview")}}'><div class="overview-l6cqYc" id = 'liveusage'><img class="liveusageimage" src="{{url_for('static',filename='img/liveusageonimageoff.png')}}" />Data Stream</div></a>
+        <div class="inventory-l6cqYc" id = 'inventory' style = 'color: #6285FB;'><img class="inventoryimage" src="{{url_for('static',filename='img/inventoryimageon.png')}}" />Inventory</div>
+        <a href = "{{url_for('commercial.utilities')}}"><div class="utilities-l6cqYc" id = 'utilities'><img class="utilitiesimage" src="{{url_for('static',filename='img/utilitiesimage.png')}}" />Utilities & Alternatives</div></a>
+        <a href = "{{url_for('accounts.logout')}}"><div class="logout-l6cqYc avertacy-bold-sapphire-13px" id = 'logout'><img class="logoutimage" src="{{url_for('static',filename='img/logoutimage.png')}}" />Logout</div></a>
+
+        <div class = 'imageblock' id ='imageblock'>
+        <img class="kaltire-256-2-l6cqYc" src="{{url_for('static',filename='img/kaltire--256-2@22x.png')}}" />
+        <div class = 'buildingname'>Butetown Store</div>
+        <p class="x4720-yellowhead-on-ab-t5-l-3-cs-l6cqYc">4720 Yellowhead Trail NW</p>
+        <a href = "{{url_for('commercial.liveusage')}}"><div class = 'aboutbutton'><img class="info-imageblue" src="{{url_for('static',filename='img/infoimageblue.png')}}"/>About</div></a>
+        <div class = 'switchbutton'><img class="info-imageblue" src="{{url_for('static',filename='img/switchimage.png')}}"/>Switch</div>
+        <div class="group-7195-l6cqYc">
+          <div class="rectangle-2316-33iHaU"></div>
+          <div class="chevron-down-33iHaU"><img class="vector-LNtgXx" src="{{url_for('static',filename='img/vector@22x.svg')}}" /></div>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="title-L7BXHD2" id = title>Inventory</h1>
+    <div class = 'inventory-block'>
+        <div class = 'equipment-block'>
+            <div class = 'equipment-header'>Lighting</div>
+            <div class = 'equipment-image-block'><img class="equipment-image" src="{{url_for('static',filename='img/lightingimage.png')}}" /></div>
+            <div class = 'equipment-arrow'><img class="equipment-arrow-image" src="{{url_for('static',filename='img/equipmentarrow.png')}}" /></div>
+        </div>
+        <div class = 'equipment-block'>
+            <div class = 'equipment-header'>Plug Load</div>
+            <div class = 'equipment-image-block'><img class="equipment-image" src="{{url_for('static',filename='img/plugloadimage.png')}}" /></div>
+            <div class = 'equipment-arrow'><img class="equipment-arrow-image" src="{{url_for('static',filename='img/equipmentarrow.png')}}" /></div>
+        </div>
+        <div class = 'equipment-block'>
+            <div class = 'equipment-header'>HVAC</div>
+            <div class = 'equipment-image-block'><img class="equipment-image" src="{{url_for('static',filename='img/hvacimage.png')}}" /></div>
+            <div class = 'equipment-arrow'><img class="equipment-arrow-image" src="{{url_for('static',filename='img/equipmentarrow.png')}}" /></div>
+        </div>
+        <div class = 'equipment-block'>
+            <div class = 'equipment-header'>Pumps and Motors</div>
+            <div class = 'equipment-image-block'><img class="equipment-image" src="{{url_for('static',filename='img/pumpimage.png')}}" /></div>
+            <div class = 'equipment-arrow'><img class="equipment-arrow-image" src="{{url_for('static',filename='img/equipmentarrow.png')}}" /></div>
+        </div>
+        <div class = 'equipment-block'>
+            <div class = 'equipment-header'>DHW</div>
+            <div class = 'equipment-image-block'><img class="equipment-image" src="{{url_for('static',filename='img/dhwimage.png')}}" /></div>
+            <div class = 'equipment-arrow'><img class="equipment-arrow-image" src="{{url_for('static',filename='img/equipmentarrow.png')}}" /></div>
+        </div>
+        <div class = 'equipment-block'>
+            <div class = 'equipment-header'>Chiller</div>
+            <div class = 'equipment-image-block'><img class="equipment-image" src="{{url_for('static',filename='img/chillerimage.png')}}" /></div>
+            <div class = 'equipment-arrow'><img class="equipment-arrow-image" src="{{url_for('static',filename='img/equipmentarrow.png')}}" /></div>
+        </div>
+    </div>
+
+    <div class = 'detailed-block'>
+        <div class = 'detailed-block-header'>Overview</div>
+        <div class = detailed-content>
+            <div class = 'detailed-content-header'>Energy Usage</div>
+            <div class = 'detailed-graph'></div>
+        </div>
+        <div class = detailed-content>
+            <div class = 'detailed-content-header'>Comparisons</div>
+            <div class = 'detailed-graph'></div>
+        </div>
+        <div class = detailed-content>
+            <div class = 'detailed-content-header'>Explore</div>
+            <div class = 'detailed-graph'></div>
+        </div>
+        <div class = 'inventory-list'>
+            <div class = 'inventory-list-header'></div>
+            <div clas = 'inventory-list-categories'></div>
+            <div class = 'inventory-list-rectangle'></div>
+        </div>
+    </div>
+
+
+      </div>
+    </div>
+  </body></html>
+
+  <script>
+      function openEquipment(title){
+        document.getElementById("title").style.width = title;
+      }
+  </script>
