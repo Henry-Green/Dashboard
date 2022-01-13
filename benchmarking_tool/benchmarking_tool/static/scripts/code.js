@@ -27,7 +27,7 @@ function createColumns(periodArray, section,data) {
     if (x.period === `${section.className}`) {
       const column = document.createElement("div");
       column.classList.add("column");
-      column.style.height = x.value*30 + "%";
+      column.style.height = x.value*20 + "%";
       if (section.classList.contains(`${x.period}`)) {
         section.appendChild(column);
       }
@@ -148,7 +148,7 @@ const setIconPosition = (allArrays) => {
   console.log(maxValue);
 
   iconSvg.forEach((item) => {
-    if (maxValue*30 < 50) {
+    if (maxValue*20 < 50) {
       item.style.bottom = 70 + "%";
     } else {
       item.style.bottom = maxValue*30 + 2.5 + "%";
