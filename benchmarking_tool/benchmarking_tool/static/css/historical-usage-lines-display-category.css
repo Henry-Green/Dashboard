@@ -2308,11 +2308,12 @@
   mix-blend-mode: normal;
   position: relative;
   top: 90px;
-  width: 643px;  
+  width: 630px;  
   padding-bottom: 20px;
   background-color: var(--zircon);
   overflow: hidden;
   transition: 0.5s;
+  right: 3px;
 
 }
 .historical-usage-lines-display-category .header{
@@ -2328,7 +2329,7 @@
 
 .historical-usage-lines-display-category .title-L7BXHD {
   background-color: transparent;
-  color: black;
+  color: #0D1758;
   font-family: var(--font-family-averta_cy-bold);
   font-size: 38px;
   font-style: normal;
@@ -2346,7 +2347,7 @@
 
 .title-L7BXHD2 {
   background-color: transparent;
-  color: black;
+  color: #0D1758;
   font-family: var(--font-family-averta_cy-bold);
   font-size: 32px;
   font-style: normal;
@@ -3023,7 +3024,7 @@ transition: 0.5s;
   margin-right: auto;
   mix-blend-mode: normal;
   position: relative;
-  width: 600px;  
+  width: 580px;  
   bottom: 50px;
   padding-bottom: 20px;
   background-color: var(--zircon);
@@ -8713,20 +8714,17 @@ header{
 }
 
 @font-face {
-  font-family: "Averta";
-  src: url("./fonts/AvertaDemoPECuttedDemo-Regular.otf");
-  font-style: "Regular";
+  font-family: var(--font-family-averta_cy-bold);
 }
 @font-face {
-  font-family: "Averta-2";
-  src: url("./fonts/AvertaDemoPE-ExtraBold.otf");
-  font-style: "Regular";
+  font-family: var(--font-family-averta_cy-bold);
 }
 .chart-figma {
-  font-family: "Averta";
+  font-family: var(--font-family-averta_cy-bold);
   display: flex;
   position: absolute;
   top: 140px;
+  left: 20px;
 }
 .chart-figma * {
   margin: 0;
@@ -8899,7 +8897,7 @@ header{
 }
 .chart-figma__container .chart-xaxis .morning div.column .columnpopup span, .chart-figma__container .chart-xaxis .afternoon div.column .columnpopup span, .chart-figma__container .chart-xaxis .night div.column .columnpopup span {
   color: #0D1758;
-  font-family: "Averta";
+  font-family: var(--font-family-averta_cy-bold);
   font-weight: 600;
   text-align: center;
   margin-bottom: 5px;
