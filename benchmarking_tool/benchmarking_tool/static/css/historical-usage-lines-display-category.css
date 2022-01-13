@@ -1479,6 +1479,8 @@
   mix-blend-mode: normal;
   position: relative;
   bottom: 33px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 .historical-usage-lines-display-category .rectangle-3184-week {
   background-color: var(--sapphire);

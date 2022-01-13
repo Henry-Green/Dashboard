@@ -2276,6 +2276,8 @@ border-radius: 8px;
   width: 2px;
   margin-right: 5px;
   z-index: 100;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .overview-main .rectangle-3185-l6cqYc {
@@ -2470,6 +2472,7 @@ border-radius: 8px;
   width: 536px;
   top: 744px;
   padding-bottom: 80px;
+
 }
 
 .overview-main .rectangle-3203-l6cqYc {
@@ -2514,6 +2517,8 @@ border-radius: 8px;
   position: relative;
   bottom: 20px;
   width: 160px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .overview-main .x100-Al4pJ9 {
