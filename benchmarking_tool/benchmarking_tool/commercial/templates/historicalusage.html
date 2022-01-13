@@ -302,7 +302,7 @@
         </div>
 
 
-        <h1 class="title-L7BXHD">Historical Usage</h1>
+        <h1 class="title-L7BXHD" style ="left: 320px;">Historical Usage</h1>
         <div class="rectangle-2984-L7BXHD" id = 'Live-Usage'>
         <div class = 'circuit-block' id = 'circuit-block' style = 'transition: 0.5s;'>
             <div class = 'circuit-header'>
@@ -323,7 +323,7 @@
 
                     <div class = 'total-box'style = 'margin-right: 20px;'><span id = 'circuit-whole'></span><span class = 'decimal-span' id = 'circuit-decimal' style = 'font-size: 9px;'></span><span class = 'kwh-total'>kWh</span><div class = total-box-line>Usage</div></div>
 
-                    <div class = 'total-box'style = 'margin-right: 60px;'><span id = 'circuitemission-whole'></span><span class = 'decimal-span' id = 'circuitemission-decimal' style = 'font-size: 9px;'></span><span class = 'kwh-total'>kg/CO2</span><div class = total-box-line>Usage</div></div>
+                    <div class = 'total-box'style = 'margin-right: 60px;'><span id = 'circuitemission-whole'></span><span class = 'decimal-span' id = 'circuitemission-decimal' style = 'font-size: 9px;'></span><span class = 'kwh-total'>kg/CO2</span><div class = total-box-line>Emissions</div></div>
                 </div>
                     <img class="rectangle-3269-L7BXHD" id = 'todayrectangle' src="{{url_for('static',filename='img/rectangle-3269@2x.svg')}}" style = 'top: 256px; left: 525px'/>
                     <form onsubmit="setTimeout(function(){window.location.reload();},10);" method = "POST" enctype="multipart/form-data">
@@ -634,8 +634,6 @@
                 <div class = 'circuit-graph' id = 'chart5'></div>
             </div>
         </div>
-        <div class = 'graph-buttons-block' id = 'graph-buttons-block'><a href = "{{url_for('commercial.historicalusage')}}"><div class = 'grah-buttons'><img class = 'graph-buttons-image' src ="{{url_for('static',filename='img/bar-image.png')}}"/> </div></a>
-        <a href = "{{url_for('commercial.historicalusageline')}}"><div class = 'grah-buttons'><img class = 'graph-buttons-image' src ="{{url_for('static',filename='img/line-image.png')}}"/> </div></div></a>
 
             <div class = 'total-block'>    
             <div class = 'total-box' style = 'margin-right: 20px;'><span style = 'font-size: 20px;'>$</span><span id = 'totalprice-whole'></span><span class = 'decimal-span' style = 'font-size: 10px;' id = 'totalprice-decimal'></span><div class = total-box-line>Costs</div></div>
