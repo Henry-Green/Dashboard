@@ -1102,7 +1102,54 @@ def historicalusage():
         weeklabels += ([''] * 23)
         weeklabels.append('S')
         weeklabels += ([''] * 23)
-        print(predicted_line['car wash exhaust fan'])
+        kwhgraph = []
+        data = schedule
+        string = data[0]
+        string = string.replace('[', '')
+        string = string.replace(']', '')
+        kwhgraphlist = string.split(",")
+        kwhgraph = [0] * len(kwhgraphlist)
+        for i in range(0,len(kwhgraphlist)):
+            string = data[i];
+            string = string.replace('[', '')
+            string = string.replace(']', '')
+            kwhgraphlist = string.split(",")
+            for k in range(0,len(kwhgraphlist)):
+                kwhgraph[k] += float(kwhgraphlist[k])
+
+        pricegraph = []
+        for i in range(0,len(kwhgraph)):
+            pricegraph.append(round((kwhgraph[i]/1000) * 0.09,2))
+            kwhgraph[i] = round((kwhgraph[i] / 1000),2)
+        hourslist = [1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12]
+        
+        period = []
+        typegraph = []
+
+        for i in range(0,24):
+            if i < int(starthours):
+                typegraph.append('off-hrs')
+                period.append('morning')
+            elif i > int(endhours):
+                typegraph.append('off-hrs')
+                period.append('night')
+            else:
+                typegraph.append('on-hrs')
+                period.append('afternoon')
+        jsondictionarylist = []
+
+        for i in range(0,24):
+            jsondictionary = {
+                "value": kwhgraph[i],
+                "hours": hourslist[i],
+                "price": pricegraph[i],
+                "type": typegraph[i],
+                "period": period[i]
+            }
+            jsondictionarylist.append(jsondictionary)
+        with open('benchmarking_tool/static/scripts/data.json', 'w') as f:
+            json.dump(jsondictionarylist, f)
+
         return render_template('historicalusage.html',endhours = endhours, starthours = starthours, weeklabels = weeklabels, last_week_cd = last_week_full,predicted_line = predicted_line,error = error, timeloadscolours = timeloadscolours,alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
     else:
         abort(403)
