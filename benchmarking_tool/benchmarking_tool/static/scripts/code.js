@@ -148,10 +148,10 @@ const setIconPosition = (allArrays) => {
   console.log(maxValue);
 
   iconSvg.forEach((item) => {
-    if (maxValue*10 < 50) {
+    if (maxValue*20 < 50) {
       item.style.bottom = 70 + "%";
     } else {
-      item.style.bottom = maxValue*10 + 2.5 + "%";
+      item.style.bottom = maxValue*20 + 2.5 + "%";
     }
   });
 };
