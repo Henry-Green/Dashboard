@@ -14,115 +14,144 @@ const svgAfternoon = `<svg class="icon-svg-day" width="24" height="24" viewBox="
 <path d="M18.3604 5.63997L19.7804 4.21997" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>`;
 
-const allColumnsValue = [];
-//creatre POPup
+//Create Empty Array to fill with all values of height of the columns to detect highest value to put the icons above it to prevent ovelaaping
+const allValues = [];
+//General Function to create Columns with each one has own data
+const morningSection = document.querySelector(".morning");
+const afterNoonSection = document.querySelector(".afternoon");
+const nightSection = document.querySelector(".night");
 
-const popupWidget = (
-  mainconatiner,
-  texthours,
-  textprice,
-  textvelocity,
-  textgas,
-  classContentName
-) => {
-  const imgsrcel = document.createElement("span");
-  const div = document.createElement("div");
+function createColumns(periodArray, section,data) {
+  for (const x of periodArray) {
+    //Create Morning Data
+    if (x.period === `${section.className}`) {
+      const column = document.createElement("div");
+      column.classList.add("column");
+      column.style.height = x.value*30 + "%";
+      if (section.classList.contains(`${x.period}`)) {
+        section.appendChild(column);
+      }
 
-  const hours = document.createElement("span");
+      //detect off-on-Hrs
+      if(data == 'cost'){
+      if (x.type === "on-hrs") {
+        column.innerHTML = `<div class="columnpopup on-hrs">
+        <div class="top-part">
+        
+        ${x.period === "morning" || x.period === "night" ? svgSrcMorining : svgAfternoon} 
+        <p>
+        ${
+          x.hours
+        }${x.period === "morning" || x.period === "night" ? "AM" : "PM"}
+        </p>
+       
+ 
+        </div>
+        <p class="on-hrs-p">On-Hours</p>
+        <p class="price">$ ${x.price}</p>
+        
+        </div>`;
+      } else if (x.type === "off-hrs") {
+        column.innerHTML = `<div class="columnpopup off-hrs">
+        <div class="top-part">
+        ${x.period === "morning" || x.period === "night" ? svgSrcMorining : svgAfternoon} <p>${
+          x.hours
+        }${x.period === "morning" || x.period === "night" ? "AM" : "PM"}</p>
+       
+ 
+        </div>
+        <p>Off-Hours</p>
+        <p class="price">$ ${x.price}</p>
+        
+        </div>`;
+      }
+    }
 
-  const price = document.createElement("span");
-  const onHours = document.createElement("span");
-
-  const velocity = document.createElement("span");
-  const gas = document.createElement("span");
-  div.appendChild(imgsrcel);
-  div.appendChild(hours);
-  div.appendChild(onHours);
-  div.appendChild(price);
-  div.appendChild(velocity);
-  div.appendChild(gas);
-  div.classList.add("columnpopup");
-  hours.classList.add("spanHours");
-  onHours.classList.add("onhours");
-  imgsrcel.classList.add("imgsvg");
-  price.classList.add('span-price')
-
-  price.textContent = "$"+textprice;
-  velocity.classList.add('velocity-span')
-  gas.classList.add('gas-span')
-  onHours.textContent = "on-hours";
-
-  velocity.textContent = textvelocity + "kWh";
-  gas.textContent = textgas + "kg/CO2";
-
-  if (classContentName === ".morning") {
-    imgsrcel.innerHTML = svgSrcMorining;
-    hours.textContent = texthours + "AM";
-  } else if (classContentName === ".afternoon") {
-    imgsrcel.innerHTML = svgAfternoon;
-    hours.textContent = texthours + "PM";
-  } else {
-    imgsrcel.innerHTML = svgSrcMorining;
-    hours.textContent = texthours + "AM";
-  }
-
-  mainconatiner.appendChild(div);
-};
-
-//Create Columns
-const createSpan = (classContent, dataDay) => {
-  const partDay = document.querySelector(classContent);
-
-  for (const x of dataDay) {
-    const column = document.createElement("div");
-
-    column.classList.add("column");
-    partDay.appendChild(column);
-    //display the height
-
-    column.style.height = (x.value)/30 + "%";
-    popupWidget(column, x.hours, x.price, x.velocity, x.gas, classContent);
-  }
-  
-};
-
+    if(data == 'energy'){
+        if (x.type === "on-hrs") {
+        column.innerHTML = `<div class="columnpopup on-hrs">
+        <div class="top-part">
+        
+        ${x.period === "morning" || x.period === "night" ? svgSrcMorining : svgAfternoon} 
+        <p>
+        ${
+          x.hours
+        }${x.period === "morning" || x.period === "night" ? "AM" : "PM"}
+        </p>
+       
+ 
+        </div>
+        <p class="on-hrs-p">On-Hours</p>
+        <p class="price">${x.value} kWh</p>
+        
+        </div>`;
+      } else if (x.type === "off-hrs") {
+        column.innerHTML = `<div class="columnpopup off-hrs">
+        <div class="top-part">
+        ${x.period === "morning" || x.period === "night" ? svgSrcMorining : svgAfternoon} <p>${
+          x.hours
+        }${x.period === "morning" || x.period === "night" ? "AM" : "PM"}</p>
+       
+ 
+        </div>
+        <p>Off-Hours</p>
+        <p class="price">${x.value} kWh</p>
+        
+        </div>`;
+      }
+    }
+    }
+    }
+}
+//fetch the data
 var script = document.currentScript;
 var fullUrl = script.src;
+function createBarChart(data){
+
+  while (morningSection.childNodes.length > 4) {
+    morningSection.removeChild(morningSection.lastChild);
+}
+    while (afterNoonSection.childNodes.length > 4) {
+    afterNoonSection.removeChild(afterNoonSection.lastChild);
+}
+    while (nightSection.childNodes.length > 4) {
+    nightSection.removeChild(nightSection.lastChild);
+}
+
 console.log(script);
 var jsonUrl = fullUrl.replace("code.js", "data.json");
 
 fetch(jsonUrl)
   .then((response) => response.text())
-  .then((data) => {
-    createSpan(".morning", JSON.parse(data).morningData);
-    createSpan(".afternoon", JSON.parse(data).AfterNoonData);
-    createSpan(".night", JSON.parse(data).NightData);
+  .then((json) => {
+    const ArrData = JSON.parse(json);
 
-    const fillAllValues = () => {
-      for (const x of JSON.parse(data).morningData) {
-        allColumnsValue.push(x.value);
-      }
-      for (const x of JSON.parse(data).AfterNoonData) {
-        allColumnsValue.push(x.value);
-      }
-      for (const x of JSON.parse(data).NightData) {
-        allColumnsValue.push(x.value);
-      }
+    createColumns(ArrData, morningSection,data);
+    createColumns(ArrData, afterNoonSection,data);
+    createColumns(ArrData, nightSection,data);
 
-      return allColumnsValue;
-    };
-
-    setIconPosition(fillAllValues());
+    for (const x of ArrData) {
+      allValues.push(x.value);
+    }
+    document.querySelectorAll(".column").forEach((item) => {
+      item.firstElementChild.style.top = `-${item.clientHeight / 1.5}px`;
+      console.log(item.firstElementChild);
+    });
+    setIconPosition(allValues);
   });
-
+}
 //set the position of the icon
 
 const setIconPosition = (allArrays) => {
   const maxValue = Math.max(...allArrays);
   const iconSvg = document.querySelectorAll(".icon-svg-day");
- 
+  console.log(maxValue);
 
   iconSvg.forEach((item) => {
-    item.style.bottom = maxValue/30 + 2.5 + "%";
+    if (maxValue*30 < 50) {
+      item.style.bottom = 70 + "%";
+    } else {
+      item.style.bottom = maxValue*30 + 2.5 + "%";
+    }
   });
 };
