@@ -13,7 +13,7 @@
         <div class=error><strong>Error:</strong> {{ error }}</div>
   </header>
 {% endif %}
-  <body style="margin: 0; background: #ffffff" onload="resetVariables(); changetoEnergy(); getTotal(); changeDotColourCategory(); ">
+  <body style="margin: 0; background: #ffffff" onload="resetVariables(); changetoEnergy(); getTotal(); changeDotColourCategory(); createBarChart('energy');">
     <input type="hidden" id="anPageName" name="page" value="historical-usage-lines-display-category" />
     <div class="container-center-horizontal">
       <div class="historical-usage-lines-display-category screen">
@@ -660,8 +660,8 @@
               <div class = 'runningcolumn'>Circuit</div>
               <div class = 'percentcolumn'>Percentage</div>
               <div class = "tabss tabssusage" style = 'background-color: transparent;'>
-                  <input type = 'radio' checked id = 'watts' name = 'liveusagedata' class="k-wh-l6cqYc tablinksss" onclick ="changetoEnergy();"><label for = 'watts' class=k-wh-l6cqYc>Energy</label>
-                  <input type = 'radio' id = 'cost' name = 'liveusagedata' class="x-l6cqYc tablinksss" id = "defaultOpenss" onclick = 'changetoCost();'><label for = 'cost' class = x-l6cqYc>Cost</label>
+                  <input type = 'radio' checked id = 'watts' name = 'liveusagedata' class="k-wh-l6cqYc tablinksss" onclick ="changetoEnergy();createBarChart('energy');"><label for = 'watts' class=k-wh-l6cqYc>Energy</label>
+                  <input type = 'radio' id = 'cost' name = 'liveusagedata' class="x-l6cqYc tablinksss" id = "defaultOpenss" onclick = 'changetoCost();createBarChart("cost");'><label for = 'cost' class = x-l6cqYc>Cost</label>
           </div>
           </div>
       </div>
