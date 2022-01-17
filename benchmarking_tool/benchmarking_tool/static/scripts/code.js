@@ -27,7 +27,7 @@ function createColumns(periodArray, section,data) {
     if (x.period === `${section.className}`) {
       const column = document.createElement("div");
       column.classList.add("column");
-      column.style.height = x.value*20 + "%";
+      column.style.height = x.value*10 + "%";
       if (section.classList.contains(`${x.period}`)) {
         section.appendChild(column);
       }
