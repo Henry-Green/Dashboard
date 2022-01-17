@@ -1,8 +1,12 @@
 /* screen - historical-usage-lines-display-category */
 
+body{
+  overflow: hidden;
+}
+
 .historical-usage-lines-display-category {
   background-color: var(--white);
-  height: 90vh;
+  height: 92vh;
   mix-blend-mode: normal;
   position: relative;
   width: 100%;
