@@ -725,6 +725,13 @@ def facilityoverviewbubble():
     else:
         abort(403)
         
+@commercial.route('/solarpage', methods=['GET', 'POST'])
+@login_required
+def solarpage():
+
+
+    return render_template('solarpage.html')
+        
 @commercial.route('/inventory', methods=['GET', 'POST'])
 @login_required
 def inventory():
