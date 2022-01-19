@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='css/utilities.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/electricalpage.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/styleguide.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
 </head>
@@ -64,7 +64,7 @@
                      </a>
                  </li>
                  <li>
-                    <a href = '{{url_for("commercial.datastream")}}'>
+                    <a href='{{url_for("commercial.datastream")}}'>
                         <span>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20.5 7L13.5 15.5L9.5 11L3.5 17" stroke="#AFB8CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -123,7 +123,7 @@
                      <h2>Butetown Store</h2>
                      <p>4720 Yellowhead Trail NW</p>
                      <div class="ads__box--cta">
-                         <a href='{{url_for("commercial.liveusage")}}'>
+                         <a href="#">
                              <span>
                                 <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M5.0415 6.87499H5.95817V7.79166H5.0415V6.87499ZM5.0415 3.20832H5.95817V5.95832H5.0415V3.20832ZM5.49525 0.916656C2.96525 0.916656 0.916504 2.96999 0.916504 5.49999C0.916504 8.02999 2.96525 10.0833 5.49525 10.0833C8.02984 10.0833 10.0832 8.02999 10.0832 5.49999C10.0832 2.96999 8.02984 0.916656 5.49525 0.916656ZM5.49984 9.16666C3.474 9.16666 1.83317 7.52582 1.83317 5.49999C1.83317 3.47416 3.474 1.83332 5.49984 1.83332C7.52567 1.83332 9.1665 3.47416 9.1665 5.49999C9.1665 7.52582 7.52567 9.16666 5.49984 9.16666Z" fill="#498DE1"/>
@@ -134,7 +134,7 @@
                                  About
                              </span>
                          </a>
-                         <a href="#">
+                         <a href='{{url_for("commercial.liveusage")}}'>
                        <span>
                         <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1.375 7.90624V9.62499H3.09375L8.16292 4.55582L6.44417 2.83707L1.375 7.90624ZM9.81292 2.90582L8.09417 1.18707L6.93458 2.35124L8.65333 4.06999L9.81292 2.90582Z" fill="#498DE1"/>
@@ -148,139 +148,233 @@
              </div>
              </div>
              <div class="inventory__components">
-               <h2>Utilities & Alternatives</h2>
+               <h2>Electricity</h2>
                <div class="inventory__components__container">
-                   <div class="inventory__components__container--1">
-                       <h3>Utilities</h3>
-                       <div class="cards-utilities">
-                        <div class="cardUtility">
-                            <div class="img">
-                                <img src="{{url_for('static',filename='img/empty.png')}}" alt="">
-                            </div>
-                            <a href="#" class="title">
-                                
-                               
-                                 <p>Energy Usage<br/>
-                                    Intensity (EUI)</p>
-                                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                     <path d="M24 18L15 9L12.885 11.115L19.755 18L12.885 24.885L15 27L24 18Z" fill="#0D1758"/>
-                                     </svg>
-                                     
-                               
-                                 </a>
-                        </div>
-                           <div class="cardUtility">
-                               <div class="img">
-                                   <img src="{{url_for('static',filename='img/elc-meter.png')}}" alt="">
-                               </div>
-                               <a href='{{url_for("commercial.electricalpage")}}' class="title">
-                                   
-                                  
-                                    <p>Electricity</p>
-                                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M24 18L15 9L12.885 11.115L19.755 18L12.885 24.885L15 27L24 18Z" fill="#0D1758"/>
-                                        </svg>
-                                        
-                                  
-                                    </a>
-                           </div>
-                           <div class="cardUtility">
-                            <div class="img">
-                                <img src="{{url_for('static',filename='img/gas-meter.png')}}" alt="">
-                            </div>
-                            <a href='{{url_for("commercial.gaspage")}}' class="title">
-                                
-                               
-                                 <p>Natural Gas</p>
-                                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                     <path d="M24 18L15 9L12.885 11.115L19.755 18L12.885 24.885L15 27L24 18Z" fill="#0D1758"/>
-                                     </svg>
-                                     
-                               
-                                 </a>
-                        </div>
-                        <div class="cardUtility">
-                            <div class="img">
-                                <img src="{{url_for('static',filename='img/w-meter.png')}}" alt="">
-                            </div>
-                            <a href="#" class="title">
-                                
-                               
-                                 <p>Water</p>
-                                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                     <path d="M24 18L15 9L12.885 11.115L19.755 18L12.885 24.885L15 27L24 18Z" fill="#0D1758"/>
-                                     </svg>
-                                     
-                               
-                                 </a>
-                        </div>
-                       </div>
+                   <div class="electricity-flex">
+                       <div class="electricity-flex--1">
+                           <h3 class="title-box">Plan Details</h3>
+                           <div class="box">
+                               <div class="box__top">
+                                <div class="box__top--1">
+                                    <img src="{{url_for('static',filename='img/ENMAX_logo 1.png')}}" alt="Enmax">
+                                </div>
+                                <div class="box__top--2">
+                               <ul>
+                                   <li>
+                                       <span>your rate</span>
+                                       <p>
+                                           <span>$</span>
+                                           <span>0.09</span>
+                                           <span>kWh</span>
+                                       </p>
+                                   </li>
+                                   <li>
+                                       <span>contract type</span>
+                                       <p>variable</p>
+                                   </li>
+                                   <li>
+                                       <span>contract end</span>
+                                       <p>Jan-2023</p>
+                                   </li>
+                               </ul>
+                                </div>
 
-                       <h3 class="Alternatives">Alternatives</h3>
-                       <div class="cards-utilities">
-                        <div class="cardUtility">
-                            <div class="img">
-                                <img src="{{url_for('static',filename='img/solarpanelimage.png')}}" alt="">
-                            </div>
-                            <a href='{{url_for("commercial.solarpage")}}' class="title">
-                                
-                               
-                                 <p>Solar</p>
-                                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                     <path d="M24 18L15 9L12.885 11.115L19.755 18L12.885 24.885L15 27L24 18Z" fill="#0D1758"/>
-                                     </svg>
-                                     
-                               
-                                 </a>
-                        </div>
-                           <div class="cardUtility">
-                               <div class="img">
-                                   <img src="{{url_for('static',filename='img/chp.png')}}" alt="">
                                </div>
-                               <a href="#" class="title">
-                                   
-                                  
-                                    <p>CHP</p>
-                                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M24 18L15 9L12.885 11.115L19.755 18L12.885 24.885L15 27L24 18Z" fill="#0D1758"/>
+                               <div class="box__bottom">
+                                <div class="explore-simulation">
+                                    <a href="#">
+                                      <span class="txt">Explore Plan</span>
+                                      <span>
+                                        <svg width="12" height="18" viewBox="0 0 12 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                          <path d="M12 9L3 -3.93402e-07L0.885 2.115L7.755 9L0.885 15.885L3 18L12 9Z" fill="#0D1758"></path>
                                         </svg>
-                                        
-                                  
+                                      </span>
                                     </a>
+                                  </div>
+                               </div>
+
                            </div>
-                           <div class="cardUtility">
-                            <div class="img">
-                                <img src="{{url_for('static',filename='img/heatpump.png')}}" alt="">
-                            </div>
-                            <a href="#" class="title">
-                                
-                               
-                                 <p>Heat Pumps</p>
-                                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                     <path d="M24 18L15 9L12.885 11.115L19.755 18L12.885 24.885L15 27L24 18Z" fill="#0D1758"/>
-                                     </svg>
+                       </div>
+                       <div class="electricity-flex--2">
+                        <h3 class="title-box">Past-Bills</h3>
+                        <div class="box">
+                            <div class="box--top">
+                                <div class="utility-chart">
+                                    <div class="column">
+                                    
                                      
-                               
-                                 </a>
-                        </div>
-                        <div class="cardUtility">
-                            <div class="img">
-                                <img src="{{url_for('static',filename='img/empty.png')}}" alt="">
-                            </div>
-                            <a href="#" class="title">
-                                
-                               
-                                 <p></p>
-                                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                     <path d="M24 18L15 9L12.885 11.115L19.755 18L12.885 24.885L15 27L24 18Z" fill="#0D1758"/>
-                                     </svg>
+                                    <p class="title">j</p>
+                                    </div>
+                                    <div class="column">
                                      
-                               
-                                 </a>
+                                      <p class="title">f</p>
+                                    </div>
+                                    <div class="column">
+                                     
+                                   
+                                      <p class="title">m</p>
+                                    </div>
+                                    <div class="column">
+                                   
+                                 
+                                      <p class="title">a</p>
+                                    </div>
+                                    <div class="column">
+                                    
+                                  
+                                      <p class="title">m</p>
+                                    </div>
+                                    <div class="column">
+                                      
+                                    
+                                      <p class="title">j</p>
+                                    </div>
+                                    <div class="column">
+                                      
+                                    
+                                        <p class="title">j</p>
+                                      </div>
+                                  
+                                    <div class="column">
+                                      
+                                    
+                                      <p class="title">a</p>
+                                    </div>
+                                    <div class="column">
+                                      
+                                   
+                                      <p class="title">s</p>
+                                    </div>
+                                    <div class="column">
+                                     
+                                      
+                                      <p class="title">o</p>
+                                    </div>
+                                    <div class="column">
+                                     
+                                      <p class="title">n</p>
+                                    </div>
+                                    <div class="column">
+                                     
+                                 
+                                      <p class="title">d</p>
+                                    </div>
+                              
+                                  </div>
+                                  
+                            </div>
+                            <div class="box--bottom">
+                                <div class="explore-simulation">
+                                    <a href="#">
+                                      <span class="txt">Explore Past Billing</span>
+                                      <span>
+                                        <svg width="12" height="18" viewBox="0 0 12 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                          <path d="M12 9L3 -3.93402e-07L0.885 2.115L7.755 9L0.885 15.885L3 18L12 9Z" fill="#0D1758"></path>
+                                        </svg>
+                                      </span>
+                                    </a>
+                                  </div>
+                            </div>
                         </div>
                        </div>
-                       
+                       <div class="electricity-flex--3">
+                           <div class="part-1">
+                               <div class="img">
+
+                               </div>
+                            <div class="span-group">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <div class="bottom-part">
+                                <div class="explore-simulation">
+                                    <a href="#">
+                                      <span class="txt">Comparisons</span>
+                                      <span>
+                                        <svg width="12" height="18" viewBox="0 0 12 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                          <path d="M12 9L3 -3.93402e-07L0.885 2.115L7.755 9L0.885 15.885L3 18L12 9Z" fill="#0D1758"></path>
+                                        </svg>
+                                      </span>
+                                    </a>
+                                  </div>
+                            </div>
+                           </div>
+                           <div class="part-2">
+                               <div class="label">
+                                   <span></span>
+                                   <p>learning</p>
+                               </div>
+                               <div class="learning-mode">
+                                  <div class="group">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                  </div>
+                                  <p>
+                                    learning mode
+                                  </p>
+                               </div>
+                               <div class="explore-simulation">
+                                <a href="#">
+                                  <span class="txt">Demand Peaks</span>
+                                  <span>
+                                    <svg width="12" height="18" viewBox="0 0 12 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M12 9L3 -3.93402e-07L0.885 2.115L7.755 9L0.885 15.885L3 18L12 9Z" fill="#0D1758"></path>
+                                    </svg>
+                                  </span>
+                                </a>
+                              </div>
+                           </div>
+                          
+                       </div>
+                       <div class="electricity-flex--4">
+                       <div class="part-1">
+                          <div class="top">
+                            <svg width="190" height="185" viewBox="0 0 190 185" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M141.5 184.584H189.5L135.5 93.0837C135.5 93.0837 116.5 61.5837 103.5 42.5837C92.9673 27.1897 82 15.0352 71 7.58368C67.2294 5.02946 65.2934 3.10281 61 1.58368C56.1822 -0.121 53.1071 -0.101919 48 0.0836778C39.6639 0.386618 27.5 6.08368 27.5 6.08368C27.5 6.08368 16.5292 12.0132 10 16.5837C5 20.0837 0 19.5837 0 19.5837V46.5837C0 46.5837 20.3253 42.7641 33.5 41.5837C47.1194 40.3635 55 38.4098 68.5 40.5837C77 41.9524 43.5 84.0837 141.5 165.084C146.756 169.428 141.5 184.584 141.5 184.584Z" fill="white"/>
+                                </svg>
+                                
+                            <p>
+                                Re-calculate your bill with other plans
+                               </p>
+                               <div class="bottom">
+
+                               </div>
+                          </div>
+                          <div class="bottom">
+                            <div class="explore-simulation">
+                                <a href="#">
+                                  <span class="txt">Explore Plans</span>
+                                  <span>
+                                    <svg width="12" height="18" viewBox="0 0 12 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M12 9L3 -3.93402e-07L0.885 2.115L7.755 9L0.885 15.885L3 18L12 9Z" fill="#0D1758"></path>
+                                    </svg>
+                                  </span>
+                                </a>
+                              </div>
+                          </div>
+                       </div>
+                       <div class="part-2">
+                        <div class="dummy-div">
+
+                        </div>
+                        <div class="bottom">
+                            <div class="explore-simulation">
+                                <a href="#">
+                                  <span class="txt"></span>
+                                  <span>
+                                    <svg width="12" height="18" viewBox="0 0 12 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M12 9L3 -3.93402e-07L0.885 2.115L7.755 9L0.885 15.885L3 18L12 9Z" fill="#0D1758"></path>
+                                    </svg>
+                                  </span>
+                                </a>
+                              </div>
+                        </div>
+                       </div>
+                       </div>
                    </div>
+              
 
                </div>
 
@@ -290,6 +384,6 @@
          </div>
         </div>
     </div>
-
+    <script src="file.js"></script>
 </body>
 </html>
