@@ -725,6 +725,20 @@ def facilityoverviewbubble():
     else:
         abort(403)
         
+@commercial.route('/gaspage', methods=['GET', 'POST'])
+@login_required
+def gaspage():
+
+
+    return render_template('gaspage.html')
+
+@commercial.route('/electricalpage', methods=['GET', 'POST'])
+@login_required
+def electricalpage():
+
+
+    return render_template('electricalpage.html')
+        
 @commercial.route('/solarpage', methods=['GET', 'POST'])
 @login_required
 def solarpage():
