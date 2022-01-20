@@ -556,7 +556,7 @@
     </div>
   </body>
 </html>
-
+<script src="{{url_for('static',filename='scripts/file.js')}}"></script>
 <script>
   const columns = document.getElementsByClassName("column");
   electricaldata = {{electricaldata | tojson}};
