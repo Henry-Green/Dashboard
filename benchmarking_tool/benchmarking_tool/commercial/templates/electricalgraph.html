@@ -291,10 +291,10 @@
                 <div class="tab-item">
                  <div class="monthYear">
                    <span class="active">Year</span>
-                   <span class="">Month</span>
+                   <span class="" onclick = 'getMonthData();'>Month</span>
                  </div>
                  <div class="showCurrent">
-                   <span class="btn-left"><svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                   <span class="btn-left" onclick = 'getMonthData();'><svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_268_789)">
                     <path d="M8.02551 1.77377L7.20968 0.962524L2.67676 5.50002L7.21426 10.0375L8.02551 9.22627L4.29926 5.50002L8.02551 1.77377Z" fill="white"/>
                     </g>
@@ -307,10 +307,10 @@
                     </span>
                    <span class="yearData">2019</span>
                    <span class="monthData">
-                     <span class="monthName">Jan,</span>
+                     <span class="monthName" id = 'monthname'>Jan,</span>
                      <span class="yearName">2019</span>
                    </span>
-                   <span class="btn-right">
+                   <span class="btn-right" onclick = 'getMonthData();'>
                     <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g clip-path="url(#clip0_268_788)">
                       <path d="M2.97449 9.22623L3.79032 10.0375L8.32324 5.49998L3.78574 0.962477L2.97449 1.77373L6.70074 5.49998L2.97449 9.22623Z" fill="white"/>
@@ -456,12 +456,12 @@
                     </div>
                     <div class="top-part">
                       <div class="cost">
-                        <p class="cost-result">$ <span class="realNum">1466.56</span></p>
+                        <p class="cost-result" id = 'monthcost'>$ <span class="realNum">1466.56</span></p>
                   
                         <span>costs</span>
                       </div>
                       <div class="usage">
-                        <p class="monthly-usage"> <span class="">13,477</span>kWh</p>
+                        <p class="monthly-usage"  id = 'monthsum'> <span class="">13,477</span>kWh</p>
                   
                         <span>usage</span>
                       </div>
@@ -497,7 +497,7 @@
                       </div>
                       <div class="carbon-div">
                         <p>Carbon</p>
-                        <p>127.8</p>
+                        <p id = 'monthcarbon'>127.8</p>
                         <p>tons/CO2</p>
                       </div>
                     </div>
@@ -556,7 +556,6 @@
     </div>
   </body>
 </html>
-<script src="{{url_for('static',filename='scripts/file.js')}}"></script>
 <script>
   const columns = document.getElementsByClassName("column");
   electricaldata = {{electricaldata | tojson}};
@@ -576,4 +575,23 @@
   document.getElementById("sqftcost").innerHTML = ((sum * 0.09) / 29040).toFixed(2);
   document.getElementById("carbon").innerHTML = (sum * 0.82).toFixed(2);
 
+function getMonthData(){
+  var month = document.getElementById("monthname").innerHTML;
+  month = month.replaceAll(',', '')
+  var monthlist = ['Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  for (let k = 0; k < monthlist.length; k++){
+    if (month == monthlist[k]){
+      var sumSplit = electricaldata[k].split('.');
+      var costSplit = (String((electricaldata[k] * 0.09).toFixed(2) )).split('.');
+      var levySplit = (String((electricaldata[k] * 0.82).toFixed(2))).split('.');
+
+      document.getElementById("monthcost").innerHTML = '<span class="realNum">$</span>' + (costSplit[0]) + '<span class="realNum">.' + costSplit[1] + '</span>';
+      document.getElementById("monthsum").innerHTML = '<span class="">' + (sumSplit[0]) + '</span>' + '.' +  sumSplit[1] + ' kWh';
+      document.getElementById("monthcarbon").innerHTML = (electricaldata[k] * 0.82).toFixed(2);
+    }
+  }
+}
+
 </script>
+<script src="{{url_for('static',filename='scripts/file.js')}}"></script>
