@@ -745,6 +745,84 @@ def solarpage():
 
 
     return render_template('solarpage.html')
+
+@commercial.route('/electricalgraph', methods=['GET', 'POST'])
+@login_required
+def electricalgraph():
+    form = UtilityForm()
+    path = '/uploads/'
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+
+    mycursor = mydb.cursor()
+    sql = "SELECT yearlyGas FROM utilities WHERE id = 1"
+        
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        tempstring = ','.join(x)
+    gasdata = tempstring.split(',')
+
+    mycursor = mydb.cursor()
+    sql = "SELECT yearlyElectrical FROM utilities WHERE year = 2017"
+        
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        tempstring = ','.join(x)
+    electricaldata = tempstring.split(',')
+
+
+    if request.method == "POST":
+        electricaldata = []
+        gasdata = []
+        file = request.files['file']
+        filename = secure_filename(file.filename)
+        print(filename)
+        file.save(filename)
+        xl_file = pd.ExcelFile(filename)
+
+        dfs = {sheet_name: xl_file.parse(sheet_name) 
+                  for sheet_name in xl_file.sheet_names}
+        electricdf = dfs['Electricity']
+        electricdf = electricdf.fillna('nan')
+        electricaldata2 = electricdf.iloc[:, 8].to_list()
+        print(electricdf)
+        for i in range(len(electricaldata2)):
+            if electricaldata2[i] != 'nan' and electricaldata2[i] != 'Total':
+                electricaldata.append(electricaldata2[i])
+        
+        naturalgasdf = dfs['Natural Gas']
+        naturalgasdf = naturalgasdf.fillna('nan')
+        gasdata2 = naturalgasdf.iloc[:, -1].to_list()
+        for i in range(len(gasdata2)):
+            if gasdata2[i] != 'nan' and gasdata2[i] != 'Total':
+                gasdata.append(gasdata2[i])
+
+        for i in range(len(electricaldata) - 12):
+            electricaldata.pop()
+        for i in range(len(gasdata) - 12):
+            gasdata.pop()
+
+
+        for i in range(len(gasdata)):
+            electricaldata[i] = str(electricaldata[i])
+            gasdata[i] = str(gasdata[i])
+
+        gasstring = ','.join(gasdata)
+        electricalstring = ','.join(electricaldata)
+        year  = (electricdf.columns.to_list())[0]
+        sql = "UPDATE utilities SET yearlyElectrical = %s, yearlyGas = %s WHERE id = 1"
+        val = (electricalstring, gasstring)
+        mycursor.execute(sql, val)
+
+        mydb.commit()
+
+    return render_template('electricalgraph.html', form = form, electricaldata = electricaldata, gasdata= gasdata)
         
 @commercial.route('/inventory', methods=['GET', 'POST'])
 @login_required
