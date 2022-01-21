@@ -474,7 +474,7 @@
                         <form action="">
                        <div class="left-side">
                          <div class="price">
-                           <p class="usage-result"><span class="usdsign">$</span> 1<sup>.45</sup></p>
+                           <p class="usage-result"><span class="usdsign">$ </span> 1<sup>.45</sup></p>
                           </div>
                           <div class="input-group">
                            
@@ -570,10 +570,10 @@
     sum += parseInt(electricaldata[i]);
   }
 
-  document.getElementById("totalCost").innerHTML = (sum * 0.09).toFixed(2);
+  document.getElementById("totalCost").innerHTML = '&zwnj; ' + (sum * 0.09).toFixed(2);
   document.getElementById("totalUsage").innerHTML = sum.toFixed(2);
   document.getElementById("sqft").innerHTML = (sum / 29040).toFixed(2);
-  document.getElementById("sqftcost").innerHTML = ((sum * 0.09) / 29040).toFixed(2);
+  document.getElementById("sqftcost").innerHTML = '&#8205; ' + ((sum * 0.09) / 29040).toFixed(2);
   document.getElementById("carbon").innerHTML = (sum * 0.82).toFixed(2);
 
 
@@ -600,7 +600,7 @@ function getMonthData(){
         levySplit[1] = '00';
       }
 
-      document.getElementById("monthcost").innerHTML = '<span class="realNum">$</span>' + (costSplit[0]) + '<span class="realNum" style = "bottom: 18px; position: relative;">.' + String(costSplit[1]).substring(0,2) + '</span>';
+      document.getElementById("monthcost").innerHTML = '<span class="realNum">$</span> ' + (costSplit[0]) + '<span class="realNum" style = "bottom: 18px; position: relative;">.' + String(costSplit[1]).substring(0,2) + '</span>';
       document.getElementById("monthsum").innerHTML = '<span class="">' + (sumSplit[0]) + '</span>' + '<span style = "bottom: 18px; position: relative; font-size: 15px;">.' +  String(sumSplit[1]).substring(0,2) + '</span>' + ' kWh';
       document.getElementById("monthcarbon").innerHTML = (electricaldata[k] * 0.82).toFixed(2);
 
