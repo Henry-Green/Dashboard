@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/electricalgraph.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/styleguide.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
+
+
   </head>
   <body>
     <div class="Electrical-history">
@@ -291,10 +293,10 @@
                 <div class="tab-item">
                  <div class="monthYear">
                    <span class="active">Year</span>
-                   <span class="" onclick = 'getMonthData();'>Month</span>
+                   <span class="" onclick = 'getMonthData()'>Month</span>
                  </div>
                  <div class="showCurrent">
-                   <span class="btn-left" onclick = 'getMonthData();'><svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                   <span class="btn-left"><svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_268_789)">
                     <path d="M8.02551 1.77377L7.20968 0.962524L2.67676 5.50002L7.21426 10.0375L8.02551 9.22627L4.29926 5.50002L8.02551 1.77377Z" fill="white"/>
                     </g>
@@ -310,7 +312,7 @@
                      <span class="monthName" id = 'monthname'>Jan,</span>
                      <span class="yearName">2019</span>
                    </span>
-                   <span class="btn-right" onclick = 'getMonthData();'>
+                   <span class="btn-right">
                     <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g clip-path="url(#clip0_268_788)">
                       <path d="M2.97449 9.22623L3.79032 10.0375L8.32324 5.49998L3.78574 0.962477L2.97449 1.77373L6.70074 5.49998L2.97449 9.22623Z" fill="white"/>
@@ -554,17 +556,16 @@
         </div>
       </div>
     </div>
+
   </body>
 </html>
+
 <script>
   const columns = document.getElementsByClassName("column");
   electricaldata = {{electricaldata | tojson}};
   var sum = 0;
-  console.log(electricaldata);
-  console.log(columns);
 
   for (let i = 0; i < columns.length; i++){
-    console.log[i];
     columns[i].style.height = (electricaldata[i] / 18) + 'px';
     sum += parseInt(electricaldata[i]);
   }
@@ -575,10 +576,12 @@
   document.getElementById("sqftcost").innerHTML = ((sum * 0.09) / 29040).toFixed(2);
   document.getElementById("carbon").innerHTML = (sum * 0.82).toFixed(2);
 
+
+
 function getMonthData(){
   var month = document.getElementById("monthname").innerHTML;
   month = month.replaceAll(',', '')
-  var monthlist = ['Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var monthlist = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   for (let k = 0; k < monthlist.length; k++){
     if (month == monthlist[k]){
@@ -586,12 +589,187 @@ function getMonthData(){
       var costSplit = (String((electricaldata[k] * 0.09).toFixed(2) )).split('.');
       var levySplit = (String((electricaldata[k] * 0.82).toFixed(2))).split('.');
 
-      document.getElementById("monthcost").innerHTML = '<span class="realNum">$</span>' + (costSplit[0]) + '<span class="realNum">.' + costSplit[1] + '</span>';
-      document.getElementById("monthsum").innerHTML = '<span class="">' + (sumSplit[0]) + '</span>' + '.' +  sumSplit[1] + ' kWh';
+      if(sumSplit[1] == undefined){
+        sumSplit[1] = '00';
+      }
+      if(costSplit[1] == undefined){
+        costSplit[1] = '00';
+      }
+
+      if(levySplit[1] == undefined){
+        levySplit[1] = '00';
+      }
+
+      document.getElementById("monthcost").innerHTML = '<span class="realNum">$</span>' + (costSplit[0]) + '<span class="realNum" style = "bottom: 18px; position: relative;">.' + String(costSplit[1]).substring(0,2) + '</span>';
+      document.getElementById("monthsum").innerHTML = '<span class="">' + (sumSplit[0]) + '</span>' + '<span style = "bottom: 18px; position: relative; font-size: 15px;">.' +  String(sumSplit[1]).substring(0,2) + '</span>' + ' kWh';
       document.getElementById("monthcarbon").innerHTML = (electricaldata[k] * 0.82).toFixed(2);
+
+      var percent = ((electricaldata[k]/sum) * 100).toFixed(2);
+      const bars = document.getElementsByClassName("bar");
+
+      if(percent < 33){
+        var child = bars[0].childNodes;
+        child[1].style.width = percent + '%';
+        var child1 = bars[1].childNodes;
+        child1[1].style.width = 0;
+        var child2 = bars[2].childNodes;
+        child2[1].style.width = 0;
+      }
+      if(percent > 33 && percent < 66){
+        var child = bars[0].childNodes;
+        child[1].style.width = '100%';
+        var child1 = bars[1].childNodes;
+        child1[1].style.width = percent + '%';
+        var child2 = bars[2].childNodes;
+        child2[1].style.width = 0;
+      }
+      if(percent > 66){
+        var child = bars[0].childNodes;
+        child[1].style.width = '100%';
+        var child1 = bars[1].childNodes;
+        child1[1].style.width = '100%';
+        var child2 = bars[2].childNodes;
+        child2[1].style.width = percent + '%';
+      }
+
     }
   }
 }
 
 </script>
-<script src="{{url_for('static',filename='scripts/file.js')}}"></script>
+    <script>let yearsFun = true;
+let monthsFun = false;
+const toggleClassActive = () => {
+  const btns = document.querySelectorAll(".monthYear > span");
+  const shwoCurrent = document.querySelector(".showCurrent");
+  const yearView = document.querySelector(".year-view");
+  const monthView = document.querySelector(".month-view");
+
+  btns.forEach((item, index) => {
+    item.addEventListener("click", () => {
+      for (let i = 0; i < btns.length; i++) {
+        btns[i].classList.remove("active");
+      }
+      if (index === 1) {
+        //month
+        shwoCurrent.classList.add("adjust");
+        monthView.classList.add("active");
+        yearView.classList.remove("active");
+        yearsFun = false;
+        monthsFun = true;
+      } else {
+        //year
+        shwoCurrent.classList.remove("adjust");
+        monthView.classList.remove("active");
+        yearView.classList.add("active");
+        yearsFun = true;
+        monthsFun = false;
+      }
+      item.classList.add("active");
+    });
+  });
+};
+toggleClassActive();
+
+const convertNumToSub = (classEl, parentElClass) => {
+  const txt = document.querySelectorAll(classEl);
+  const prentItem = document.querySelectorAll(parentElClass);
+
+  txt.forEach((item, index) => {
+    const indexNum = item.textContent.indexOf(".");
+    const firstTxt = item.textContent.substring(0, indexNum);
+    const subTxt = item.textContent.substring(indexNum + 1);
+    prentItem[
+      index
+    ].innerHTML = `<span class="usdsign">$</span> ${firstTxt}<sup>${
+      "." + subTxt
+    }</sup>`;
+  });
+};
+
+convertNumToSub(".realNum", ".cost-result");
+convertNumToSub(".realNum-usage", ".usage-result");
+//Implement Carouel
+
+const years = [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026];
+
+
+const carouselYears = () => {
+  const yearData = document.querySelector(".yearData");
+  const yearName = document.querySelector(".yearName");
+  const leftBtn = document.querySelector(".btn-left");
+  const rightBtn = document.querySelector(".btn-right");
+  let currentItem = 0;
+  rightBtn.addEventListener("click", (e) => {
+    if (yearsFun) {
+      if (currentItem < years.length - 1 ) {
+        currentItem++;
+
+        yearData.textContent = years[currentItem];
+        yearName.textContent = years[currentItem];
+      }
+    }
+  });
+  leftBtn.addEventListener("click", () => {
+    if (yearsFun) {
+      if (currentItem > 0) {
+        currentItem--;
+        yearData.textContent = years[currentItem];
+        
+      } else {
+        currentItem = 0;
+      }
+    }
+  });
+};
+carouselYears();
+
+const carouselMonth = () => {
+  const leftBtn = document.querySelector(".btn-left");
+  const rightBtn = document.querySelector(".btn-right");
+  const month = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  let curremtMonth = 0;
+  const monthName = document.querySelector('.monthName')
+
+  rightBtn.addEventListener("click", () => {
+    if (monthsFun) {
+        if (curremtMonth < month.length - 1 ) {
+            curremtMonth++;
+    
+            monthName.textContent = month[curremtMonth];
+            monthName.textContent = month[curremtMonth];
+          }
+    }
+    getMonthData();
+  });
+  leftBtn.addEventListener("click", () => {
+    if (monthsFun) {
+      if (curremtMonth > 0) {
+        curremtMonth--;
+        monthName.textContent = month[curremtMonth];
+        
+      } else {
+        curremtMonth = 0;
+      }
+    }
+      getMonthData();
+  });
+};
+
+carouselMonth();
+
+
+</script>
