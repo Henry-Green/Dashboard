@@ -325,7 +325,7 @@ body {
   background: #3649A8;
   border-radius: 0px 12px 12px 0px;
   position: absolute;
-  right: -24px;
+  right: -65px;
   top: 29px;
   padding: 12px 0;
 }
@@ -657,7 +657,12 @@ body {
 }
 .Electrical-history .inventory__components__container .Bill-Breakdown {
   flex-grow: 1;
-  margin-top: 23px;
+  margin-left: 40px;
+  bottom: 90px;
+  padding-top: 80px;
+  position: relative;
+  height: 98vh;
+  border-left: 1px solid #ECE9F1;
 }
 .Electrical-history .inventory__components__container .Bill-Breakdown p.billbreakdown-side {
   color: #0D1758;

@@ -144,6 +144,7 @@ p {
   height: 96vh;
   margin-top: 20px;
   margin: 2vh auto;
+  
 }
 .inventory-page .inventory__sidebar {
   height: 100%;
@@ -252,7 +253,7 @@ p {
 }
 .inventory-page .inventory__components__container .electricity-flex {
   font-family: var(--font-family-averta_cy-bold);
-
+  max-width: 1200px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
