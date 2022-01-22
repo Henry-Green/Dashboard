@@ -827,6 +827,17 @@ def electricalgraph():
 @commercial.route('/inventory', methods=['GET', 'POST'])
 @login_required
 def inventory():
+    buildingid = 'ce736d20'
+    numLights = 0
+    totalWatts = 0
+    BTUTotal = 0
+    ChillerTons = 0
+    DHWTons = 0
+    PlugTons = 0
+    numHvac = 0
+    numPlugs = 0
+    numDHW = 0
+
     mydb = mysql.connector.connect(
           host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
           user="admin",
@@ -834,9 +845,54 @@ def inventory():
           database="db_mysql_sustainergy_alldata"
         )
     mycursor = mydb.cursor()
+    sql = "SELECT items_st_quantity FROM Items WHERE items_building_id = %s AND Items_type = 'Lighthing'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    lightlist = []
+    for result in myresult:
+        lightlist.append(result[0])
+    for light in lightlist:
+        numLights += int(light)   
 
+    sql = "SELECT items_st_quantity FROM Items WHERE items_building_id = %s AND items_subtype = 'Heathing'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    hvacList = []
+    for result in myresult:
+        hvacList.append(result[0])
+    for light in hvacList:
+        numHvac += int(light) 
 
-    return render_template('inventory.html')
+    sql = "SELECT items_st_quantity FROM Items WHERE items_building_id = %s AND items_subtype = 'Plug Loads'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    plugList = []
+    for result in myresult:
+        plugList.append(result[0])
+    for light in plugList:
+        numPlugs += int(light) 
+
+    sql = "SELECT items_st_quantity FROM Items WHERE items_building_id = %s AND items_subtype = 'DHW'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    DHWList = []
+    for result in myresult:
+        DHWList.append(result[0])
+    for light in DHWList:
+        numDHW += int(light) 
+
+    sql = "SELECT cooling_unit_output FROM cooling WHERE cooling_building_id = %s"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    numChiller = len(myresult)
+
+    return render_template('inventory.html',PlugTons = PlugTons,DHWTons=DHWTons,ChillerTons = ChillerTons,BTUTotal = BTUTotal, numLights = numLights, numHvac = numHvac , numPlugs = numPlugs, numDHW = numDHW, numChiller = numChiller, totalWatts = totalWatts)
+
 
 @commercial.route('/', methods=['GET', 'POST'])
 @commercial.route('/datastream', methods=['GET', 'POST'])
