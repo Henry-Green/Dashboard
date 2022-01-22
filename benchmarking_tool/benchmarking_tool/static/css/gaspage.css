@@ -142,6 +142,7 @@ p {
   height: 96vh;
   margin-top: 20px;
   margin: 2vh auto;
+  
 }
 .inventory-page .inventory__sidebar {
   height: 100%;
@@ -251,6 +252,7 @@ p {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  max-width: 1200px;
 }
 .inventory-page .inventory__components__container .GN-flex > div {
   margin-bottom: 20px;
