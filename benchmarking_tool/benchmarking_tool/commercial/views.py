@@ -824,6 +824,46 @@ def electricalgraph():
 
     return render_template('electricalgraph.html', form = form, electricaldata = electricaldata, gasdata= gasdata)
         
+@commercial.route('/lighting', methods=['GET', 'POST'])
+@login_required
+def lighting():
+    buildingid = 'ce736d20'
+    numHighBays = 0
+    num1x4 = 0
+    num2x4 = 0
+    numWallPack = 0
+    numSpotLights = 0
+    numLinears = 0
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT items_st_quantity, items_st_consolidate_sub_type FROM Items WHERE items_building_id = %s AND Items_type = 'Lighthing'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    print(myresult)
+    for result in myresult:
+        if 'High Bay' in result[1]:
+            numHighBays += int(result[0])
+        if '1x4' in result[1]:
+            num1x4 += int(result[0])  
+        if '2x4' in result[1]:
+            num2x4 += int(result[0])  
+        if 'Wall Pack' in result[1]:
+            numWallPack += int(result[0])  
+        if 'Spotlight' in result[1]:
+            numSpotLights += int(result[0])  
+        if 'Linear' in result[1]:
+            numLinears += int(result[0])  
+  
+
+    return render_template('lighting.html' , numHighBays = numHighBays, num1x4=num1x4,num2x4=num2x4,numWallPack=numWallPack,numSpotLights=numSpotLights,numLinears=numLinears)
+
+
 @commercial.route('/inventory', methods=['GET', 'POST'])
 @login_required
 def inventory():
@@ -853,7 +893,35 @@ def inventory():
     for result in myresult:
         lightlist.append(result[0])
     for light in lightlist:
-        numLights += int(light)   
+        numLights += int(light)  
+
+    sql = "SELECT items_id FROM Items WHERE items_building_id = %s AND Items_type = 'Lighthing'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    itemidlist = []
+    for result in myresult:
+        itemidlist.append(result[0])
+
+    format_strings = ','.join(['%s'] * len(itemidlist))
+    sql = "SELECT watts_per_lamp FROM lighting WHERE item_id IN (%s)" % format_strings, tuple(itemidlist)
+    mycursor.execute("SELECT watts_per_lamp,item_id FROM lighting WHERE item_id IN (%s)" % format_strings, tuple(itemidlist))
+    myresult = mycursor.fetchall()
+    print(myresult)
+    lightingwatts = []
+    lightingid = []
+    for result in myresult:
+        lightingwatts.append(result[0])
+        lightingid.append(result[1])
+    for i in range(0,len(itemidlist)):
+        lightingid.append(0)
+
+    for i in range(0, len(lightlist)):
+        if itemidlist[i] == lightingid[i]:
+            totalWatts += float(lightlist[i]) * float(lightingwatts[i])
+        else:
+            totalWatts += float(lightlist[i]) * 57
+    
 
     sql = "SELECT items_st_quantity FROM Items WHERE items_building_id = %s AND items_subtype = 'Heathing'"
     val = (buildingid,)
@@ -864,6 +932,9 @@ def inventory():
         hvacList.append(result[0])
     for light in hvacList:
         numHvac += int(light) 
+
+    for hvac in hvacList:
+        BTUTotal += float(hvac) * 120000
 
     sql = "SELECT items_st_quantity FROM Items WHERE items_building_id = %s AND items_subtype = 'Plug Loads'"
     val = (buildingid,)
