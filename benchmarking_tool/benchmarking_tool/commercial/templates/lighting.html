@@ -285,40 +285,40 @@
                       <ul>
                         <li class="active">
                           <img src="{{url_for('static',filename='img/highbaymetal.png')}}" alt="highbaymetal" />
-                          <p class="name">Lighting</p>
-                          <p><span class="num">{{numLights}}</span> fixtures</p>
+                          <p class="name">Highbay</p>
+                          <p><span class="num">{{numHighBays}}</span> Fixtures</p>
                           <p>{{totalWatts}} watts</p>
                         </li>
                         <li>
-                          <img src="{{url_for('static',filename='img/Commercial-Motor3.png')}}" alt="highbaymetal" />
-                          <p class="name">Motors</p>
-                          <p>0 Motors</p>
+                          <img src="{{url_for('static',filename='img/1x4.png')}}" alt="highbaymetal" />
+                          <p class="name">1X4 <br>Troffer</p>
+                          <p>{{num1x4}} Fixtures</p>
                           <p>0 HP</p>
                         </li>
                         <li>
-                          <img src="{{url_for('static',filename='img/Air-Handling.png')}}" alt="Air-Handling" />
-                          <p class="name">HVAC</p>
-                          <p>{{numHvac}} Units</p>
+                          <img src="{{url_for('static',filename='img/2x4.png')}}" alt="Air-Handling" />
+                          <p class="name">2X4 <br> Troffer</p>
+                          <p>{{num2x4}} Fixtures</p>
                           <p>{{BTUTotal}} BTU</p>
                         </li>
                        
                         <li>
-                          <img src="{{url_for('static',filename='img/ice-plant.png')}}" alt="ice-plant" />
-                          <p class="name">Chiller</p>
-                          <p>{{numChiller}} Units</p>
+                          <img src="{{url_for('static',filename='img/wallpack.png')}}" alt="ice-plant" />
+                          <p class="name">Wallpack</p>
+                          <p>{{numWallPack}} Fixtures</p>
                           <p>{{ChillerTons}} Tons</p>
                         </li>
                         <li>
-                          <img src="{{url_for('static',filename='img/Hot-water-tank-big.png')}}" alt="ice-plant" />
-                          <p class="name">DHW</p>
-                          <p>{{numDHW}} Units</p>
-                          <p>{{DHWTons}} Tons</p>
+                          <img src="{{url_for('static',filename='img/linears.png')}}" alt="ice-plant" />
+                          <p class="name">Linears</p>
+                          <p>{{numLinears}} Fixtures</p>
+                          <p>{{ChillerTons}} Tons</p>
                         </li>
                         <li>
-                          <img src="{{url_for('static',filename='img/big-plug.png')}}" alt="ice-plant" />
-                          <p class="name">Plug Load</p>
-                          <p>{{numPlugs}} Units</p>
-                          <p>{{PlugTons}} Tons</p>
+                          <img src="{{url_for('static',filename='img/spotlights.png')}}" alt="ice-plant" />
+                          <p class="name">Spot Lights</p>
+                          <p>{{numSpotLights}} Fixtures</p>
+                          <p>{{ChillerTons}} Tons</p>
                         </li>
                       </ul>
                     </div>
@@ -331,34 +331,33 @@
                         <div class="columns">
                           <div class="column">
                             <span></span>
-                            <img src="{{url_for('static',filename='img/Hot-water-tank.png')}}" alt="Hot-Water-Tank">
-                            <p class="title">DHW</p>
+                            <img src="{{url_for('static',filename='img/1x4.png')}}" alt="Hot-Water-Tank">
+                            <p class="title">1x4 <br> Troffer</p>
                           </div>
                           <div class="column">
                             <span></span>
-                            <img src="{{url_for('static',filename='img/plug.png')}}" alt="Plug-Load">
-                            <p class="title">Plug-Load</p>
+                            <img src="{{url_for('static',filename='img/spotlights.png')}}" alt="Plug-Load">
+                            <p class="title">Spot Lights</p>
                           </div>
                           <div class="column">
                             <span></span>
-                            <img src="{{url_for('static',filename='img/Commercial-Motor.png')}}" alt="Plug-Load">
-                            <p class="title">Pump/
-                              Motor</p>
+                            <img src="{{url_for('static',filename='img/wallpack.png')}}" alt="Plug-Load">
+                            <p class="title">WallPack</p>
                           </div>
                           <div class="column">
                             <span></span>
-                            <img src="{{url_for('static',filename='img/Air-Hnadling-unit.png')}}" alt="Plug-Load">
-                            <p class="title">HVAC</p>
+                            <img src="{{url_for('static',filename='img/2x4.png')}}" alt="Plug-Load">
+                            <p class="title">2x4 <br> Troffer</p>
                           </div>
                           <div class="column">
                             <span></span>
-                            <img src="{{url_for('static',filename='img/highbaymetal-small.png')}}" alt="highbaymetal">
-                            <p class="title">Lights</p>
+                            <img src="{{url_for('static',filename='img/linears.png')}}" alt="highbaymetal">
+                            <p class="title">Linears</p>
                           </div>
                           <div class="column">
                             <span></span>
-                            <img src="{{url_for('static',filename='img/ice-plant-small.png')}}" alt="ice-plant">
-                            <p class="title">Chiller</p>
+                            <img src="{{url_for('static',filename='img/highbaymetal.png')}}" alt="ice-plant">
+                            <p class="title">Highbays</p>
                           </div>
                         </div>
                       </div>
@@ -369,9 +368,9 @@
                     <div class="part-1">
                    <ul>
                      <li>
-                       <a href="{{url_for('commercial.lighting')}}">
+                       <a href="#">
                          <img src="{{url_for('static',filename='img/highbaymetal-small.png')}}" alt="highbaymetal">
-                         <p class="title">Lighting</p>
+                         <p class="title">Highbay</p>
                          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <g clip-path="url(#clip0_252_510)">
                           <path d="M18.6665 14L11.6665 7L10.0215 8.645L15.3648 14L10.0215 19.355L11.6665 21L18.6665 14Z" fill="#C3C3C3"/>
@@ -387,8 +386,8 @@
                      </li>
                      <li>
                       <a href="#">
-                        <img src="{{url_for('static',filename='img/Commercial-Motor.png')}}" alt="Commercial-Motor">
-                        <p class="title">Motors</p>
+                        <img src="{{url_for('static',filename='img/1x4small.png')}}" alt="Commercial-Motor">
+                        <p class="title">1x4 <br> Troffer</p>
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                          <g clip-path="url(#clip0_252_510)">
                          <path d="M18.6665 14L11.6665 7L10.0215 8.645L15.3648 14L10.0215 19.355L11.6665 21L18.6665 14Z" fill="#C3C3C3"/>
@@ -404,8 +403,8 @@
                     </li>
                     <li>
                       <a href="#">
-                        <img src="{{url_for('static',filename='img/Air-Hnadling-unit.png')}}" alt="Commercial-Motor">
-                        <p class="title">HVAC</p>
+                        <img src="{{url_for('static',filename='img/2x4small.png')}}" alt="Commercial-Motor">
+                        <p class="title">2x4 <br> Troffer</p>
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                          <g clip-path="url(#clip0_252_510)">
                          <path d="M18.6665 14L11.6665 7L10.0215 8.645L15.3648 14L10.0215 19.355L11.6665 21L18.6665 14Z" fill="#C3C3C3"/>
@@ -421,8 +420,8 @@
                     </li>
                     <li>
                       <a href="#">
-                        <img src="{{url_for('static',filename='img/ice-plant-small.png')}}" alt="Commercial-Motor">
-                        <p class="title">Chiller</p>
+                        <img src="{{url_for('static',filename='img/wallpacksmall.png')}}" alt="Commercial-Motor">
+                        <p class="title">Wallpack</p>
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                          <g clip-path="url(#clip0_252_510)">
                          <path d="M18.6665 14L11.6665 7L10.0215 8.645L15.3648 14L10.0215 19.355L11.6665 21L18.6665 14Z" fill="#C3C3C3"/>
@@ -438,8 +437,8 @@
                     </li>
                     <li>
                       <a href="#">
-                        <img src="{{url_for('static',filename='img/Hot-water-tank.png')}}" alt="Commercial-Motor">
-                        <p class="title">DHW</p>
+                        <img src="{{url_for('static',filename='img/spotlightssmall.png')}}" alt="Commercial-Motor">
+                        <p class="title">Spot Lights</p>
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                          <g clip-path="url(#clip0_252_510)">
                          <path d="M18.6665 14L11.6665 7L10.0215 8.645L15.3648 14L10.0215 19.355L11.6665 21L18.6665 14Z" fill="#C3C3C3"/>
@@ -455,8 +454,8 @@
                     </li>
                     <li>
                       <a href="#">
-                        <img src="{{url_for('static',filename='img/plug.png')}}" alt="Commercial-Motor">
-                        <p class="title">Plug Load</p>
+                        <img src="{{url_for('static',filename='img/linearssmall.png')}}" alt="Commercial-Motor">
+                        <p class="title">Linears</p>
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                          <g clip-path="url(#clip0_252_510)">
                          <path d="M18.6665 14L11.6665 7L10.0215 8.645L15.3648 14L10.0215 19.355L11.6665 21L18.6665 14Z" fill="#C3C3C3"/>
