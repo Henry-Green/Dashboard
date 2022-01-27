@@ -746,6 +746,13 @@ def solarpage():
 
     return render_template('solarpage.html')
 
+@commercial.route('/solarproduction', methods=['GET', 'POST'])
+@login_required
+def solarproduction():
+
+
+    return render_template('solarproduction.html')
+
 @commercial.route('/electricalgraph', methods=['GET', 'POST'])
 @login_required
 def electricalgraph():
