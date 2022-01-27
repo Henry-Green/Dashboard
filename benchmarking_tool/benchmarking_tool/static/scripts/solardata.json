@@ -1,0 +1,514 @@
+{
+  "twlveAM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 25,
+        "status": "ON"
+      },
+      "dataWeather":{
+        "hour":"12am",
+        "degree" : "-2",
+        "kwh":"11.3",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":6.13
+        
+      }
+    }
+  ],
+  "oneAM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 35,
+        "status": "ON"
+      },
+      "dataWeather":{
+        "hour":"1am",
+        "degree" : "-2",
+        "kwh":"21.8",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":7.18
+        
+      }
+    }
+  ],
+  "twoAM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 35,
+        "status": "ON"
+      },
+      "dataWeather":{
+        "hour":"2am",
+        "degree" : "-2",
+        "kwh":"51.2",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":10.12
+        
+      }
+      
+    }
+  ],
+  "threeAM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 35,
+        "status": "ON"
+      },
+      "dataWeather":{
+        "hour":"3am",
+        "degree" : "-2",
+        "kwh":"62.6",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":11.26
+        
+      }
+    }
+  ],
+  "fourAM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 35,
+        "status": "ON"
+      },
+      "dataWeather":{
+        "hour":"4am",
+        "degree" : "-2",
+        "kwh":"79.4",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":12.94
+        
+      }
+    }
+  ],
+  "fiveAM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 35,
+        "status": "ON"
+      },
+      "dataWeather":{
+        "hour":"5am",
+        "degree" : "-2",
+        "kwh":"91.4",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":14.14
+        
+      }
+    }
+  ],
+  "sixAM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 35,
+        "status": "ON"
+      },
+      
+      "dataWeather":{
+        "hour":"6am",
+        "degree" : "-2",
+        "kwh":"101.9",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":15.19
+        
+      }
+    }
+  ],
+  "sevenAM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 35,
+        "status": "ON"
+      },
+      "dataWeather":{
+        "hour":"7am",
+        "degree" : "-2",
+        "kwh":"91.2",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":14.12
+        
+      }
+    }
+  ],
+  "eightAM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 35,
+        "status": "ON"
+      },
+      "dataWeather":{
+        "hour":"8am",
+        "degree" : "-2",
+        "kwh":"98.4",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":14.84
+        
+      }
+    }
+  ],
+  "nineAM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 35,
+        "status": "ON"
+      },
+      "dataWeather":{
+        "hour":"9am",
+        "degree" : "-2",
+        "kwh":"83.4",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":13.34
+        
+      }
+    }
+  ],
+  "tenAM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 35,
+        "status": "ON"
+      },
+      "dataWeather":{
+        "hour":"10am",
+        "degree" : "-2",
+        "kwh":"69.6",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":11.96
+        
+      }
+    }
+  ],
+  "elevenPM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 35,
+        "status": "ON"
+      },
+      "dataWeather":{
+        "hour":"11am",
+        "degree" : "-2",
+        "kwh":"72.3",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":12.23
+        
+      }
+    }
+  ],
+  "twlvePM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 35,
+        "status": "ON"
+      },
+      "dataWeather":{
+        "hour":"12pm",
+        "degree" : "-2",
+        "kwh":"55.1",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":10.51
+        
+      }
+    }
+  ],
+  "onePM": [
+    {
+      "consumption": {
+        "value": 42,
+        "status": "ON"
+      },
+      "production": {
+        "value": 38,
+        "status": "ON"
+      },
+      "dataWeather":{
+        "hour":"1pm",
+        "degree" : "-2",
+        "kwh":"48.3",
+        
+        "icon":"<img src='/static/img/full-sun.png'/>",
+        "value":9.83
+        
+      }
+    }
+  ],
+  "twoPM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 35,
+        "status": "ON"
+      },
+      "dataWeather":{
+        "hour":"2pm",
+        "degree" : "-2",
+        "kwh":"60.8",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":11.08
+        
+      }
+    }
+  ],
+  "threePM": [
+    {
+      "consumption": {
+        "value": 20,
+        "status": "ON"
+      },
+      "production": {
+        "value": 55,
+        "status": "ON"
+      },
+      
+      "dataWeather":{
+        "hour":"3pm",
+        "degree" : "-2",
+        "kwh":"72.3",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":12.23
+        
+      }
+    }
+  ],
+  "fourPM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 65,
+        "status": "ON"
+      },
+      "dataWeather":{
+        "hour":"4pm",
+        "degree" : "-2",
+        "kwh":"65.8",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":11.58
+        
+      }
+    }
+  ],
+
+  "fivePM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 60,
+        "status": "ON"
+      },
+      "dataWeather":{
+        "hour":"5pm",
+        "degree" : "-2",
+        "kwh":"59.9",
+        
+        "icon":"<img src='/static/img/sun-2.png'/>",
+        "value":10.99
+        
+      }
+    }
+  ],
+  "sixPM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 35,
+        "status": "ON"
+      },
+      "dataWeather":{
+        "hour":"6pm",
+        "degree" : "-2",
+        "kwh":"42.4",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":12.24
+        
+      }
+    }
+  ],
+  "sevenPM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 65,
+        "status": "ON"
+      },
+      "dataWeather":{
+        "hour":"7pm",
+        "degree" : "-2",
+        "kwh":"28.6",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":8.86
+        
+      }
+    }
+  ],
+  "eightPM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 35,
+        "status": "ON"
+      },
+      
+      "dataWeather":{
+        "hour":"8pm",
+        "degree" : "-2",
+        "kwh":"26.3",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":8.63
+        
+      }
+    }
+  ],
+  "ninePM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 35,
+        "status": "ON"
+      },
+      
+      "dataWeather":{
+        "hour":"9pm",
+        "degree" : "-2",
+        "kwh":"20.1",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":8.01
+        
+      }
+    }
+  ],
+
+  "tenPM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 35,
+        "status": "ON"
+      },
+      "dataWeather":{
+        "hour":"10pm",
+        "degree" : "-2",
+        "kwh":"17.5",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":6.75
+        
+      }
+    }
+  ],
+  "elevnPM": [
+    {
+      "consumption": {
+        "value": 10,
+        "status": "ON"
+      },
+      "production": {
+        "value": 35,
+        "status": "ON"
+      }
+      ,
+      "dataWeather":{
+        "hour":"11pm",
+        "degree" : "-2",
+        "kwh":"10",
+        
+        "icon":"<img src='/static/img/snow.png'/>",
+        "value":6.0
+        
+      }
+    }
+  ]
+}
