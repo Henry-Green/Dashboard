@@ -89,6 +89,9 @@ import mysql.connector
 from collections import Counter, defaultdict
 from calendar import monthrange
 import calendar
+from random import randint
+
+
 #for photo upload
 commercial = Blueprint('commercial',__name__,template_folder='templates')
 app_root = Path(__file__).parents[1]
@@ -750,8 +753,90 @@ def solarpage():
 @login_required
 def solarproduction():
 
+    square_footage = 209040
+    panel_sqft = 19.5
+    solar_pannel_wattage = 400
+    hours_of_sunlight = randint(3, 18)
+    kwh_price = 0.09
+
+
+    
+    a_file =  open('benchmarking_tool/static/scripts/solardata.json', 'r')
+    json_object = json.load(a_file)
+    a_file.close()
+
+    hourslist = ['twlveAM','oneAM','twoAM','threeAM','fourAM','fiveAM','sixAM','sevenAM','eightAM','nineAM','tenAM','elevenPM','twlvePM','onePM','twoPM','threePM','fourPM','fivePM','sixPM','sevenPM','eightPM','ninePM','tenPM','elevnPM']
+    hournumberlist = ['12am', '1am', '2am','3am','4am','5am','6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm','9pm','10pm','11pm']
+    print(json_object['twlveAM'])
+
+    k = 0
+    over12 = False
+    for i in range(0,len(hourslist)):
+        for thing in json_object[hourslist[i]]:
+            hours_of_sunlight = randint(1, k + 1)
+            solarcalc = solar_calc(square_footage,panel_sqft,solar_pannel_wattage,hours_of_sunlight,kwh_price)
+            thing['dataWeather'] = {"hour":hournumberlist[i],"degree" : "-2","kwh":solarcalc['power generated']/1000,"icon":"<img src='/static/img/snow.png'/>","value":solarcalc['power generated']/5000}
+            if k > 12:
+                k -= 1
+                over12 = True
+            elif k <= 12 and over12 == False:
+                k += 1
+            else:
+                k -= 1
+            thing['consumption'] = {'value': solarcalc['power generated']/1000, 'status': 'ON'}
+    a_file = open('benchmarking_tool/static/scripts/solardata.json', "w")
+    json.dump(json_object, a_file)
+    a_file.close()
 
     return render_template('solarproduction.html')
+
+
+
+
+
+def solar_calc(square_footage, panel_sqft, solar_pannel_wattage, hours_of_sunlight, kwh_price):
+
+        '''
+        average number of sunny days in alberta is here: https://www.currentresults.com/Weather/Canada/Alberta/sunshine-annual-average.php
+        sunny days in alberta = 330ish and average sunny hours is 2400
+
+        also need average price of a pannel in alberta 
+
+        average size of solar pannel is 19.5 square feet: https://www.paradisesolarenergy.com/blog/how-many-solar-panels-do-i-need
+
+
+        graph of solar capacity for price: https://kubyenergy.ca/blog/the-cost-of-solar-panels
+        uing the economic of solar energy graph but treat it as a linear function we get 
+        cost = 2000(solar capacity kW) + 1500
+        '''
+
+        if square_footage == None:
+            return None
+        
+        # need to get solar capacity 
+
+        number_of_pannels = square_footage // panel_sqft # sqrfootage of a solar pannel 
+
+        # average solar pannel generates around 400W of power https://kubyenergy.ca/blog/the-complete-guide-to-installing-solar-panels-in-alberta#:~:text=The%20average%20home%20in%20Alberta,cover%20their%20annual%20energy%20needs.
+
+        solar_capacity_kw = (number_of_pannels * solar_pannel_wattage)/ 1000
+
+        price = 2000 * solar_capacity_kw + 1500 
+
+        power_generated_year = solar_capacity_kw * hours_of_sunlight
+
+        power_savings = power_generated_year * kwh_price
+
+        roi = price / power_generated_year * kwh_price
+
+        r = {}
+
+        r['solar capacity'] = solar_capacity_kw
+        r['power generated'] = power_generated_year
+        r['savings'] = power_savings
+        r['roi'] = roi
+        
+        return r
 
 @commercial.route('/electricalgraph', methods=['GET', 'POST'])
 @login_required
