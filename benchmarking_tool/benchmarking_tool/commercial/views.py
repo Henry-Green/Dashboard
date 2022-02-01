@@ -509,12 +509,29 @@ def get_seconds(minute, channel_names,serial_number):
     return seconds_df
 
 
+@commercial.route('/', methods=['GET', 'POST'])
 @commercial.route('/facilityoverview', methods=['GET', 'POST'])
 @login_required
 def facilityoverview():
     if(current_user.is_authenticated and current_user.is_admin()):
         channel_name = ['Dryer', 'Dryer', 'washer', 'car wash GFI Receptacle', 'Exterior receptacle' , 'Tube Heaters', 'Carwash GFI Receptacle', 'exterior receptacle' , 'SAPRE to car wash', 'wash bay door and heat' , 'wash bay door and heat' , 'wash bay door and heat' , 'wash bay receptacle' , 'car wash exhaust fan', 'exterior receptacle' , 'wash bay receptacle','paint booth lights', 'paint booth air dryers', 'paint booth air dryers', 'counter receptacle', 'counter receptacle', 'microwave' , 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'water heater' , 'mezzanine receptacle' , 'water softener and DHW', 'lunch room lights' ]
-        serial_numbers = current_user.phone_number
+        client_id = current_user.phone_number
+        building_id = 'ce736d20'
+
+        mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+
+        mycursor = mydb.cursor()
+        sql = "SELECT emporia_meter_sn_1 FROM electrical_panel WHERE panel_client_id = %s AND building_id = %s"
+        mycursor.execute(sql,(client_id,building_id))
+        myresult = mycursor.fetchall()
+        for x in myresult:
+            serial_numbers = ','.join(x)
+
         total = 0
         totalprice = 0
         last = []
@@ -1170,7 +1187,14 @@ def historicalusage():
         today = date.today()
         userdate = (today - timedelta(days = 1)).strftime('%Y-%m-%d') + '%'
         form = HistoricalUsageForm()
-        serial_numbers = current_user.phone_number
+        client_id = current_user.phone_number
+        panel_building_id = 'ce736d20'
+        mycursor = mydb.cursor()
+        sql = "SELECT emporia_meter_sn_1 FROM electrical_panel WHERE panel_client_id = %s AND building_id = %s"
+        mycursor.execute(sql,(client_id,panel_building_id))
+        myresult = mycursor.fetchall()
+        for x in myresult:
+            serial_numbers = ','.join(x)
         serial_list = serial_numbers.split()
         mycursor = mydb.cursor()
         if request.method == "POST":
@@ -1443,6 +1467,7 @@ def historicalusage():
         
         period = []
         typegraph = []
+        jsondictionary = {}
 
         for i in range(0,24):
             if i < int(starthours):
@@ -1465,7 +1490,7 @@ def historicalusage():
                 "period": period[i]
             }
             jsondictionarylist.append(jsondictionary)
-        with open('static/scripts/data.json', 'w') as f:
+        with open('benchmarking_tool/static/scripts/data.json', 'w') as f:
             json.dump(jsondictionarylist, f)
 
         return render_template('historicalusage.html',endhours = endhours, starthours = starthours, weeklabels = weeklabels, last_week_cd = last_week_full,predicted_line = predicted_line,error = error, timeloadscolours = timeloadscolours,alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
