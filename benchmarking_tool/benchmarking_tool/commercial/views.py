@@ -1490,7 +1490,7 @@ def historicalusage():
                 "period": period[i]
             }
             jsondictionarylist.append(jsondictionary)
-        with open('benchmarking_tool/static/scripts/data.json', 'w') as f:
+        with open('static/scripts/data.json', 'w') as f:
             json.dump(jsondictionarylist, f)
 
         return render_template('historicalusage.html',endhours = endhours, starthours = starthours, weeklabels = weeklabels, last_week_cd = last_week_full,predicted_line = predicted_line,error = error, timeloadscolours = timeloadscolours,alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
