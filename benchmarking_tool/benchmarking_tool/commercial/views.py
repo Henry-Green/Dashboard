@@ -971,7 +971,43 @@ def lighting():
   
 
     return render_template('lighting.html' , numHighBays = numHighBays, num1x4=num1x4,num2x4=num2x4,numWallPack=numWallPack,numSpotLights=numSpotLights,numLinears=numLinears)
+@commercial.route('/troffer2x4', methods=['GET', 'POST'])
+@login_required
+def troffer2x4():
+    buildingid = 'ce736d20'
+    numHighBays = 0
+    num1x4 = 0
+    num2x4 = 0
+    numWallPack = 0
+    numSpotLights = 0
+    numLinears = 0
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT items_st_quantity, items_st_consolidate_sub_type FROM Items WHERE items_building_id = %s AND Items_type = 'Lighthing'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    print(myresult)
+    for result in myresult:
+        if 'High Bay' in result[1]:
+            numHighBays += int(result[0])
+        if '1x4' in result[1]:
+            num1x4 += int(result[0])  
+        if '2x4' in result[1]:
+            num2x4 += int(result[0])  
+        if 'Wall Pack' in result[1]:
+            numWallPack += int(result[0])  
+        if 'Spotlight' in result[1]:
+            numSpotLights += int(result[0])  
+        if 'Linear' in result[1]:
+            numLinears += int(result[0])  
 
+    return render_template('troffer2x4.html', num2x4 = num2x4)
 
 @commercial.route('/inventory', methods=['GET', 'POST'])
 @login_required
