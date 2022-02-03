@@ -786,3 +786,14 @@ font-family: var(--font-family-averta_cy-bold);
   line-height: 30px;
   top: 180px;
 }
+
+.txt2{
+  color: #293F8A;
+  font-size: 19px;
+  font-family: var(--font-family-averta_cy-bold);
+
+  font-weight: 600;
+  position: relative;
+  left: 20px;
+  top: 20px;
+}
