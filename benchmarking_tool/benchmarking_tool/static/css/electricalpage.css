@@ -237,6 +237,9 @@ p {
   width: calc(100% - 250px);
   padding-left: 30px;
   padding-right: 30px;
+  position: relative;
+  bottom: 40px;
+
 }
 .inventory-page .inventory__components h2 {
   font-family: var(--font-family-averta_cy-bold);
@@ -250,6 +253,8 @@ p {
   border-radius: 10px;
   max-width: 100%;
   padding: 20px 40px;
+  height: 83vh;
+
 }
 .inventory-page .inventory__components__container .electricity-flex {
   font-family: var(--font-family-averta_cy-bold);
@@ -708,3 +713,76 @@ button.logout span:nth-child(2) {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+.light-image{
+  width: 105px;
+  height: 105px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: 170px;
+}
+
+
+.stat-title{
+font-family: var(--font-family-averta_cy-bold);
+
+  font-size: 12px;
+  font-weight: 600;
+  color: #7F7F7F;
+  text-align: right;
+
+}
+
+.stat{
+  font-family: var(--font-family-averta_cy-bold);
+
+  font-size: 35px;
+  font-weight: 600;
+  color: #0d1758;
+  text-align: right;
+}
+
+.stat-block{
+  width: 104px;
+  height: 40px;
+  position: relative;
+  bottom: 190px;
+  left: 100px;
+}
+
+.stat-decimal{
+  font-family: var(--font-family-averta_cy-bold);
+
+  font-size: 18px;
+  font-weight: 600;
+  color: #0d1758;
+  position: relative;
+  left: 55px;
+  top: 35px;
+
+}
+
+.savings{
+  font-family: var(--font-family-averta_cy-bold);
+
+  font-size: 40px;
+  font-weight: 600;
+  color: #22B14C;
+  text-align: center;
+  position: relative;
+  bottom: 70px;
+  line-height: 15px;
+}
+
+.coming-soon{
+   font-family: var(--font-family-averta_cy-bold);
+
+  font-size: 35px;
+  font-weight: 600;
+  color: #7F7F7F;
+  text-align: center;
+  position: relative;
+  line-height: 30px;
+  top: 180px;
+}
