@@ -766,6 +766,13 @@ def solarpage():
 
     return render_template('solarpage.html')
 
+@commercial.route('/solarspecs', methods=['GET', 'POST'])
+@login_required
+def solarspecs():
+    
+
+    return render_template('solarspecs.html')
+
 @commercial.route('/solarproduction', methods=['GET', 'POST'])
 @login_required
 def solarproduction():
