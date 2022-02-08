@@ -4503,7 +4503,7 @@ def dhwindex(id):
 
 @commercial.route('/hvac_index/<int:id>', methods=['GET', 'POST'])
 @login_required
-def hvac(id):
+def hvac_index(id):
     if(current_user.is_authenticated and current_user.is_admin()):
         form = FurnaceForm()
         area = Area.query.get(id)
