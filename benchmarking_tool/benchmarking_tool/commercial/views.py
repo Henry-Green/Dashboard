@@ -510,9 +510,9 @@ def get_seconds(minute, channel_names,serial_number):
 
 
 @commercial.route('/', methods=['GET', 'POST'])
-@commercial.route('/facilityoverview', methods=['GET', 'POST'])
+@commercial.route('/facilityoverview/<building_id>', methods=['GET', 'POST'])
 @login_required
-def facilityoverview():
+def facilityoverview(building_id):
     if(current_user.is_authenticated and current_user.is_admin()):
         channel_name = ['Dryer', 'Dryer', 'washer', 'car wash GFI Receptacle', 'Exterior receptacle' , 'Tube Heaters', 'Carwash GFI Receptacle', 'exterior receptacle' , 'SAPRE to car wash', 'wash bay door and heat' , 'wash bay door and heat' , 'wash bay door and heat' , 'wash bay receptacle' , 'car wash exhaust fan', 'exterior receptacle' , 'wash bay receptacle','paint booth lights', 'paint booth air dryers', 'paint booth air dryers', 'counter receptacle', 'counter receptacle', 'microwave' , 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'water heater' , 'mezzanine receptacle' , 'water softener and DHW', 'lunch room lights' ]
         client_id = current_user.phone_number
@@ -689,17 +689,17 @@ def facilityoverview():
            paneltotal[i] = round(paneltotal[i],2)
            panelpercent[i] = round(panelpercent[i],2)
         print(home_upgrades)
-        return render_template('facilityoverview.html',categoriesdf = categoriesdf,panelpercent = panelpercent, panelcircuits = panelcircuits,circuitcount = circuitcount,paneltotal = paneltotal,panelnames = panelnames,numpanels = numpanels,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,categoryusage = categoryusage, pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last, len = len(home_upgrades.index), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
+        return render_template('facilityoverview.html',building_id = building_id,categoriesdf = categoriesdf,panelpercent = panelpercent, panelcircuits = panelcircuits,circuitcount = circuitcount,paneltotal = paneltotal,panelnames = panelnames,numpanels = numpanels,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,categoryusage = categoryusage, pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last, len = len(home_upgrades.index), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
     else:
         abort(403)
      
-@commercial.route('/liveusage', methods=['GET', 'POST'])
+@commercial.route('/liveusage/<building_id>', methods=['GET', 'POST'])
 @login_required
-def liveusage():
+def liveusage(building_id):
     if(current_user.is_authenticated and current_user.is_admin()):
-        return render_template('liveusage.html')
+        return render_template('liveusage.html',building_id = building_id)
     else:
-        abort(403)    
+        abort(403)
 @commercial.route('/facilityoverviewbubble', methods=['GET', 'POST'])
 @login_required
 def facilityoverviewbubble():
@@ -744,127 +744,52 @@ def facilityoverviewbubble():
         return render_template('facilityoverviewbubble.html')
     else:
         abort(403)
+
+
+
+@commercial.route('/switchfacilities', methods=['GET', 'POST'])
+@login_required
+def switchfacilities():
+    client_id = current_user.phone_number
+    buildingIds = []
+    buildingAddresses = []
+    buildingDescriptions = []
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+
+    mycursor = mydb.cursor()
+    sql = "SELECT idbuildings, address, description FROM buildings WHERE client_id = %s"
         
-@commercial.route('/gaspage', methods=['GET', 'POST'])
+    mycursor.execute(sql,(client_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        buildingIds.append(result[0])
+        buildingAddresses.append(result[1])
+        buildingDescriptions.append(result[2])
+
+    return render_template('switchfacilities.html', buildingIds = buildingIds, buildingAddresses = buildingAddresses, buildingDescriptions = buildingDescriptions, numBuildings = len(buildingIds))
+
+@commercial.route('/gaspage/<building_id>', methods=['GET', 'POST'])
 @login_required
-def gaspage():
+def gaspage(building_id):
 
 
-    return render_template('gaspage.html')
+    return render_template('gaspage.html',building_id = building_id)
 
-@commercial.route('/electricalpage', methods=['GET', 'POST'])
+@commercial.route('/electricalpage/<building_id>', methods=['GET', 'POST'])
 @login_required
-def electricalpage():
+def electricalpage(building_id):
 
 
-    return render_template('electricalpage.html')
-        
-@commercial.route('/solarpage', methods=['GET', 'POST'])
+    return render_template('electricalpage.html',building_id=building_id)
+
+@commercial.route('/electricalgraph/<building_id>', methods=['GET', 'POST'])
 @login_required
-def solarpage():
-
-
-    return render_template('solarpage.html')
-
-@commercial.route('/solarspecs', methods=['GET', 'POST'])
-@login_required
-def solarspecs():
-    
-
-    return render_template('solarspecs.html')
-
-@commercial.route('/solarproduction', methods=['GET', 'POST'])
-@login_required
-def solarproduction():
-
-    square_footage = 209040
-    panel_sqft = 19.5
-    solar_pannel_wattage = 400
-    hours_of_sunlight = randint(3, 18)
-    kwh_price = 0.09
-
-
-    
-    a_file =  open('static/scripts/solardata.json', 'r')
-    json_object = json.load(a_file)
-    a_file.close()
-
-    hourslist = ['twlveAM','oneAM','twoAM','threeAM','fourAM','fiveAM','sixAM','sevenAM','eightAM','nineAM','tenAM','elevenPM','twlvePM','onePM','twoPM','threePM','fourPM','fivePM','sixPM','sevenPM','eightPM','ninePM','tenPM','elevnPM']
-    hournumberlist = ['12am', '1am', '2am','3am','4am','5am','6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm','9pm','10pm','11pm']
-    print(json_object['twlveAM'])
-
-    k = 0
-    over12 = False
-    for i in range(0,len(hourslist)):
-        for thing in json_object[hourslist[i]]:
-            hours_of_sunlight = randint(1, k + 1)
-            solarcalc = solar_calc(square_footage,panel_sqft,solar_pannel_wattage,hours_of_sunlight,kwh_price)
-            thing['dataWeather'] = {"hour":hournumberlist[i],"degree" : "-2","kwh":solarcalc['power generated']/1000,"icon":"<img src='/static/img/snow.png'/>","value":solarcalc['power generated']/5000}
-            if k > 12:
-                k -= 1
-                over12 = True
-            elif k <= 12 and over12 == False:
-                k += 1
-            else:
-                k -= 1
-            thing['consumption'] = {'value': solarcalc['power generated']/1000, 'status': 'ON'}
-    a_file = open('static/scripts/solardata.json', "w")
-    json.dump(json_object, a_file)
-    a_file.close()
-
-    return render_template('solarproduction.html')
-
-
-
-
-
-def solar_calc(square_footage, panel_sqft, solar_pannel_wattage, hours_of_sunlight, kwh_price):
-
-        '''
-        average number of sunny days in alberta is here: https://www.currentresults.com/Weather/Canada/Alberta/sunshine-annual-average.php
-        sunny days in alberta = 330ish and average sunny hours is 2400
-
-        also need average price of a pannel in alberta 
-
-        average size of solar pannel is 19.5 square feet: https://www.paradisesolarenergy.com/blog/how-many-solar-panels-do-i-need
-
-
-        graph of solar capacity for price: https://kubyenergy.ca/blog/the-cost-of-solar-panels
-        uing the economic of solar energy graph but treat it as a linear function we get 
-        cost = 2000(solar capacity kW) + 1500
-        '''
-
-        if square_footage == None:
-            return None
-        
-        # need to get solar capacity 
-
-        number_of_pannels = square_footage // panel_sqft # sqrfootage of a solar pannel 
-
-        # average solar pannel generates around 400W of power https://kubyenergy.ca/blog/the-complete-guide-to-installing-solar-panels-in-alberta#:~:text=The%20average%20home%20in%20Alberta,cover%20their%20annual%20energy%20needs.
-
-        solar_capacity_kw = (number_of_pannels * solar_pannel_wattage)/ 1000
-
-        price = 2000 * solar_capacity_kw + 1500 
-
-        power_generated_year = solar_capacity_kw * hours_of_sunlight
-
-        power_savings = power_generated_year * kwh_price
-
-        roi = price / power_generated_year * kwh_price
-
-        r = {}
-
-        r['solar capacity'] = solar_capacity_kw
-        r['power generated'] = power_generated_year
-        r['savings'] = power_savings
-        r['roi'] = roi
-        
-        return r
-
-@commercial.route('/electricalgraph', methods=['GET', 'POST'])
-@login_required
-def electricalgraph():
+def electricalgraph(building_id):
     form = UtilityForm()
     path = '/uploads/'
     mydb = mysql.connector.connect(
@@ -938,11 +863,135 @@ def electricalgraph():
 
         mydb.commit()
 
-    return render_template('electricalgraph.html', form = form, electricaldata = electricaldata, gasdata= gasdata)
-        
-@commercial.route('/lighting', methods=['GET', 'POST'])
+    return render_template('electricalgraph.html', building_id=building_id,form = form, electricaldata = electricaldata, gasdata= gasdata)
+
+
+
+@commercial.route('/solarpage/<building_id>', methods=['GET', 'POST'])
 @login_required
-def lighting():
+def solarpage(building_id):
+    
+
+    return render_template('solarpage.html',building_id=building_id)
+
+@commercial.route('/solarspecs/<building_id>', methods=['GET', 'POST'])
+@login_required
+def solarspecs(building_id):
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT number_of_panels, watts_per_panel,panel_type,panel_loss FROM solar_data WHERE building_id = %s"
+    val = (building_id,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        number_of_panels = result[0]
+        watts_per_panel = result[1]
+        panel_type = result[2]
+        panel_loss = result[3]
+    panel_loss = panel_loss.split(',')
+    print(number_of_panels)
+    
+
+    return render_template('solarspecs.html',panel_loss=panel_loss,number_of_panels=int(number_of_panels),watts_per_panel=int(watts_per_panel),panel_type=panel_type,building_id=building_id)
+
+@commercial.route('/solarproduction/<building_id>', methods=['GET', 'POST'])
+@login_required
+def solarproduction(building_id):
+
+    square_footage = 209040
+    panel_sqft = 19.5
+    solar_pannel_wattage = 400
+    hours_of_sunlight = randint(3, 18)
+    kwh_price = 0.09
+
+
+    
+    a_file =  open('static/scripts/solardata.json', 'r')
+    json_object = json.load(a_file)
+    a_file.close()
+
+    hourslist = ['twlveAM','oneAM','twoAM','threeAM','fourAM','fiveAM','sixAM','sevenAM','eightAM','nineAM','tenAM','elevenPM','twlvePM','onePM','twoPM','threePM','fourPM','fivePM','sixPM','sevenPM','eightPM','ninePM','tenPM','elevnPM']
+    hournumberlist = ['12am', '1am', '2am','3am','4am','5am','6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm','9pm','10pm','11pm']
+    print(json_object['twlveAM'])
+
+    k = 0
+    over12 = False
+    for i in range(0,len(hourslist)):
+        for thing in json_object[hourslist[i]]:
+            hours_of_sunlight = randint(1, k + 1)
+            solarcalc = solar_calc(square_footage,panel_sqft,solar_pannel_wattage,hours_of_sunlight,kwh_price)
+            thing['dataWeather'] = {"hour":hournumberlist[i],"degree" : "-2","kwh":solarcalc['power generated']/1000,"icon":"<img src='/static/img/snow.png'/>","value":solarcalc['power generated']/5000}
+            if k > 12:
+                k -= 1
+                over12 = True
+            elif k <= 12 and over12 == False:
+                k += 1
+            else:
+                k -= 1
+            thing['consumption'] = {'value': solarcalc['power generated']/1000, 'status': 'ON'}
+    a_file = open('static/scripts/solardata.json', "w")
+    json.dump(json_object, a_file)
+    a_file.close()
+
+    return render_template('solarproduction.html',building_id=building_id)
+
+
+
+
+
+def solar_calc(square_footage, panel_sqft, solar_pannel_wattage, hours_of_sunlight, kwh_price):
+
+        '''
+        average number of sunny days in alberta is here: https://www.currentresults.com/Weather/Canada/Alberta/sunshine-annual-average.php
+        sunny days in alberta = 330ish and average sunny hours is 2400
+
+        also need average price of a pannel in alberta 
+
+        average size of solar pannel is 19.5 square feet: https://www.paradisesolarenergy.com/blog/how-many-solar-panels-do-i-need
+
+
+        graph of solar capacity for price: https://kubyenergy.ca/blog/the-cost-of-solar-panels
+        uing the economic of solar energy graph but treat it as a linear function we get 
+        cost = 2000(solar capacity kW) + 1500
+        '''
+
+        if square_footage == None:
+            return None
+        
+        # need to get solar capacity 
+
+        number_of_pannels = square_footage // panel_sqft # sqrfootage of a solar pannel 
+
+        # average solar pannel generates around 400W of power https://kubyenergy.ca/blog/the-complete-guide-to-installing-solar-panels-in-alberta#:~:text=The%20average%20home%20in%20Alberta,cover%20their%20annual%20energy%20needs.
+
+        solar_capacity_kw = (number_of_pannels * solar_pannel_wattage)/ 1000
+
+        price = 2000 * solar_capacity_kw + 1500 
+
+        power_generated_year = solar_capacity_kw * hours_of_sunlight
+
+        power_savings = power_generated_year * kwh_price
+
+        roi = price / power_generated_year * kwh_price
+
+        r = {}
+
+        r['solar capacity'] = solar_capacity_kw
+        r['power generated'] = power_generated_year
+        r['savings'] = power_savings
+        r['roi'] = roi
+        
+        return r
+
+
+@commercial.route('/lighting/<building_id>', methods=['GET', 'POST'])
+@login_required
+def lighting(building_id):
     buildingid = 'ce736d20'
     numHighBays = 0
     num1x4 = 0
@@ -961,7 +1010,6 @@ def lighting():
     val = (buildingid,)
     mycursor.execute(sql, val)
     myresult = mycursor.fetchall()
-    print(myresult)
     for result in myresult:
         if 'High Bay' in result[1]:
             numHighBays += int(result[0])
@@ -977,17 +1025,16 @@ def lighting():
             numLinears += int(result[0])  
   
 
-    return render_template('lighting.html' , numHighBays = numHighBays, num1x4=num1x4,num2x4=num2x4,numWallPack=numWallPack,numSpotLights=numSpotLights,numLinears=numLinears)
-@commercial.route('/troffer2x4', methods=['GET', 'POST'])
+    return render_template('lighting.html' ,building_id=building_id, numHighBays = numHighBays, num1x4=num1x4,num2x4=num2x4,numWallPack=numWallPack,numSpotLights=numSpotLights,numLinears=numLinears)
+
+
+@commercial.route('/troffer2x4/<building_id>', methods=['GET', 'POST'])
 @login_required
-def troffer2x4():
+def troffer2x4(building_id):
     buildingid = 'ce736d20'
-    numHighBays = 0
-    num1x4 = 0
-    num2x4 = 0
-    numWallPack = 0
-    numSpotLights = 0
-    numLinears = 0
+    areaIds = []
+    areaNames = []
+    areaCount = []
     mydb = mysql.connector.connect(
           host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
           user="admin",
@@ -995,30 +1042,385 @@ def troffer2x4():
           database="db_mysql_sustainergy_alldata"
         )
     mycursor = mydb.cursor()
-    sql = "SELECT items_st_quantity, items_st_consolidate_sub_type FROM Items WHERE items_building_id = %s AND Items_type = 'Lighthing'"
+    sql = "SELECT area_id, area_desctription FROM area WHERE area_building_id = %s"
     val = (buildingid,)
     mycursor.execute(sql, val)
     myresult = mycursor.fetchall()
-    print(myresult)
     for result in myresult:
-        if 'High Bay' in result[1]:
-            numHighBays += int(result[0])
-        if '1x4' in result[1]:
-            num1x4 += int(result[0])  
-        if '2x4' in result[1]:
-            num2x4 += int(result[0])  
-        if 'Wall Pack' in result[1]:
-            numWallPack += int(result[0])  
-        if 'Spotlight' in result[1]:
-            numSpotLights += int(result[0])  
-        if 'Linear' in result[1]:
-            numLinears += int(result[0])  
+        areaIds.append(result[0])
+        areaNames.append(result[1])
+        areaCount.append(0)
 
-    return render_template('troffer2x4.html', num2x4 = num2x4)
+    equipmentDf = pd.DataFrame({'Area Id': areaIds, 'Area Name': areaNames, 'Area Count': areaCount})
+    sql = "SELECT items_st_quantity, items_st_consolidate_sub_type, items_area_id FROM Items WHERE items_building_id = %s AND Items_type = 'Lighthing'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        for i in range(0,len(areaIds)):
+            if result[2] == equipmentDf.iloc[i][0] and '2x4' in result[1]:
+                equipmentDf.loc[i, 'Area Count'] += int(result[0])
+    equipmentDf = equipmentDf.sort_values(by = ['Area Count'], ascending=False)
+    areaCount = equipmentDf['Area Count'].tolist()
+    areaList = equipmentDf['Area Name'].tolist()
+    totalLights = sum(areaCount)
+    percentSum = totalLights
+    colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
 
-@commercial.route('/inventory', methods=['GET', 'POST'])
+    for i in range(0,len(areaCount)):
+        if len(colours) < len(areaCount):
+            colours.append("#" + "%06x" % random.randint(0, 0xFFFFFF))
+    
+
+
+    if len(areaCount) == 0:
+        areaCount.append(0)
+    if percentSum == 0:
+        percentSum = 1
+    return render_template('troffer2x4.html',building_id=building_id,areaList=areaList,percentSum = percentSum, equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
+
+@commercial.route('/troffer1x4/<building_id>', methods=['GET', 'POST'])
 @login_required
-def inventory():
+def troffer1x4(building_id):
+    buildingid = 'ce736d20'
+    areaIds = []
+    areaNames = []
+    areaCount = []
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT area_id, area_desctription FROM area WHERE area_building_id = %s"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        areaIds.append(result[0])
+        areaNames.append(result[1])
+        areaCount.append(0)
+
+    equipmentDf = pd.DataFrame({'Area Id': areaIds, 'Area Name': areaNames, 'Area Count': areaCount})
+    sql = "SELECT items_st_quantity, items_st_consolidate_sub_type, items_area_id FROM Items WHERE items_building_id = %s AND Items_type = 'Lighthing'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        for i in range(0,len(areaIds)):
+            if result[2] == equipmentDf.iloc[i][0] and '1x4' in result[1]:
+                equipmentDf.loc[i, 'Area Count'] += int(result[0])
+    equipmentDf = equipmentDf.sort_values(by = ['Area Count'], ascending=False)
+    areaCount = equipmentDf['Area Count'].tolist()
+    areaList = equipmentDf['Area Name'].tolist()
+    totalLights = sum(areaCount)
+    percentSum = totalLights
+    colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
+
+    for i in range(0,len(areaCount)):
+        if len(colours) < len(areaCount):
+            colours.append("#" + "%06x" % random.randint(0, 0xFFFFFF))
+    
+
+
+    if len(areaCount) == 0:
+        areaCount.append(0)
+    if percentSum == 0:
+        percentSum = 1
+    return render_template('troffer1x4.html',building_id=building_id,areaList=areaList,percentSum = percentSum, equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
+
+@commercial.route('/highbay/<building_id>', methods=['GET', 'POST'])
+@login_required
+def highbay(building_id):
+    buildingid = 'ce736d20'
+    areaIds = []
+    areaNames = []
+    areaCount = []
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT area_id, area_desctription FROM area WHERE area_building_id = %s"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        areaIds.append(result[0])
+        areaNames.append(result[1])
+        areaCount.append(0)
+
+    equipmentDf = pd.DataFrame({'Area Id': areaIds, 'Area Name': areaNames, 'Area Count': areaCount})
+    sql = "SELECT items_st_quantity, items_st_consolidate_sub_type, items_area_id FROM Items WHERE items_building_id = %s AND Items_type = 'Lighthing'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        for i in range(0,len(areaIds)):
+            if result[2] == equipmentDf.iloc[i][0] and 'High Bay' in result[1]:
+                equipmentDf.loc[i, 'Area Count'] += int(result[0])
+    equipmentDf = equipmentDf.sort_values(by = ['Area Count'], ascending=False)
+    areaCount = equipmentDf['Area Count'].tolist()
+    areaList = equipmentDf['Area Name'].tolist()
+    totalLights = sum(areaCount)
+    percentSum = totalLights
+    colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
+
+    for i in range(0,len(areaCount)):
+        if len(colours) < len(areaCount):
+            colours.append("#" + "%06x" % random.randint(0, 0xFFFFFF))
+    
+
+
+    if len(areaCount) == 0:
+        areaCount.append(0)
+    if percentSum == 0:
+        percentSum = 1
+    return render_template('highbay.html',building_id=building_id,areaList=areaList,percentSum = percentSum, equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
+
+@commercial.route('/wallpack/<building_id>', methods=['GET', 'POST'])
+@login_required
+def wallpack(building_id):
+    buildingid = 'ce736d20'
+    areaIds = []
+    areaNames = []
+    areaCount = []
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT area_id, area_desctription FROM area WHERE area_building_id = %s"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        areaIds.append(result[0])
+        areaNames.append(result[1])
+        areaCount.append(0)
+
+    equipmentDf = pd.DataFrame({'Area Id': areaIds, 'Area Name': areaNames, 'Area Count': areaCount})
+    sql = "SELECT items_st_quantity, items_st_consolidate_sub_type, items_area_id FROM Items WHERE items_building_id = %s AND Items_type = 'Lighthing'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        for i in range(0,len(areaIds)):
+            if result[2] == equipmentDf.iloc[i][0] and 'Wall Pack' in result[1]:
+                equipmentDf.loc[i, 'Area Count'] += int(result[0])
+    equipmentDf = equipmentDf.sort_values(by = ['Area Count'], ascending=False)
+    areaCount = equipmentDf['Area Count'].tolist()
+    areaList = equipmentDf['Area Name'].tolist()
+    totalLights = sum(areaCount)
+    percentSum = totalLights
+    colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
+
+    for i in range(0,len(areaCount)):
+        if len(colours) < len(areaCount):
+            colours.append("#" + "%06x" % random.randint(0, 0xFFFFFF))
+    
+
+
+    if len(areaCount) == 0:
+        areaCount.append(0)
+    if percentSum == 0:
+        percentSum = 1
+    return render_template('wallpack.html',building_id=building_id,areaList=areaList,percentSum = percentSum, equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
+
+@commercial.route('/linear/<building_id>', methods=['GET', 'POST'])
+@login_required
+def linear(building_id):
+    buildingid = 'ce736d20'
+    areaIds = []
+    areaNames = []
+    areaCount = []
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT area_id, area_desctription FROM area WHERE area_building_id = %s"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        areaIds.append(result[0])
+        areaNames.append(result[1])
+        areaCount.append(0)
+
+    equipmentDf = pd.DataFrame({'Area Id': areaIds, 'Area Name': areaNames, 'Area Count': areaCount})
+    sql = "SELECT items_st_quantity, items_st_consolidate_sub_type, items_area_id FROM Items WHERE items_building_id = %s AND Items_type = 'Lighthing'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        for i in range(0,len(areaIds)):
+            if result[2] == equipmentDf.iloc[i][0] and 'Linear' in result[1]:
+                equipmentDf.loc[i, 'Area Count'] += int(result[0])
+    equipmentDf = equipmentDf.sort_values(by = ['Area Count'], ascending=False)
+    areaCount = equipmentDf['Area Count'].tolist()
+    areaList = equipmentDf['Area Name'].tolist()
+    totalLights = sum(areaCount)
+    percentSum = totalLights
+    colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
+
+    for i in range(0,len(areaCount)):
+        if len(colours) < len(areaCount):
+            colours.append("#" + "%06x" % random.randint(0, 0xFFFFFF))
+    
+
+
+    if len(areaCount) == 0:
+        areaCount.append(0)
+    if percentSum == 0:
+        percentSum = 1
+    return render_template('linear.html',building_id=building_id,areaList=areaList,percentSum = percentSum, equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
+
+@commercial.route('/spotlight/<building_id>', methods=['GET', 'POST'])
+@login_required
+def spotlight(building_id):
+    buildingid = 'ce736d20'
+    areaIds = []
+    areaNames = []
+    areaCount = []
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT area_id, area_desctription FROM area WHERE area_building_id = %s"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        areaIds.append(result[0])
+        areaNames.append(result[1])
+        areaCount.append(0)
+
+    equipmentDf = pd.DataFrame({'Area Id': areaIds, 'Area Name': areaNames, 'Area Count': areaCount})
+    sql = "SELECT items_st_quantity, items_st_consolidate_sub_type, items_area_id FROM Items WHERE items_building_id = %s AND Items_type = 'Lighthing'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        for i in range(0,len(areaIds)):
+            if result[2] == equipmentDf.iloc[i][0] and 'Spot Light' in result[1]:
+                equipmentDf.loc[i, 'Area Count'] += int(result[0])
+    equipmentDf = equipmentDf.sort_values(by = ['Area Count'], ascending=False)
+    areaCount = equipmentDf['Area Count'].tolist()
+    areaList = equipmentDf['Area Name'].tolist()
+    totalLights = sum(areaCount)
+    percentSum = totalLights
+    colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
+
+    for i in range(0,len(areaCount)):
+        if len(colours) < len(areaCount):
+            colours.append("#" + "%06x" % random.randint(0, 0xFFFFFF))
+    
+    if len(areaCount) == 0:
+        areaCount.append(0)
+    if percentSum == 0:
+        percentSum = 1
+    return render_template('spotlight.html',building_id=building_id,areaList=areaList, percentSum = percentSum,equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
+
+
+
+
+
+@commercial.route('/hvac/<building_id>', methods=['GET', 'POST'])
+@login_required
+def hvac(building_id):
+    buildingid = 'ce736d20'
+    numUnitHeaters = 0
+    numInfraredHeaters = 0
+    numRTUS = 0
+    numFurnaces = 0
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT items_st_quantity, items_st_consolidate_sub_type FROM Items WHERE items_building_id = %s AND items_subtype = 'Heathing'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        if 'Unit' in result[1]:
+            numUnitHeaters += int(result[0])
+        if 'Infared' in result[1] or "Infrared" in result[1]:
+            numInfraredHeaters += int(result[0])  
+        if 'RTU' in result[1]:
+            numRTUS += int(result[0])  
+        if 'Furnace' in result[1]:
+            numFurnaces += int(result[0])  
+  
+
+    return render_template('hvac.html' , building_id=building_id,numFurnaces = numFurnaces, numRTUS = numRTUS, numUnitHeaters = numUnitHeaters, numInfraredHeaters = numInfraredHeaters)
+
+@commercial.route('/pump/<building_id>', methods=['GET', 'POST'])
+@login_required
+def pump(building_id):
+    buildingid = 'ce736d20'
+    numPump = 0
+    numMotor = 0
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT items_st_quantity, items_st_consolidate_sub_type FROM Items WHERE items_building_id = %s"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        if 'Pump' in result[1]:
+            numPump += int(result[0])
+        if 'Motor' in result[1]:
+            numMotor += int(result[0])   
+  
+
+    return render_template('pump.html' ,building_id=building_id,numPump=numPump, numMotor=numMotor)
+
+@commercial.route('/chiller/<building_id>', methods=['GET', 'POST'])
+@login_required
+def chiller(building_id):
+    buildingid = 'ce736d20'
+    numChiller = 0
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT items_st_quantity, items_st_consolidate_sub_type FROM Items WHERE items_building_id = %s"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        if 'Chiller' in result[1]:
+            numChiller += int(result[0]) 
+  
+
+    return render_template('chiller.html' ,building_id=building_id,numChiller=numChiller)
+
+
+@commercial.route('/inventory/<building_id>', methods=['GET', 'POST'])
+@login_required
+def inventory(building_id):
     buildingid = 'ce736d20'
     numLights = 0
     totalWatts = 0
@@ -1114,27 +1516,27 @@ def inventory():
     myresult = mycursor.fetchall()
     numChiller = len(myresult)
 
-    return render_template('inventory.html',PlugTons = PlugTons,DHWTons=DHWTons,ChillerTons = ChillerTons,BTUTotal = BTUTotal, numLights = numLights, numHvac = numHvac , numPlugs = numPlugs, numDHW = numDHW, numChiller = numChiller, totalWatts = totalWatts)
+    return render_template('inventory.html',building_id=building_id,PlugTons = PlugTons,DHWTons=DHWTons,ChillerTons = ChillerTons,BTUTotal = BTUTotal, numLights = numLights, numHvac = numHvac , numPlugs = numPlugs, numDHW = numDHW, numChiller = numChiller, totalWatts = totalWatts)
 
 
-@commercial.route('/', methods=['GET', 'POST'])
-@commercial.route('/datastream', methods=['GET', 'POST'])
+@commercial.route('/datastream/<building_id>', methods=['GET', 'POST'])
 @login_required
-def datastream():
+def datastream(building_id):
+
+    building_id = building_id
     mydb = mysql.connector.connect(
           host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
           user="admin",
           password="rvqb2JymBB5CaNn",
           database="db_mysql_sustainergy_alldata"
         )
-    mycursor = mydb.cursor()
 
 
-    return render_template('datastream.html')
+    return render_template('datastream.html', building_id = building_id)
 
-@commercial.route('/utilities', methods=['GET', 'POST'])
+@commercial.route('/utilities/<building_id>', methods=['GET', 'POST'])
 @login_required
-def utilities():
+def utilities(building_id):
     form = UtilityForm()
     path = '/uploads/'
     mydb = mysql.connector.connect(
@@ -1208,17 +1610,19 @@ def utilities():
 
         mydb.commit()
 
-    return render_template('utilities.html', form = form, electricaldata = electricaldata, gasdata= gasdata)
-@commercial.route('/historicalusage', methods=['GET', 'POST'])
+    return render_template('utilities.html', building_id = building_id,form = form, electricaldata = electricaldata, gasdata= gasdata)
+
+@commercial.route('/historicalusage/<building_id>', methods=['GET', 'POST'])
 @login_required
-def historicalusage():
+def historicalusage(building_id):
+    building_id = building_id
     paneltotal = []
     panelpercent = []
     scheduledata = []
     day = datetime.datetime.now().day
     cal_month = datetime.datetime.now().month
     year = datetime.datetime.now().year
-    building_id = 12
+    building_ids = 12
     error = None
     if(current_user.is_authenticated and current_user.is_admin()):
         mydb = mysql.connector.connect(
@@ -1231,7 +1635,7 @@ def historicalusage():
         userdate = (today - timedelta(days = 1)).strftime('%Y-%m-%d') + '%'
         form = HistoricalUsageForm()
         client_id = current_user.phone_number
-        panel_building_id = 'ce736d20'
+        panel_building_id = building_id
         mycursor = mydb.cursor()
         sql = "SELECT emporia_meter_sn_1 FROM electrical_panel WHERE panel_client_id = %s AND building_id = %s"
         mycursor.execute(sql,(client_id,panel_building_id))
@@ -1418,7 +1822,7 @@ def historicalusage():
         panelpercent = paneltotals['Percent'].to_list()
         panelprice = paneltotals['Price'].to_list()
         chart_colours = ['#E6E9EF'] * 24
-        cal_db = calendar_pull(building_id,2021, int(cal_month))
+        cal_db = calendar_pull(building_ids,2021, int(cal_month))
         hours = cal_db[int(day) - 1]
         starthours = hours['start_hours']
         endhours = hours['end_hours']
@@ -1536,7 +1940,7 @@ def historicalusage():
         with open('static/scripts/data.json', 'w') as f:
             json.dump(jsondictionarylist, f)
 
-        return render_template('historicalusage.html',endhours = endhours, starthours = starthours, weeklabels = weeklabels, last_week_cd = last_week_full,predicted_line = predicted_line,error = error, timeloadscolours = timeloadscolours,alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
+        return render_template('historicalusage.html',building_id = building_id,endhours = endhours, starthours = starthours, weeklabels = weeklabels, last_week_cd = last_week_full,predicted_line = predicted_line,error = error, timeloadscolours = timeloadscolours,alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
     else:
         abort(403)
 
@@ -1868,7 +2272,7 @@ def historicalusageweek():
         today = date.today()
         userdate = (today - timedelta(days = 1)).strftime('%Y-%m-%d') + '%'
         year, week_num, day_of_week = today.isocalendar()
-        weekdate = "2021-W48"
+        weekdate = "2021-W47"
         dayoftheweek = datetime.datetime.strptime(weekdate + '-1', "%Y-W%W-%w")
         daysinthisweek.append(dayoftheweek)
         userdate = dayoftheweek.date().strftime('%Y-%m-%d') + '%'
@@ -2160,8 +2564,7 @@ def historicalusageweek():
                 try:
                     floatlist.append(float(item))
                 except:
-                    print('whoops')
-
+                    print('whoops1')
             for k in range(int(starthours) - 1, int(endhours) + 1):
                 if 0 in floatlist:
                     if datalist[k] != '':
@@ -2202,7 +2605,7 @@ def historicalusageweekline():
     paneltotal = []
     panelpercent = []
     daysinthisweek = []
-    week = '2021-W48'
+    week = '2021-W47'
     cal_month = datetime.datetime.now().month
     year = datetime.datetime.now().year
     building_id = 12
@@ -3196,14 +3599,13 @@ def historicalusagemonthline():
         abort(403)
 
 
-
-     
-@commercial.route('/operatinghours', methods=['GET', 'POST'])
+@commercial.route('/operatinghours/<building_id>', methods=['GET', 'POST'])
 @login_required
-def operatinghours():
+def operatinghours(building_id):
     form = OperatingHoursForm()
     if(current_user.is_authenticated and current_user.is_admin()):
-        building_id = 12
+        building_id = building_id
+        building_ids = 12
         year = 2021
         days_per_week = 5
         start_hour = 8
@@ -3231,7 +3633,7 @@ def operatinghours():
 
         month = int(month)
         cal_month = month + 1
-        cal_db = calendar_pull(building_id,year, cal_month)
+        cal_db = calendar_pull(building_ids,year, cal_month)
         if changed == "true":
             if bulk == "single":
                 newstart = request.form.get('newstart')
@@ -3243,7 +3645,7 @@ def operatinghours():
                 endtime = newend + ':' + endmins
                 datechange = datetime.date(year,cal_month,datenumber)
                 cal_db = calendar_edit(cal_db,datechange,starttime,endtime)
-                calendar_update(building_id, year,cal_db)
+                calendar_update(building_ids, year,cal_db)
             if bulk == "weekday":
                 newstart = request.form.get('newstart')
                 newend = request.form.get('newend')
@@ -3255,7 +3657,7 @@ def operatinghours():
                 datechange = datetime.datetime(year,cal_month,datenumber)
                 datechange = datechange.weekday()
                 cal_db = edit_weekday_calendar(cal_db,datechange,starttime,endtime)
-                calendar_update(building_id, year,cal_db)
+                calendar_update(building_ids, year,cal_db)
 
             if bulk == "everyday":
                 newstart = request.form.get('newstart')
@@ -3267,7 +3669,7 @@ def operatinghours():
                 endtime = newend + ':' + endmins
                 for i in range(0,6):
                     cal_db = edit_weekday_calendar(cal_db,i,starttime,endtime)
-                    calendar_update(building_id, year,cal_db)
+                    calendar_update(building_ids, year,cal_db)
 
             if bulk == "everyweekday":
                 newstart = request.form.get('newstart')
@@ -3279,7 +3681,7 @@ def operatinghours():
                 endtime = newend + ':' + endmins
                 for i in range(0,5):
                     cal_db = edit_weekday_calendar(cal_db,i,starttime,endtime)
-                    calendar_update(building_id, year,cal_db)
+                    calendar_update(building_ids, year,cal_db)
         for date in cal_db:
             string = date
             starthours.append(string['start_hours'])
@@ -3336,7 +3738,7 @@ def operatinghours():
             if endhours[i] is None:
                 endam.append(endhours[i])
             
-        return render_template('operatinghours.html',startminutes = startminutes, endminutes = endminutes, form = form,month = month,starthours = starthours, endhours = endhours, startam = startam, endam = endam)
+        return render_template('operatinghours.html',building_id = building_id,startminutes = startminutes, endminutes = endminutes, form = form,month = month,starthours = starthours, endhours = endhours, startam = startam, endam = endam)
     else:
         abort(403)
 
