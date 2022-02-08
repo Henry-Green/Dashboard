@@ -509,7 +509,7 @@ def get_seconds(minute, channel_names,serial_number):
     return seconds_df
 
 
-@commercial.route('/', methods=['GET', 'POST'])
+
 @commercial.route('/facilityoverview/<building_id>', methods=['GET', 'POST'])
 @login_required
 def facilityoverview(building_id):
@@ -746,7 +746,7 @@ def facilityoverviewbubble():
         abort(403)
 
 
-
+@commercial.route('/', methods=['GET', 'POST'])
 @commercial.route('/switchfacilities', methods=['GET', 'POST'])
 @login_required
 def switchfacilities():
