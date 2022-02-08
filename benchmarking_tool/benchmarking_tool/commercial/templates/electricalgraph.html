@@ -214,6 +214,7 @@
               </ul>
             </div>
             <div class="bottom-action">
+              <a href = "{{url_for('accounts.logout')}}">
               <button class="logout">
                 <span
                   ><svg
@@ -230,7 +231,7 @@
                   </svg>
                 </span>
                 <span>Log Out</span>
-              </button>
+              </button></a>
               <div class="ads__box">
                 <div class="img">
                   <img src="{{url_for('static',filename='img/ads.png')}}" alt="" />
