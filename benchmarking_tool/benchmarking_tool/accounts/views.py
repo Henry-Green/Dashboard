@@ -129,7 +129,7 @@ def commerciallogin():
                     customer = user.customer
                     survey = customer.survey
                 else:
-                    return redirect(url_for('commercial.datastream'))
+                    return redirect(url_for('commercial.switchfacilities'))
             else:
                 flash(
                     f"Login Unsuccessful,Please check your email and Password!", 'danger')
