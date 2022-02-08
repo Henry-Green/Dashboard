@@ -142,7 +142,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href='{{url_for("commercial.datastream")}}'>
+                  <a href="{{url_for('commercial.datastream', building_id=building_id)}}">
                     <span>
                       <svg
                         width="24"
@@ -164,7 +164,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href='{{url_for("commercial.inventory")}}'>
+                  <a href="{{url_for('commercial.inventory', building_id=building_id)}}">
                     <span>
                       <svg
                         width="24"
@@ -186,7 +186,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href='{{url_for("commercial.utilities")}}'>
+                  <a href="{{url_for('commercial.utilities', building_id=building_id)}}">
                     <span>
                       <svg
                         width="24"

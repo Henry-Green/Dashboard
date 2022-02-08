@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1440, maximum-scale=1.0" />
+    <link rel="stylesheet" href="{{url_for('static',filename='css/switchfacilities.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/styleguide.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
+  </head>
+  <body style="margin: 0; background: #ffffff">
+    <input type="hidden" id="anPageName" name="page" value="about-facility" />
+    <div class="container-center-horizontal">
+      <div class="about-facility screen">
+        <div class="overlap-group12">
+          <div class="rectangle-3"></div>
+          <div class="side-bar-2">
+            <div class="overlap-group8">
+              <div class="group-7388"><img class="rectangle-3518" src="{{url_for('static',filename='img/rectangle-3518@2x.svg')}}" /></div>
+              <img class="expand_less" src="{{url_for('static',filename='img/expand-less-8@2x.svg')}}" />
+            </div>
+            <div class="flex-row-1">
+              <div class="rectangle-3489"></div>
+              <div class="flex-col">
+                <div class="frame-18">
+                  <div class="frame-16">
+                    <img class="icon" src="{{url_for('static',filename='img/icon@2x.svg')}}" />
+                    <div class="overview avertacy-normal-cadet-blue-16px">Overview</div>
+                  </div>
+                  <div class="frame-17">
+                    <img class="icon" src="{{url_for('static',filename='img/icon-1@2x.svg')}}" />
+                    <div class="data-stream avertacy-normal-cadet-blue-16px">Data Stream</div>
+                  </div>
+                  <div class="frame-20">
+                    <img class="icon" src="{{url_for('static',filename='img/icon-2@2x.svg')}}" />
+                    <div class="inventory avertacy-normal-blueberry-16px">Inventory</div>
+                  </div>
+                  <div class="frame-2">
+                    <img class="icon-1" src="{{url_for('static',filename='img/icon-3@2x.svg')}}" />
+                    <div class="utilities-alternatives avertacy-normal-cadet-blue-16px">
+                      Utilities &amp; <br />Alternatives
+                    </div>
+                  </div>
+                  <div class="frame-2">
+                    <div class="icon-2"></div>
+                    <div class="energy-management avertacy-normal-cadet-blue-16px">Energy<br />Management</div>
+                  </div>
+                </div>
+                <div class="frame-23">
+                  <img class="icon" src="{{url_for('static',filename='img/icon-4@2x.svg')}}" />
+                  <div class="log-out avertacy-normal-cadet-blue-16px">Log Out</div>
+                </div>
+                <div class="overlap-group9">
+                  <div class="group-container">
+                    <div class="group-7363">
+                      <img class="mask-group" src="{{url_for('static',filename='img/mask-group@2x.svg')}}" />
+                      <div class="frame-1363">
+                        <div class="butetown-store avertacy-normal-white-14px">Butetown Store</div>
+                        <div class="address avertacy-normal-white-10px">4720 Yellowhead Trail NW</div>
+                      </div>
+                    </div>
+                    <div class="overlap-group-2"><div class="about avertacy-normal-havelock-blue-10px">About</div></div>
+                    <div class="overlap-group1">
+                      <div class="switch avertacy-normal-havelock-blue-10px">Switch</div>
+                    </div>
+                  </div>
+                  <img class="error_outline" src="{{url_for('static',filename='img/error-outline@2x.svg')}}" />
+                  <img class="edit" src="{{url_for('static',filename='img/edit@2x.svg')}}" />
+                </div>
+              </div>
+              <div class="rectangle-3523"></div>
+            </div>
+          </div>
+          <div class="rectangle-3"></div>
+          <img class="logo" src="{{url_for('static',filename='img/logo@2x.svg')}}" />
+        </div>
+        <div class="overlap-group11"><img class="line-18" src="{{url_for('static',filename='img/line-16@1x.svg')}}" /></div>
+        <div class="flex-col-1">
+          <div class="switch-facilities avertacy-bold-gulf-blue-32px">Switch Facilities</div>
+          <div class="overlap-group10">
+            <div class="overlap-group-container-1">
+
+              {% for i in range(0,numBuildings) %}
+              <a href = "{{url_for('commercial.datastream', building_id=buildingIds[i])}}">
+              <div class="overlap-group">
+                <div class="rectangle-4"></div>
+                <div class="flex-row">
+                  <div class="town-office avertacy-bold-gulf-blue-19px">{{buildingDescriptions[i]}}</div>
+                  <img class="expand_less-1" src="{{url_for('static',filename='img/expand-less-1@2x.svg')}}" />
+                </div>
+              </div>
+            </a>
+              {% endfor %}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -139,7 +139,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href='{{url_for("commercial.datastream")}}'>
+                  <a href="{{url_for('commercial.datastream', building_id=building_id)}}">
                     <span>
                       <svg
                         width="24"
@@ -161,7 +161,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href='{{url_for("commercial.inventory")}}'>
+                  <a href="{{url_for('commercial.datastream', building_id=building_id)}}">
                     <span>
                       <svg
                         width="24"
@@ -183,7 +183,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href='{{url_for("commercial.utilities")}}'>
+                  <a href="{{url_for('commercial.utilities', building_id=building_id)}}">
                     <span>
                       <svg
                         width="24"
@@ -276,7 +276,7 @@
           <div class="inventory__components">
             <div class="side-one">
               <h2 class="h2-main">
-                <a href = '{{url_for("commercial.solarpage")}}'><svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <a href = "{{url_for('commercial.solarpage', building_id=building_id)}}"><svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clip-path="url(#clip0_317_358)">
                   <path d="M9.6665 14.5L16.9165 21.75L18.6203 20.0463L13.0861 14.5L18.6203 8.95375L16.9165 7.25L9.6665 14.5Z" fill="#0D1758"/>
                   </g>

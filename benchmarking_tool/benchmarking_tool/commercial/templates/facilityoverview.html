@@ -68,7 +68,7 @@
                      </a>
                  </li>
                  <li>
-                    <a href = '{{url_for("commercial.datastream")}}'>
+                    <a href = "{{url_for('commercial.datastream', building_id=building_id)}}">
                         <span>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20.5 7L13.5 15.5L9.5 11L3.5 17" stroke="#AFB8CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -78,7 +78,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href='{{url_for("commercial.inventory")}}'>
+                    <a href="{{url_for('commercial.inventory', building_id=building_id)}}">
                         <span>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M21 15.9999V7.9999C20.9996 7.64918 20.9071 7.30471 20.7315 7.00106C20.556 6.69742 20.3037 6.44526 20 6.2699L13 2.2699C12.696 2.09437 12.3511 2.00195 12 2.00195C11.6489 2.00195 11.304 2.09437 11 2.2699L4 6.2699C3.69626 6.44526 3.44398 6.69742 3.26846 7.00106C3.09294 7.30471 3.00036 7.64918 3 7.9999V15.9999C3.00036 16.3506 3.09294 16.6951 3.26846 16.9987C3.44398 17.3024 3.69626 17.5545 4 17.7299L11 21.7299C11.304 21.9054 11.6489 21.9979 12 21.9979C12.3511 21.9979 12.696 21.9054 13 21.7299L20 17.7299C20.3037 17.5545 20.556 17.3024 20.7315 16.9987C20.9071 16.6951 20.9996 16.3506 21 15.9999Z" stroke="#AFB8CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -91,7 +91,7 @@
                 </a>
                 </li>
                 <li>
-                    <a href='{{url_for("commercial.utilities")}}'>
+                    <a href="{{url_for('commercial.utilities', building_id=building_id)}}">
                         <span>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M12 22C16.1175 22 19.5 18.737 19.5 14.549C19.5 13.521 19.4475 12.419 18.8775 10.706C18.3075 8.993 18.193 8.772 17.5905 7.714C17.333 9.8725 15.9555 10.7725 15.6055 11.0415C15.6055 10.7615 14.7725 7.668 13.509 5.8165C12.2685 4 10.5815 2.8085 9.5925 2C9.5925 3.535 9.161 5.817 8.5425 6.98C7.9245 8.1425 7.8085 8.185 7.036 9.05C6.264 9.915 5.9095 10.1825 5.2635 11.2325C4.618 12.2825 4.5 13.681 4.5 14.709C4.5 18.897 7.8825 22 12 22Z" stroke="#AFB8CC" stroke-width="2" stroke-linejoin="round"/>
@@ -127,7 +127,7 @@
                      <h2>Butetown Store</h2>
                      <p>4720 Yellowhead Trail NW</p>
                      <div class="ads__box--cta">
-                         <a href='{{url_for("commercial.liveusage")}}'>
+                         <a href="{{url_for('commercial.liveusage', building_id=building_id)}}">
                              <span>
                                 <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M5.0415 6.87499H5.95817V7.79166H5.0415V6.87499ZM5.0415 3.20832H5.95817V5.95832H5.0415V3.20832ZM5.49525 0.916656C2.96525 0.916656 0.916504 2.96999 0.916504 5.49999C0.916504 8.02999 2.96525 10.0833 5.49525 10.0833C8.02984 10.0833 10.0832 8.02999 10.0832 5.49999C10.0832 2.96999 8.02984 0.916656 5.49525 0.916656ZM5.49984 9.16666C3.474 9.16666 1.83317 7.52582 1.83317 5.49999C1.83317 3.47416 3.474 1.83332 5.49984 1.83332C7.52567 1.83332 9.1665 3.47416 9.1665 5.49999C9.1665 7.52582 7.52567 9.16666 5.49984 9.16666Z" fill="#498DE1"/>
@@ -305,7 +305,7 @@
     <div class = 'historicalsavingsblock' id ='historicalblock'>
         <img class="historicalsavingsimage" src="{{url_for('static',filename='img/historicalsavingsimage.png')}}" />
         <div class = 'savingstext'>You saved a total energy of <span class = actualsavings>30%</span></div>
-        <a href = "{{url_for('commercial.historicalusage')}}"><img class="seehistoricalimage" src="{{url_for('static',filename='img/seehistorical.png')}}" /></a>
+        <a href = "{{url_for('commercial.historicalusage', building_id=building_id)}}"><img class="seehistoricalimage" src="{{url_for('static',filename='img/seehistorical.png')}}" /></a>
         <div class = 'historicalblockretract'><img class = 'historicalarrow' id = 'historicalarrow' onclick = "retracthistorical()" src = "{{url_for('static',filename='img/historicalarrow.png')}}"/></div>
 
     </div>

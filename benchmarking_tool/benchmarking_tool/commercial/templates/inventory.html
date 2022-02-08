@@ -140,7 +140,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href='{{url_for("commercial.datastream")}}'>
+                  <a href="{{url_for('commercial.datastream', building_id=building_id)}}">
                     <span>
                       <svg
                         width="24"
@@ -162,7 +162,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href='{{url_for("commercial.inventory")}}'>
+                  <a href="{{url_for('commercial.inventory', building_id=building_id)}}">
                     <span>
                       <svg
                         width="24"
@@ -184,7 +184,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href='{{url_for("commercial.utilities")}}'>
+                  <a href="{{url_for('commercial.utilities', building_id=building_id)}}">
                     <span>
                       <svg
                         width="24"
@@ -369,7 +369,7 @@
                     <div class="part-1">
                    <ul>
                      <li>
-                       <a href="{{url_for('commercial.lighting')}}">
+                       <a href="{{url_for('commercial.lighting', building_id=building_id)}}">
                          <img src="{{url_for('static',filename='img/highbaymetal-small.png')}}" alt="highbaymetal">
                          <p class="title">Lighting</p>
                          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -386,7 +386,7 @@
                        </a>
                      </li>
                      <li>
-                      <a href="#">
+                      <a href="{{url_for('commercial.pump', building_id=building_id)}}">
                         <img src="{{url_for('static',filename='img/Commercial-Motor.png')}}" alt="Commercial-Motor">
                         <p class="title">Motors</p>
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -403,7 +403,7 @@
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href="{{url_for('commercial.hvac', building_id=building_id)}}">
                         <img src="{{url_for('static',filename='img/Air-Hnadling-unit.png')}}" alt="Commercial-Motor">
                         <p class="title">HVAC</p>
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -420,7 +420,7 @@
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href="{{url_for('commercial.chiller', building_id=building_id)}}">
                         <img src="{{url_for('static',filename='img/ice-plant-small.png')}}" alt="Commercial-Motor">
                         <p class="title">Chiller</p>
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">

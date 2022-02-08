@@ -4,16 +4,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Solar</title>
+    <title>Pumps and Motors</title>
 
-    <link rel="stylesheet" href="{{url_for('static',filename='css/solarpage.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/inventory.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/styleguide.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
   </head>
   <body>
-    <div class="Solar-page">
+    <div class="inventory-page">
       <div class="container-inventory">
-        <div class="solar">
+        <div class="inventory">
           <div class="inventory__sidebar">
             <div class="arrow-toggle">
               <svg
@@ -276,7 +276,7 @@
           </div>
           <div class="inventory__components">
             <div style = 'position: relative; top: 70px; right: 30px'>
-            <a href = "{{url_for('commercial.utilities', building_id=building_id)}}"><svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <a href = "{{url_for('commercial.inventory', building_id=building_id)}}"><svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clip-path="url(#clip0_317_358)">
                   <path d="M9.6665 14.5L16.9165 21.75L18.6203 20.0463L13.0861 14.5L18.6203 8.95375L16.9165 7.25L9.6665 14.5Z" fill="#0D1758"/>
                   </g>
@@ -287,298 +287,222 @@
                   </defs>
                   </svg></a>
                 </div>
-            <h2>Virtual Solar System</h2>
+            <h2>Pumps and Motors</h2>
             <div class="inventory__components__container">
               <div class="inventory__components__container--1">
-                <div class="solar-flex">
-                  <div class="solar-overview">
-                    <h2 class="h2-solar">Overview</h2>
-                    <h3 class="label-days">Last 30 days</h3>
-                    <div class="percentage-facility">
-                      <div class="percentage-facility--1">
-                        <div class="progress-flex">
-                          <div class="progress" data-percentage="73">
-                            <span class="progress-left">
-                              <span class="progress-bar"></span>
-                            </span>
-                            <span class="progress-right">
-                              <span class="progress-bar"></span>
-                            </span>
-                          </div>
-                          <div class="progress-value">
-                            <div class="real-value">
-                              73
-                              <span class="val-percentage"> % </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="progress-text">
-                          <h3>of your facility could be powere by solar</h3>
-                        </div>
-                      </div>
-                      <div class="percentage-facility--2">
-                        <div class="heading">
-                          <p class="faciiluty-title">
-                            your <br />
-                            facility
-                          </p>
-                          <p class="facility-unit">
-                            11223.4 <br />
-                            kWh
-                          </p>
-                        </div>
-                        <div class="img-group">
-                          <img
-                            class="single-img"
-                            src="{{url_for('static',filename='img/town-shop.png')}}"
-                            alt=""
-                          />
-                          <div class="twoimgs">
-                            <svg
-                              width="10"
-                              height="10"
-                              viewBox="0 0 10 10"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M10 0L10 10L4.5 4.5L0 -4.37114e-07L10 0Z"
-                                fill="#8ADCFF"
-                              />
-                            </svg>
-                            <svg
-                              width="10"
-                              height="10"
-                              viewBox="0 0 10 10"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M0 0H10L4.5 5.5L0 10V0Z"
-                                fill="#FFEDAE"
-                              />
-                            </svg>
-                          </div>
-                          <div class="twoimgs-2">
-                            <svg
-                              width="10"
-                              height="10"
-                              viewBox="0 0 10 10"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M10 0L10 10L4.5 4.5L0 -4.37114e-07L10 0Z"
-                                fill="#009CDF"
-                              />
-                            </svg>
-                            <svg
-                              width="10"
-                              height="10"
-                              viewBox="0 0 10 10"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M0 0H10L4.5 5.5L0 10V0Z"
-                                fill="#FFC90E"
-                              />
-                            </svg>
-                          </div>
-                          <div class="twoimgs-3">
-                            <img src="{{url_for('static',filename='img/star.png')}}" alt="" />
-                            <img src="{{url_for('static',filename='img/surface.png')}}" alt="" />
-                          </div>
-                          <div class="bottom-title">
-                            <div class="side-1">
-                              <p>grid</p>
-                              <p>3.030.4</p>
-
-                              <p>kWh</p>
-                            </div>
-                            <div class="side-2">
-                              <p>solar</p>
-                              <p>8.193</p>
-
-                              <p>kWh</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                <div class="inventory-flex">
+                  <div class="EnergyCapacity">
+                    <h2 class="title-box">Energy Capacity</h2>
+                    <div class="EnergyCapacity__container" style = 'overflow: hidden; padding-left:50px;'>
+                      <ul>
+                        <li class="active">
+                          <img style = 'width: 47px; height: 47px;' src="{{url_for('static',filename='img/bigpump.png')}}" alt="highbaymetal" />
+                          <p class="name">WEG</p>
+                          <p><span class="num">{{numMotor}} units</span> </p>
+                          <p>3.0 HP<br> (each)</p>
+                          <p>{{numMotor * 3}}.0 HP<br> (total)</p>
+                        </li>
+                        <li>
+                          <img style = 'width: 47px; height: 47px;' src="{{url_for('static',filename='img/bigpump.png')}}" alt="highbaymetal" />
+                          <p class="name">WEG</p>
+                          <p>{{numPump}} units</p>
+                          <p>1.0 HP<br> (each)</p>
+                          <p>0 HP<br> (total)</p>
+                        </li>
+                        <li>
+                          <img style = 'width: 47px; height: 47px;' src="{{url_for('static',filename='img/bigpump.png')}}" alt="Air-Handling" />
+                          <p class="name">Lincoln</p>
+                          <p>0 units</p>
+                          <p>50.0 HP<br> (each)</p>
+                          <p>0 HP<br> (total)</p>
+                        </li>
+                       
+                        <li>
+                          <img style = 'width: 47px; height: 47px;' src="{{url_for('static',filename='img/bigpump.png')}}" alt="ice-plant" />
+                          <p class="name">Lincoln</p>
+                          <p>0 units</p>
+                          <p>75.0 HP<br> (each)</p>
+                          <p>0 HP<br> (total)</p>
+                        </li>
+                      </ul>
                     </div>
                   </div>
-                  <div class="solar-production">
-                    <h2 class="h2-solar">Production vs Usage</h2>
-                    <div class="chart-production">
-                      <div class="chart-values">
-                        <div class="column">
-                          <span></span>
-                          <span></span>
-                          <p class="title">S</p>
-                        </div>
-                        <div class="column">
-                          <span></span>
-                          <span></span>
-                          <p class="title">M</p>
-                        </div>
-                        <div class="column">
-                          <span></span>
-                          <span></span>
-                          <p class="title">T</p>
-                        </div>
-                        <div class="column">
-                          <span></span>
-                          <span></span>
-                          <p class="title">W</p>
-                        </div>
-                        <div class="column">
-                          <span></span>
-                          <span></span>
-                          <p class="title">T</p>
-                        </div>
-                        <div class="column">
-                          <span></span>
-                          <span></span>
-                          <p class="title">F</p>
-                        </div>
-                        <div class="column">
-                          <span></span>
-                          <span></span>
-                          <p class="title">S</p>
+                  <div class="Energy-used">
+                    <h2 class="title-box">Energy Used</h2>
+                    <div class="Energy-used__container">
+                      <h3 class="internal-title">Last 30 days</h3>
+                      <div class="contents">
+                        <div class="columns">
+                          <div class="column">
+                            <span style = 'background-color: #EE5937;'></span>
+                            <img style = 'width: 47px; height: 47px;' src="{{url_for('static',filename='img/bigpump.png')}}" alt="Hot-Water-Tank">
+                            <p class="title">WEG <br> 1.0 HP</p>
+                          </div>
+                          <div class="column">
+                            <span style = 'background-color: #C3C3C3;'></span>
+                            <img style = 'width: 47px; height: 47px;' src="{{url_for('static',filename='img/bigpump.png')}}" alt="Plug-Load">
+                            <p class="title">WEG <br> 3.0</p>
+                          </div>
+                          <div class="column">
+                            <span style = 'background-color: #293F8A;'></span>
+                            <img style = 'width: 47px; height: 47px;' src="{{url_for('static',filename='img/bigpump.png')}}" alt="Plug-Load">
+                            <p class="title">Lincoln <br> 50.0 HP</p>
+                          </div>
+                          <div class="column">
+                            <span style = 'background-color: #009CDF;'></span>
+                            <img style = 'width: 47px; height: 47px;' src="{{url_for('static',filename='img/bigpump.png')}}" alt="ice-plant">
+                            <p class="title">Lincoln <br> 75.0 HP</p>
+                          </div>
                         </div>
                       </div>
-                      <div class="explore-simulation">
-                        <a href="{{url_for('commercial.solarproduction', building_id=building_id)}}">
-                          <span class="txt">Explore Simulations</span>
-                          <span>
-                            <svg
-                              width="12"
-                              height="18"
-                              viewBox="0 0 12 18"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M12 9L3 -3.93402e-07L0.885 2.115L7.755 9L0.885 15.885L3 18L12 9Z"
-                                fill="#0D1758"
-                              />
-                            </svg>
-                          </span>
-                        </a>
-                      </div>
+
                     </div>
                   </div>
-                  <div class="solar-system">
-                    <div class="solart-system__top">
-                      <div class="solart-system__top--img">
-                        <div class="img-group">
-                          <img src="{{url_for('static',filename='img/solar-panel.png')}}" alt="solar-panel" />
-
-                          <img src="{{url_for('static',filename='img/LG-icon.png')}}" alt="LG" />
-                        </div>
-                      </div>
-                      <div class="solart-system__top--list">
-                        <ul>
-                          <li>
-                            <span>type of panel</span>
-                            <p>NeON2</p>
-                          </li>
-                          <li>
-                            <span>watts per panel</span>
-                            <p>410 <span>w</span></p>
-                          </li>
-                          <li>
-                            <span>total panels</span>
-                            <p>127</p>
-                          </li>
-                          <li>
-                            <span>total system wattage</span>
-
-                            <p>52,070 <span>w</span></p>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="solart-system__bottom">
-                        <div class="solart-system-cta">
-                            <a href="{{url_for('commercial.solarspecs', building_id=building_id)}}">
-                              <span class="txt">Solar System Specs</span>
-                              <span>
-                                <svg width="12" height="18" viewBox="0 0 12 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M12 9L3 -3.93402e-07L0.885 2.115L7.755 9L0.885 15.885L3 18L12 9Z" fill="#0D1758"></path>
-                                </svg>
-                              </span>
-                            </a>
-                          </div>
-                    </div>
+                  <div class="inventory-flex__3">
+                    <div class="part-1" style = 'overflow: hidden;'>
+                   <ul>
+                     <li>
+                       <a href="{{url_for('commercial.highbay', building_id=building_id)}}">
+                         <img style = 'width: 35px; height: 35px;' src="{{url_for('static',filename='img/bigpump.png')}}" alt="highbaymetal">
+                         <p class="title">WEG<br> 1.0 HP</p>
+                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g clip-path="url(#clip0_252_510)">
+                          <path d="M18.6665 14L11.6665 7L10.0215 8.645L15.3648 14L10.0215 19.355L11.6665 21L18.6665 14Z" fill="#C3C3C3"/>
+                          </g>
+                          <defs>
+                          <clipPath id="clip0_252_510">
+                          <rect width="28" height="28" fill="white" transform="translate(28) rotate(90)"/>
+                          </clipPath>
+                          </defs>
+                          </svg>
+                          
+                       </a>
+                     </li>
+                     <li>
+                      <a href="{{url_for('commercial.troffer1x4', building_id=building_id)}}">
+                        <img style = 'width: 35px; height: 35px;' src="{{url_for('static',filename='img/bigpump.png')}}" alt="Commercial-Motor">
+                        <p class="title">WEG <br> 3.0 HP</p>
+                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                         <g clip-path="url(#clip0_252_510)">
+                         <path d="M18.6665 14L11.6665 7L10.0215 8.645L15.3648 14L10.0215 19.355L11.6665 21L18.6665 14Z" fill="#C3C3C3"/>
+                         </g>
+                         <defs>
+                         <clipPath id="clip0_252_510">
+                         <rect width="28" height="28" fill="white" transform="translate(28) rotate(90)"/>
+                         </clipPath>
+                         </defs>
+                         </svg>
+                         
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{url_for('commercial.troffer2x4', building_id=building_id)}}">
+                        <img style = 'width: 35px; height: 35px;' src="{{url_for('static',filename='img/bigpump.png')}}" alt="Commercial-Motor">
+                        <p class="title">Lincoln<br> 50.0 HP</p>
+                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                         <g clip-path="url(#clip0_252_510)">
+                         <path d="M18.6665 14L11.6665 7L10.0215 8.645L15.3648 14L10.0215 19.355L11.6665 21L18.6665 14Z" fill="#C3C3C3"/>
+                         </g>
+                         <defs>
+                         <clipPath id="clip0_252_510">
+                         <rect width="28" height="28" fill="white" transform="translate(28) rotate(90)"/>
+                         </clipPath>
+                         </defs>
+                         </svg>
+                         
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{url_for('commercial.wallpack', building_id=building_id)}}">
+                        <img style = 'width: 35px; height: 35px;' src="{{url_for('static',filename='img/bigpump.png')}}" alt="Commercial-Motor">
+                        <p class="title">Lincoln <br> 75.0 HP</p>
+                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                         <g clip-path="url(#clip0_252_510)">
+                         <path d="M18.6665 14L11.6665 7L10.0215 8.645L15.3648 14L10.0215 19.355L11.6665 21L18.6665 14Z" fill="#C3C3C3"/>
+                         </g>
+                         <defs>
+                         <clipPath id="clip0_252_510">
+                         <rect width="28" height="28" fill="white" transform="translate(28) rotate(90)"/>
+                         </clipPath>
+                         </defs>
+                         </svg>
+                         
+                      </a>
+                    </li>
+                   </ul>
+                   <div class="explore-simulation">
+                    <a href="#">
+                      <span class="txt">Explore</span>
+                      <span>
+                     
+                      </span>
+                    </a>
                   </div>
-                  <div class="solar-saving">
-                      <div class="solar-saving--part1">
-                          <div class="top-part">
-                              <div class="save-up">
-                                  <p>save up to</p>
-                                  <p class="price-title"><span>$</span> 233,458.<span>77</span></p>
-                                  <p>/annually</p>
-                              </div>
-                              <div class="pay-back">
-                                 <div class="text">
-                                    <p>12 <span>years</span></p>
-                                    <p>8 <span>months</span></p>
-                                 </div>
-                                 <p>pay-back period</p>
-                              </div>
-                          </div>
-                          <div class="bottom-part">
-                            <div class="solart-system-cta">
-                                <a href="#">
-                                  <span class="txt"> Saving </span>
-                                  <span>
-                                    <svg width="12" height="18" viewBox="0 0 12 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M12 9L3 -3.93402e-07L0.885 2.115L7.755 9L0.885 15.885L3 18L12 9Z" fill="#0D1758"></path>
-                                    </svg>
-                                  </span>
-                                </a>
-                              </div>
-                          </div>
-     
-                      </div>
-                      <div class="solar-saving--part2">
-                      <div class="solar-explore">
-                          <a href="#" class="explore-cta">
-                             <div class="content">
-                                <p>Explore other solar systems</p>
-                                <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M24 18L15 9L12.885 11.115L19.755 18L12.885 24.885L15 27L24 18Z" fill="black"/>
-                                  </svg>
-                             </div>
-                           
-                                
-                            </a>
-                            <div class="group-imgs">
-                                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M40 20C40 31.0457 31.0457 40 20 40C8.9543 40 0 31.0457 0 20C0 8.9543 8.9543 0 20 0C31.0457 0 40 8.9543 40 20ZM9.6873 20C9.6873 25.6955 14.3045 30.3127 20 30.3127C25.6955 30.3127 30.3127 25.6955 30.3127 20C30.3127 14.3045 25.6955 9.6873 20 9.6873C14.3045 9.6873 9.6873 14.3045 9.6873 20Z" fill="#FFC90E"/>
-                                    </svg>
-                                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M40 20C40 31.0457 31.0457 40 20 40C8.9543 40 0 31.0457 0 20C0 8.9543 8.9543 0 20 0C31.0457 0 40 8.9543 40 20ZM9.6873 20C9.6873 25.6955 14.3045 30.3127 20 30.3127C25.6955 30.3127 30.3127 25.6955 30.3127 20C30.3127 14.3045 25.6955 9.6873 20 9.6873C14.3045 9.6873 9.6873 14.3045 9.6873 20Z" fill="#FFC90E"/>
-                                        </svg>
+                    </div>
+                    <div class="part-2">
+                      <div class="dummy-div">
 
-                                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M40 20C40 31.0457 31.0457 40 20 40C8.9543 40 0 31.0457 0 20C0 8.9543 8.9543 0 20 0C31.0457 0 40 8.9543 40 20ZM9.6873 20C9.6873 25.6955 14.3045 30.3127 20 30.3127C25.6955 30.3127 30.3127 25.6955 30.3127 20C30.3127 14.3045 25.6955 9.6873 20 9.6873C14.3045 9.6873 9.6873 14.3045 9.6873 20Z" fill="#FFC90E"/>
-                                            </svg>
-
-                                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M40 20C40 31.0457 31.0457 40 20 40C8.9543 40 0 31.0457 0 20C0 8.9543 8.9543 0 20 0C31.0457 0 40 8.9543 40 20ZM9.6873 20C9.6873 25.6955 14.3045 30.3127 20 30.3127C25.6955 30.3127 30.3127 25.6955 30.3127 20C30.3127 14.3045 25.6955 9.6873 20 9.6873C14.3045 9.6873 9.6873 14.3045 9.6873 20Z" fill="#FFC90E"/>
-                                                </svg>
-
-                                                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M40 20C40 31.0457 31.0457 40 20 40C8.9543 40 0 31.0457 0 20C0 8.9543 8.9543 0 20 0C31.0457 0 40 8.9543 40 20ZM9.6873 20C9.6873 25.6955 14.3045 30.3127 20 30.3127C25.6955 30.3127 30.3127 25.6955 30.3127 20C30.3127 14.3045 25.6955 9.6873 20 9.6873C14.3045 9.6873 9.6873 14.3045 9.6873 20Z" fill="#FFC90E"/>
-                                                    </svg>
-                                                    
-                                    
-                                    
-                             </div>
                       </div>
+                       
+                   <div class="bottom">
+                    <div class="explore-simulation">
+                      <a href="#">
+                        <span class="txt">Saving</span>
+                        <span>
+                          <svg width="12" height="18" viewBox="0 0 12 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 9L3 -3.93402e-07L0.885 2.115L7.755 9L0.885 15.885L3 18L12 9Z" fill="#0D1758"></path>
+                          </svg>
+                        </span>
+                      </a>
+                    </div>
+                   </div>
+                   
+                     </div>
+                  
+
+                  </div>
+                  <div class="inventory-flex__4">
+                    <div class="part-2 dummy-section">
+                      <div class="dummy-div">
+
                       </div>
+                       
+                   <div class="bottom">
+                    <div class="explore-simulation">
+                      <a href="#">
+                        <span class="txt">Stats</span>
+                        <span>
+                          <svg width="12" height="18" viewBox="0 0 12 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 9L3 -3.93402e-07L0.885 2.115L7.755 9L0.885 15.885L3 18L12 9Z" fill="#0D1758"></path>
+                          </svg>
+                        </span>
+                      </a>
+                    </div>
+                   </div>
+                   
+                     </div>
+                     <div class="compare-section">
+                      <div class="img">
+                        <p>compare your facility to itself and others</p>
+                      </div>
+                   <div class="span-group">
+                       <span></span>
+                       <span></span>
+                       <span></span>
+                   </div>
+                   <div class="bottom-part">
+                       <div class="explore-simulation">
+                           <a href="#">
+                             <span class="txt">Comparisons</span>
+                             <span>
+                               <svg width="12" height="18" viewBox="0 0 12 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                 <path d="M12 9L3 -3.93402e-07L0.885 2.115L7.755 9L0.885 15.885L3 18L12 9Z" fill="#0D1758"></path>
+                               </svg>
+                             </span>
+                           </a>
+                         </div>
+                   </div>
+                  </div>
 
                   </div>
                 </div>
@@ -589,6 +513,6 @@
       </div>
     </div>
 
- 
+    <script src="file.js"></script>
   </body>
 </html>
