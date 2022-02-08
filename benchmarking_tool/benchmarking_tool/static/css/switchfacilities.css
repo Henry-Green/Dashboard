@@ -1,0 +1,608 @@
+/* screen - about-facility */
+
+.about-facility {
+  align-items: flex-start;
+  background-color: var(--white);
+  display: flex;
+  width: 1440px;
+}
+
+.about-facility .overlap-group12 {
+  height: 896px;
+  position: relative;
+  width: 248px;
+
+}
+
+.about-facility .rectangle-3 {
+  background-color: var(--white);
+  height: 183px;
+  left: 247px;
+  position: absolute;
+  top: 687px;
+  width: 1px;
+}
+
+.about-facility .side-bar-2 {
+  align-items: flex-end;
+  background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  height: 896px;
+  left: 0;
+  overflow: hidden;
+  padding: 24px 0;
+  position: absolute;
+  top: 0;
+  width: 248px;
+}
+
+.about-facility .overlap-group8 {
+  height: 45px;
+  margin-right: 0;
+  margin-top: 42px;
+  position: relative;
+  width: 23px;
+}
+
+.about-facility .group-7388 {
+  align-items: flex-end;
+  display: flex;
+  height: 45px;
+  justify-content: flex-end;
+  left: 0;
+  min-width: 23px;
+  position: absolute;
+  top: 0;
+  transform: rotate(-180.00deg);
+}
+
+.about-facility .rectangle-3518 {
+  height: 45px;
+  margin-bottom: 0;
+  transform: rotate(180.00deg);
+  width: 23px;
+}
+
+.about-facility .expand_less {
+  height: 22px;
+  left: 1px;
+  position: absolute;
+  top: 11px;
+  width: 22px;
+}
+
+.about-facility .flex-row-1 {
+  align-items: flex-start;
+  display: flex;
+  height: 757px;
+  margin-top: 4px;
+  min-width: 248px;
+}
+
+.about-facility .rectangle-3489 {
+  background-color: var(--blueberry);
+  border-radius: 8px;
+  height: 45px;
+  margin-top: 121px;
+  transform: rotate(180deg);
+  width: 5px;
+}
+
+.about-facility .flex-col {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-left: 9px;
+  min-height: 751px;
+  width: 221px;
+}
+
+.about-facility .frame-18 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  min-height: 285px;
+  width: 186px;
+}
+
+.about-facility .frame-16 {
+  align-items: center;
+  border-radius: 5px;
+  display: flex;
+  height: 45px;
+  overflow: hidden;
+  padding: 8px 10px;
+  width: 186px;
+}
+
+.about-facility .icon {
+  height: 24px;
+  margin-bottom: 1.0px;
+  width: 24px;
+}
+
+.about-facility .overview {
+  align-self: flex-end;
+  letter-spacing: -0.32px;
+  line-height: 28px;
+  margin-left: 22px;
+  min-height: 28px;
+  min-width: 68px;
+  white-space: nowrap;
+}
+
+.about-facility .frame-17 {
+  align-items: center;
+  border-radius: 12px;
+  display: flex;
+  height: 45px;
+  margin-top: 15px;
+  overflow: hidden;
+  padding: 8px 10px;
+  width: 186px;
+}
+
+.about-facility .data-stream {
+  align-self: flex-end;
+  letter-spacing: -0.32px;
+  line-height: 28px;
+  margin-left: 22px;
+  min-height: 28px;
+  min-width: 93px;
+  white-space: nowrap;
+}
+
+.about-facility .frame-20 {
+  align-items: center;
+  border-radius: 5px;
+  display: flex;
+  height: 45px;
+  margin-top: 15px;
+  overflow: hidden;
+  padding: 8px 10px;
+  width: 186px;
+}
+
+.about-facility .inventory {
+  align-self: flex-end;
+  letter-spacing: -0.32px;
+  line-height: 28px;
+  margin-left: 22px;
+  min-height: 28px;
+  min-width: 68px;
+  white-space: nowrap;
+}
+
+.about-facility .frame-2 {
+  align-items: flex-start;
+  border-radius: 5px;
+  display: flex;
+  height: 45px;
+  margin-top: 15px;
+  overflow: hidden;
+  padding: 0 10px;
+  width: 186px;
+}
+
+.about-facility .icon-1 {
+  align-self: center;
+  height: 24px;
+  margin-bottom: 1.0px;
+  width: 24px;
+}
+
+.about-facility .utilities-alternatives {
+  letter-spacing: -0.32px;
+  line-height: 22px;
+  margin-left: 22px;
+  min-height: 44px;
+}
+
+.about-facility .icon-2 {
+  align-self: center;
+  background-image: url(../img/interface---settings@2x.svg);
+  background-size: 100% 100%;
+  height: 24px;
+  margin-bottom: 1.0px;
+  width: 24px;
+}
+
+.about-facility .energy-management {
+  letter-spacing: -0.32px;
+  line-height: 22px;
+  margin-left: 22px;
+  min-height: 44px;
+}
+
+.about-facility .frame-23 {
+  align-items: center;
+  border-radius: 5px;
+  display: flex;
+  height: 45px;
+  margin-top: 215px;
+  overflow: hidden;
+  padding: 8px 10px;
+  width: 186px;
+}
+
+.about-facility .log-out {
+  align-self: flex-end;
+  letter-spacing: 0;
+  line-height: 28px;
+  margin-left: 22px;
+  min-height: 28px;
+  min-width: 62px;
+  white-space: nowrap;
+}
+
+.about-facility .overlap-group9 {
+  align-self: flex-end;
+  border-radius: 14px;
+  height: 178px;
+  margin-top: 28px;
+  position: relative;
+  width: 215px;
+}
+
+.about-facility .group-container {
+  border-radius: 14px;
+  height: 178px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 215px;
+}
+
+.about-facility .group-7363 {
+  align-items: flex-start;
+  background-color: var(--bay-of-many);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  left: 0;
+  min-height: 178px;
+  padding: 12px 0;
+  position: absolute;
+  top: 0;
+  width: 215px;
+}
+
+.about-facility .mask-group {
+  align-self: center;
+  height: 79px;
+  width: 191px;
+}
+
+.about-facility .frame-1363 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-left: 12px;
+  margin-top: 10px;
+  min-height: 35px;
+  width: 128px;
+}
+
+.about-facility .butetown-store {
+  letter-spacing: 0;
+  line-height: 14px;
+  min-height: 14px;
+  min-width: 100px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.about-facility .address {
+  letter-spacing: 0.20px;
+  line-height: 15px;
+  margin-top: 6px;
+  min-height: 15px;
+  min-width: 128px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.about-facility .overlap-group-2 {
+  align-items: flex-start;
+  background-color: var(--white-lilac);
+  border-radius: 8px;
+  display: flex;
+  height: 21px;
+  justify-content: flex-end;
+  left: 12px;
+  min-width: 71px;
+  padding: 4px 12px;
+  position: absolute;
+  top: 145px;
+}
+
+.about-facility .about {
+  letter-spacing: 0;
+  min-height: 12px;
+}
+
+.about-facility .overlap-group1 {
+  align-items: flex-start;
+  background-color: var(--white-lilac);
+  border-radius: 8px;
+  display: flex;
+  height: 21px;
+  justify-content: flex-end;
+  left: 94px;
+  min-width: 75px;
+  padding: 4px 13px;
+  position: absolute;
+  top: 145px;
+}
+
+.about-facility .switch {
+  letter-spacing: 0;
+  min-height: 12px;
+}
+
+.about-facility .error_outline {
+  height: 11px;
+  left: 23px;
+  position: absolute;
+  top: 150px;
+  width: 11px;
+}
+
+.about-facility .edit {
+  height: 11px;
+  left: 108px;
+  position: absolute;
+  top: 150px;
+  width: 11px;
+}
+
+.about-facility .rectangle-3523 {
+  align-self: flex-end;
+  background-color: var(--white);
+  height: 190px;
+  margin-left: 12px;
+  width: 1px;
+}
+
+.about-facility .logo {
+  height: 58px;
+  left: 24px;
+  position: absolute;
+  top: 25px;
+  width: 129px;
+}
+
+.about-facility .overlap-group11 {
+  align-items: flex-start;
+  background-image: url(../img/line-16@1x.svg);
+  background-size: 100% 100%;
+  display: flex;
+  margin-left: 1px;
+  min-width: 1px;
+}
+
+.about-facility .line-18 {
+  height: 896px;
+  width: 1px;
+}
+
+.about-facility .flex-col-1 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-left: 39px;
+  margin-top: 65px;
+  min-height: 793px;
+  width: 1109px;
+}
+
+.about-facility .switch-facilities {
+  letter-spacing: 0;
+  line-height: 29.0px;
+  min-height: 29px;
+  white-space: nowrap;
+}
+
+.about-facility .overlap-group10 {
+  background-color: var(--cultured-pearl);
+  border-radius: 10px;
+  height: 734px;
+  margin-left: 2px;
+  margin-top: 30px;
+  min-width: 1107px;
+  padding: 29px 22px;
+  float: left;
+  overflow: scroll;
+}
+
+.about-facility .overlap-group-container-1 {
+  min-height: 633px;
+  width: 1107px;
+  float: left;
+}
+
+.about-facility .overlap-group {
+  background-color: var(--white);
+  border-radius: 18px;
+  min-height: 278px;
+  padding: 6.0px 16.0px;
+  margin-left: 10px;
+  width: 226px;
+  float: left;
+}
+
+.about-facility .rectangle-4 {
+  align-self: center;
+  background-color: var(--mystic);
+  height: 1px;
+  margin-left: 1.0px;
+  margin-top: 222px;
+  width: 185px;
+}
+
+.about-facility .flex-row {
+  align-items: center;
+  display: flex;
+  margin-top: 7px;
+  min-width: 183px;
+}
+
+.about-facility .town-office {
+  letter-spacing: 0;
+  line-height: 29.0px;
+  margin-bottom: 1.0px;
+  min-height: 29px;
+  min-width: 106px;
+  white-space: nowrap;
+}
+
+.about-facility .expand_less-1 {
+  height: 36px;
+  margin-left: 41px;
+  width: 36px;
+}
+
+.about-facility .overlap-group-1 {
+  align-items: flex-end;
+  background-color: var(--white);
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 77px;
+  min-height: 278px;
+  padding: 6.0px 16.0px;
+  width: 226px;
+}
+
+.about-facility .lift-station {
+  letter-spacing: 0;
+  line-height: 29.0px;
+  margin-bottom: 1.0px;
+  min-height: 29px;
+  min-width: 99px;
+  white-space: nowrap;
+}
+
+.about-facility .expand_less-2 {
+  height: 36px;
+  margin-left: 48px;
+  width: 36px;
+}
+
+.about-facility .overlap-group-container {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-left: 28px;
+  min-height: 633px;
+  width: 226px;
+}
+
+.about-facility .surname {
+  letter-spacing: 0;
+  line-height: 29.0px;
+  margin-bottom: 1.0px;
+  min-height: 29px;
+  min-width: 65px;
+  white-space: nowrap;
+}
+
+.about-facility .expand_less-3 {
+  height: 36px;
+  margin-left: 82px;
+  width: 36px;
+}
+
+.about-facility .fire-station {
+  letter-spacing: 0;
+  line-height: 29.0px;
+  margin-bottom: 1.0px;
+  min-height: 29px;
+  min-width: 103px;
+  white-space: nowrap;
+}
+
+.about-facility .expand_less-4 {
+  height: 36px;
+  margin-left: 44px;
+  width: 36px;
+}
+
+.about-facility .shop {
+  letter-spacing: 0;
+  line-height: 29.0px;
+  margin-bottom: 1.0px;
+  min-height: 29px;
+  min-width: 46px;
+  white-space: nowrap;
+}
+
+.about-facility .expand_less-5 {
+  height: 36px;
+  margin-left: 101px;
+  width: 36px;
+}
+
+.about-facility .school {
+  letter-spacing: 0;
+  line-height: 29.0px;
+  margin-bottom: 1.0px;
+  min-height: 29px;
+  min-width: 61px;
+  white-space: nowrap;
+}
+
+.about-facility .expand_less-6 {
+  height: 36px;
+  margin-left: 86px;
+  width: 36px;
+}
+
+.about-facility .police-station {
+  letter-spacing: 0;
+  line-height: 29.0px;
+  margin-bottom: 1.0px;
+  min-height: 29px;
+  min-width: 123px;
+  white-space: nowrap;
+}
+
+.about-facility .expand_less-7 {
+  height: 36px;
+  margin-left: 24px;
+  width: 36px;
+}
+
+.about-facility .courts {
+  letter-spacing: 0;
+  line-height: 29.0px;
+  margin-bottom: 1.0px;
+  min-height: 29px;
+  min-width: 59px;
+  white-space: nowrap;
+}
+
+.about-facility .expand_less-8 {
+  height: 36px;
+  margin-left: 88px;
+  width: 36px;
+}
+
+.about-facility .overlap-group13 {
+  align-items: flex-start;
+  background-color: var(--white);
+  border-radius: 8.5px;
+  display: flex;
+  height: 633px;
+  margin-left: 20px;
+  min-width: 17px;
+  padding: 3px 2px;
+}
+
+.about-facility .rectangle-4879 {
+  background-color: var(--gulf-blue);
+  border-radius: 8.5px;
+  height: 102px;
+  width: 13px;
+}
