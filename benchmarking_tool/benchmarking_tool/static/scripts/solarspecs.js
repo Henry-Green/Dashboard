@@ -46,30 +46,4 @@ convertingValue(".numsupValue");
 
 
 
-const myctx = document.getElementById("myChart").getContext("2d");
-
-const myChart = new Chart(myctx, {
-  type: "doughnut",
-  data: {
-    datasets: [
-      {
-        data: [25, 19, 40, 20, 19,15],
-        backgroundColor: [
-          "#000000",
-          "#880015",
-          "#CC6633",
-          "#AA3300",
-          "#FF9900",
-           "#7F7F7F"
-         
-        ],
-        borderWidth: 0,
-      },
-    ],
-  },
-  options: {
-    cutout: 35,
-    maintainAspectRatio: false
-  },
-});
 
