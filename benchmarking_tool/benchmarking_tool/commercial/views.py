@@ -524,6 +524,14 @@ def facilityoverview(building_id):
           password="rvqb2JymBB5CaNn",
           database="db_mysql_sustainergy_alldata"
         )
+        mycursor = mydb.cursor()
+        sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+        mycursor.execute(sql,(building_id,))
+        myresult = mycursor.fetchall()
+        for result in myresult:
+            building_address = result[0]
+            buidling_description = result[1]
 
         mycursor = mydb.cursor()
         sql = "SELECT emporia_meter_sn_1 FROM electrical_panel WHERE panel_client_id = %s AND building_id = %s"
@@ -689,7 +697,7 @@ def facilityoverview(building_id):
            paneltotal[i] = round(paneltotal[i],2)
            panelpercent[i] = round(panelpercent[i],2)
         print(home_upgrades)
-        return render_template('facilityoverview.html',building_id = building_id,categoriesdf = categoriesdf,panelpercent = panelpercent, panelcircuits = panelcircuits,circuitcount = circuitcount,paneltotal = paneltotal,panelnames = panelnames,numpanels = numpanels,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,categoryusage = categoryusage, pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last, len = len(home_upgrades.index), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
+        return render_template('facilityoverview.html',building_address = building_address, buidling_description = buidling_description, building_id = building_id,categoriesdf = categoriesdf,panelpercent = panelpercent, panelcircuits = panelcircuits,circuitcount = circuitcount,paneltotal = paneltotal,panelnames = panelnames,numpanels = numpanels,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,categoryusage = categoryusage, pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last, len = len(home_upgrades.index), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
     else:
         abort(403)
      
@@ -697,7 +705,21 @@ def facilityoverview(building_id):
 @login_required
 def liveusage(building_id):
     if(current_user.is_authenticated and current_user.is_admin()):
-        return render_template('liveusage.html',building_id = building_id)
+        mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+        mycursor = mydb.cursor()
+        sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+        mycursor.execute(sql,(building_id,))
+        myresult = mycursor.fetchall()
+        for result in myresult:
+            building_address = result[0]
+            buidling_description = result[1]
+        return render_template('liveusage.html',building_address = building_address, buidling_description = buidling_description, building_id = building_id)
     else:
         abort(403)
 @commercial.route('/facilityoverviewbubble', methods=['GET', 'POST'])
@@ -776,16 +798,43 @@ def switchfacilities():
 @commercial.route('/gaspage/<building_id>', methods=['GET', 'POST'])
 @login_required
 def gaspage(building_id):
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
 
-
-    return render_template('gaspage.html',building_id = building_id)
+    return render_template('gaspage.html',building_address = building_address, buidling_description = buidling_description, building_id = building_id)
 
 @commercial.route('/electricalpage/<building_id>', methods=['GET', 'POST'])
 @login_required
 def electricalpage(building_id):
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
 
 
-    return render_template('electricalpage.html',building_id=building_id)
+    return render_template('electricalpage.html',building_address = building_address, buidling_description = buidling_description,building_id=building_id)
 
 @commercial.route('/electricalgraph/<building_id>', methods=['GET', 'POST'])
 @login_required
@@ -798,7 +847,14 @@ def electricalgraph(building_id):
           password="rvqb2JymBB5CaNn",
           database="db_mysql_sustainergy_alldata"
         )
-
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
     mycursor = mydb.cursor()
     sql = "SELECT yearlyGas FROM utilities WHERE id = 1"
         
@@ -863,16 +919,29 @@ def electricalgraph(building_id):
 
         mydb.commit()
 
-    return render_template('electricalgraph.html', building_id=building_id,form = form, electricaldata = electricaldata, gasdata= gasdata)
+    return render_template('electricalgraph.html',building_address = building_address, buidling_description = buidling_description, building_id=building_id,form = form, electricaldata = electricaldata, gasdata= gasdata)
 
 
 
 @commercial.route('/solarpage/<building_id>', methods=['GET', 'POST'])
 @login_required
 def solarpage(building_id):
-    
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
 
-    return render_template('solarpage.html',building_id=building_id)
+    return render_template('solarpage.html',building_address = building_address, buidling_description = buidling_description,building_id=building_id)
 
 @commercial.route('/solarspecs/<building_id>', methods=['GET', 'POST'])
 @login_required
@@ -883,6 +952,14 @@ def solarspecs(building_id):
           password="rvqb2JymBB5CaNn",
           database="db_mysql_sustainergy_alldata"
         )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
     mycursor = mydb.cursor()
     sql = "SELECT number_of_panels, watts_per_panel,panel_type,panel_loss FROM solar_data WHERE building_id = %s"
     val = (building_id,)
@@ -897,7 +974,7 @@ def solarspecs(building_id):
     print(number_of_panels)
     
 
-    return render_template('solarspecs.html',panel_loss=panel_loss,number_of_panels=int(number_of_panels),watts_per_panel=int(watts_per_panel),panel_type=panel_type,building_id=building_id)
+    return render_template('solarspecs.html',building_address = building_address, buidling_description = buidling_description,panel_loss=panel_loss,number_of_panels=int(number_of_panels),watts_per_panel=int(watts_per_panel),panel_type=panel_type,building_id=building_id)
 
 @commercial.route('/solarproduction/<building_id>', methods=['GET', 'POST'])
 @login_required
@@ -910,7 +987,20 @@ def solarproduction(building_id):
     kwh_price = 0.09
 
 
-    
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
     a_file =  open('static/scripts/solardata.json', 'r')
     json_object = json.load(a_file)
     a_file.close()
@@ -938,7 +1028,7 @@ def solarproduction(building_id):
     json.dump(json_object, a_file)
     a_file.close()
 
-    return render_template('solarproduction.html',building_id=building_id)
+    return render_template('solarproduction.html',building_address = building_address, buidling_description = buidling_description,building_id=building_id)
 
 
 
@@ -1006,6 +1096,14 @@ def lighting(building_id):
           database="db_mysql_sustainergy_alldata"
         )
     mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
+    mycursor = mydb.cursor()
     sql = "SELECT items_st_quantity, items_st_consolidate_sub_type FROM Items WHERE items_building_id = %s AND Items_type = 'Lighthing'"
     val = (buildingid,)
     mycursor.execute(sql, val)
@@ -1025,7 +1123,7 @@ def lighting(building_id):
             numLinears += int(result[0])  
   
 
-    return render_template('lighting.html' ,building_id=building_id, numHighBays = numHighBays, num1x4=num1x4,num2x4=num2x4,numWallPack=numWallPack,numSpotLights=numSpotLights,numLinears=numLinears)
+    return render_template('lighting.html' ,building_address = building_address, buidling_description = buidling_description,building_id=building_id, numHighBays = numHighBays, num1x4=num1x4,num2x4=num2x4,numWallPack=numWallPack,numSpotLights=numSpotLights,numLinears=numLinears)
 
 
 @commercial.route('/troffer2x4/<building_id>', methods=['GET', 'POST'])
@@ -1041,6 +1139,14 @@ def troffer2x4(building_id):
           password="rvqb2JymBB5CaNn",
           database="db_mysql_sustainergy_alldata"
         )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
     mycursor = mydb.cursor()
     sql = "SELECT area_id, area_desctription FROM area WHERE area_building_id = %s"
     val = (buildingid,)
@@ -1077,7 +1183,7 @@ def troffer2x4(building_id):
         areaCount.append(0)
     if percentSum == 0:
         percentSum = 1
-    return render_template('troffer2x4.html',building_id=building_id,areaList=areaList,percentSum = percentSum, equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
+    return render_template('troffer2x4.html',building_address = building_address, buidling_description = buidling_description,building_id=building_id,areaList=areaList,percentSum = percentSum, equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
 
 @commercial.route('/troffer1x4/<building_id>', methods=['GET', 'POST'])
 @login_required
@@ -1092,6 +1198,14 @@ def troffer1x4(building_id):
           password="rvqb2JymBB5CaNn",
           database="db_mysql_sustainergy_alldata"
         )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
     mycursor = mydb.cursor()
     sql = "SELECT area_id, area_desctription FROM area WHERE area_building_id = %s"
     val = (buildingid,)
@@ -1128,7 +1242,7 @@ def troffer1x4(building_id):
         areaCount.append(0)
     if percentSum == 0:
         percentSum = 1
-    return render_template('troffer1x4.html',building_id=building_id,areaList=areaList,percentSum = percentSum, equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
+    return render_template('troffer1x4.html',building_address = building_address, buidling_description = buidling_description,building_id=building_id,areaList=areaList,percentSum = percentSum, equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
 
 @commercial.route('/highbay/<building_id>', methods=['GET', 'POST'])
 @login_required
@@ -1143,6 +1257,14 @@ def highbay(building_id):
           password="rvqb2JymBB5CaNn",
           database="db_mysql_sustainergy_alldata"
         )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
     mycursor = mydb.cursor()
     sql = "SELECT area_id, area_desctription FROM area WHERE area_building_id = %s"
     val = (buildingid,)
@@ -1179,7 +1301,7 @@ def highbay(building_id):
         areaCount.append(0)
     if percentSum == 0:
         percentSum = 1
-    return render_template('highbay.html',building_id=building_id,areaList=areaList,percentSum = percentSum, equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
+    return render_template('highbay.html',building_address = building_address, buidling_description = buidling_description,building_id=building_id,areaList=areaList,percentSum = percentSum, equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
 
 @commercial.route('/wallpack/<building_id>', methods=['GET', 'POST'])
 @login_required
@@ -1194,6 +1316,14 @@ def wallpack(building_id):
           password="rvqb2JymBB5CaNn",
           database="db_mysql_sustainergy_alldata"
         )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
     mycursor = mydb.cursor()
     sql = "SELECT area_id, area_desctription FROM area WHERE area_building_id = %s"
     val = (buildingid,)
@@ -1230,7 +1360,7 @@ def wallpack(building_id):
         areaCount.append(0)
     if percentSum == 0:
         percentSum = 1
-    return render_template('wallpack.html',building_id=building_id,areaList=areaList,percentSum = percentSum, equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
+    return render_template('wallpack.html',building_address = building_address, buidling_description = buidling_description,building_id=building_id,areaList=areaList,percentSum = percentSum, equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
 
 @commercial.route('/linear/<building_id>', methods=['GET', 'POST'])
 @login_required
@@ -1245,6 +1375,14 @@ def linear(building_id):
           password="rvqb2JymBB5CaNn",
           database="db_mysql_sustainergy_alldata"
         )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
     mycursor = mydb.cursor()
     sql = "SELECT area_id, area_desctription FROM area WHERE area_building_id = %s"
     val = (buildingid,)
@@ -1281,7 +1419,7 @@ def linear(building_id):
         areaCount.append(0)
     if percentSum == 0:
         percentSum = 1
-    return render_template('linear.html',building_id=building_id,areaList=areaList,percentSum = percentSum, equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
+    return render_template('linear.html',building_address = building_address, buidling_description = buidling_description,building_id=building_id,areaList=areaList,percentSum = percentSum, equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
 
 @commercial.route('/spotlight/<building_id>', methods=['GET', 'POST'])
 @login_required
@@ -1296,6 +1434,14 @@ def spotlight(building_id):
           password="rvqb2JymBB5CaNn",
           database="db_mysql_sustainergy_alldata"
         )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
     mycursor = mydb.cursor()
     sql = "SELECT area_id, area_desctription FROM area WHERE area_building_id = %s"
     val = (buildingid,)
@@ -1330,7 +1476,7 @@ def spotlight(building_id):
         areaCount.append(0)
     if percentSum == 0:
         percentSum = 1
-    return render_template('spotlight.html',building_id=building_id,areaList=areaList, percentSum = percentSum,equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
+    return render_template('spotlight.html',building_address = building_address, buidling_description = buidling_description,building_id=building_id,areaList=areaList, percentSum = percentSum,equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
 
 
 
@@ -1351,6 +1497,14 @@ def hvac(building_id):
           database="db_mysql_sustainergy_alldata"
         )
     mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
+    mycursor = mydb.cursor()
     sql = "SELECT items_st_quantity, items_st_consolidate_sub_type FROM Items WHERE items_building_id = %s AND items_subtype = 'Heathing'"
     val = (buildingid,)
     mycursor.execute(sql, val)
@@ -1366,7 +1520,7 @@ def hvac(building_id):
             numFurnaces += int(result[0])  
   
 
-    return render_template('hvac.html' , building_id=building_id,numFurnaces = numFurnaces, numRTUS = numRTUS, numUnitHeaters = numUnitHeaters, numInfraredHeaters = numInfraredHeaters)
+    return render_template('hvac.html' ,building_address = building_address, buidling_description = buidling_description, building_id=building_id,numFurnaces = numFurnaces, numRTUS = numRTUS, numUnitHeaters = numUnitHeaters, numInfraredHeaters = numInfraredHeaters)
 
 @commercial.route('/pump/<building_id>', methods=['GET', 'POST'])
 @login_required
@@ -1381,6 +1535,14 @@ def pump(building_id):
           database="db_mysql_sustainergy_alldata"
         )
     mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
+    mycursor = mydb.cursor()
     sql = "SELECT items_st_quantity, items_st_consolidate_sub_type FROM Items WHERE items_building_id = %s"
     val = (buildingid,)
     mycursor.execute(sql, val)
@@ -1392,7 +1554,7 @@ def pump(building_id):
             numMotor += int(result[0])   
   
 
-    return render_template('pump.html' ,building_id=building_id,numPump=numPump, numMotor=numMotor)
+    return render_template('pump.html' ,building_address = building_address, buidling_description = buidling_description,building_id=building_id,numPump=numPump, numMotor=numMotor)
 
 @commercial.route('/chiller/<building_id>', methods=['GET', 'POST'])
 @login_required
@@ -1406,6 +1568,14 @@ def chiller(building_id):
           database="db_mysql_sustainergy_alldata"
         )
     mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
+    mycursor = mydb.cursor()
     sql = "SELECT items_st_quantity, items_st_consolidate_sub_type FROM Items WHERE items_building_id = %s"
     val = (buildingid,)
     mycursor.execute(sql, val)
@@ -1415,7 +1585,7 @@ def chiller(building_id):
             numChiller += int(result[0]) 
   
 
-    return render_template('chiller.html' ,building_id=building_id,numChiller=numChiller)
+    return render_template('chiller.html' ,building_address = building_address, buidling_description = buidling_description,building_id=building_id,numChiller=numChiller)
 
 
 @commercial.route('/inventory/<building_id>', methods=['GET', 'POST'])
@@ -1438,6 +1608,14 @@ def inventory(building_id):
           password="rvqb2JymBB5CaNn",
           database="db_mysql_sustainergy_alldata"
         )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
     mycursor = mydb.cursor()
     sql = "SELECT items_st_quantity FROM Items WHERE items_building_id = %s AND Items_type = 'Lighthing'"
     val = (buildingid,)
@@ -1516,7 +1694,7 @@ def inventory(building_id):
     myresult = mycursor.fetchall()
     numChiller = len(myresult)
 
-    return render_template('inventory.html',building_id=building_id,PlugTons = PlugTons,DHWTons=DHWTons,ChillerTons = ChillerTons,BTUTotal = BTUTotal, numLights = numLights, numHvac = numHvac , numPlugs = numPlugs, numDHW = numDHW, numChiller = numChiller, totalWatts = totalWatts)
+    return render_template('inventory.html',building_address = building_address, buidling_description = buidling_description,building_id=building_id,PlugTons = PlugTons,DHWTons=DHWTons,ChillerTons = ChillerTons,BTUTotal = BTUTotal, numLights = numLights, numHvac = numHvac , numPlugs = numPlugs, numDHW = numDHW, numChiller = numChiller, totalWatts = totalWatts)
 
 
 @commercial.route('/datastream/<building_id>', methods=['GET', 'POST'])
@@ -1530,6 +1708,14 @@ def datastream(building_id):
           password="rvqb2JymBB5CaNn",
           database="db_mysql_sustainergy_alldata"
         )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
 
 
     return render_template('datastream.html', building_id = building_id)
@@ -1545,6 +1731,14 @@ def utilities(building_id):
           password="rvqb2JymBB5CaNn",
           database="db_mysql_sustainergy_alldata"
         )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
 
     mycursor = mydb.cursor()
     sql = "SELECT yearlyGas FROM utilities WHERE id = 1"
@@ -1610,7 +1804,7 @@ def utilities(building_id):
 
         mydb.commit()
 
-    return render_template('utilities.html', building_id = building_id,form = form, electricaldata = electricaldata, gasdata= gasdata)
+    return render_template('utilities.html',building_address = building_address, buidling_description = buidling_description, building_id = building_id,form = form, electricaldata = electricaldata, gasdata= gasdata)
 
 @commercial.route('/historicalusage/<building_id>', methods=['GET', 'POST'])
 @login_required
@@ -1631,6 +1825,14 @@ def historicalusage(building_id):
           password="rvqb2JymBB5CaNn",
           database="db_mysql_sustainergy_alldata"
         )
+        mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
         today = date.today()
         userdate = (today - timedelta(days = 1)).strftime('%Y-%m-%d') + '%'
         form = HistoricalUsageForm()
@@ -1940,7 +2142,7 @@ def historicalusage(building_id):
         with open('static/scripts/data.json', 'w') as f:
             json.dump(jsondictionarylist, f)
 
-        return render_template('historicalusage.html',building_id = building_id,endhours = endhours, starthours = starthours, weeklabels = weeklabels, last_week_cd = last_week_full,predicted_line = predicted_line,error = error, timeloadscolours = timeloadscolours,alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
+        return render_template('historicalusage.html',building_address = building_address, buidling_description = buidling_description,building_id = building_id,endhours = endhours, starthours = starthours, weeklabels = weeklabels, last_week_cd = last_week_full,predicted_line = predicted_line,error = error, timeloadscolours = timeloadscolours,alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
     else:
         abort(403)
 
@@ -3618,6 +3820,20 @@ def operatinghours(building_id):
         endminutes = []
         month = 0
         changed = ''
+        mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+        mycursor = mydb.cursor()
+        sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+                
+        mycursor.execute(sql,(building_id,))
+        myresult = mycursor.fetchall()
+        for result in myresult:
+            building_address = result[0]
+            buidling_description = result[1]
 
         # calendar_init(building_id, year, days_per_week, start_hour, end_hour)
         if request.method == "POST":
@@ -3738,7 +3954,7 @@ def operatinghours(building_id):
             if endhours[i] is None:
                 endam.append(endhours[i])
             
-        return render_template('operatinghours.html',building_id = building_id,startminutes = startminutes, endminutes = endminutes, form = form,month = month,starthours = starthours, endhours = endhours, startam = startam, endam = endam)
+        return render_template('operatinghours.html',building_address = building_address, buidling_description = buidling_description,building_id = building_id,startminutes = startminutes, endminutes = endminutes, form = form,month = month,starthours = starthours, endhours = endhours, startam = startam, endam = endam)
     else:
         abort(403)
 
