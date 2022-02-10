@@ -1025,7 +1025,7 @@ def solarproduction(building_id):
 
 
     print(numPanels)
-    a_file =  open('benchmarking_tool/static/scripts/solardata.json', 'r')
+    a_file =  open('static/scripts/solardata.json', 'r')
     json_object = json.load(a_file)
     a_file.close()
 
