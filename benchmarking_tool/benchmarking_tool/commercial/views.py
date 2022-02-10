@@ -1050,7 +1050,7 @@ def solarproduction(building_id):
             else:
                 k -= 1
             thing['consumption'] = {'value': solarenergy/5000, 'status': 'ON'}
-    a_file = open('benchmarking_tool/static/scripts/solardata.json', "w")
+    a_file = open('static/scripts/solardata.json', "w")
     json.dump(json_object, a_file)
     a_file.close()
 
