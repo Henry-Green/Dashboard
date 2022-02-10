@@ -985,6 +985,15 @@ def solarproduction(building_id):
     solar_pannel_wattage = 400
     hours_of_sunlight = randint(3, 18)
     kwh_price = 0.09
+    weather_list = []
+    url = "http://api.weatherapi.com/v1/forecast.json?key=237335d4c72f474a85a202934220902&q=Edgerton&days=1&aqi=no&alerts=no"
+    file = urllib.request.urlopen(url)
+
+    for line in file:
+        weather_list.append(line.decode("utf-8"))
+    
+    data = json.loads(weather_list[0])
+    
 
 
     mydb = mysql.connector.connect(
@@ -1001,21 +1010,37 @@ def solarproduction(building_id):
     for result in myresult:
         building_address = result[0]
         buidling_description = result[1]
-    a_file =  open('static/scripts/solardata.json', 'r')
+
+    mycursor = mydb.cursor()
+    sql = "SELECT number_of_panels, panel_width, panel_height FROM solar_data WHERE building_id = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        numPanels = result[0]
+        width = result[1]
+        height = result[2]
+
+
+
+    print(numPanels)
+    a_file =  open('benchmarking_tool/static/scripts/solardata.json', 'r')
     json_object = json.load(a_file)
     a_file.close()
 
     hourslist = ['twlveAM','oneAM','twoAM','threeAM','fourAM','fiveAM','sixAM','sevenAM','eightAM','nineAM','tenAM','elevenPM','twlvePM','onePM','twoPM','threePM','fourPM','fivePM','sixPM','sevenPM','eightPM','ninePM','tenPM','elevnPM']
     hournumberlist = ['12am', '1am', '2am','3am','4am','5am','6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm','9pm','10pm','11pm']
-    print(json_object['twlveAM'])
 
     k = 0
     over12 = False
     for i in range(0,len(hourslist)):
         for thing in json_object[hourslist[i]]:
             hours_of_sunlight = randint(1, k + 1)
-            solarcalc = solar_calc(square_footage,panel_sqft,solar_pannel_wattage,hours_of_sunlight,kwh_price)
-            thing['dataWeather'] = {"hour":hournumberlist[i],"degree" : "-2","kwh":solarcalc['power generated']/1000,"icon":"<img src='/static/img/snow.png'/>","value":solarcalc['power generated']/5000}
+            energy = 104*(data['forecast']['forecastday'][0]['hour'][i]['uv']) - 18.365
+            icon = data['forecast']['forecastday'][0]['hour'][i]['condition']['icon']
+            temp = data['forecast']['forecastday'][0]['hour'][i]["temp_c"]
+            solarenergy = (energy * (float(width) * float(height))) * float(numPanels)
+            thing['dataWeather'] = {"hour":hournumberlist[i],"degree" : temp,"kwh":"{:.2f}".format(solarenergy/1000),"icon":"<img src=" + icon + ">","value":"{:.2f}".format(solarenergy/5000)}
             if k > 12:
                 k -= 1
                 over12 = True
@@ -1023,13 +1048,12 @@ def solarproduction(building_id):
                 k += 1
             else:
                 k -= 1
-            thing['consumption'] = {'value': solarcalc['power generated']/1000, 'status': 'ON'}
-    a_file = open('static/scripts/solardata.json', "w")
+            thing['consumption'] = {'value': solarenergy/5000, 'status': 'ON'}
+    a_file = open('benchmarking_tool/static/scripts/solardata.json', "w")
     json.dump(json_object, a_file)
     a_file.close()
 
     return render_template('solarproduction.html',building_address = building_address, buidling_description = buidling_description,building_id=building_id)
-
 
 
 
