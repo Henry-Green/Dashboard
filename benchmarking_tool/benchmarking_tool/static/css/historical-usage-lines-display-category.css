@@ -8855,7 +8855,7 @@ header{
   opacity: 1;
 }
 .chart-figma__container .chart-xaxis .morning div.column .columnpopup, .chart-figma__container .chart-xaxis .afternoon div.column .columnpopup, .chart-figma__container .chart-xaxis .night div.column .columnpopup {
-  top: -120px;
+  bottom: 120px;
   position: absolute;
   min-width: 120px;
   background-color: #fff;
