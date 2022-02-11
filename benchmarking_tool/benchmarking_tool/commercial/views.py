@@ -1743,7 +1743,7 @@ def datastream(building_id):
         buidling_description = result[1]
 
 
-    return render_template('datastream.html', building_id = building_id)
+    return render_template('datastream.html',building_address = building_address, buidling_description = buidling_description,building_id = building_id)
 
 @commercial.route('/utilities/<building_id>', methods=['GET', 'POST'])
 @login_required
