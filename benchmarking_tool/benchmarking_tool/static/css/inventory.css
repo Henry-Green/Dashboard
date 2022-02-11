@@ -1,3 +1,9 @@
+
+body{
+    zoom: 1.1; 
+  -moz-transform: scale(1.1); 
+  -moz-transform-origin: 0 0;
+}
 .inventory-page .inventory__components__container--1 .inventory-flex .inventory-flex__3 .part-2 .explore-simulation, .inventory-page .inventory__components__container--1 .inventory-flex .inventory-flex__3 .part-1 .explore-simulation, .inventory-page .inventory__components__container--1 .inventory-flex .inventory-flex__4 .dummy-section .explore-simulation, .inventory-page .inventory__components__container--1 .inventory-flex .inventory-flex__4 .compare-section .bottom-part .explore-simulation {
   width: 95%;
   margin: auto;
@@ -582,7 +588,7 @@ button.logout span:nth-child(2) {
 }
 
 .inventory__sidebar {
-  height: 100%;
+  height: 92vh;
   width: 250px;
   position: relative;
   border-right: 1px solid #E3E7ED;

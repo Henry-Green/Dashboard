@@ -10,9 +10,6 @@ body{
   mix-blend-mode: normal;
   position: relative;
   width: 100%;
-  zoom: 1.1; 
-  -moz-transform: scale(1.1); 
-  -moz-transform-origin: 0 0;
   overflow: hidden;
 }
 
@@ -1485,6 +1482,8 @@ body{
   bottom: 33px;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
 }
 .historical-usage-lines-display-category .rectangle-3184-week {
   background-color: var(--sapphire);
