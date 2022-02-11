@@ -27,7 +27,7 @@ function createColumns(periodArray, section,data) {
     if (x.period === `${section.className}`) {
       const column = document.createElement("div");
       column.classList.add("column");
-      column.style.height = x.value*10 + "%";
+      column.style.height = x.value + "px";
       if (section.classList.contains(`${x.period}`)) {
         section.appendChild(column);
       }
@@ -134,7 +134,7 @@ fetch(jsonUrl)
       allValues.push(x.value);
     }
     document.querySelectorAll(".column").forEach((item) => {
-      item.firstElementChild.style.top = `-${item.clientHeight / 1.5}px`;
+      item.firstElementChild.style.bottom = `${item.clientHeight * 1.2}px`;
       console.log(item.firstElementChild);
     });
     setIconPosition(allValues);
@@ -151,7 +151,7 @@ const setIconPosition = (allArrays) => {
     if (maxValue*20 < 50) {
       item.style.bottom = 70 + "%";
     } else {
-      item.style.bottom = maxValue*20 + 2.5 + "%";
+      item.style.bottom = maxValue*2 + 2.5 + "%";
     }
   });
 };
