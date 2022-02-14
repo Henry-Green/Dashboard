@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chiller</title>
+    <title>DHW</title>
 
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/inventory.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/styleguide.css')}}" />
@@ -288,7 +288,7 @@
                   </defs>
                   </svg></a>
                 </div>
-            <h2>Chiller</h2>
+            <h2>DHW</h2>
             <div class="inventory__components__container">
               <div class="inventory__components__container--1">
                 <div class="inventory-flex">
@@ -297,10 +297,10 @@
                     <div class="EnergyCapacity__container" style = 'overflow: hidden; padding-left:50px;'>
                       <ul>
                         <li class="active">
-                          <img style = 'width: 47px; height: 47px;' src="{{url_for('static',filename='img/bigchiller.png')}}" alt="highbaymetal" />
-                          <p class="name">Cimco</p>
+                          <img style = 'width: 47px; height: 47px;' src="{{url_for('static',filename='img/bigdhw.png')}}" alt="highbaymetal" />
+                          <p class="name">AO <br> Smith</p>
                           <p><span class="num">{{numChiller}} units</span> </p>
-                          <p>80 tons</p>
+                          <p>351k BTU</p>
                         </li>
                       </ul>
                     </div>
@@ -312,9 +312,9 @@
                       <div class="contents" >
                         <div class="columns" style = 'left: 40%; position: relative;'>
                           <div class="column">
-                            <span style = 'background-color: #009CDF;height: 100px;'></span>
-                            <img style = 'width: 47px; height: 47px;' src="{{url_for('static',filename='img/bigchiller.png')}}" alt="Hot-Water-Tank">
-                            <p class="title">Cimco <br> 80 tons</p>
+                            <span style = 'background-color: #FFDA59;height: 20px;'></span>
+                            <img style = 'width: 47px; height: 47px;' src="{{url_for('static',filename='img/bigdhw.png')}}" alt="Hot-Water-Tank">
+                            <p class="title">AO <br> Smith</p>
                           </div>
                         </div>
                       </div>
@@ -326,8 +326,8 @@
                    <ul>
                      <li>
                       <a href="{{url_for('commercial.troffer1x4', building_id=building_id)}}">
-                        <img style = 'width: 35px; height: 35px;' src="{{url_for('static',filename='img/bigchiller.png')}}" alt="Commercial-Motor">
-                        <p class="title">Cimco <br> 80 tons</p>
+                        <img style = 'width: 35px; height: 35px;' src="{{url_for('static',filename='img/bigdhw.png')}}" alt="Commercial-Motor">
+                        <p class="title">AO <br> Smith</p>
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                          <g clip-path="url(#clip0_252_510)">
                          <path d="M18.6665 14L11.6665 7L10.0215 8.645L15.3648 14L10.0215 19.355L11.6665 21L18.6665 14Z" fill="#C3C3C3"/>
