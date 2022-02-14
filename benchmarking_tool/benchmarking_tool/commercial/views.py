@@ -5277,7 +5277,7 @@ def hvac_index(id):
 
 @commercial.route('/adddhw/<int:id>', methods=['GET', 'POST'])
 @login_required
-def dhw(id):
+def adddhw(id):
     if(current_user.is_authenticated and current_user.is_admin()):
 
         area = Area.query.get(id)
