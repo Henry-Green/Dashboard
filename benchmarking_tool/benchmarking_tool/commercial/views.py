@@ -1547,6 +1547,412 @@ def hvac(building_id):
 
     return render_template('hvac.html' ,building_address = building_address, buidling_description = buidling_description, building_id=building_id,numFurnaces = numFurnaces, numRTUS = numRTUS, numUnitHeaters = numUnitHeaters, numInfraredHeaters = numInfraredHeaters)
 
+
+@commercial.route('/furnace/<building_id>', methods=['GET', 'POST'])
+@login_required
+def furnace(building_id):
+    buildingid = 'ce736d20'
+    areaIds = []
+    areaNames = []
+    areaCount = []
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
+    mycursor = mydb.cursor()
+    sql = "SELECT area_id, area_desctription FROM area WHERE area_building_id = %s"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        areaIds.append(result[0])
+        areaNames.append(result[1])
+        areaCount.append(0)
+
+    equipmentDf = pd.DataFrame({'Area Id': areaIds, 'Area Name': areaNames, 'Area Count': areaCount})
+    sql = "SELECT items_st_quantity, items_st_consolidate_sub_type, items_area_id FROM Items WHERE items_building_id = %s AND Items_type = 'Lighthing'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        for i in range(0,len(areaIds)):
+            if result[2] == equipmentDf.iloc[i][0] and 'Spot Light' in result[1]:
+                equipmentDf.loc[i, 'Area Count'] += int(result[0])
+    equipmentDf = equipmentDf.sort_values(by = ['Area Count'], ascending=False)
+    areaCount = equipmentDf['Area Count'].tolist()
+    areaList = equipmentDf['Area Name'].tolist()
+    totalLights = sum(areaCount)
+    percentSum = totalLights
+    colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
+
+    for i in range(0,len(areaCount)):
+        if len(colours) < len(areaCount):
+            colours.append("#" + "%06x" % random.randint(0, 0xFFFFFF))
+    
+    if len(areaCount) == 0:
+        areaCount.append(0)
+    if percentSum == 0:
+        percentSum = 1
+    return render_template('furnace.html',building_address = building_address, buidling_description = buidling_description,building_id=building_id,areaList=areaList, percentSum = percentSum,equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
+
+@commercial.route('/lennox69/<building_id>', methods=['GET', 'POST'])
+@login_required
+def lennox69(building_id):
+    buildingid = 'ce736d20'
+    areaIds = []
+    areaNames = []
+    areaCount = []
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
+    mycursor = mydb.cursor()
+    sql = "SELECT area_id, area_desctription FROM area WHERE area_building_id = %s"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        areaIds.append(result[0])
+        areaNames.append(result[1])
+        areaCount.append(0)
+
+    equipmentDf = pd.DataFrame({'Area Id': areaIds, 'Area Name': areaNames, 'Area Count': areaCount})
+    sql = "SELECT items_st_quantity, items_st_consolidate_sub_type, items_area_id FROM Items WHERE items_building_id = %s AND Items_type = 'Lighthing'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        for i in range(0,len(areaIds)):
+            if result[2] == equipmentDf.iloc[i][0] and 'Spot Light' in result[1]:
+                equipmentDf.loc[i, 'Area Count'] += int(result[0])
+    equipmentDf = equipmentDf.sort_values(by = ['Area Count'], ascending=False)
+    areaCount = equipmentDf['Area Count'].tolist()
+    areaList = equipmentDf['Area Name'].tolist()
+    totalLights = sum(areaCount)
+    percentSum = totalLights
+    colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
+
+    for i in range(0,len(areaCount)):
+        if len(colours) < len(areaCount):
+            colours.append("#" + "%06x" % random.randint(0, 0xFFFFFF))
+    
+    if len(areaCount) == 0:
+        areaCount.append(0)
+    if percentSum == 0:
+        percentSum = 1
+    return render_template('lennox69.html',building_address = building_address, buidling_description = buidling_description,building_id=building_id,areaList=areaList, percentSum = percentSum,equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
+
+@commercial.route('/carrier/<building_id>', methods=['GET', 'POST'])
+@login_required
+def carrier(building_id):
+    buildingid = 'ce736d20'
+    areaIds = []
+    areaNames = []
+    areaCount = []
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
+    mycursor = mydb.cursor()
+    sql = "SELECT area_id, area_desctription FROM area WHERE area_building_id = %s"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        areaIds.append(result[0])
+        areaNames.append(result[1])
+        areaCount.append(0)
+
+    equipmentDf = pd.DataFrame({'Area Id': areaIds, 'Area Name': areaNames, 'Area Count': areaCount})
+    sql = "SELECT items_st_quantity, items_st_consolidate_sub_type, items_area_id FROM Items WHERE items_building_id = %s AND Items_type = 'Lighthing'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        for i in range(0,len(areaIds)):
+            if result[2] == equipmentDf.iloc[i][0] and 'Spot Light' in result[1]:
+                equipmentDf.loc[i, 'Area Count'] += int(result[0])
+    equipmentDf = equipmentDf.sort_values(by = ['Area Count'], ascending=False)
+    areaCount = equipmentDf['Area Count'].tolist()
+    areaList = equipmentDf['Area Name'].tolist()
+    totalLights = sum(areaCount)
+    percentSum = totalLights
+    colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
+
+    for i in range(0,len(areaCount)):
+        if len(colours) < len(areaCount):
+            colours.append("#" + "%06x" % random.randint(0, 0xFFFFFF))
+    
+    if len(areaCount) == 0:
+        areaCount.append(0)
+    if percentSum == 0:
+        percentSum = 1
+    return render_template('carrier.html',building_address = building_address, buidling_description = buidling_description,building_id=building_id,areaList=areaList, percentSum = percentSum,equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
+
+@commercial.route('/lennox140/<building_id>', methods=['GET', 'POST'])
+@login_required
+def lennox140(building_id):
+    buildingid = 'ce736d20'
+    areaIds = []
+    areaNames = []
+    areaCount = []
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
+    mycursor = mydb.cursor()
+    sql = "SELECT area_id, area_desctription FROM area WHERE area_building_id = %s"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        areaIds.append(result[0])
+        areaNames.append(result[1])
+        areaCount.append(0)
+
+    equipmentDf = pd.DataFrame({'Area Id': areaIds, 'Area Name': areaNames, 'Area Count': areaCount})
+    sql = "SELECT items_st_quantity, items_st_consolidate_sub_type, items_area_id FROM Items WHERE items_building_id = %s AND Items_type = 'Lighthing'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        for i in range(0,len(areaIds)):
+            if result[2] == equipmentDf.iloc[i][0] and 'Spot Light' in result[1]:
+                equipmentDf.loc[i, 'Area Count'] += int(result[0])
+    equipmentDf = equipmentDf.sort_values(by = ['Area Count'], ascending=False)
+    areaCount = equipmentDf['Area Count'].tolist()
+    areaList = equipmentDf['Area Name'].tolist()
+    totalLights = sum(areaCount)
+    percentSum = totalLights
+    colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
+
+    for i in range(0,len(areaCount)):
+        if len(colours) < len(areaCount):
+            colours.append("#" + "%06x" % random.randint(0, 0xFFFFFF))
+    
+    if len(areaCount) == 0:
+        areaCount.append(0)
+    if percentSum == 0:
+        percentSum = 1
+    return render_template('lennox140.html',building_address = building_address, buidling_description = buidling_description,building_id=building_id,areaList=areaList, percentSum = percentSum,equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
+
+
+@commercial.route('/unitheater/<building_id>', methods=['GET', 'POST'])
+@login_required
+def unitheater(building_id):
+    buildingid = 'ce736d20'
+    areaIds = []
+    areaNames = []
+    areaCount = []
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
+    mycursor = mydb.cursor()
+    sql = "SELECT area_id, area_desctription FROM area WHERE area_building_id = %s"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        areaIds.append(result[0])
+        areaNames.append(result[1])
+        areaCount.append(0)
+
+    equipmentDf = pd.DataFrame({'Area Id': areaIds, 'Area Name': areaNames, 'Area Count': areaCount})
+    sql = "SELECT items_st_quantity, items_st_consolidate_sub_type, items_area_id FROM Items WHERE items_building_id = %s AND items_subtype = 'Heathing'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    print(myresult)
+    for result in myresult:
+        for i in range(0,len(areaIds)):
+            if result[2] == equipmentDf.iloc[i][0] and 'Unit' in result[1]:
+                equipmentDf.loc[i, 'Area Count'] += int(result[0])
+    equipmentDf = equipmentDf.sort_values(by = ['Area Count'], ascending=False)
+    areaCount = equipmentDf['Area Count'].tolist()
+    areaList = equipmentDf['Area Name'].tolist()
+    totalLights = sum(areaCount)
+    percentSum = totalLights
+    colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
+
+    for i in range(0,len(areaCount)):
+        if len(colours) < len(areaCount):
+            colours.append("#" + "%06x" % random.randint(0, 0xFFFFFF))
+    
+    if len(areaCount) == 0:
+        areaCount.append(0)
+    if percentSum == 0:
+        percentSum = 1
+    return render_template('unitheater.html',building_address = building_address, buidling_description = buidling_description,building_id=building_id,areaList=areaList, percentSum = percentSum,equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
+
+@commercial.route('/infrared/<building_id>', methods=['GET', 'POST'])
+@login_required
+def infrared(building_id):
+    buildingid = 'ce736d20'
+    areaIds = []
+    areaNames = []
+    areaCount = []
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
+    mycursor = mydb.cursor()
+    sql = "SELECT area_id, area_desctription FROM area WHERE area_building_id = %s"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        areaIds.append(result[0])
+        areaNames.append(result[1])
+        areaCount.append(0)
+
+    equipmentDf = pd.DataFrame({'Area Id': areaIds, 'Area Name': areaNames, 'Area Count': areaCount})
+    sql = "SELECT items_st_quantity, items_st_consolidate_sub_type, items_area_id FROM Items WHERE items_building_id = %s AND items_subtype = 'Heathing'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    print(myresult)
+    for result in myresult:
+        for i in range(0,len(areaIds)):
+            if result[2] == equipmentDf.iloc[i][0] and  'Infared' or 'Infrared' in result[1]:
+                equipmentDf.loc[i, 'Area Count'] += int(result[0])
+    equipmentDf = equipmentDf.sort_values(by = ['Area Count'], ascending=False)
+    areaCount = equipmentDf['Area Count'].tolist()
+    areaList = equipmentDf['Area Name'].tolist()
+    totalLights = sum(areaCount)
+    percentSum = totalLights
+    colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
+
+    for i in range(0,len(areaCount)):
+        if len(colours) < len(areaCount):
+            colours.append("#" + "%06x" % random.randint(0, 0xFFFFFF))
+    
+    if len(areaCount) == 0:
+        areaCount.append(0)
+    if percentSum == 0:
+        percentSum = 1
+    return render_template('infrared.html',building_address = building_address, buidling_description = buidling_description,building_id=building_id,areaList=areaList, percentSum = percentSum,equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
+
+
+@commercial.route('/rtu/<building_id>', methods=['GET', 'POST'])
+@login_required
+def rtu(building_id):
+    buildingid = 'ce736d20'
+    areaIds = []
+    areaNames = []
+    areaCount = []
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
+    mycursor = mydb.cursor()
+    sql = "SELECT area_id, area_desctription FROM area WHERE area_building_id = %s"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        areaIds.append(result[0])
+        areaNames.append(result[1])
+        areaCount.append(0)
+
+    equipmentDf = pd.DataFrame({'Area Id': areaIds, 'Area Name': areaNames, 'Area Count': areaCount})
+    sql = "SELECT items_st_quantity, items_st_consolidate_sub_type, items_area_id FROM Items WHERE items_building_id = %s AND items_subtype = 'Heathing'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    print(myresult)
+    for result in myresult:
+        for i in range(0,len(areaIds)):
+            if result[2] == equipmentDf.iloc[i][0] and  'RTU' in result[1]:
+                equipmentDf.loc[i, 'Area Count'] += int(result[0])
+    equipmentDf = equipmentDf.sort_values(by = ['Area Count'], ascending=False)
+    areaCount = equipmentDf['Area Count'].tolist()
+    areaList = equipmentDf['Area Name'].tolist()
+    totalLights = sum(areaCount)
+    percentSum = totalLights
+    colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
+
+    for i in range(0,len(areaCount)):
+        if len(colours) < len(areaCount):
+            colours.append("#" + "%06x" % random.randint(0, 0xFFFFFF))
+    
+    if len(areaCount) == 0:
+        areaCount.append(0)
+    if percentSum == 0:
+        percentSum = 1
+    return render_template('rtu.html',building_address = building_address, buidling_description = buidling_description,building_id=building_id,areaList=areaList, percentSum = percentSum,equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
+
+
 @commercial.route('/pump/<building_id>', methods=['GET', 'POST'])
 @login_required
 def pump(building_id):
@@ -1611,6 +2017,97 @@ def chiller(building_id):
   
 
     return render_template('chiller.html' ,building_address = building_address, buidling_description = buidling_description,building_id=building_id,numChiller=numChiller)
+
+
+@commercial.route('/dhw/<building_id>', methods=['GET', 'POST'])
+@login_required
+def dhw(building_id):
+    buildingid = 'ce736d20'
+    numChiller = 0
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
+    mycursor = mydb.cursor()
+    sql = "SELECT items_st_quantity, items_st_consolidate_sub_type FROM Items WHERE items_building_id = %s AND items_subtype = 'DHW'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        if 'Chiller' in result[1]:
+            numChiller += int(result[0]) 
+  
+
+    return render_template('dhw.html' ,building_address = building_address, buidling_description = buidling_description,building_id=building_id,numChiller=numChiller)
+
+
+@commercial.route('/aosmith/<building_id>', methods=['GET', 'POST'])
+@login_required
+def aosmith(building_id):
+    buildingid = 'ce736d20'
+    areaIds = []
+    areaNames = []
+    areaCount = []
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
+    mycursor = mydb.cursor()
+    sql = "SELECT area_id, area_desctription FROM area WHERE area_building_id = %s"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        areaIds.append(result[0])
+        areaNames.append(result[1])
+        areaCount.append(0)
+
+    equipmentDf = pd.DataFrame({'Area Id': areaIds, 'Area Name': areaNames, 'Area Count': areaCount})
+    sql = "SELECT items_st_quantity, items_st_consolidate_sub_type, items_area_id FROM Items WHERE items_building_id = %s AND items_subtype = 'DHW'"
+    val = (buildingid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    print(myresult)
+    for result in myresult:
+        for i in range(0,len(areaIds)):
+            equipmentDf.loc[i, 'Area Count'] += int(result[0])
+    equipmentDf = equipmentDf.sort_values(by = ['Area Count'], ascending=False)
+    areaCount = equipmentDf['Area Count'].tolist()
+    areaList = equipmentDf['Area Name'].tolist()
+    totalLights = sum(areaCount)
+    percentSum = totalLights
+    colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
+
+    for i in range(0,len(areaCount)):
+        if len(colours) < len(areaCount):
+            colours.append("#" + "%06x" % random.randint(0, 0xFFFFFF))
+    
+    if len(areaCount) == 0:
+        areaCount.append(0)
+    if percentSum == 0:
+        percentSum = 1
+    return render_template('aosmith.html',building_address = building_address, buidling_description = buidling_description,building_id=building_id,areaList=areaList, percentSum = percentSum,equipmentDf = equipmentDf, areaCount = areaCount, totalLights = totalLights, numAreas = len(areaCount), colours = colours)
+
 
 
 @commercial.route('/inventory/<building_id>', methods=['GET', 'POST'])
