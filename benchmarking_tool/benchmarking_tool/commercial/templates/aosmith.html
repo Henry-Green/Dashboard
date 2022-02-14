@@ -166,7 +166,7 @@
                   </defs>
                   </svg></a>
                 </div>
-               <h2>Lennox Furnace (69k BTU)</h2>
+               <h2>AO Smith</h2>
                <div class="inventory__components__container">
                    
                    <div class="electricity-flex" >
@@ -188,7 +188,7 @@
                                   </div>
                             </div>
                            <div class = 'light-image' style= >
-                             <img style = 'width: 100%; height: 100%;' src = '{{url_for("static", filename ="img/furnace.png")}}'/>
+                             <img style = 'width: 100%; height: 100%;' src = '{{url_for("static", filename ="img/bigdhw.png")}}'/>
                            </div>
                            <div class = stat-block  style="width: auto; left: -10px;">
                            <p class = 'stat-title'> Number of units</p>
@@ -329,12 +329,12 @@
                                </div>
                                <div class="box__top">
                                 <div class="box__top--1">
-                                    <img  style = 'width: 240px; height: 240px;' src="{{url_for('static',filename='img/furnace.png')}}" alt="Enmax">
+                                    <img  style = 'width: 240px; height: 240px;' src="{{url_for('static',filename='img/bigdhw.png')}}" alt="Enmax">
                                 </div>
                                 <div class="box__top--2">
                                <div class = stat-block style = 'left: -15px; bottom: 110px; position: relative; width: auto;'>
                                  <p class = 'stat-title'>Type</p>
-                                 <p class = 'stat' style="font-size: 25px; width: auto;">Lennox Furnace (69k BTU)</p>
+                                 <p class = 'stat' style="font-size: 25px; width: auto;">AO Smith</p>
                                  <p class = 'stat-title'>Manufacturer</p>
                                  <p class = 'stat' style="font-size: 25px;">Furnace Manufa</p>
                                  <p class = 'stat-title'>Model #</p>
@@ -364,7 +364,7 @@
                               </div>
                           </div>
                           <div class="top" style = 'background-color: white;'>
-                              <img style = 'width: 171px; height: 171px; left: 25px; position: relative;' src = "{{url_for('static',filename='img/furnace.png')}}"/>
+                              <img style = 'width: 171px; height: 171px; left: 25px; position: relative;' src = "{{url_for('static',filename='img/bigdhw.png')}}"/>
 
                           </div>
                           <p class = 'savings'><span style = 'font-size: 18px;'>$</span>334<span  style = 'font-size: 18px;'>.82</span><br> <span style = 'font-size: 18px;'>/year</span></p>
@@ -382,12 +382,12 @@
 
          </div>
         </div>
-        <div class="group-8064" id = 'aboutPopup'>
+        <div class="group-8064" id = 'aboutPopup' style = 'height: 780px;'>
         <div class="group-8004">
           <div class="group-7557">
             <div class="flex-row-1">
               <div class="x2x4-troffer-about avertacy-bold-white-32px">
-                <span class="avertacy-bold-gulf-blue-32px">Lennox Furnace (69k BTU) - </span
+                <span class="avertacy-bold-gulf-blue-32px">AO Smith - </span
                 ><span class="avertacy-bold-gulf-blue-32px-2">About</span>
               </div>
               <img onclick = 'closeAbout();' class="cancel" src="{{url_for('static',filename='img/cancel@2x.svg')}}" />
@@ -407,7 +407,7 @@
             </div>
             <div class="group-798">
               <div class="fixture-type avertacy-bold-gray-15px">Type</div>
-              <div class="x2x4-troffer avertacy-bold-gulf-blue-15px" style = 'margin-left: 2px;'>Lennox Furnace (69k BTU)</div>
+              <div class="x2x4-troffer avertacy-bold-gulf-blue-15px" style = 'margin-left: 70px;'>AO Smith</div>
             </div>
             <div class="group-798-1">
               <div class="number-of-bulbs avertacy-bold-gray-15px">Manufacturer</div>
@@ -422,14 +422,26 @@
               <div class="x35w avertacy-bold-gulf-blue-15px" style = 'margin-left: 182px;'>3wFF12</div>
             </div>
             <div class="group-798-1">
-              <div class="total-wattage avertacy-bold-gray-15px">Efficiency</div>
-              <div class="x140w avertacy-bold-gulf-blue-15px" style = 'margin-left: 162px;'>74%</div>
+              <div class="total-wattage avertacy-bold-gray-15px">Input Capacity</div>
+              <div class="x140w avertacy-bold-gulf-blue-15px" style = 'margin-left: 162px;'>3.412</div>
             </div>
             <div class="group-7996">
               <div class="wattage-of-all-fixtures-combibed avertacy-bold-gray-15px">
-                Heating Capacity<br />output (btu / H)
+                Storage Volume
               </div>
-              <div class="x10360w avertacy-bold-gulf-blue-15px" style = 'margin-left: 80px;'>69k BTU</div>
+              <div class="x10360w avertacy-bold-gulf-blue-15px" style = 'margin-left: 80px;'>215l</div>
+            </div>
+            <div class="group-7996" style = ' margin-top: -10px;'>
+              <div class="wattage-of-all-fixtures-combibed avertacy-bold-gray-15px">
+                Thermal Efficiency (80%)
+              </div>
+              <div class="x10360w avertacy-bold-gulf-blue-15px" style = 'margin-left: 80px;'>80%</div>
+            </div>
+            <div class="group-7996">
+              <div class="wattage-of-all-fixtures-combibed avertacy-bold-gray-15px">
+                Set Point (Degrees)
+              </div>
+              <div class="x10360w avertacy-bold-gulf-blue-15px" style = 'margin-left: 80px;'>55</div>
             </div>
           </div>
           <div class="group-7999">
@@ -439,7 +451,7 @@
             </div>
             <div class="group-7998">
               <img class="expand_less" src="{{url_for('static',filename='img/expand-less@2x.svg')}}" />
-              <img class="troffer2x4-6" src="{{url_for('static',filename='img/furnace.png')}}" />
+              <img class="troffer2x4-6" src="{{url_for('static',filename='img/bigdhw.png')}}" />
               <img class="expand_less-1" src="{{url_for('static',filename='img/expand-less-1@2x.svg')}}" />
             </div>
           </div>
@@ -480,7 +492,7 @@
         <div class="group-8007">
           <div class="flex-row">
             <div class="x2x4-troffer-stats avertacy-bold-white-32px">
-              <span class="avertacy-bold-gulf-blue-32px">Lennox Furnace (69k BTU) - </span
+              <span class="avertacy-bold-gulf-blue-32px">AO Smith - </span
               ><span class="avertacy-bold-gulf-blue-32px-2">Stats</span>
             </div>
             <img onclick = 'closeAbout();' class="cancel" src="{{url_for('static',filename='img/cancel@2x.svg')}}" />
