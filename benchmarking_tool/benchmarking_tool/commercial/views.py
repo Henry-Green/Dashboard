@@ -720,7 +720,18 @@ def liveusage(building_id):
         for result in myresult:
             building_address = result[0]
             buidling_description = result[1]
-        return render_template('liveusage.html',building_address = building_address, buidling_description = buidling_description, building_id = building_id)
+
+        weather_list = []
+        url = "http://api.weatherapi.com/v1/forecast.json?key=237335d4c72f474a85a202934220902&q=Edgerton&days=1&aqi=no&alerts=no"
+        file = urllib.request.urlopen(url)
+
+        for line in file:
+            weather_list.append(line.decode("utf-8"))
+        
+        data = json.loads(weather_list[0])
+        now = datetime.datetime.now()
+        temp = data['forecast']['forecastday'][0]['hour'][now.hour]["temp_c"]
+        return render_template('liveusage.html',temp = temp,building_address = building_address, buidling_description = buidling_description, building_id = building_id)
     else:
         abort(403)
 @commercial.route('/facilityoverviewbubble', methods=['GET', 'POST'])
