@@ -237,7 +237,7 @@
                 <h2>{{buidling_description}}</h2>
                      <p>{{building_address}}</p>
                 <div class="ads__box--cta">
-                  <a href="#">
+                  <a href="{{url_for('commercial.liveusage', building_id=building_id)}}">
                     <span>
                       <svg
                         width="11"
@@ -438,7 +438,7 @@
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href="{{url_for('commercial.dhw', building_id=building_id)}}">
                         <img src="{{url_for('static',filename='img/Hot-water-tank.png')}}" alt="Commercial-Motor">
                         <p class="title">DHW</p>
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
