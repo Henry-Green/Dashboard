@@ -2195,8 +2195,9 @@ def inventory(building_id):
     hvacList = []
     for result in myresult:
         hvacList.append(result[0])
-    for light in hvacList:
-        numHvac += int(light) 
+    if len(hvaclist) > 0:
+        for light in hvacList:
+            numHvac += int(light) 
 
     for hvac in hvacList:
         BTUTotal += float(hvac) * 120000
@@ -2208,8 +2209,9 @@ def inventory(building_id):
     plugList = []
     for result in myresult:
         plugList.append(result[0])
-    for light in plugList:
-        numPlugs += int(light) 
+    if len(plugList) > 0:
+        for light in plugList:
+            numPlugs += int(light) 
 
     sql = "SELECT items_st_quantity FROM Items WHERE items_building_id = %s AND items_subtype = 'DHW'"
     val = (buildingid,)
@@ -2218,8 +2220,9 @@ def inventory(building_id):
     DHWList = []
     for result in myresult:
         DHWList.append(result[0])
-    for light in DHWList:
-        numDHW += int(light) 
+    if len(plugList) > 0:
+        for light in DHWList:
+            numDHW += int(light) 
 
     sql = "SELECT cooling_unit_output FROM cooling WHERE cooling_building_id = %s"
     val = (buildingid,)
