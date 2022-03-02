@@ -2195,7 +2195,7 @@ def inventory(building_id):
     hvacList = []
     for result in myresult:
         hvacList.append(result[0])
-    if len(hvaclist) > 0:
+    if len(hvacList) > 0:
         for light in hvacList:
             numHvac += int(light) 
 
@@ -2220,7 +2220,7 @@ def inventory(building_id):
     DHWList = []
     for result in myresult:
         DHWList.append(result[0])
-    if len(plugList) > 0:
+    if len(DHWList) > 0:
         for light in DHWList:
             numDHW += int(light) 
 
