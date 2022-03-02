@@ -734,6 +734,324 @@ def liveusage(building_id):
         return render_template('liveusage.html',temp = temp,building_address = building_address, buidling_description = buidling_description, building_id = building_id)
     else:
         abort(403)
+ @commercial.route('/energymanagement/<building_id>', methods=['GET', 'POST'])
+@login_required
+def energymanagement(building_id):
+    if(current_user.is_authenticated and current_user.is_admin()):
+        mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+        mycursor = mydb.cursor()
+        sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+        mycursor.execute(sql,(building_id,))
+        myresult = mycursor.fetchall()
+        for result in myresult:
+            building_address = result[0]
+            buidling_description = result[1]
+
+
+        return render_template('energymanagement.html',building_address = building_address, buidling_description = buidling_description, building_id = building_id)
+    else:
+        abort(403)
+
+
+@commercial.route('/energycalendar/<building_id>', methods=['GET', 'POST'])
+@login_required
+def energycalendar(building_id):
+    building_id = building_id
+    paneltotal = []
+    panelpercent = []
+    scheduledata = []
+    channelNames = []
+    lightingTotal =[]
+    hvacTotal = []
+    dhwTotal = []
+    equipmentTotal = []
+    plugloadTotal = []
+    otherTotal = []
+    currentLight = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    currentHvac = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    currentDhw = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    currentPlug = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    currentEquipment = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    currentOther = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    day = datetime.datetime.now().day
+    cal_month = datetime.datetime.now().month
+    year = datetime.datetime.now().year
+    building_ids = 12
+    error = None
+    if(current_user.is_authenticated and current_user.is_admin()):
+        mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+        mycursor = mydb.cursor()
+        sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+        mycursor.execute(sql,(building_id,))
+        myresult = mycursor.fetchall()
+        for result in myresult:
+            building_address = result[0]
+            buidling_description = result[1]
+
+        client_id = current_user.phone_number
+        panel_building_id = building_id
+        mycursor = mydb.cursor()
+        sql = "SELECT emporia_meter_sn_1 FROM electrical_panel WHERE panel_client_id = %s AND building_id = %s"
+        mycursor.execute(sql,(client_id,panel_building_id))
+        myresult = mycursor.fetchall()
+        for x in myresult:
+            serial_numbers = ','.join(x)
+        serial_list = serial_numbers.split()
+
+        date_list = []
+        start_date = datetime.date(2022, 1, 1)
+        number_of_days = 31
+        for day in range(number_of_days):
+          a_date = (start_date + datetime.timedelta(days = day)).isoformat()
+          date_list.append(a_date + ' 00:00:00')
+        totallist = []
+        for day in date_list:
+            currentTotal = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            for serialNumber in serial_list:
+                string = ''
+                sql = "SELECT channel4_schedule, channel5_schedule, channel6_schedule, channel7_schedule, channel8_schedule, channel9_schedule, channel10_schedule, channel11_schedule, channel12_schedule, channel13_schedule, channel14_schedule, channel15_schedule, channel16_schedule, channel17_schedule, channel18_schedule, channel19_schedule FROM emporia_data WHERE date LIKE %s AND serial_number = %s"   
+                mycursor.execute(sql, (day, serialNumber))
+                myresult = mycursor.fetchall()
+                for x in myresult:
+                    string = "', '".join(x)
+                    scheduledata = string.split("', '")
+                    
+                    i = 0
+                    for data in scheduledata:
+                        data = data.replace("[","")
+                        data = data.replace("]","")
+                        currentTotal[i] += float((data.split(','))[i])
+                        i += 1
+                channelNames = []
+                sql = "SELECT channel4_name,channel5_name,channel6_name,channel7_name,channel8_name,channel9_name,channel10_name,channel11_name,channel12_name,channel13_name,channel14_name,channel15_name,channel16_name,channel17_name,channel18_name,channel19_name FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
+                    
+                mycursor.execute(sql, (day, serialNumber))
+                myresult = mycursor.fetchall()
+                for x in myresult:
+                    string = str(x)
+                    string = string.replace("(","")
+                    string = string.replace(")","")
+                    string = string.split(',')
+                    for i in range(0, len(string)):
+                        channelNames.append(string[i])
+                for i in range(0,len(channelNames)):
+                
+                    name_l = channelNames[i].lower()
+                    
+                    if 'light' in name_l or 'lights' in name_l or 'lighting' in name_l:
+                        scheduledata[i] = scheduledata[i].replace("[","")
+                        scheduledata[i] = scheduledata[i].replace("]","")
+                        for k in range(0, 24):
+                            currentLight[k] += float((scheduledata[i].split(','))[k])
+                    elif 'hot water' in name_l or 'dhw' in name_l or 'water' in name_l or 'water heater' in name_l:
+                        scheduledata[i] = scheduledata[i].replace("[","")
+                        scheduledata[i] = scheduledata[i].replace("]","")
+                        for k in range(0, 24):
+                            currentDhw[k] += float((scheduledata[i].split(','))[k])
+
+                    elif 'fan' in name_l or 'heat' in name_l or 'hvac' in name_l or 'cooling' in name_l:
+                        scheduledata[i] = scheduledata[i].replace("[","")
+                        scheduledata[i] = scheduledata[i].replace("]","")
+                        for k in range(0, 24):
+                            currentHvac[k] += float((scheduledata[i].split(','))[k])
+                        
+
+                    elif 'motor' in name_l or 'pump' in name_l or 'compressor' in name_l or 'vacuum' in name_l or 'dryer' in name_l:
+                        scheduledata[i] = scheduledata[i].replace("[","")
+                        scheduledata[i] = scheduledata[i].replace("]","")
+                        for k in range(0, 24):
+                            currentEquipment[k] += float((scheduledata[i].split(','))[k])
+                    
+                    elif 'plug' in name_l or 'plugs' in name_l or 'receptacle' in name_l or 'receptacle' in name_l:
+                        scheduledata[i] = scheduledata[i].replace("[","")
+                        scheduledata[i] = scheduledata[i].replace("]","")
+                        for k in range(0, 24):
+                            currentPlug[k] += float((scheduledata[i].split(','))[k])
+                    
+                    else:
+                        scheduledata[i] = scheduledata[i].replace("[","")
+                        scheduledata[i] = scheduledata[i].replace("]","")
+                        for k in range(0, 24):
+                            currentOther[k] += float((scheduledata[i].split(','))[k])
+            lightingTotal.append(currentLight)
+            hvacTotal.append(currentHvac)
+            dhwTotal.append(currentDhw)
+            equipmentTotal.append(currentEquipment)
+            plugloadTotal.append(currentPlug)
+            otherTotal.append(currentOther)
+            totallist.append(currentTotal)
+            currentLight = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            currentHvac = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            currentDhw = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            currentPlug = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            currentEquipment = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            currentOther = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+        startTime = 9
+        endTime = 17
+        a_file =  open('benchmarking_tool/static/scripts/data-calender.json', 'r')
+        json_object = json.load(a_file)
+        a_file.close()
+       
+        weeks = ['firstweek' , 'secondweek', 'thirdWeek' , 'fourthweek', 'fifthweek']
+        days = ['sunday','monday','tuesday','wednsday','thursday','friday','saturday']
+        for alist in totallist:
+            for i in range(0,len(alist)):
+                if math.isnan(alist[i]) == True:
+                    alist[i] = 0
+        i = 0
+        daystart = 3
+        realdaystart = 3
+        dayend = 32
+        numday = 1
+        for thing in json_object:
+            for j in range(0, daystart):
+                thing[weeks[i]][days[j]]['value'] = ''
+                thing[weeks[i]][days[j]]['totalValue'] = ''
+                thing[weeks[i]][days[j]]['numDay'] = ''
+            
+            for k in range(daystart,len(days)):
+
+                try:
+                    thing[weeks[i]][days[k]]['value'] = totallist[numday - 1]
+                    thing[weeks[i]][days[k]]['totalValue'] = round((sum(totallist[numday - 1])/1000),2)
+                    thing[weeks[i]][days[k]]['numDay'] = numday
+                
+                except:
+                    thing[weeks[i]][days[k]]['value'] = ''
+                    thing[weeks[i]][days[k]]['totalValue'] = ''
+                    thing[weeks[i]][days[k]]['numDay'] = ''
+                numday += 1
+
+            daystart = 0
+            i += 1
+        with open('benchmarking_tool/static/scripts/data-calender.json', 'w') as f:
+            json.dump(json_object, f)
+        costTotal = []
+        costList = []
+        for data in totallist:
+            currentCost = []
+            for i in range(0, len(data)):
+                currentCost.append((data[i] * 0.09)/1000)
+
+            costTotal.append(round(sum(currentCost), 2))
+            costList.append(currentCost)
+
+        energyTotal = []
+        currentEnergy = []
+        for data in totallist:
+            currentEnergy = []
+            for i in range(0, len(data)):
+                currentEnergy.append((data[i])/1000)
+
+
+            energyTotal.append(round(sum(currentEnergy), 2))
+
+        lightTotals = []
+        lightCost = []
+        for data in lightingTotal:
+            currentLight = []
+            currentCost = []
+            for i in range(0, len(data)):
+                if data[i] != data[i]:
+                    data[i] = 0
+                currentLight.append((data[i])/10000)
+                currentCost.append((data[i] * 0.09)/10000)
+
+            lightTotals.append(round(sum(currentLight), 2))
+            lightCost.append(round(sum(currentCost), 2))
+        hvacTotals = []
+        hvacCost = []
+        for data in hvacTotal:
+            currentLight = []
+            currentCost = []
+            for i in range(0, len(data)):
+                if data[i] != data[i]:
+                    data[i] = 0
+                currentLight.append((data[i])/10000)
+                currentCost.append((data[i] * 0.09)/10000)
+
+            hvacTotals.append(round(sum(currentLight), 2))
+            hvacCost.append(round(sum(currentCost), 2))
+        dhwTotals = []
+        dhwCost = []
+        for data in dhwTotal:
+            currentLight = []
+            currentCost = []
+            for i in range(0, len(data)):
+                if data[i] != data[i]:
+                    data[i] = 0
+                currentLight.append((data[i])/10000)
+                currentCost.append((data[i] * 0.09)/10000)
+
+            dhwTotals.append(round(sum(currentLight), 2))
+            dhwCost.append(round(sum(currentCost), 2))
+        plugTotals = []
+        plugCost = []
+        
+        for data in plugloadTotal:
+            currentLight = []
+            currentCost = []
+            for i in range(0, len(data)):
+                if data[i] != data[i]:
+                    data[i] = 0
+                currentLight.append((data[i])/10000)
+                currentCost.append((data[i] * 0.09)/10000)
+
+            plugTotals.append(round(sum(currentLight), 2))
+            plugCost.append(round(sum(currentCost), 2))
+        equipmentTotals = []
+        equipmentCost = []
+        
+        for data in equipmentTotal:
+            currentLight = []
+            currentCost = []
+            for i in range(0, len(data)):
+                if data[i] != data[i]:
+                    data[i] = 0
+                currentLight.append((data[i])/10000)
+                currentCost.append((data[i] * 0.09)/10000)
+
+            equipmentTotals.append(round(sum(currentLight), 2))
+            equipmentCost.append(round(sum(currentCost), 2))
+        otherTotals = []
+        otherCost = []
+        for data in otherTotal:
+            currentLight = []
+            currentCost = []
+            for i in range(0, len(data)):
+                if data[i] != data[i]:
+                    data[i] = 0
+                currentLight.append((data[i])/10000)
+                currentCost.append((data[i] * 0.09)/10000)
+
+            otherTotals.append(round(sum(currentLight), 2))
+            otherCost.append(round(sum(currentCost), 2))
+
+        totalEnergy = round(sum(energyTotal), 2)
+        totalCost = round(sum(costTotal), 2)
+        totalLights = round(sum(lightTotals), 2)
+        totalHVAC = round(sum(hvacTotals), 2)
+        totalDHW = round(sum(dhwTotals), 2)
+        totalEquipment = round(sum(equipmentTotals), 2)
+        totalPlug = round(sum(plugTotals), 2)
+        totalOther = round(sum(otherTotals), 2)
+        return render_template('energycalendar.html',totalCost=totalCost,totalLights=totalLights,totalHVAC=totalHVAC,totalDHW=totalDHW,totalEquipment=totalEquipment,totalPlug=totalPlug,totalOther=totalOther,totalEnergy=totalEnergy,lightCost = lightCost, equipmentCost = equipmentCost, dhwCost = dhwCost, hvacCost = hvacCost, otherCost = otherCost,plugCost = plugCost, otherTotal=otherTotal,plugloadTotal=plugloadTotal,equipmentTotal=equipmentTotal,dhwTotal=dhwTotal,hvacTotal=hvacTotal,lightingTotal=lightingTotal,currentLight=currentLight,lightTotals = lightTotals,hvacTotals=hvacTotals,otherTotals=otherTotals,equipmentTotals=equipmentTotals,plugTotals=plugTotals,dhwTotals=dhwTotals,startTime = startTime, endTime = endTime, costList=costList,totallist = totallist,energyTotal = energyTotal,dayend = dayend, realdaystart = realdaystart, costTotal = costTotal, building_address = building_address, buidling_description = buidling_description,building_id = building_id)
+    else:
+        abort(403)
+
 @commercial.route('/facilityoverviewbubble', methods=['GET', 'POST'])
 @login_required
 def facilityoverviewbubble():
