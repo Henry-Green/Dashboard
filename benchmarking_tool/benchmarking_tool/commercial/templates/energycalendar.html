@@ -584,6 +584,7 @@
 
 
 <script>
+
   var energy = true;
   var price = false;
   var totallist = {{totallist | tojson}};
@@ -592,14 +593,16 @@
   var energyTotal = {{energyTotal | tojson}};
   var total = {{totalEnergy}}
 
-
   function changeToCost(){
     const collection = document.getElementsByClassName("totalValue");
     
     var k = 0;
 
     for(var i = {{realdaystart}}; i < {{dayend + realdaystart - 1}} ; i++){
-      var cost = String(costTotal[k]).split('.');
+      var cost = String(costTotal[k].toFixed(2)).split('.');
+      if (typeof myVar !== 'undefined'){
+        cost[1] = '00'
+      }
       collection[i].innerHTML = '<span style = "font-size: 14px">$</span>' + cost[0] + '<sup>.' + cost[1] + '</sup>';
       k++;
     }
@@ -614,7 +617,10 @@
     var k = 0;
 
     for(var i = {{realdaystart}}; i < {{dayend + realdaystart - 1}} ; i++){
-      var cost = String(energyTotal[k]).split('.');
+      var cost = String(energyTotal[k].toFixed(2)).split('.');
+      if (typeof myVar !== 'undefined'){
+        cost[1] = '00'
+      }
       collection[i].innerHTML = '<span class = "kwhUnit">kWh</span>' + cost[0] + '<sup>.' + cost[1] + '</sup>';
       k++;
     }
@@ -643,7 +649,10 @@
    k = 0;
     for(var i = {{realdaystart}}; i < {{dayend + realdaystart - 1}} ; i++){
       averagelist[k] = round(averagelist[k])
-      var cost = String(averagelist[k]).split('.');
+      var cost = String(averagelist[k].toFixed(2)).split('.');
+      if (typeof myVar !== 'undefined'){
+        cost[1] = '00'
+      }
       collection[i].innerHTML = '<span class = "kwhUnit">/hour</span>' + cost[0] + '<sup>.' + cost[1] + '</sup>';
       k++;
     }
@@ -662,7 +671,10 @@
    k = 0;
     for(var i = {{realdaystart}}; i < {{dayend + realdaystart - 1}} ; i++){
       averagelist[k] = round(averagelist[k])
-      var cost = String(averagelist[k]).split('.');
+      var cost = String(averagelist[k].toFixed(2)).split('.');
+      if (typeof myVar !== 'undefined'){
+        cost[1] = '00'
+      }
       collection[i].innerHTML = '<span class = "kwhUnit">/hour</span>' + cost[0] + '<sup>.' + cost[1] + '</sup>';
       k++;
     }
