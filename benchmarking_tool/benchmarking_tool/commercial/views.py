@@ -923,7 +923,7 @@ def energycalendar(building_id):
 
         startTime = 9
         endTime = 17
-        a_file =  open('benchmarking_tool/static/scripts/data-calender.json', 'r')
+        a_file =  open('static/scripts/data-calender.json', 'r')
         json_object = json.load(a_file)
         a_file.close()
        
@@ -959,7 +959,7 @@ def energycalendar(building_id):
 
             daystart = 0
             i += 1
-        with open('benchmarking_tool/static/scripts/data-calender.json', 'w') as f:
+        with open('static/scripts/data-calender.json', 'w') as f:
             json.dump(json_object, f)
         costTotal = []
         costList = []
