@@ -762,6 +762,7 @@ def energymanagement(building_id):
 @commercial.route('/energycalendar/<building_id>', methods=['GET', 'POST'])
 @login_required
 def energycalendar(building_id):
+    form = EnergyCalendarForm()
     building_id = building_id
     paneltotal = []
     panelpercent = []
@@ -784,6 +785,9 @@ def energycalendar(building_id):
     year = datetime.datetime.now().year
     building_ids = 12
     error = None
+    newMonth = 'Jan'
+    userYear = 2022
+
     if(current_user.is_authenticated and current_user.is_admin()):
         mydb = mysql.connector.connect(
           host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
@@ -813,6 +817,20 @@ def energycalendar(building_id):
         date_list = []
         start_date = datetime.date(2022, 1, 1)
         number_of_days = 31
+        months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+        if request.method == "POST":
+            userMonth = request.form['month']
+            newMonth = userMonth
+            userYear = request.form['year']
+            print(userYear)
+            print(userMonth)
+            print('-----------------')
+            for i in range(0, len(months)):
+                if months[i] == userMonth:
+                    userMonth = i + 1
+            start_date = start_date.replace(year = int(userYear), month = userMonth)
+            number_of_days = monthrange(int(userYear), userMonth)[1]
+        print(start_date)
         for day in range(number_of_days):
           a_date = (start_date + datetime.timedelta(days = day)).isoformat()
           date_list.append(a_date + ' 00:00:00')
@@ -832,7 +850,11 @@ def energycalendar(building_id):
                     for data in scheduledata:
                         data = data.replace("[","")
                         data = data.replace("]","")
-                        currentTotal[i] += float((data.split(','))[i])
+                        print(i)
+                        try:
+                            currentTotal[i] += float((data.split(','))[i])
+                        except:
+                            currentTotal[i] += float((data.split('.'))[i])
                         i += 1
                 channelNames = []
                 sql = "SELECT channel4_name,channel5_name,channel6_name,channel7_name,channel8_name,channel9_name,channel10_name,channel11_name,channel12_name,channel13_name,channel14_name,channel15_name,channel16_name,channel17_name,channel18_name,channel19_name FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
@@ -901,7 +923,7 @@ def energycalendar(building_id):
 
         startTime = 9
         endTime = 17
-        a_file =  open('static/scripts/data-calender.json', 'r')
+        a_file =  open('benchmarking_tool/static/scripts/data-calender.json', 'r')
         json_object = json.load(a_file)
         a_file.close()
        
@@ -926,7 +948,7 @@ def energycalendar(building_id):
 
                 try:
                     thing[weeks[i]][days[k]]['value'] = totallist[numday - 1]
-                    thing[weeks[i]][days[k]]['totalValue'] = round((sum(totallist[numday - 1])/1000),2)
+                    thing[weeks[i]][days[k]]['totalValue'] = "{:.2f}".format(sum(totallist[numday - 1])/1000 + 0.01)
                     thing[weeks[i]][days[k]]['numDay'] = numday
                 
                 except:
@@ -937,7 +959,7 @@ def energycalendar(building_id):
 
             daystart = 0
             i += 1
-        with open('static/scripts/data-calender.json', 'w') as f:
+        with open('benchmarking_tool/static/scripts/data-calender.json', 'w') as f:
             json.dump(json_object, f)
         costTotal = []
         costList = []
@@ -1048,7 +1070,7 @@ def energycalendar(building_id):
         totalEquipment = round(sum(equipmentTotals), 2)
         totalPlug = round(sum(plugTotals), 2)
         totalOther = round(sum(otherTotals), 2)
-        return render_template('energycalendar.html',totalCost=totalCost,totalLights=totalLights,totalHVAC=totalHVAC,totalDHW=totalDHW,totalEquipment=totalEquipment,totalPlug=totalPlug,totalOther=totalOther,totalEnergy=totalEnergy,lightCost = lightCost, equipmentCost = equipmentCost, dhwCost = dhwCost, hvacCost = hvacCost, otherCost = otherCost,plugCost = plugCost, otherTotal=otherTotal,plugloadTotal=plugloadTotal,equipmentTotal=equipmentTotal,dhwTotal=dhwTotal,hvacTotal=hvacTotal,lightingTotal=lightingTotal,currentLight=currentLight,lightTotals = lightTotals,hvacTotals=hvacTotals,otherTotals=otherTotals,equipmentTotals=equipmentTotals,plugTotals=plugTotals,dhwTotals=dhwTotals,startTime = startTime, endTime = endTime, costList=costList,totallist = totallist,energyTotal = energyTotal,dayend = dayend, realdaystart = realdaystart, costTotal = costTotal, building_address = building_address, buidling_description = buidling_description,building_id = building_id)
+        return render_template('energycalendar.html',userYear = userYear, newMonth = newMonth, form = form, totalCost=totalCost,totalLights=totalLights,totalHVAC=totalHVAC,totalDHW=totalDHW,totalEquipment=totalEquipment,totalPlug=totalPlug,totalOther=totalOther,totalEnergy=totalEnergy,lightCost = lightCost, equipmentCost = equipmentCost, dhwCost = dhwCost, hvacCost = hvacCost, otherCost = otherCost,plugCost = plugCost, otherTotal=otherTotal,plugloadTotal=plugloadTotal,equipmentTotal=equipmentTotal,dhwTotal=dhwTotal,hvacTotal=hvacTotal,lightingTotal=lightingTotal,currentLight=currentLight,lightTotals = lightTotals,hvacTotals=hvacTotals,otherTotals=otherTotals,equipmentTotals=equipmentTotals,plugTotals=plugTotals,dhwTotals=dhwTotals,startTime = startTime, endTime = endTime, costList=costList,totallist = totallist,energyTotal = energyTotal,dayend = dayend, realdaystart = realdaystart, costTotal = costTotal, building_address = building_address, buidling_description = buidling_description,building_id = building_id)
     else:
         abort(403)
 
@@ -8359,3 +8381,9 @@ class OperatingHoursForm(FlaskForm):
     newstart = IntegerField("NewStart")
     newend = IntegerField("NewEnd")
     datenumber = IntegerField("DateNumber")
+    
+class EnergyCalendarForm(FlaskForm):
+    month = StringField("Month")
+    year = StringField("Year")
+
+ 
