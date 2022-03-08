@@ -103,7 +103,7 @@
                 <div class="viewing__total"> 
                   <p class="av-bold size-11 d-grey total">total</p>
                   <p class="size-36 av-bold maincolor numValue" id = 'total'>{{totalEnergy}}</p>
-                  <p class="size-12 av-bold maincolor">kWh</p>
+                  <p class="size-12 av-bold maincolor" id = 'kwh'>kWh</p>
                 </div>
                 <div class="viewing__dropdown"> 
                   <div class="total-usage"> 
@@ -166,17 +166,17 @@
               <div class="content"> 
                 <div class="units"> 
                   <p class="av-bold size-11 d-grey total">units </p>
-                  <div><span class="dot" onclick = 'changeToEnergy();'></span><span class="av-bold size-11 d-grey total" onclick = 'changeToEnergy();'>energy </span></div>
+                  <div class = 'active'><span class="dot" onclick = 'changeToEnergy();'></span><span class="av-bold size-11 d-grey total" onclick = 'changeToEnergy();'>energy </span></div>
                   <div><span class="dot" onclick = 'changeToCost();'></span><span class="av-bold size-11 d-grey total" onclick = 'changeToCost();'>cost</span></div>
                 </div>
                 <div class="breakdown">
                   <p class="av-bold size-11 d-grey total">breakdown</p>
-                  <div  onclick = 'changeToTotal();'><span class="dot"></span><span class="av-bold size-11 d-grey total">total</span></div>
+                  <div  class = 'active'  onclick = 'changeToTotal();'><span class="dot"></span><span class="av-bold size-11 d-grey total">total</span></div>
                   <div class="avperhour" onclick = 'changeToAVG();'><span class="dot"></span><span class="av-bold size-11 d-grey total">avg. per hour</span></div>
                 </div>
                 <div class="timeload"> 
                   <p class="av-bold size-11 d-grey total">time load</p>
-                  <div onclick = 'changeToFullDay();'><span class="dot"></span><span class="av-bold size-11 d-grey total">full day</span></div>
+                  <div  class = 'active' onclick = 'changeToFullDay();'><span class="dot"></span><span class="av-bold size-11 d-grey total">full day</span></div>
                   <div onclick = 'changeToOnHours();'><span class="dot"></span><span class="av-bold size-11 d-grey total">on-hours</span></div>
                   <div onclick = 'changeToOffHours();'><span class="dot"></span><span class="av-bold size-11 d-grey total">off-hours</span></div>
                 </div>
@@ -187,7 +187,9 @@
               <div class="content">
                 <div class="tab-item">
                   <div class="monthYear"><span class="active">Week</span><span>Month</span></div>
-                  <div class="showCurrent"><span class="btn-left">
+                  <form onsubmit="" method = "POST" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                  <div class="showCurrent"><button style = 'background-color: transparent; border-color: transparent;' class="btn-left"  onclick = 'changeDate("left");'  onchange= "submit();">
                       <svg width="11" height="11" viewbox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_268_789)">
                           <path d="M8.02551 1.77377L7.20968 0.962524L2.67676 5.50002L7.21426 10.0375L8.02551 9.22627L4.29926 5.50002L8.02551 1.77377Z" fill="white"></path>
@@ -197,7 +199,7 @@
                             <rect width="11" height="11" fill="white"></rect>
                           </clippath>
                         </defs>
-                      </svg></span><span class="yearData">Jan 2021</span><span class="monthData"><span class="monthName">Jan,</span><span class="yearName">2020</span></span><span class="btn-right">
+                      </svg></button><span class="yearData"><span id = 'month'>{{newMonth}}</span> <span id = 'year'>{{userYear}}</span></span><span class="monthData"><span class="monthName">Jan,</span><span class="yearName">2020</span></span><button style = 'background-color: transparent; border-color: transparent;' class="btn-right" onclick = 'changeDate("right");'  onchange= "submit();">
                       <svg width="11" height="11" viewbox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_268_788)">
                           <path d="M2.97449 9.22623L3.79032 10.0375L8.32324 5.49998L3.78574 0.962477L2.97449 1.77373L6.70074 5.49998L2.97449 9.22623Z" fill="white"></path>
@@ -207,7 +209,10 @@
                             <rect width="11" height="11" fill="white" transform="translate(11 11) rotate(-180)"></rect>
                           </clippath>
                         </defs>
-                      </svg></span></div>
+                      </svg></button></div>
+                      <input name = 'month' id = inputmonth style = 'height: 0px; border-color: transparent; position: absolute; bottom: 30px;'value='Jan'>
+                      <input name = 'year' id = inputyear style = 'height: 0px; border-color: transparent; position: absolute; bottom: 30px;' value='2021'>
+                    </form>
                 </div>
               </div>
             </div>
@@ -578,7 +583,8 @@
       </div>
     </div>
     <!--script(src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js")-->
-    <script src="{{url_for('static',filename='scripts/energycalendar.js', version= correctdate)}}"></script>
+    <script src="{{url_for('static',filename='scripts/energycalendar.js', version= newMonth)}}"></script>
+    
   </body>
 </html>
 
@@ -606,7 +612,8 @@
       collection[i].innerHTML = '<span style = "font-size: 14px">$</span>' + cost[0] + '<sup>.' + cost[1] + '</sup>';
       k++;
     }
-    document.getElementsById("total").innerHTML = total
+    document.getElementById("total").innerHTML = '<span style = "font-size: 14px">$</span>' + (total * 0.09).toFixed(2)
+    document.getElementById("kwh").innerHTML = ''
     price = true;
     energy = false;
   }
@@ -622,6 +629,7 @@
         cost[1] = '00'
       }
       collection[i].innerHTML = '<span class = "kwhUnit">kWh</span>' + cost[0] + '<sup>.' + cost[1] + '</sup>';
+      document.getElementById("kwh").innerHTML = 'kWh'
       k++;
     }
     document.getElementById("total").innerHTML = total
@@ -810,4 +818,60 @@ function changeToAll(){
   total = {{totalEnergy}}
   changeToEnergy();
 }
+
+function changeDate(direction){
+  var months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  var currentMonth = document.getElementById('month').innerHTML;
+  var currentYear = document.getElementById('year').innerHTML;
+  if(direction == 'left'){
+    if(currentMonth == "Jan"){
+        document.getElementById('month').innerHTML = months[11]
+        document.getElementById('inputmonth').value = months[11]
+        document.getElementById('year').innerHTML = parseInt(currentYear) - 1
+        document.getElementById('inputyear').value = parseInt(currentYear) - 1
+
+    }
+    else{
+      for(var i = 0; i < months.length; i++){
+        if(months[i] == currentMonth){
+          document.getElementById('month').innerHTML = months[i - 1];
+          document.getElementById('inputmonth').value = months[i - 1];
+        }
+      }
+    }
+  }
+
+  if(direction == 'right'){
+    var currentMonth = document.getElementById('month').innerHTML;
+    if(currentMonth == "Dec"){
+        document.getElementById('month').innerHTML = months[0]
+        document.getElementById('inputmonth').value = months[0]
+        document.getElementById('year').innerHTML = parseInt(currentYear) + 1
+        document.getElementById('inputyear').value = parseInt(currentYear) + 1
+
+    }
+    else{
+      for(var i = 0; i < months.length; i++){
+        if(months[i] == currentMonth){
+          document.getElementById('month').innerHTML = months[i + 1];
+          document.getElementById('inputmonth').value = months[i + 1];
+        }
+      }
+    }
+  }
+}
+
 </script>
