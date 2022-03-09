@@ -601,7 +601,11 @@
   var offTotal = {{offTotal | tojson}};
   var onCost = {{onCost | tojson}};
   var offCost = {{offCost | tojson}};
-  var total = {{totalEnergy}}
+  var onTotalEnergy = {{onTotalEnergy}};
+  var offTotalEnergy = {{offTotalEnergy}};
+  var onTotalCost = {{onTotalCost}};
+  var offTotalCost = {{offTotalCost}};
+  var total = {{totalEnergy}};
 
   function changeToCost(){
     const collection = document.getElementsByClassName("totalValue");
@@ -733,9 +737,11 @@ function changeToOnHours(){
   energyTotal = onTotal;
   costTotal = onCost;
   if(energy){
+    total = onTotalEnergy;
   changeToEnergy();
   }
   else{
+    total = onTotalEnergy;
     changeToCost();
   }
   
@@ -764,9 +770,11 @@ function changeToOffHours(){
   costTotal = offCost;
 
   if(energy){
+    total = offTotalEnergy;
   changeToEnergy();
   }
   else{
+    total = offTotalEnergy;
     changeToCost();
   }
 }
@@ -778,6 +786,7 @@ function changeToFullDay(){
   }
   energyTotal = {{energyTotal | tojson}};
   costTotal = {{costTotal | tojson }};
+  total = {{totalEnergy}};
   if(energy){
   changeToEnergy();
   }
