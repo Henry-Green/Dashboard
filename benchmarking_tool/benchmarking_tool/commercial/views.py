@@ -841,16 +841,14 @@ def energycalendar(building_id):
                 for x in myresult:
                     string = "', '".join(x)
                     scheduledata = string.split("', '")
-                    
-                    i = 0
+
                     for data in scheduledata:
                         data = data.replace("[","")
                         data = data.replace("]","")
-                        try:
-                            currentTotal[i] += float((data.split(','))[i])
-                        except:
-                            currentTotal[i] += float((data.split('.'))[i])
-                        i += 1
+                        dataList = data.split(',')
+                        for i in range(0, len(dataList)):
+                            currentTotal[i] += float(dataList[i])
+                    
                 channelNames = []
                 sql = "SELECT channel4_name,channel5_name,channel6_name,channel7_name,channel8_name,channel9_name,channel10_name,channel11_name,channel12_name,channel13_name,channel14_name,channel15_name,channel16_name,channel17_name,channel18_name,channel19_name FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
                     
@@ -915,7 +913,6 @@ def energycalendar(building_id):
             currentPlug = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
             currentEquipment = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
             currentOther = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-
         startTime = 9
         endTime = 17
         a_file =  open('static/scripts/data-calender.json', 'r')
@@ -928,11 +925,14 @@ def energycalendar(building_id):
             for i in range(0,len(alist)):
                 if math.isnan(alist[i]) == True:
                     alist[i] = 0
+                else:
+                    alist[i] = alist[i]/1000
         i = 0
         daystart = 3
         realdaystart = 3
         dayend = 32
         numday = 1
+        print(totallist[22])
         for thing in json_object:
             for j in range(0, daystart):
                 thing[weeks[i]][days[j]]['value'] = ''
@@ -940,11 +940,11 @@ def energycalendar(building_id):
                 thing[weeks[i]][days[j]]['numDay'] = ''
             
             for k in range(daystart,len(days)):
-
                 try:
                     thing[weeks[i]][days[k]]['value'] = totallist[numday - 1]
-                    thing[weeks[i]][days[k]]['totalValue'] = "{:.2f}".format(sum(totallist[numday - 1])/1000 + 0.01)
+                    thing[weeks[i]][days[k]]['totalValue'] = "{:.2f}".format(sum(totallist[numday - 1]))
                     thing[weeks[i]][days[k]]['numDay'] = numday
+
                 
                 except:
                     thing[weeks[i]][days[k]]['value'] = ''
@@ -961,7 +961,7 @@ def energycalendar(building_id):
         for data in totallist:
             currentCost = []
             for i in range(0, len(data)):
-                currentCost.append((data[i] * 0.09)/1000)
+                currentCost.append((data[i] * 0.09))
 
             costTotal.append(round(sum(currentCost), 2))
             costList.append(currentCost)
@@ -971,7 +971,7 @@ def energycalendar(building_id):
         for data in totallist:
             currentEnergy = []
             for i in range(0, len(data)):
-                currentEnergy.append((data[i])/1000)
+                currentEnergy.append((data[i]))
 
 
             energyTotal.append(round(sum(currentEnergy), 2))
@@ -984,8 +984,8 @@ def energycalendar(building_id):
             for i in range(0, len(data)):
                 if data[i] != data[i]:
                     data[i] = 0
-                currentLight.append((data[i])/10000)
-                currentCost.append((data[i] * 0.09)/10000)
+                currentLight.append((data[i]))
+                currentCost.append((data[i] * 0.09))
 
             lightTotals.append(round(sum(currentLight), 2))
             lightCost.append(round(sum(currentCost), 2))
@@ -997,8 +997,8 @@ def energycalendar(building_id):
             for i in range(0, len(data)):
                 if data[i] != data[i]:
                     data[i] = 0
-                currentLight.append((data[i])/10000)
-                currentCost.append((data[i] * 0.09)/10000)
+                currentLight.append((data[i]))
+                currentCost.append((data[i] * 0.09))
 
             hvacTotals.append(round(sum(currentLight), 2))
             hvacCost.append(round(sum(currentCost), 2))
@@ -1010,8 +1010,8 @@ def energycalendar(building_id):
             for i in range(0, len(data)):
                 if data[i] != data[i]:
                     data[i] = 0
-                currentLight.append((data[i])/10000)
-                currentCost.append((data[i] * 0.09)/10000)
+                currentLight.append((data[i]))
+                currentCost.append((data[i] * 0.09))
 
             dhwTotals.append(round(sum(currentLight), 2))
             dhwCost.append(round(sum(currentCost), 2))
@@ -1024,8 +1024,8 @@ def energycalendar(building_id):
             for i in range(0, len(data)):
                 if data[i] != data[i]:
                     data[i] = 0
-                currentLight.append((data[i])/10000)
-                currentCost.append((data[i] * 0.09)/10000)
+                currentLight.append((data[i]))
+                currentCost.append((data[i] * 0.09))
 
             plugTotals.append(round(sum(currentLight), 2))
             plugCost.append(round(sum(currentCost), 2))
@@ -1038,8 +1038,8 @@ def energycalendar(building_id):
             for i in range(0, len(data)):
                 if data[i] != data[i]:
                     data[i] = 0
-                currentLight.append((data[i])/10000)
-                currentCost.append((data[i] * 0.09)/10000)
+                currentLight.append((data[i]))
+                currentCost.append((data[i] * 0.09))
 
             equipmentTotals.append(round(sum(currentLight), 2))
             equipmentCost.append(round(sum(currentCost), 2))
@@ -1051,8 +1051,8 @@ def energycalendar(building_id):
             for i in range(0, len(data)):
                 if data[i] != data[i]:
                     data[i] = 0
-                currentLight.append((data[i])/10000)
-                currentCost.append((data[i] * 0.09)/10000)
+                currentLight.append((data[i]))
+                currentCost.append((data[i] * 0.09))
 
             otherTotals.append(round(sum(currentLight), 2))
             otherCost.append(round(sum(currentCost), 2))
@@ -1065,6 +1065,7 @@ def energycalendar(building_id):
         totalEquipment = round(sum(equipmentTotals), 2)
         totalPlug = round(sum(plugTotals), 2)
         totalOther = round(sum(otherTotals), 2)
+
         onTotal = []
         onCost = []
         currentOn = []
@@ -1074,7 +1075,7 @@ def energycalendar(building_id):
             currentOn = []
             for i in range(0, len(data)):
                 if i >= startTime and i < endTime:
-                    currentOn.append((data[i])/1000)
+                    currentOn.append((data[i]))
 
 
             onTotal.append(round(sum(currentOn), 2))
@@ -1091,7 +1092,7 @@ def energycalendar(building_id):
             currentOff = []
             for i in range(0, len(data)):
                 if i < startTime or i >= endTime:
-                    currentOff.append((data[i])/1000)
+                    currentOff.append((data[i]))
 
 
             offTotal.append(round(sum(currentOff), 2))
