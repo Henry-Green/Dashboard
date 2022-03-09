@@ -822,15 +822,11 @@ def energycalendar(building_id):
             userMonth = request.form['month']
             newMonth = userMonth
             userYear = request.form['year']
-            print(userYear)
-            print(userMonth)
-            print('-----------------')
             for i in range(0, len(months)):
                 if months[i] == userMonth:
                     userMonth = i + 1
             start_date = start_date.replace(year = int(userYear), month = userMonth)
             number_of_days = monthrange(int(userYear), userMonth)[1]
-        print(start_date)
         for day in range(number_of_days):
           a_date = (start_date + datetime.timedelta(days = day)).isoformat()
           date_list.append(a_date + ' 00:00:00')
@@ -850,7 +846,6 @@ def energycalendar(building_id):
                     for data in scheduledata:
                         data = data.replace("[","")
                         data = data.replace("]","")
-                        print(i)
                         try:
                             currentTotal[i] += float((data.split(','))[i])
                         except:
