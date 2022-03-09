@@ -89,7 +89,7 @@
           </div>
         </div>
       </div>
-      <div class="facility-performanceCharts"> 
+      <div class="facility-performanceCharts" > 
         <h2 class="main-title-h2"> 
           <svg width="10" height="15" viewbox="0 0 10 15" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M9.3335 7.5L2.0835 0.25L0.379745 1.95375L5.91391 7.5L0.379745 13.0462L2.08349 14.75L9.3335 7.5Z" fill="#0D1758"></path>
@@ -597,6 +597,10 @@
   var costList = {{costList | tojson}};
   var costTotal = {{costTotal | tojson}};
   var energyTotal = {{energyTotal | tojson}};
+  var onTotal = {{onTotal | tojson}};
+  var offTotal = {{offTotal | tojson}};
+  var onCost = {{onCost | tojson}};
+  var offCost = {{offCost | tojson}};
   var total = {{totalEnergy}}
 
   function changeToCost(){
@@ -711,6 +715,7 @@ function changeToOnHours(){
   var startTime = {{startTime}}
   var endTime = {{endTime}}
   var k = -1;
+  
   for(var i = 0; i < collection.length; i++){
     if((i >= startTime && i < endTime)){
       collection[i].style.backgroundColor = '#B0FFC2'
@@ -725,6 +730,14 @@ function changeToOnHours(){
     k += 1
   }
   }
+  energyTotal = onTotal;
+  costTotal = onCost;
+  if(energy){
+  changeToEnergy();
+  }
+  else{
+    changeToCost();
+  }
   
 }
 
@@ -736,11 +749,9 @@ function changeToOffHours(){
   for(var i = 0; i < collection.length; i++){
     if((i < startTime || i >= endTime)){
       collection[i].style.backgroundColor = '#B0FFC2'
-      console.log('here')
     }
     if(i - (24 * k) < startTime || i - (24 * k) >= endTime){
       collection[i].style.backgroundColor = '#B0FFC2'
-      console.log('here')
     }
     else{
       collection[i].style.backgroundColor = '#E0E0E0'
@@ -749,13 +760,29 @@ function changeToOffHours(){
     k += 1
   }
   }
-  
+  energyTotal = offTotal;
+  costTotal = offCost;
+
+  if(energy){
+  changeToEnergy();
+  }
+  else{
+    changeToCost();
+  }
 }
 
 function changeToFullDay(){
   const collection = document.getElementsByClassName("spancolumn");
   for(var i = 0; i < collection.length; i++){
     collection[i].style.backgroundColor = '#E0E0E0'
+  }
+  energyTotal = {{energyTotal | tojson}};
+  costTotal = {{costTotal | tojson }};
+  if(energy){
+  changeToEnergy();
+  }
+  else{
+    changeToCost();
   }
 }
 
