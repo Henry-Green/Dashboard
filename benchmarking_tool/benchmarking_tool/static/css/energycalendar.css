@@ -139,6 +139,7 @@
 body {
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 h1, h2, h3, h4, h5, h6, ul, p, a {
@@ -792,13 +793,14 @@ button.logout span:nth-child(2) {
   justify-content: center;
   height: 60px;
   position: relative;
+  overflow-y: hidden;
 
 }
 .Facility-perofrmance .facility-performanceCharts .facility-viewing .calendar .column .spancolumn {
   width: 3px;
   display: block;
   background-color: #CBD1EF;
-  margin-right: 3px;
+  margin-right: 2px;
 }
 .Facility-perofrmance .facility-performanceCharts .facility-viewing .calendar .contentValue {
   display: flex;
