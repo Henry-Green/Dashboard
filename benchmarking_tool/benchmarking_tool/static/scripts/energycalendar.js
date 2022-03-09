@@ -278,7 +278,7 @@ fetch(jsonUrl)
     for (let i = 0; i < firstWeek.sunday.value.length; i++) {
       document.querySelector(
         ".firstweek .sunday .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${firstWeek.sunday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${firstWeek.sunday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".firstweek .sunday .totalValue"
@@ -291,7 +291,7 @@ fetch(jsonUrl)
     for (let i = 0; i < firstWeek.monday.value.length; i++) {
       document.querySelector(
         ".firstweek .monday  .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${firstWeek.monday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${firstWeek.monday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".firstweek .monday  .totalValue"
@@ -305,7 +305,7 @@ fetch(jsonUrl)
     for (let i = 0; i < firstWeek.tuesday.value.length; i++) {
       document.querySelector(
         ".firstweek .tuesday   .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${firstWeek.tuesday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${firstWeek.tuesday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".firstweek .tuesday   .totalValue"
@@ -318,7 +318,7 @@ fetch(jsonUrl)
     for (let i = 0; i < firstWeek.wednsday.value.length; i++) {
       document.querySelector(
         ".firstweek .wednsday    .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${firstWeek.wednsday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${firstWeek.wednsday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".firstweek .wednsday    .totalValue"
@@ -331,7 +331,7 @@ fetch(jsonUrl)
     for (let i = 0; i < firstWeek.thursday.value.length; i++) {
       document.querySelector(
         ".firstweek .thursday .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${firstWeek.thursday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${firstWeek.thursday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".firstweek .thursday .totalValue"
@@ -344,7 +344,7 @@ fetch(jsonUrl)
     for (let i = 0; i < firstWeek.friday.value.length; i++) {
       document.querySelector(
         ".firstweek .friday  .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${firstWeek.friday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${firstWeek.friday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".firstweek .friday  .totalValue"
@@ -357,7 +357,7 @@ fetch(jsonUrl)
     for (let i = 0; i < firstWeek.saturday.value.length; i++) {
       document.querySelector(
         ".firstweek .saturday   .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${firstWeek.saturday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${firstWeek.saturday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".firstweek .saturday   .totalValue"
@@ -373,7 +373,7 @@ fetch(jsonUrl)
     for (let i = 0; i < secondWeek.sunday.value.length; i++) {
       document.querySelector(
         ".secondweek .sunday .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${secondWeek.sunday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${secondWeek.sunday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".secondweek .sunday .totalValue"
@@ -387,7 +387,7 @@ fetch(jsonUrl)
     for (let i = 0; i < secondWeek.monday.value.length; i++) {
       document.querySelector(
         ".secondweek .monday  .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${secondWeek.monday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${secondWeek.monday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".secondweek .monday  .totalValue"
@@ -400,13 +400,13 @@ fetch(jsonUrl)
     for (let i = 0; i < secondWeek.tuesday.value.length; i++) {
       document.querySelector(
         ".secondweek .tuesday .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${secondWeek.tuesday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${secondWeek.tuesday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".secondweek .tuesday  .totalValue"
     ).innerHTML = `${secondWeek.tuesday.totalValue}`;
     document.querySelector(".secondweek .tuesday   .numberDay").textContent =
-      secondWeek.thursday.numDay;
+      secondWeek.tuesday.numDay;
     convertingValueDollar(".secondweek .tuesday   .totalValue");
 
     //Wednsday
@@ -414,7 +414,7 @@ fetch(jsonUrl)
     for (let i = 0; i < secondWeek.wednsday.value.length; i++) {
       document.querySelector(
         ".secondweek .wednesday     .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${secondWeek.wednsday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${secondWeek.wednsday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".secondweek .wednesday     .totalValue"
@@ -429,7 +429,7 @@ fetch(jsonUrl)
     for (let i = 0; i < secondWeek.thursday.value.length; i++) {
       document.querySelector(
         ".secondweek .thursday      .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${secondWeek.thursday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${secondWeek.thursday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".secondweek .thursday      .totalValue"
@@ -444,7 +444,7 @@ fetch(jsonUrl)
     for (let i = 0; i < secondWeek.friday.value.length; i++) {
       document.querySelector(
         ".secondweek .friday       .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${secondWeek.thursday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${secondWeek.thursday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".secondweek .friday       .totalValue"
@@ -458,7 +458,7 @@ fetch(jsonUrl)
     for (let i = 0; i < secondWeek.saturday.value.length; i++) {
       document.querySelector(
         ".secondweek .saturday       .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${secondWeek.saturday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${secondWeek.saturday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".secondweek .saturday .totalValue"
@@ -474,7 +474,7 @@ fetch(jsonUrl)
     for (let i = 0; i < thirdWeek.sunday.value.length; i++) {
       document.querySelector(
         ".thirdweek .sunday .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${thirdWeek.sunday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${thirdWeek.sunday.value[i]/30 + 1}px"></span>`;
     }
     document.querySelector(
       ".thirdweek .sunday .totalValue"
@@ -488,7 +488,7 @@ fetch(jsonUrl)
     for (let i = 0; i < thirdWeek.monday.value.length; i++) {
       document.querySelector(
         ".thirdweek .monday  .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${thirdWeek.monday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${thirdWeek.monday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".thirdweek .monday  .totalValue"
@@ -501,13 +501,13 @@ fetch(jsonUrl)
     for (let i = 0; i < thirdWeek.tuesday.value.length; i++) {
       document.querySelector(
         ".thirdweek .tuesday .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${thirdWeek.tuesday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${thirdWeek.tuesday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".thirdweek .tuesday  .totalValue"
     ).innerHTML = `${thirdWeek.tuesday.totalValue}`;
     document.querySelector(".thirdweek .tuesday   .numberDay").textContent =
-      thirdWeek.thursday.numDay;
+      thirdWeek.tuesday.numDay;
     convertingValueDollar(".thirdweek .tuesday   .totalValue");
 
     //Wednsday
@@ -515,7 +515,7 @@ fetch(jsonUrl)
     for (let i = 0; i < thirdWeek.wednsday.value.length; i++) {
       document.querySelector(
         ".thirdweek .wednesday     .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${thirdWeek.wednsday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${thirdWeek.wednsday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".thirdweek .wednesday     .totalValue"
@@ -529,7 +529,7 @@ fetch(jsonUrl)
     for (let i = 0; i < thirdWeek.thursday.value.length; i++) {
       document.querySelector(
         ".thirdweek .thursday      .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${thirdWeek.thursday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${thirdWeek.thursday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".thirdweek .thursday      .totalValue"
@@ -543,7 +543,7 @@ fetch(jsonUrl)
     for (let i = 0; i < thirdWeek.friday.value.length; i++) {
       document.querySelector(
         ".thirdweek .friday       .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${thirdWeek.thursday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${thirdWeek.thursday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".thirdweek .friday       .totalValue"
@@ -557,7 +557,7 @@ fetch(jsonUrl)
     for (let i = 0; i < thirdWeek.saturday.value.length; i++) {
       document.querySelector(
         ".thirdweek .saturday       .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${thirdWeek.saturday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${thirdWeek.saturday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".thirdweek .saturday .totalValue"
@@ -573,7 +573,7 @@ fetch(jsonUrl)
     for (let i = 0; i < fourthweek.sunday.value.length; i++) {
       document.querySelector(
         ".fourthweek .sunday .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${fourthweek.sunday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${fourthweek.sunday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".fourthweek .sunday .totalValue"
@@ -587,7 +587,7 @@ fetch(jsonUrl)
     for (let i = 0; i < fourthweek.monday.value.length; i++) {
       document.querySelector(
         ".fourthweek .monday  .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${fourthweek.monday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${fourthweek.monday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".fourthweek .monday  .totalValue"
@@ -600,13 +600,13 @@ fetch(jsonUrl)
     for (let i = 0; i < fourthweek.tuesday.value.length; i++) {
       document.querySelector(
         ".fourthweek .tuesday .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${fourthweek.tuesday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${fourthweek.tuesday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".fourthweek .tuesday  .totalValue"
     ).innerHTML = `${fourthweek.tuesday.totalValue}`;
     document.querySelector(".fourthweek .tuesday   .numberDay").textContent =
-      fourthweek.thursday.numDay;
+      fourthweek.tuesday.numDay;
     convertingValueDollar(".fourthweek .tuesday   .totalValue");
 
     //Wednsday
@@ -614,7 +614,7 @@ fetch(jsonUrl)
     for (let i = 0; i < fourthweek.wednsday.value.length; i++) {
       document.querySelector(
         ".fourthweek .wednesday     .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${fourthweek.wednsday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${fourthweek.wednsday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".fourthweek .wednesday     .totalValue"
@@ -629,7 +629,7 @@ fetch(jsonUrl)
     for (let i = 0; i < fourthweek.thursday.value.length; i++) {
       document.querySelector(
         ".fourthweek .thursday      .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${fourthweek.thursday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${fourthweek.thursday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".fourthweek .thursday      .totalValue"
@@ -644,7 +644,7 @@ fetch(jsonUrl)
     for (let i = 0; i < fourthweek.friday.value.length; i++) {
       document.querySelector(
         ".fourthweek .friday       .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${fourthweek.thursday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${fourthweek.thursday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".fourthweek .friday       .totalValue"
@@ -658,7 +658,7 @@ fetch(jsonUrl)
     for (let i = 0; i < fourthweek.saturday.value.length; i++) {
       document.querySelector(
         ".fourthweek .saturday       .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${fourthweek.saturday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${fourthweek.saturday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".fourthweek .saturday .totalValue"
@@ -674,7 +674,7 @@ fetch(jsonUrl)
     for (let i = 0; i < fifthweek.sunday.value.length; i++) {
       document.querySelector(
         ".fifthweek .sunday .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${fifthweek.sunday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${fifthweek.sunday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".fifthweek .sunday .totalValue"
@@ -688,7 +688,7 @@ fetch(jsonUrl)
     for (let i = 0; i < fifthweek.monday.value.length; i++) {
       document.querySelector(
         ".fifthweek .monday  .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${fifthweek.monday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${fifthweek.monday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".fifthweek .monday  .totalValue"
@@ -701,13 +701,13 @@ fetch(jsonUrl)
     for (let i = 0; i < fifthweek.tuesday.value.length; i++) {
       document.querySelector(
         ".fifthweek .tuesday .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${fifthweek.tuesday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${fifthweek.tuesday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".fifthweek .tuesday  .totalValue"
     ).innerHTML = `${fifthweek.tuesday.totalValue}`;
     document.querySelector(".fifthweek .tuesday   .numberDay").textContent =
-      fifthweek.thursday.numDay;
+      fifthweek.tuesday.numDay;
     convertingValueDollar(".fifthweek .tuesday   .totalValue");
 
     //Wednsday
@@ -715,7 +715,7 @@ fetch(jsonUrl)
     for (let i = 0; i < fifthweek.wednsday.value.length; i++) {
       document.querySelector(
         ".fifthweek .wednesday     .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${fifthweek.wednsday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${fifthweek.wednsday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".fifthweek .wednesday     .totalValue"
@@ -729,7 +729,7 @@ fetch(jsonUrl)
     for (let i = 0; i < fifthweek.thursday.value.length; i++) {
       document.querySelector(
         ".fifthweek .thursday      .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${fifthweek.thursday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${fifthweek.thursday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".fifthweek .thursday      .totalValue"
@@ -743,7 +743,7 @@ fetch(jsonUrl)
     for (let i = 0; i < fifthweek.friday.value.length; i++) {
       document.querySelector(
         ".fifthweek .friday       .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${fifthweek.thursday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${fifthweek.thursday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".fifthweek .friday       .totalValue"
@@ -757,7 +757,7 @@ fetch(jsonUrl)
     for (let i = 0; i < fifthweek.saturday.value.length; i++) {
       document.querySelector(
         ".fifthweek .saturday       .column"
-      ).innerHTML += `<span class="spancolumn" style="height:${fifthweek.saturday.value[i]/20}px"></span>`;
+      ).innerHTML += `<span class="spancolumn" style="height:${fifthweek.saturday.value[i]/20 + 1}px"></span>`;
     }
     document.querySelector(
       ".fifthweek .saturday .totalValue"
