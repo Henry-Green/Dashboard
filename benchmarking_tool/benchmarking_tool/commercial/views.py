@@ -987,8 +987,8 @@ def energycalendar(building_id):
                 currentLight.append((data[i]))
                 currentCost.append((data[i] * 0.09))
 
-            lightTotals.append(round(sum(currentLight), 2))
-            lightCost.append(round(sum(currentCost), 2))
+            lightTotals.append(round(sum(currentLight)/1000, 2))
+            lightCost.append(round(sum(currentCost)/1000, 2))
         hvacTotals = []
         hvacCost = []
         for data in hvacTotal:
@@ -1000,8 +1000,8 @@ def energycalendar(building_id):
                 currentLight.append((data[i]))
                 currentCost.append((data[i] * 0.09))
 
-            hvacTotals.append(round(sum(currentLight), 2))
-            hvacCost.append(round(sum(currentCost), 2))
+            hvacTotals.append(round(sum(currentLight)/1000, 2))
+            hvacCost.append(round(sum(currentCost)/1000, 2))
         dhwTotals = []
         dhwCost = []
         for data in dhwTotal:
@@ -1013,8 +1013,8 @@ def energycalendar(building_id):
                 currentLight.append((data[i]))
                 currentCost.append((data[i] * 0.09))
 
-            dhwTotals.append(round(sum(currentLight), 2))
-            dhwCost.append(round(sum(currentCost), 2))
+            dhwTotals.append(round(sum(currentLight)/1000, 2))
+            dhwCost.append(round(sum(currentCost)/1000, 2))
         plugTotals = []
         plugCost = []
         
@@ -1027,8 +1027,8 @@ def energycalendar(building_id):
                 currentLight.append((data[i]))
                 currentCost.append((data[i] * 0.09))
 
-            plugTotals.append(round(sum(currentLight), 2))
-            plugCost.append(round(sum(currentCost), 2))
+            plugTotals.append(round(sum(currentLight)/1000, 2))
+            plugCost.append(round(sum(currentCost)/1000, 2))
         equipmentTotals = []
         equipmentCost = []
         
@@ -1041,8 +1041,8 @@ def energycalendar(building_id):
                 currentLight.append((data[i]))
                 currentCost.append((data[i] * 0.09))
 
-            equipmentTotals.append(round(sum(currentLight), 2))
-            equipmentCost.append(round(sum(currentCost), 2))
+            equipmentTotals.append(round(sum(currentLight)/1000, 2))
+            equipmentCost.append(round(sum(currentCost)/1000, 2))
         otherTotals = []
         otherCost = []
         for data in otherTotal:
@@ -1054,8 +1054,8 @@ def energycalendar(building_id):
                 currentLight.append((data[i]))
                 currentCost.append((data[i] * 0.09))
 
-            otherTotals.append(round(sum(currentLight), 2))
-            otherCost.append(round(sum(currentCost), 2))
+            otherTotals.append(round(sum(currentLight)/1000, 2))
+            otherCost.append(round(sum(currentCost)/1000, 2))
 
         totalEnergy = round(sum(energyTotal), 2)
         totalCost = round(sum(costTotal), 2)
