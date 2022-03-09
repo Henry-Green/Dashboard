@@ -1070,7 +1070,33 @@ def energycalendar(building_id):
         totalEquipment = round(sum(equipmentTotals), 2)
         totalPlug = round(sum(plugTotals), 2)
         totalOther = round(sum(otherTotals), 2)
-        return render_template('energycalendar.html',userYear = userYear, newMonth = newMonth, form = form, totalCost=totalCost,totalLights=totalLights,totalHVAC=totalHVAC,totalDHW=totalDHW,totalEquipment=totalEquipment,totalPlug=totalPlug,totalOther=totalOther,totalEnergy=totalEnergy,lightCost = lightCost, equipmentCost = equipmentCost, dhwCost = dhwCost, hvacCost = hvacCost, otherCost = otherCost,plugCost = plugCost, otherTotal=otherTotal,plugloadTotal=plugloadTotal,equipmentTotal=equipmentTotal,dhwTotal=dhwTotal,hvacTotal=hvacTotal,lightingTotal=lightingTotal,currentLight=currentLight,lightTotals = lightTotals,hvacTotals=hvacTotals,otherTotals=otherTotals,equipmentTotals=equipmentTotals,plugTotals=plugTotals,dhwTotals=dhwTotals,startTime = startTime, endTime = endTime, costList=costList,totallist = totallist,energyTotal = energyTotal,dayend = dayend, realdaystart = realdaystart, costTotal = costTotal, building_address = building_address, buidling_description = buidling_description,building_id = building_id)
+        onTotal = []
+        onCost = []
+        currentOn = []
+        for data in totallist:
+            currentOn = []
+            for i in range(0, len(data)):
+                if i >= startTime and i < endTime:
+                    currentOn.append((data[i])/1000)
+
+
+            onTotal.append(round(sum(currentOn), 2))
+            onCost.append(round((sum(currentOn) * 0.09), 2))
+
+        offTotal = []
+        offCost = []
+        currentOff = []
+        for data in totallist:
+            currentOff = []
+            for i in range(0, len(data)):
+                if i < startTime or i >= endTime:
+                    currentOff.append((data[i])/1000)
+
+
+            offTotal.append(round(sum(currentOff), 2))
+            offCost.append(round((sum(currentOff) * 0.09), 2))
+
+        return render_template('energycalendar.html',onCost = onCost, offCost = offCost, offTotal = offTotal, onTotal = onTotal, userYear = userYear, newMonth = newMonth, form = form, totalCost=totalCost,totalLights=totalLights,totalHVAC=totalHVAC,totalDHW=totalDHW,totalEquipment=totalEquipment,totalPlug=totalPlug,totalOther=totalOther,totalEnergy=totalEnergy,lightCost = lightCost, equipmentCost = equipmentCost, dhwCost = dhwCost, hvacCost = hvacCost, otherCost = otherCost,plugCost = plugCost, otherTotal=otherTotal,plugloadTotal=plugloadTotal,equipmentTotal=equipmentTotal,dhwTotal=dhwTotal,hvacTotal=hvacTotal,lightingTotal=lightingTotal,currentLight=currentLight,lightTotals = lightTotals,hvacTotals=hvacTotals,otherTotals=otherTotals,equipmentTotals=equipmentTotals,plugTotals=plugTotals,dhwTotals=dhwTotals,startTime = startTime, endTime = endTime, costList=costList,totallist = totallist,energyTotal = energyTotal,dayend = dayend, realdaystart = realdaystart, costTotal = costTotal, building_address = building_address, buidling_description = buidling_description,building_id = building_id)
     else:
         abort(403)
 
