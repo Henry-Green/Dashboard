@@ -380,7 +380,7 @@
               <h3 class="size-20 maincolor av-bold top-header">Date:</h3>
               <div class="content">
                 <div class="tab-item">
-                  <div class="monthYear"><span class="active">Week</span><span>Month</span></div>
+                  <div class="monthYear" style = 'position: relative; right: 2px;'><span>Week</span><span class="active">Month</span></div>
                   <form onsubmit="" method = "POST" enctype="multipart/form-data">
                     {{ form.hidden_tag() }}
                   <div class="showCurrent"><button style = 'background-color: transparent; border-color: transparent;' class="btn-left"  onclick = 'changeDate("left");'  onchange= "submit();">
@@ -1087,6 +1087,7 @@ function changeDate(direction){
         if(months[i] == currentMonth){
           document.getElementById('month').innerHTML = months[i - 1];
           document.getElementById('inputmonth').value = months[i - 1];
+          document.getElementById('inputyear').value = document.getElementById('year').innerHTML;
         }
       }
     }
@@ -1106,6 +1107,7 @@ function changeDate(direction){
         if(months[i] == currentMonth){
           document.getElementById('month').innerHTML = months[i + 1];
           document.getElementById('inputmonth').value = months[i + 1];
+          document.getElementById('inputyear').value = document.getElementById('year').innerHTML;
         }
       }
     }
