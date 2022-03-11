@@ -818,15 +818,26 @@ def energycalendar(building_id):
         start_date = datetime.date(2022, 1, 1)
         number_of_days = 31
         months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+        daystart = 6
+        realdaystart = 6
+        dayend = 32
         if request.method == "POST":
             userMonth = request.form['month']
             newMonth = userMonth
             userYear = request.form['year']
+            print(userYear)
             for i in range(0, len(months)):
                 if months[i] == userMonth:
                     userMonth = i + 1
             start_date = start_date.replace(year = int(userYear), month = userMonth)
-            number_of_days = monthrange(int(userYear), userMonth)[1]
+            first_weekday, number_of_days = calendar.monthrange(int(userYear), userMonth)
+            realdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+            for i in range(0, len(realdays)):
+                if realdays[i] == calendar.day_name[first_weekday]:
+                    daystart = i
+                    realdaystart = i
+                    dayend = number_of_days + 1
+        print(number_of_days)
         for day in range(number_of_days):
           a_date = (start_date + datetime.timedelta(days = day)).isoformat()
           date_list.append(a_date + ' 00:00:00')
@@ -847,7 +858,10 @@ def energycalendar(building_id):
                         data = data.replace("]","")
                         dataList = data.split(',')
                         for i in range(0, len(dataList)):
-                            currentTotal[i] += float(dataList[i])
+                            try:
+                                currentTotal[i] += float(dataList[i])
+                            except:
+                                currentTotal[i] += 0
                     
                 channelNames = []
                 sql = "SELECT channel4_name,channel5_name,channel6_name,channel7_name,channel8_name,channel9_name,channel10_name,channel11_name,channel12_name,channel13_name,channel14_name,channel15_name,channel16_name,channel17_name,channel18_name,channel19_name FROM emporia_data WHERE date LIKE %s AND serial_number = %s"
@@ -864,42 +878,60 @@ def energycalendar(building_id):
                 for i in range(0,len(channelNames)):
                 
                     name_l = channelNames[i].lower()
-                    
+
                     if 'light' in name_l or 'lights' in name_l or 'lighting' in name_l:
                         scheduledata[i] = scheduledata[i].replace("[","")
                         scheduledata[i] = scheduledata[i].replace("]","")
-                        for k in range(0, 24):
-                            currentLight[k] += float((scheduledata[i].split(','))[k])
+                        for k in range(0, len(scheduledata[i].split(','))):
+                            try:
+                                currentLight[k] += float((scheduledata[i].split(','))[k])
+                            except:
+                                currentLight[i] += 0
                     elif 'hot water' in name_l or 'dhw' in name_l or 'water' in name_l or 'water heater' in name_l:
                         scheduledata[i] = scheduledata[i].replace("[","")
                         scheduledata[i] = scheduledata[i].replace("]","")
-                        for k in range(0, 24):
-                            currentDhw[k] += float((scheduledata[i].split(','))[k])
+                        for k in range(0, len(scheduledata[i].split(','))):
+                            try:
+                                currentDhw[k] += float((scheduledata[i].split(','))[k])
+                            except:
+                                currentDhw[i] += 0
 
                     elif 'fan' in name_l or 'heat' in name_l or 'hvac' in name_l or 'cooling' in name_l:
                         scheduledata[i] = scheduledata[i].replace("[","")
                         scheduledata[i] = scheduledata[i].replace("]","")
-                        for k in range(0, 24):
-                            currentHvac[k] += float((scheduledata[i].split(','))[k])
+                        for k in range(0, len(scheduledata[i].split(','))):
+                            try:
+                                currentHvac[k] += float((scheduledata[i].split(','))[k])
+                            except:
+                                currentHvac[i] += 0
                         
 
                     elif 'motor' in name_l or 'pump' in name_l or 'compressor' in name_l or 'vacuum' in name_l or 'dryer' in name_l:
                         scheduledata[i] = scheduledata[i].replace("[","")
                         scheduledata[i] = scheduledata[i].replace("]","")
-                        for k in range(0, 24):
-                            currentEquipment[k] += float((scheduledata[i].split(','))[k])
+                        for k in range(0, len(scheduledata[i].split(','))):
+                            try:
+                                currentEquipment[k] += float((scheduledata[i].split(','))[k])
+                            except:
+                                currentEquipment[k] += 0
                     
                     elif 'plug' in name_l or 'plugs' in name_l or 'receptacle' in name_l or 'receptacle' in name_l:
                         scheduledata[i] = scheduledata[i].replace("[","")
                         scheduledata[i] = scheduledata[i].replace("]","")
-                        for k in range(0, 24):
-                            currentPlug[k] += float((scheduledata[i].split(','))[k])
+                        for k in range(0, len(scheduledata[i].split(','))):
+                            try:
+                                currentPlug[k] += float((scheduledata[i].split(','))[k])
+                            except:
+                                currentPlug[k] += 0
                     
                     else:
                         scheduledata[i] = scheduledata[i].replace("[","")
                         scheduledata[i] = scheduledata[i].replace("]","")
-                        for k in range(0, 24):
-                            currentOther[k] += float((scheduledata[i].split(','))[k])
+                        for k in range(0, len(scheduledata[i].split(','))):
+                            try:
+                                currentOther[k] += float((scheduledata[i].split(','))[k])
+                            except:
+                                currentOther[k] += 0
             lightingTotal.append(currentLight)
             hvacTotal.append(currentHvac)
             dhwTotal.append(currentDhw)
@@ -921,6 +953,7 @@ def energycalendar(building_id):
        
         weeks = ['firstweek' , 'secondweek', 'thirdWeek' , 'fourthweek', 'fifthweek']
         days = ['sunday','monday','tuesday','wednsday','thursday','friday','saturday']
+
         for alist in totallist:
             for i in range(0,len(alist)):
                 if math.isnan(alist[i]) == True:
@@ -928,9 +961,6 @@ def energycalendar(building_id):
                 else:
                     alist[i] = alist[i]/1000
         i = 0
-        daystart = 3
-        realdaystart = 3
-        dayend = 32
         numday = 1
         print(totallist[22])
         for thing in json_object:
