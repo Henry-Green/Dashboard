@@ -3004,6 +3004,12 @@ def historicalusage(building_id):
             for k in range(0, len(datalist)):
                 if ((k >= int(starthours) and k <= int(endhours)) == False):
                     offhours[k] += float(datalist[k])
+        for i in range(0,len(offhours)):
+            if(str(offhours[i]) == 'nan'):
+                offhours[i] = 0
+        for i in range(0,len(totalset)):
+            if(str(totalset[i]) == 'nan'):
+                totalset[i] = 0
         onHours = ((sum(totalset)) / total * 100).round(2)
         offHours = ((sum(offhours)) / total * 100).round(2)
         alwaysOn = 0
@@ -3072,6 +3078,10 @@ def historicalusage(building_id):
         jsondictionarylist = []
 
         for i in range(0,24):
+            if str(kwhgraph[i]) == 'nan':
+                kwhgraph[i] = 0
+            if str(pricegraph[i]) == 'nan':
+                pricegraph[i] = 0
             jsondictionary = {
                 "value": kwhgraph[i],
                 "hours": hourslist[i],
@@ -3082,7 +3092,6 @@ def historicalusage(building_id):
             jsondictionarylist.append(jsondictionary)
         with open('static/scripts/data.json', 'w') as f:
             json.dump(jsondictionarylist, f)
-
         return render_template('historicalusage.html',building_address = building_address, buidling_description = buidling_description,building_id = building_id,endhours = endhours, starthours = starthours, weeklabels = weeklabels, last_week_cd = last_week_full,predicted_line = predicted_line,error = error, timeloadscolours = timeloadscolours,alwaysOn = alwaysOn, onHours = onHours, offHours = offHours,panelprice=panelprice,chart_colours = chart_colours,timeloads = timeloads, panelchart = panelchart,paneltotals = paneltotals,schedule=schedule,panelnames = panelnames,numpanels = numpanels, categoriesdf = categoriesdf, paneltotal = paneltotal, panelpercent = panelpercent,correctdate = correctdate,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,totalprice = totalprice,total = total,len = len(historicalusage.index),historicalusage = historicalusage,form = form)
     else:
         abort(403)
