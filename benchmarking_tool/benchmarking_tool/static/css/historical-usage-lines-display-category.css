@@ -8789,6 +8789,7 @@
     left: 0;
     margin: auto;
     text-align: center;
+
   }
   .chart-figma__container .chart-xaxis .afternoon::after {
     content: "";
@@ -8798,6 +8799,7 @@
     height: 0.880734px;
     width: 100%;
     background-color: #E6E9EF;
+
   }
   .chart-figma__container .chart-xaxis .afternoon::before {
     content: "";
@@ -8807,6 +8809,7 @@
     height: 0.880734px;
     width: 100%;
     background-color: #E6E9EF;
+
   }
   .chart-figma__container .chart-xaxis .night {
     padding-left: 0;
@@ -8856,6 +8859,7 @@
   .chart-figma__container .chart-xaxis .morning div.column:hover .columnpopup, .chart-figma__container .chart-xaxis .afternoon div.column:hover .columnpopup, .chart-figma__container .chart-xaxis .night div.column:hover .columnpopup {
     opacity: 1;
   }
+
   .chart-figma__container .chart-xaxis .morning div.column .columnpopup, .chart-figma__container .chart-xaxis .afternoon div.column .columnpopup, .chart-figma__container .chart-xaxis .night div.column .columnpopup {
     bottom: 120px;
     position: absolute;
