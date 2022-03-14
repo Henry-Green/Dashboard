@@ -1928,15 +1928,24 @@ function toggleOther() {
 
 function getTotal() {
   newtotal = {{"%.2f"|format(total/1000)|float}};
-  newemmision = newtotal * 0.82;
+  newemmision = (newtotal * 0.82).toFixed(2);
   emissionSplit = String(newemmision).split('.')
   totalSplit = String(newtotal).split('.')
+  if(totalSplit[1] == undefined){
+      totalSplit[1] = '00'
+  }
+  if(emissionSplit[1] == undefined){
+      emissionSplit[1] = '00'
+  }
   document.getElementById("total-whole").innerHTML = totalSplit[0];
   document.getElementById("total-decimal").innerHTML = '.' + totalSplit[1];
   document.getElementById("emission-whole").innerHTML = Math.abs(emissionSplit[0]);
   document.getElementById("emission-decimal").innerHTML = '.' + Math.abs(emissionSplit[1]);
   newtotalprice = {{"%.2f"|format(totalprice)|float}}
   priceSplit = String(newtotalprice).split('.')
+  if(priceSplit[1] == undefined){
+      priceSplit[1] = '00'
+  }
   document.getElementById("totalprice-whole").innerHTML = priceSplit[0];
   document.getElementById("totalprice-decimal").innerHTML = '.' + priceSplit[1];
   newpercent = 100;
@@ -2088,9 +2097,18 @@ function resetVariables(){
         cost = Math.round(cost * 100) / 100;
         sumSplit = String(sum).split('.')
         costSplit = String(cost).split('.')
-        emission = sum * 0.82;
+        emission = (sum * 0.82).toFixed(2);
         emissionSplit = String(emission).split('.')
         var totallevyspent = ((((sum * 0.82) * 30) * 365)/1000) + ((((sum * 0.82) * 40) * 365)/1000) +((((sum * 0.82) * 50) * 365)/1000) +((((sum * 0.82) * 65) * 365)/1000) +((((sum * 0.82) * 80) * 365)/1000) +((((sum * 0.82) * 95) * 365)/1000) +((((sum * 0.82) * 110) * 365)/1000) +((((sum * 0.82) * 125) * 365)/1000) +((((sum * 0.82) * 140) * 365)/1000) +((((sum * 0.82) * 155) * 365)/1000) +((((sum * 0.82) * 170) * 365)/1000)
+        if(emissionSplit[1] == undefined){
+            emissionSplit[1] = '00'
+          }
+          if(sumSplit[1] == undefined){
+            sumSplit[1] = '00'
+          }
+          if(costSplit[1] == undefined){
+            costSplit[1] = '00'
+          }
         document.getElementById("circuitemission-whole").innerHTML = Math.abs(emissionSplit[0]);
         document.getElementById("circuitemission-decimal").innerHTML = '.' + Math.abs(emissionSplit[1]);
         document.getElementById('circuit-block').style.width = '744px';
@@ -2475,14 +2493,23 @@ function togglePanel(panelname, num) {
   if (x[0].style.display === "none") {
     newtotal = (newtotal - Math.abs(paneltotal[num]/1000));
     totalSplit = String(newtotal).split('.')
-    newemmision = newtotal * 0.82;
+    newemmision = (newtotal * 0.82).toFixed(2);
     emissionSplit = String(newemmision).split('.')
     document.getElementById("emission-whole").innerHTML = Math.abs(emissionSplit[0]);
+    if(emissionSplit[1] == undefined){
+      emissionSplit[1] = '00'
+    }
     document.getElementById("emission-decimal").innerHTML = '.' + Math.abs(emissionSplit[1]);
+    if(totalSplit[1] == undefined){
+      totalSplit[1] = '00'
+    }
     document.getElementById("total-whole").innerHTML = Math.abs(totalSplit[0])
     document.getElementById("total-decimal").innerHTML =  '.' + Math.abs(totalSplit[1])
     newtotalprice = (newtotalprice - panelprice[num]);
     totalpriceSplit = String(newtotalprice).split('.')
+    if(totalpriceSplit[1] == undefined){
+      totalpriceSplit[1] = '00'
+    }
     document.getElementById("totalprice-whole").innerHTML =Math.abs(totalpriceSplit[0])
     document.getElementById("totalprice-decimal").innerHTML = '.' + Math.abs(totalpriceSplit[1])
     newpercent = (newpercent - Math.abs(panelpercent[num]));
@@ -2497,14 +2524,23 @@ function togglePanel(panelname, num) {
   } else {
     newtotal = (newtotal + Math.abs(paneltotal[num]/1000));
     totalSplit = String(newtotal).split('.')
-    newemmision = newtotal * 0.82;
+    newemmision = (newtotal * 0.82).toFixed(2);
     emissionSplit = String(newemmision).split('.')
     document.getElementById("emission-whole").innerHTML = Math.abs(emissionSplit[0]);
+    if(emissionSplit[1] == undefined){
+      emissionSplit[1] = '00'
+    }
     document.getElementById("emission-decimal").innerHTML = '.' + Math.abs(emissionSplit[1]);
+    if(totalSplit[1] == undefined){
+      totalSplit[1] = '00'
+    }
     document.getElementById("total-whole").innerHTML = Math.abs(totalSplit[0])
     document.getElementById("total-decimal").innerHTML =  '.' + Math.abs(totalSplit[1])
-    newtotalprice = (newtotalprice + Math.abs(panelprice[num]));
+    newtotalprice = (newtotalprice - panelprice[num]);
     totalpriceSplit = String(newtotalprice).split('.')
+    if(totalpriceSplit[1] == undefined){
+      totalpriceSplit[1] = '00'
+    }
     document.getElementById("totalprice-whole").innerHTML =Math.abs(totalpriceSplit[0])
     document.getElementById("totalprice-decimal").innerHTML = '.' + Math.abs(totalpriceSplit[1])
     newpercent = (newpercent + Math.abs(panelpercent[num]));
