@@ -806,7 +806,7 @@
         <div class="rectangle-3165-L7BXHD {{historicalusage.iloc[i][3]}} {{historicalusage.iloc[i][4]}}" id = '{{historicalusage.iloc[i][0]}}cost' onclick = 'exploreCircuit("{{historicalusage.iloc[i][0]}}")'>
         <div class = 'categorycircle {{historicalusage.iloc[i][3]}}colour {{historicalusage.iloc[i][4]}}colour' ></div>
         <div class="lunchroom-lights-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}namecost'>{{historicalusage.iloc[i][0]}}</div>
-        <div class="x345-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}price'>${{"%.2f"|format(historicalusage.iloc[i][5]|float)}}/hr</div>
+        <div class="x345-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}price'>${{"%.2f"|format(historicalusage.iloc[i][5]|float)}}</div>
         <div class="rectangle-3184-L7BXHD {{historicalusage.iloc[i][3]}}line" id = '{{historicalusage.iloc[i][0]}}costbar' {% if historicalusage.iloc[i][1] == 0 %} style = 'width: 2px; background-color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'width: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;'{% endif %}><div class="x21-L7BXHD avertacy-bold-sapphire-11px {{historicalusage.iloc[i][3]}}" id = '{{historicalusage.iloc[i][0]}}costpercent' {% if historicalusage.iloc[i][1] == 0 %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 5}}px;  color: grey;'{% elif historicalusage.iloc[i][1] > 0  %} style = 'left: {{250 * (historicalusage.iloc[i][1]/total) + 10}}px;'{% endif %}>{{"%.2f"|format(((historicalusage.iloc[i][1]/ total) * 100)|float)}}%</div></div>
         <div class = 'explore-image-box' id = '{{historicalusage.iloc[i][0]}}costimage'  onclick = "createChart('{{historicalusage.iloc[i][0]}}',{{i}}, '{{historicalusage.iloc[i][4]}}', '{{historicalusage.iloc[i][3]}}', '{{((historicalusage.iloc[i][1]/ total) * 100)}}');"><img class="explore-image" src="{{url_for('static',filename='img/explore-image.png')}}" /></div>
         </div>
@@ -815,14 +815,14 @@
     <div class="chart-figma">
       <div class="chart-figma__container">
         <div class="chart-xaxis">
-          <div class="morning">
+          <div class="morning" id = morning>
               <p class="title">12 am</p>
               <svg class="icon-svg-day" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M18.9999 10.79C18.8426 12.4922 18.2038 14.1144 17.1581 15.4668C16.1125 16.8192 14.7034 17.8458 13.0956 18.4265C11.4878 19.0073 9.74789 19.1181 8.0794 18.7461C6.41092 18.3741 4.8829 17.5345 3.67413 16.3258C2.46536 15.117 1.62584 13.589 1.25381 11.9205C0.881777 10.252 0.992617 8.51208 1.57336 6.9043C2.15411 5.29651 3.18073 3.88737 4.53311 2.84175C5.8855 1.79614 7.5077 1.15731 9.2099 1C8.21331 2.34827 7.73375 4.00945 7.85843 5.68141C7.98312 7.35338 8.70376 8.92506 9.8893 10.1106C11.0748 11.2961 12.6465 12.0168 14.3185 12.1415C15.9905 12.2662 17.6516 11.7866 18.9999 10.79V10.79Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
                 
           </div>
-          <div class="afternoon">
+          <div class="afternoon" id = afternoon>
             <p class="title">noon</p>
             <svg class="icon-svg-day" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -837,7 +837,7 @@
                 </svg>
                 
           </div>
-          <div class="night">
+          <div class="night" id = night>
             <p class="title">12 am</p>
             <svg class="icon-svg-day" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M18.9999 10.79C18.8426 12.4922 18.2038 14.1144 17.1581 15.4668C16.1125 16.8192 14.7034 17.8458 13.0956 18.4265C11.4878 19.0073 9.74789 19.1181 8.0794 18.7461C6.41092 18.3741 4.8829 17.5345 3.67413 16.3258C2.46536 15.117 1.62584 13.589 1.25381 11.9205C0.881777 10.252 0.992617 8.51208 1.57336 6.9043C2.15411 5.29651 3.18073 3.88737 4.53311 2.84175C5.8855 1.79614 7.5077 1.15731 9.2099 1C8.21331 2.34827 7.73375 4.00945 7.85843 5.68141C7.98312 7.35338 8.70376 8.92506 9.8893 10.1106C11.0748 11.2961 12.6465 12.0168 14.3185 12.1415C15.9905 12.2662 17.6516 11.7866 18.9999 10.79V10.79Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1511,6 +1511,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
     if ( $('#today2')[0].type != 'date' ) $('#today2').datepicker();
   </script>
+
     <script>
     function openNav(panel) {
   document.getElementById("sidebar").style.width = "600px";
@@ -1930,6 +1931,7 @@ function getTotal() {
   newtotal = {{"%.2f"|format(total/1000)|float}};
   newemmision = (newtotal * 0.82).toFixed(2);
   emissionSplit = String(newemmision).split('.')
+    console.log(emissionSplit[1])
   totalSplit = String(newtotal).split('.')
   if(totalSplit[1] == undefined){
       totalSplit[1] = '00'
@@ -1940,7 +1942,7 @@ function getTotal() {
   document.getElementById("total-whole").innerHTML = totalSplit[0];
   document.getElementById("total-decimal").innerHTML = '.' + totalSplit[1];
   document.getElementById("emission-whole").innerHTML = Math.abs(emissionSplit[0]);
-  document.getElementById("emission-decimal").innerHTML = '.' + Math.abs(emissionSplit[1]);
+  document.getElementById("emission-decimal").innerHTML = '.' + (emissionSplit[1]);
   newtotalprice = {{"%.2f"|format(totalprice)|float}}
   priceSplit = String(newtotalprice).split('.')
   if(priceSplit[1] == undefined){
@@ -2493,7 +2495,7 @@ function togglePanel(panelname, num) {
   if (x[0].style.display === "none") {
     newtotal = (newtotal - Math.abs(paneltotal[num]/1000));
     totalSplit = String(newtotal).split('.')
-    newemmision = (newtotal * 0.82).toFixed(2);
+    newemmision = (newtotal * 0.82 ).toFixed(2);
     emissionSplit = String(newemmision).split('.')
     document.getElementById("emission-whole").innerHTML = Math.abs(emissionSplit[0]);
     if(emissionSplit[1] == undefined){
@@ -2623,4 +2625,18 @@ function openTimeSidebar(){
        function closeCarbonLevy(){
         document.getElementById('carbon-levy').style.width = '0px';
        }
-</script></html>
+</script>
+
+
+</html>
+
+
+<script>
+  var end = {{endhours}};
+  var afternoon = document.getElementById('afternoon')
+  var night = document.getElementById('night')
+  if(end == 0){
+    night.style.overflow = 'hidden'
+    afternoon.style.overflow = 'hidden'
+  }
+</script>
