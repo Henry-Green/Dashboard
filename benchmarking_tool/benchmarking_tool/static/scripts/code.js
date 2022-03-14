@@ -118,7 +118,6 @@ function createBarChart(data){
     nightSection.removeChild(nightSection.lastChild);
 }
 
-console.log(script);
 var jsonUrl = fullUrl.replace("code.js", "data.json");
 
 fetch(jsonUrl)
@@ -134,11 +133,11 @@ fetch(jsonUrl)
       allValues.push(x.value);
     }
     document.querySelectorAll(".column").forEach((item) => {
-      item.firstElementChild.style.bottom = `${item.clientHeight * 1.2}px`;
-      console.log(item.firstElementChild);
+      item.firstElementChild.style.bottom = `10px`;
     });
     setIconPosition(allValues);
   });
+
 }
 //set the position of the icon
 
@@ -154,4 +153,6 @@ const setIconPosition = (allArrays) => {
       item.style.bottom = maxValue*2 + 2.5 + "%";
     }
   });
+
 };
+
