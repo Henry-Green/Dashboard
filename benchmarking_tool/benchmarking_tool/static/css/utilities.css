@@ -68,8 +68,6 @@ body {
   padding-top: 25px;
 }
 .inventory-page .inventory__sidebar--links ul li {
-  height: 60px;
-  padding-left: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -97,6 +95,7 @@ body {
   display: flex;
   font-size: 16px;
   transition: 0.25s;
+  padding: 10px 20px;
 }
 .inventory-page .inventory__sidebar--links ul li a:hover {
   color: #6285FB;
@@ -269,10 +268,12 @@ body {
 }
 
 .bottom-action {
-  position: absolute;
-  width: 215px;
-  left: 20px;
-  bottom: 50px;
+     /* position: absolute; */
+     width: 86%;
+     /* left: 20px; */
+     /* bottom: 50px; */
+     margin: 0 auto;
+     margin-top: 7px;
 }
 
 button.logout {
