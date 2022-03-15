@@ -510,7 +510,7 @@
   .historical-usage-lines-display-category .rectangle-2984-L7BXHD {
     background-color: transparent;
     border-radius: 8px;
-    border: 2px solid #E3E7ED;
+    border: 1px solid #ECE9F1;
     height: 696px;
     left: 320px;
     mix-blend-mode: normal;
@@ -966,7 +966,7 @@
     position: relative;
     text-align: left;
     width: auto;
-    bottom: 5px;
+    bottom: 4px;
   }
 
   .historical-usage-lines-display-category .office-plugs-2-L7BXHD {
@@ -1095,7 +1095,7 @@
     mix-blend-mode: normal;
     position: relative;
     text-align: right;
-    bottom: 20px;
+    bottom: 17px;
     width: auto;
   }
 
@@ -1475,15 +1475,14 @@
   }
   .historical-usage-lines-display-category .rectangle-3184-L7BXHD {
     background-color: var(--sapphire);
-    height: 12px;
+    height: 13px;
     left: 35%;
     mix-blend-mode: normal;
     position: relative;
     bottom: 33px;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
+    border-radius: 3px;
+   
   }
   .historical-usage-lines-display-category .rectangle-3184-week {
     background-color: var(--sapphire);
@@ -2345,12 +2344,15 @@
     letter-spacing: 0.76px;
     line-height: normal;
     mix-blend-mode: normal;
-    position: relative;
+    position: absolute;
     text-align: left;
-    bottom: 20px;
     width: 350px;
+    top: 0;
+    margin-left: 38px;
   }
-
+  .historical-usage-lines-display-category .title-L7BXHD span {
+    margin-top: 6px;
+  }
   .title-L7BXHD2 {
     background-color: transparent;
     color: #0D1758;
@@ -2387,7 +2389,7 @@
   .load-block{
     width: 293px;
     height: 228px;
-    border: 2px solid #E3E7ED;
+    border: 1px solid #ECE9F1;
     position: relative;
     margin-left: auto;
     margin-right: auto;
@@ -2408,10 +2410,10 @@
     margin-left: auto;
     margin-right: auto;
     top: 10px;
-    border-bottom: 2px solid #E3E7ED;
+    border-bottom: 1px solid #ECE9F1;
   }
   .load-content{
-    width:  293px;
+    width:  100%;
     height: 180px;
     top: 10px;
     position: relative;
@@ -2433,17 +2435,17 @@
     margin-right: auto;
   }
   .breakdown-block{
-    width: 125px;
+    width: 135px;
     height: 117px;
-    border: 2px solid #E3E7ED;
+    border:1px solid #ece9f1;
     border-radius: 8px;
     position: relative;
     bottom: 130px;
-    left: 150px;
+    left: 139px;
   }
   .breakdown-header{
     color: #7F7FAB;
-    font-family: var(--font-family-averta_cy-bold);
+    font-family: var(--font-family-averta_cy-regular);
     font-size: 10px;
     font-style: normal;
     font-weight: 700;
@@ -2453,20 +2455,21 @@
     margin-left: auto;
     margin-right: auto;
     top: 5px;
-    border-bottom: 2px solid #E3E7ED;
+    border-bottom: 1px solid #ece9f1;
 
   }
   .category-rectangle{
     color: #7F7FAB;
-    font-family: var(--font-family-averta_cy-bold);
+    font-family: var(--font-family-averta_cy-regular);
     font-size: 10px;
     font-style: normal;
     font-weight: 700;
-    width: 101px;
+    width: 100%;
     height: 12px;
     position: relative;
     margin-bottom: 10px;
     top: 15px;
+    left: 5px;
   }
 
   .small-category-rectangle{
@@ -2518,12 +2521,12 @@
     font-size: 12px;
     font-style: normal;
     font-weight: 700;
-    width: 125px;
+    width: 134px;
     height: 29px;
-    border: 2px solid #E3E7ED;
+    border: 1px solid #ece9f1;
     position: relative;
     bottom: 120px;
-    left: 150px;
+    left: 140px;
     border-radius: 8px;
   }
   .explore-text{
@@ -3009,7 +3012,7 @@
   .calendar-block{
     top: -109px;
     position: absolute;
-    left: -35px;
+    left: -34px;
     z-index: 1000;
     transition: 0.5s;
   }
@@ -3988,7 +3991,7 @@
     height: 88px;
     margin-right: 10px;
     border-radius: 8px;
-    border: 2px solid #E3E7ED;
+    border: 1px solid #ECE9F1;
     float: left;
     transition: 0.5s;
   }
@@ -4735,7 +4738,7 @@
   .column-names{
     color: #666F82;
     font-family: var(--font-family-averta_cy-bold);
-    font-size: 13;
+    font-size: 13px;
     font-style: normal;
     font-weight: 700;
     background-color: var(--white);
@@ -6052,6 +6055,7 @@
   }
   .historical-usage-lines-display-category #cost {
     margin-left: 23px;
+    vertical-align: sub;
   }
   .historical-usage-lines-display-category .k-wh-l6cqYc {
     background-color: transparent;
@@ -6068,7 +6072,9 @@
     border-color: transparent;
     border-radius: 4px;
   }
-
+  .historical-usage-lines-display-category .tabss input {
+    vertical-align: sub;
+}
   .historical-usage-lines-display-category .x674hr-l6cqYc {
     background-color: transparent;
     color: var(--apple);
@@ -8789,7 +8795,6 @@
     left: 0;
     margin: auto;
     text-align: center;
-
   }
   .chart-figma__container .chart-xaxis .afternoon::after {
     content: "";
@@ -8799,7 +8804,6 @@
     height: 0.880734px;
     width: 100%;
     background-color: #E6E9EF;
-
   }
   .chart-figma__container .chart-xaxis .afternoon::before {
     content: "";
@@ -8809,7 +8813,6 @@
     height: 0.880734px;
     width: 100%;
     background-color: #E6E9EF;
-
   }
   .chart-figma__container .chart-xaxis .night {
     padding-left: 0;
@@ -8851,15 +8854,17 @@
     width: 24.5px;
     height: 50%;
     background-color: #0D1758;
-    border-radius: 11px 11px 0px 0px;
+    border-radius: 22px;
     align-self: flex-end;
-    margin: 0 4px;
+    margin: 0 4px 6px;
     position: relative;
   }
+  .apexcharts-canvas {
+    transform: scale(0.8);
+}
   .chart-figma__container .chart-xaxis .morning div.column:hover .columnpopup, .chart-figma__container .chart-xaxis .afternoon div.column:hover .columnpopup, .chart-figma__container .chart-xaxis .night div.column:hover .columnpopup {
     opacity: 1;
   }
-
   .chart-figma__container .chart-xaxis .morning div.column .columnpopup, .chart-figma__container .chart-xaxis .afternoon div.column .columnpopup, .chart-figma__container .chart-xaxis .night div.column .columnpopup {
     bottom: 120px;
     position: absolute;
@@ -9122,7 +9127,9 @@
   margin-right: 28px;
   margin-top: 24px;
   }
-
+  .donut-chart svg path {
+    stroke-width: 0px;
+  }
   @media(max-width:1600px){
     .total-block {
     padding: 0 38px;
@@ -9286,4 +9293,10 @@
     width: 34%;
   }
 
+  }
+
+  .histrocial-main-title{
+    font-family: var(--font-family-averta_cy-bold);
+    font-style: normal;
+    font-weight: 700;
   }

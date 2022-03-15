@@ -828,9 +828,8 @@
 .avertacy-bold-sapphire-11px {
   color: var(--sapphire);
   font-family: var(--font-family-averta_cy-semibold);
-  font-size: 11px;
+  font-size: 10px;
   font-style: normal;
-  font-weight: 700;
 }
 
 .avertacy-bold-stack-11px {
