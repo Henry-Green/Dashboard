@@ -48,7 +48,7 @@ function createColumns(periodArray, section,data) {
  
         </div>
         <p class="on-hrs-p">On-Hours</p>
-        <p class="price">$ ${x.price}</p>
+        <p class="price">$ ${x.price.toFixed(2)}</p>
         
         </div>`;
       } else if (x.type === "off-hrs") {
@@ -61,7 +61,7 @@ function createColumns(periodArray, section,data) {
  
         </div>
         <p>Off-Hours</p>
-        <p class="price">$ ${x.price}</p>
+        <p class="price">$ ${x.price.toFixed(2)}</p>
         
         </div>`;
       }
@@ -82,7 +82,7 @@ function createColumns(periodArray, section,data) {
  
         </div>
         <p class="on-hrs-p">On-Hours</p>
-        <p class="price">${x.value} kWh</p>
+        <p class="price">${x.value.toFixed(2)} kWh</p>
         
         </div>`;
       } else if (x.type === "off-hrs") {
@@ -95,7 +95,7 @@ function createColumns(periodArray, section,data) {
  
         </div>
         <p>Off-Hours</p>
-        <p class="price">${x.value} kWh</p>
+        <p class="price">${x.value.toFixed(2)} kWh</p>
         
         </div>`;
       }
