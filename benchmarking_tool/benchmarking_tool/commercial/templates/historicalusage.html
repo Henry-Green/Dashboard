@@ -238,37 +238,37 @@
         <div class="rectangle-15-l6cqYc"></div>
 
         <div class="rectangle-2974-l6cqYc">
-            <input style = 'background-color: {{categoriesdf.iloc[0][2]}};' onclick = 'toggleCategories("{{categoriesdf.iloc[0][3]}}")' type= 'checkbox' class="rectangle-3024-l6cqYc" id= 'panel1check' checked/><label for = 'panel1check'></label>
+            <input style = 'background-color: {{categoriesdf.iloc[0][2]}};' onclick = 'toggleCategories("{{categoriesdf.iloc[0][3]}}"); checkIf0();' type= 'checkbox' class="rectangle-3024-l6cqYc" id= '{{categoriesdf.iloc[0][3]}}check' checked/><label for = 'panel1check'></label>
             <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[0][0]}}</div>
             <div class="x12-l6cqYc avertacy-bold-sapphire-12px">{{(categoriesdf.iloc[0][1])}}%</div>
         </div>
 
         <div class="rectangle-2974-l6cqYc">
-            <input style = 'background-color: {{categoriesdf.iloc[1][2]}};'  onclick = 'toggleCategories("{{categoriesdf.iloc[1][3]}}")' type= 'checkbox' class="rectangle-3025-l6cqYc"id= 'panel2check' checked/><label for = 'panel2check'></label>
+            <input style = 'background-color: {{categoriesdf.iloc[1][2]}};'  onclick = 'toggleCategories("{{categoriesdf.iloc[1][3]}}"); checkIf0();' type= 'checkbox' class="rectangle-3025-l6cqYc"id= '{{categoriesdf.iloc[1][3]}}check' checked/><label for = 'panel2check'></label>
             <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[1][0]}}</div>
             <div class="x12-l6cqYc avertacy-bold-sapphire-12px">{{(categoriesdf.iloc[1][1])}}%</div>
         </div>
 
         <div class="rectangle-2974-l6cqYc">
-            <input style = 'background-color: {{categoriesdf.iloc[2][2]}};' onclick = 'toggleCategories("{{categoriesdf.iloc[2][3]}}")' type= 'checkbox'class="rectangle-3026-l6cqYc" id= 'panel1check' checked/><label for = 'panel2check'></label>
+            <input style = 'background-color: {{categoriesdf.iloc[2][2]}};' onclick = 'toggleCategories("{{categoriesdf.iloc[2][3]}}"); checkIf0();' type= 'checkbox'class="rectangle-3026-l6cqYc" id= '{{categoriesdf.iloc[2][3]}}check' checked/><label for = 'panel2check'></label>
             <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[2][0]}}</div>
             <div class="x12-l6cqYc avertacy-bold-sapphire-12px">{{(categoriesdf.iloc[2][1])}}%</div>
         </div>
 
         <div class="rectangle-2974-l6cqYc">
-            <input style = 'background-color: {{categoriesdf.iloc[3][2]}};' onclick = 'toggleCategories("{{categoriesdf.iloc[3][3]}}")' type= 'checkbox'class="rectangle-3026-l6cqYc" id= 'panel1check' checked/><label for = 'panel2check'></label>
+            <input style = 'background-color: {{categoriesdf.iloc[3][2]}};' onclick = 'toggleCategories("{{categoriesdf.iloc[3][3]}}"); checkIf0();' type= 'checkbox'class="rectangle-3026-l6cqYc" id= '{{categoriesdf.iloc[3][3]}}check' checked/><label for = 'panel2check'></label>
             <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[3][0]}}</div>
             <div class="x12-l6cqYc avertacy-bold-sapphire-12px">{{(categoriesdf.iloc[3][1])}}%</div>
         </div>
 
         <div class="rectangle-2974-l6cqYc">
-            <input style = 'background-color: {{categoriesdf.iloc[4][2]}};'  onclick = 'toggleCategories("{{categoriesdf.iloc[4][3]}}")' type= 'checkbox'class="rectangle-3028-l6cqYc"id= 'panel1check'checked/><label for = 'panel1check'></label>
+            <input style = 'background-color: {{categoriesdf.iloc[4][2]}};'  onclick = 'toggleCategories("{{categoriesdf.iloc[4][3]}}"); checkIf0();' type= 'checkbox'class="rectangle-3028-l6cqYc"id= '{{categoriesdf.iloc[4][3]}}check'checked/><label for = 'panel1check'></label>
             <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[4][0]}}</div>
             <div class="x12-l6cqYc avertacy-bold-sapphire-12px">{{(categoriesdf.iloc[4][1])}}%</div>
         </div>
 
         <div class="rectangle-2974-l6cqYc">
-            <input style = 'background-color: {{categoriesdf.iloc[5][2]}};'  onclick = 'toggleCategories("{{categoriesdf.iloc[5][3]}}")' type= 'checkbox'class="rectangle-3029-l6cqYc"id= 'panel1check' checked/><label for = 'panel1check'></label>
+            <input style = 'background-color: {{categoriesdf.iloc[5][2]}};'  onclick = 'toggleCategories("{{categoriesdf.iloc[5][3]}}"); checkIf0();' type= 'checkbox'class="rectangle-3029-l6cqYc"id= '{{categoriesdf.iloc[5][0]}}check' checked/><label for = 'panel1check'></label>
             <div class="panel-a-l6cqYc avertacy-bold-sapphire-12px">{{categoriesdf.iloc[5][0]}}</div>
             <div class="x12-l6cqYc avertacy-bold-sapphire-12px">{{(categoriesdf.iloc[5][1])}}%</div>
         </div>
@@ -807,7 +807,7 @@
 
         <div class="rectangle-3184-L7BXHD {{categories[i]}}colour {{strippedPanels[i]}}colour" style= "width: {{percent[i]}}px;">
 
-          <div class="x21-L7BXHD avertacy-bold-sapphire-11px {{categories[i]}} {{strippedPanels[i]}}" style = "left: {{percent[i] + 5}}px;">{{percent[i]}}</div></div>
+          <div class="x21-L7BXHD avertacy-bold-sapphire-11px {{categories[i]}} {{strippedPanels[i]}}" style = "left: {{percent[i] + 5}}px;">{{percent[i]}}%</div></div>
 
         <div class = 'explore-image-box' id = '{{channel_names[i]}}image'  onclick = "createChart('{{channel_names[i]}}',{{i}}, '{{strippedPanels[i]}}', '{{categories[i]}}', '{{percent[i]}}');"><img class="explore-image" src="{{url_for('static',filename='img/explore-image.png')}}" /></div>  
         
@@ -1855,6 +1855,37 @@ function closeCircuitBlock(){
        }
        function closeCarbonLevy(){
         document.getElementById('carbon-levy').style.width = '0px';
+       }
+
+
+       function checkIf0(){
+        var lighting = document.getElementById('lightingcheck')
+        var hvac = document.getElementById('hvaccheck')
+        var dhw = document.getElementById('dhwcheck')
+        var equipment = document.getElementById('equipmentcheck')
+        var plugload = document.getElementById('plugloadcheck')
+        var other = document.getElementById('othercheck')
+
+        if(!(lighting.checked)){
+          if(!(hvac.checked)){
+            if(!(dhw.checked)){
+              if(!(equipment.checked)){
+                if(!(plugload.checked)){
+                  if(!(other.checked)){
+                        document.getElementById("total-whole").innerHTML = '0';
+                        document.getElementById("total-decimal").innerHTML = '.' + '00';
+                        document.getElementById("emission-whole").innerHTML = '0';
+                        document.getElementById("emission-decimal").innerHTML = '.' + '00';
+                        document.getElementById("totalprice-whole").innerHTML = '0';
+                        document.getElementById("totalprice-decimal").innerHTML = '.' + '00';
+                      }
+                    }
+                  }
+                }
+              }
+        }
+
+
        }
 
 </script>
