@@ -9290,3 +9290,132 @@
     font-style: normal;
     font-weight: 700;
   }
+
+.date-carousel {
+    box-sizing: border-box;
+    display: flex;
+    margin: auto;
+    position: relative;
+    margin-top: 3px;
+    align-items: center;
+}
+.ui-datepicker .ui-datepicker-prev.ui-state-hover {
+    width: 1.8em;
+    background: none;
+    border: none;
+    font-weight: bold;
+    left: 2px;
+    top: 2px;
+    height: 1.8em;
+    cursor:pointer
+}
+.ui-datepicker .ui-datepicker-next.ui-state-hover {
+    width: 1.8em;
+    background: none;
+    border: none;
+    font-weight: bold;
+    right: 2px;
+    top: 2px;
+    height: 1.8em;
+    left: inherit;
+    cursor: pointer
+}
+.ui-datepicker .ui-datepicker-prev {
+    left: 1px;
+}
+.ui-datepicker .ui-datepicker-next {
+    right: 1px;
+}
+.ui-datepicker .ui-datepicker-prev::before {
+    background: none;
+    content: "\f104";
+    font-family: 'FontAwesome';
+    width: 24px;
+    height: 23px;
+    color: #000;
+    z-index: 8;
+    left: 0;
+    right: 0;
+    top: 0;
+    text-align: center;
+    display: block;
+    font-size: 22px;
+}
+.ui-datepicker .ui-datepicker-next::before {
+    background: none;
+    content: "\f105";
+    font-family: 'FontAwesome';
+    width: 24px;
+    height: 23px;
+    color: #000;
+    z-index: 8;
+    left: 0;
+    right: 0;
+    top: 0;
+    text-align: center;
+    display: block;
+    font-size: 22px;
+}
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span {
+    display: none !important;
+}
+.ui-datepicker .ui-datepicker-prev-hover, .ui-datepicker .ui-datepicker-next-hover {
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.date-carousel .hasDatepicker {
+    background: none;
+    border: none;
+    color: #fff;
+    width: 111px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.date-carousel .btn {
+    background: none;
+    color: #fff;
+    border: none;
+    cursor: pointer
+}
+
+.date-carousel .btn:focus {
+    outline: none;
+    border: none
+}
+
+.ui-datepicker .ui-datepicker-header {
+    background: none;
+    border: none;
+}
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
+   
+    margin-top: 1px;
+}
+.ui-datepicker.ui-widget {
+    border: none;
+    border-radius: 0;
+    box-shadow: 0px 3px 6px #ccc;
+    max-width: 238px;
+    margin-left: -58px;
+    margin-top: 11px;
+}
+
+.ui-datepicker.ui-widget .ui-state-default {
+    border: none;
+    background: none;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.ui-datepicker.ui-widget .ui-state-default.ui-state-active {
+    background: #3044a5;
+    color: #fff;
+}
+
+.ui-datepicker .ui-datepicker-title {
+    font-size: 14px;
+}
