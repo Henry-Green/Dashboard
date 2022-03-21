@@ -2773,6 +2773,7 @@ def historicalusage(building_id):
         plugtotal = 0
         watertotal = 0
         othertotal =0
+        daysDifference = 1
         form = HistoricalUsageForm()
 
         if(current_user.is_authenticated and current_user.is_admin()):
@@ -2795,6 +2796,7 @@ def historicalusage(building_id):
 
             today = date.today()
             userdate = (today - timedelta(days = 1)).strftime('%Y-%m-%d') + '%'
+            correctdate = 'Mon, 21 Mar 2022'
             client_id = current_user.phone_number
             panel_building_id = building_id
 
@@ -2806,15 +2808,33 @@ def historicalusage(building_id):
             serial_list = serial_numbers.split()
 
             if request.method == "POST":
-                userdate = request.form['date'] + '%'
+                correctdate = request.form['datepicker']
+                userdate = request.form['datepicker']
+                n = 5
+                userdate = userdate[n:]
+                userdate = userdate.split(' ')
+                months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",]
+                for i in range(0,len(months)):
+                    if userdate[1] == months[i]:
+                        if i < 10:
+                            userdate[1] = '0' + str(i + 1)
+                        else:
+                            userdate[1] = str(i + 1)
+                if int(userdate[0]) < 10:
+                    userdate[0] = '0' + userdate[0]
+                userdate = userdate[2] + '-' + userdate[1] + '-' + userdate[0]
+
                 cal_month = str(userdate)[5] + str(userdate)[6]
                 day = str(userdate)[8] + str(userdate)[9]
-                if datetime.datetime.strptime(request.form['date'], '%Y-%m-%d') >= datetime.datetime.today():
+                daysDifference = (datetime.datetime.today() - datetime.datetime.strptime(userdate, '%Y-%m-%d')).days
+
+                if datetime.datetime.strptime(userdate, '%Y-%m-%d') >= datetime.datetime.today():
                     userdate = (today - timedelta(days = 1)).strftime('%Y-%m-%d') + '%'
                     cal_month = str(userdate)[5] + str(userdate)[6]
                     day = str(userdate)[8] + str(userdate)[9]
                     year = datetime.datetime.now().year
                     error = 'Cannot select future dates'
+                userdate = userdate + '%'
 
             i = 1
             for number in serial_list:
@@ -3064,7 +3084,6 @@ def historicalusage(building_id):
                 jsondictionarylist.append(jsondictionary)
             with open('static/scripts/data.json', 'w') as f:
                 json.dump(jsondictionarylist, f)
-            correctdate = userdate[:-1]
             chart_colours = ['#E6E9EF'] * 24
 
             cal_db = calendar_pull(building_ids,2021, int(cal_month))
@@ -3082,7 +3101,9 @@ def historicalusage(building_id):
 
             for i in range(int(starthours), int(endhours)):
                 chart_colours[i] = '#FFFFFF'
-            return render_template('historicalusage.html',chart_colours = chart_colours,endhours = endhours,last_week_cd=last_week_full,predicted_line=predicted_line,schedule = scheduledata,timeloads = timeloads,panelsdf = panelsdf,categoriesdf = categoriesdf, onHours = onHours,offHours = offHours,alwaysOn = alwaysOn,weeklabels = weeklabels, panelchart = panelchart,lighttotal = lighttotal, equipmenttotal=  equipmenttotal, hvactotal = hvactotal, plugtotal = plugtotal, watertotal= watertotal, othertotal = othertotal, correctdate=correctdate,totalEmmissions = totalEmmissions, totalPrice =  totalPrice, totalUsage = totalUsage,categorynames = categorynames,strippedNames=strippedNames,strippedPanels=strippedPanels,panelnames=panelnames ,colours = colours, numpanels = numpanels, numcircuits = len(channel_names), categories = categories, panels = panels, percent = percent, price = price, usage = usage, channel_names = channel_names, building_id = building_id, buidling_description = buidling_description, building_address = building_address, form = form)
+            print(daysDifference)
+            print('--------------')
+            return render_template('historicalusage.html',daysDifference = daysDifference,  chart_colours = chart_colours,endhours = endhours,last_week_cd=last_week_full,predicted_line=predicted_line,schedule = scheduledata,timeloads = timeloads,panelsdf = panelsdf,categoriesdf = categoriesdf, onHours = onHours,offHours = offHours,alwaysOn = alwaysOn,weeklabels = weeklabels, panelchart = panelchart,lighttotal = lighttotal, equipmenttotal=  equipmenttotal, hvactotal = hvactotal, plugtotal = plugtotal, watertotal= watertotal, othertotal = othertotal, correctdate=correctdate,totalEmmissions = totalEmmissions, totalPrice =  totalPrice, totalUsage = totalUsage,categorynames = categorynames,strippedNames=strippedNames,strippedPanels=strippedPanels,panelnames=panelnames ,colours = colours, numpanels = numpanels, numcircuits = len(channel_names), categories = categories, panels = panels, percent = percent, price = price, usage = usage, channel_names = channel_names, building_id = building_id, buidling_description = buidling_description, building_address = building_address, form = form)
         else:
             abort(403)
 
