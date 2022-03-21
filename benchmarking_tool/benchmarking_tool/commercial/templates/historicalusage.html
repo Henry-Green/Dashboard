@@ -8,6 +8,12 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
     <link rel="stylesheet" href="{{url_for('static',filename='css/utilities.css')}}">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts" type="text/javascript"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   </head>
 {% if error %}
   <header>
@@ -458,14 +464,14 @@
 
                     <div class = 'total-box'style = 'margin-right: 60px;'><span id = 'circuitemission-whole'></span><span class = 'decimal-span' id = 'circuitemission-decimal' style = 'font-size: 9px;'></span><span class = 'kwh-total'>kg/CO2</span><div class = total-box-line>Emissions</div></div>
                 </div>
-                    <img class="rectangle-3269-L7BXHD" id = 'todayrectangle' src="{{url_for('static',filename='img/rectangle-3269@2x.svg')}}" style = 'top: 256px; left: 525px'/>
-                    <form onsubmit="setTimeout(function(){window.location.reload();},10);" method = "POST" enctype="multipart/form-data">
+                    <img class="rectangle-3269-L7BXHD" id="todayrectangle" src="./48ast65s_files/rectangle-3269@2x.svg" style="top: 256px; left: 525px">
+                    <form onsubmit="setTimeout(function(){window.location.reload();},10);" method="POST" enctype="multipart/form-data">
                     {{ form.hidden_tag() }}
-                    <div class="group-7286-L7BXHD" style = 'top: 270px; left: 535px;'>
-                      <input onchange= "submit(); getTotal();" name = 'date' id = 'today3' type = 'date' class="march-18th-2021-tkyWp6" value = {{correctdate}}>
-                      <div id = 'total' style = 'color: transparent;'></div>
-                      <div id = 'totalprice' style = 'color: transparent;'></div>
-                      <div id = 'percentage' style = 'color: transparent;'>100%</div>
+                    <div class="group-7286-L7BXHD" style="top: 270px; left: 535px;">
+                      <input onchange="submit(); getTotal();" name="date" id="today3" type="date" class="march-18th-2021-tkyWp6" value="2022-03-06">
+                      <div id="total" style="color: transparent;"></div>
+                      <div id="totalprice" style="color: transparent;"></div>
+                      <div id="percentage" style="color: transparent;">100</div>
                     </div>
                     </form>
                  <div class = week-day-offimage-block-circuit>
@@ -854,22 +860,26 @@
     </div>
     <script src="{{url_for('static',filename='scripts/code.js', version= correctdate)}}"></script>
         <img class="rectangle-3269-L7BXHD" id = 'todayrectangle' src="{{url_for('static',filename='img/rectangle-3269@2x.svg')}}" />
-        <form onsubmit="setTimeout(function(){window.location.reload();},10);" method = "POST" enctype="multipart/form-data">
+        <form onsubmit="setTimeout(function(){window.location.reload();},10);" method="POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <div class="group-7286-L7BXHD">
-          <input onchange= "submit(); getTotal();" name = 'date' id = 'today2' type = 'date' class="march-18th-2021-tkyWp6" value = {{correctdate}}>
-          <div id = 'total' style = 'color: transparent;'></div>
-          <div id = 'totalprice' style = 'color: transparent;'></div>
-          <div id = 'percentage' style = 'color: transparent;'>100%</div>
-        </div>
+            <!-- <input onchange="submit(); getTotal();" name="date" id="today2" type="date" class="march-18th-2021-tkyWp6" value="2022-03-06">-->
+            <!-- modifications started -->
+            <!-- WIP -->
+           
+            <article class="date-carousel">
+                <button class="prev-day btn btn-outline-secondary"><i class="fa fa-angle-left" aria-hidden='true'></i></button>
+                <input onchange= "submit(); getTotal();" type='text' id='datepicker' name='datepicker'>
+                <button class='next-day btn btn-outline-secondary'><i class='fa fa-angle-right' aria-hidden='true'></i></button>
+            </article>
+            <!-- modifications started -->
+          </div>
         </form>
-      </div>
-      </div>
-    </div>
+
   </body>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+<!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
     if ( $('#today2')[0].type != 'date' ) $('#today2').datepicker();
-  </script>
+  </script> -->
 <script >
    chart_colors = {{chart_colours | tojson}};
   var options = {
@@ -1889,3 +1899,82 @@ function closeCircuitBlock(){
        }
 
 </script>
+<svg id="SvgjsSvg1383" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;"><defs id="SvgjsDefs1384"></defs><polyline id="SvgjsPolyline1385" points="0,0"></polyline><path id="SvgjsPath1386" d="M0 0 "></path></svg>
+
+
+
+
+<script>
+  var util = {
+  qs(sel, ctx){ 
+    return (ctx || document).querySelector(sel);
+  },
+  qsa(sel, ctx){
+    return Array.from((ctx || document).querySelectorAll(sel));
+  }
+};
+
+class DateCarousel {
+  constructor(el) {
+    this.element = el;
+    this.prevButton = util.qs(".date-carousel-prev", el);
+    this.input = util.qs(".date-carousel-input",el);
+    this.nextButton = util.qs(".date-carousel-next",el);
+    this.input.valueAsDate = new Date();
+    this.prevButton.addEventListener("click",this.prev.bind(this));
+    this.nextButton.addEventListener("click",this.next.bind(this));
+  }
+  
+  prev(){
+    console.log('------------- prev', this.input.name);
+    this.input.stepDown();
+    
+  }
+  
+  next() {
+    console.log('------------- next', this.input.name);
+    this.input.stepUp();
+  }
+}
+
+util.qsa('.date-carousel').forEach(function(el){ new DateCarousel(el) });
+
+
+
+    </script>
+
+
+
+    <script>
+      $(document).ready(function(){
+      $('#datepicker').val(moment().subtract({{daysDifference}}, 'days').format('ddd, D MMM yy'));
+          $('#datepicker').datepicker({
+            dateFormat: "D, d M yy"
+          });
+         $('.next-day').on('click', function (e) {
+           e.preventDefault();
+             var date = $('#datepicker').datepicker('getDate');
+             date.setDate(date.getDate() +1)
+             
+
+
+             console.log(date, 'prev');
+             $('#datepicker').datepicker('setDate', date);
+             $("#datepicker").trigger('change');
+         });
+         $('.prev-day').on('click', function (e) {
+          e.preventDefault();
+             var date = $('#datepicker').datepicker('getDate');
+             date.setDate(date.getDate() -1)
+             $('#datepicker').datepicker('setDate', date);
+             $("#datepicker").trigger('change');
+             
+         });
+         $('.today-date').on('click', function (e) {
+          e.preventDefault();
+             var date = moment().format('MM D, YYYY');
+             date.setDate(date.getDate() -1)
+             $('#datepicker').datepicker('setDate', date);
+         });
+         });
+         </script>
