@@ -517,7 +517,7 @@ def facilityoverview(building_id):
     if(current_user.is_authenticated and current_user.is_admin()):
         channel_name = ['Dryer', 'Dryer', 'washer', 'car wash GFI Receptacle', 'Exterior receptacle' , 'Tube Heaters', 'Carwash GFI Receptacle', 'exterior receptacle' , 'SAPRE to car wash', 'wash bay door and heat' , 'wash bay door and heat' , 'wash bay door and heat' , 'wash bay receptacle' , 'car wash exhaust fan', 'exterior receptacle' , 'wash bay receptacle','paint booth lights', 'paint booth air dryers', 'paint booth air dryers', 'counter receptacle', 'counter receptacle', 'microwave' , 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'water heater' , 'mezzanine receptacle' , 'water softener and DHW', 'lunch room lights' ]
         client_id = current_user.phone_number
-        building_id = 'ce736d20'
+        building_id = building_id
 
         mydb = mysql.connector.connect(
           host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
@@ -3005,6 +3005,8 @@ def historicalusage(building_id):
             onHours = float("{:.2f}".format(((sum(totalset)) / (totalUsage * 1000) * 100)))
             offHours = float("{:.2f}".format(((sum(offhours)) / (totalUsage * 1000) * 100)))
             alwaysOn = "{:.2f}".format(100 - (onHours + offHours))
+            if float(alwaysOn) < 0:
+                alwaysOn = 0
 
             timeloads = {'Name':['On-Hours','Off-Hours','Always-On'], 'Percents':[onHours,offHours,alwaysOn],'Colors':['#22B14C','#7F7F7F','#EE8F37']}
             timeloads = pd.DataFrame(data = timeloads)
@@ -3016,7 +3018,10 @@ def historicalusage(building_id):
                 data = get_weekly_data(serial_list[i],30)
                 channel_dict, dates = weekday_organization(data)
                 last_week_cd, last_week_dp = last_week_usage(data)
-                predicted_line.update(weekly_predicted_line(channel_dict, last_week_cd))
+                try:
+                    predicted_line.update(weekly_predicted_line(channel_dict, last_week_cd))
+                except:
+                    print('nan')
                 last_week_full.update(last_week_cd)
             weeklabels = ['M']
             weeklabels += ([''] * 23)
