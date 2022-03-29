@@ -2,7 +2,8 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #E5E5E5;
+  background-color: #E5E5E5 !important;
+  zoom: 1.1;
   /*
     zoom: 1.1; 
   -moz-transform: scale(1.1); 
@@ -221,7 +222,7 @@ body {
 }
 .ads__box .img img {
   position: absolute;
-  top: 59%;
+  top: 48%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -270,12 +271,10 @@ body {
 }
 
 .bottom-action {
-     /* position: absolute; */
-     width: 86%;
-     /* left: 20px; */
-     /* bottom: 50px; */
-     margin: 0 auto;
-     margin-top: 7px;
+  position: absolute;
+  width: 215px;
+  left: 20px;
+  bottom: 50px;
 }
 
 button.logout {

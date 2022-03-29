@@ -776,7 +776,8 @@
 
 
 body{
- /* overflow-y: hidden;*/
+ overflow-y: hidden;
+
 }
 
 
@@ -1028,7 +1029,7 @@ a {
 }
 
 ::-webkit-scrollbar {
-  width: 13px;
+  width: 4px;
 }
 
 /* Track */
@@ -1040,13 +1041,13 @@ a {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #0D1758;
+  background: #d4d4d4;
   border-radius: 20px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #0D1758;
+  background: #c0c0c0;
 }
 
 .d-flex {
@@ -1182,7 +1183,7 @@ a {
   position: relative;
   border-right: 1px solid #e3e7ed;
   padding-top: 20px;
-  height: 100vh;
+  height: 92vh;
 }
 .inventory__sidebar .arrow-toggle {
   position: absolute;
@@ -1192,7 +1193,6 @@ a {
   width: 23px;
   padding: 10px 0px;
   transform: rotate(180deg);
-  top: 70px;
   cursor: pointer;
   z-index: 99999;
 }
@@ -1213,8 +1213,6 @@ a {
   padding-top: 25px;
 }
 .inventory__sidebar--links ul li {
-  height: 60px;
-  padding-left: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1237,12 +1235,12 @@ a {
   opacity: 0;
 }
 .inventory__sidebar--links ul li a {
-  font-family: "Averta";
-  color: #afb8cc;
+  color: #AFB8CC;
   display: flex;
   font-size: 16px;
   transition: 0.25s;
-  font-family: var(--font-family-averta_cy-semibold);
+  padding: 10px 20px;
+  font-family: var(--font-family-averta_cy-bold);
 }
 .inventory__sidebar--links ul li a:hover {
   color: #6285fb;
@@ -1333,10 +1331,10 @@ a {
 }
 
 .bottom-action {
-  position: absolute;
+  /* position: absolute;
   width: 215px;
   left: 20px;
-  bottom: 150px;
+  bottom: 150px; */
 }
 
 button.logout {
@@ -1461,33 +1459,45 @@ button.logout span:nth-child(2) {
 
 .data-stream {
   display: flex;
+  max-width: 99%;
+  background: #fff;
+  border-radius: 30px;
+  margin: 0vh auto;
+  /* height: 96vh; */
+  /* overflow-y: scroll; */
+  position: relative;
+  left: inherit;
+  width: 100%;
+  top: inherit;
+  height: 100%;
 }
 .data-stream .data-stream-content > h2 {
-  margin-top: 15px;
-  margin-left: 50px;
-  margin-bottom: 10px;
+  margin-top: 25px;
+  /* margin-left: 50px; */
+  margin-bottom: 25px;
 }
 .data-stream .datastream-container {
   background: #F5F5F5;
   border-radius: 10px;
-  width: 1107px;
-  margin-left: 50px;
-  padding-left: 10px;
-  padding-top: 35px;
+  width: 100%;
+  padding-right: 30px;
+  padding-left: 30px;
+  padding-top: 20px;
   display: flex;
-  padding-bottom: 55px;
-  justify-content: space-around;
-  max-width: 95%;
+  padding-bottom: 20px;
+  justify-content: space-between;
+  max-width: 100%;
+  height: 77vh;
 }
 .data-stream .datastream-container .electrical > h3 {
   margin-bottom: 15px;
 }
 .data-stream .electricalcontainer {
-  width: 470px;
+  width: 100%;
   border-radius: 15px;
   background-color: #fff;
   padding-top: 50px;
-  padding-bottom: 100px;
+  padding-bottom: 37px;
 }
 .data-stream .electricalcontainer .part1 {
   display: flex;
@@ -1535,12 +1545,14 @@ button.logout span:nth-child(2) {
   animation-delay: 1.25s;
 }
 .data-stream .electricalcontainer .part1 .viewBy {
-  width: 62%;
+  width: 61%;
   align-items: flex-start;
   padding: 15px 18px;
   background-color: #F8FAFE;
   margin-left: 5%;
   border-radius: 18px;
+  display: flex;
+  justify-content: space-between;
 }
 .data-stream .electricalcontainer .part1 .viewBy > div:nth-child(1) > div > div {
   padding-bottom: 6px;
@@ -1553,34 +1565,34 @@ button.logout span:nth-child(2) {
   margin-bottom: 5px;
 }
 .data-stream .electricalcontainer .part1 .viewBy > div:nth-child(1) > div > div span:nth-child(1) {
-  width: 46px;
+  width: 46%;
 }
 .data-stream .electricalcontainer .part1 .viewBy > div:nth-child(1) > div > div span:nth-child(2) {
-  width: 40px;
+  width: 40%;
 }
 .data-stream .electricalcontainer .part1 .viewBy > div:nth-child(1) > div > div span:nth-child(3) {
-  width: 35px;
+  width: 35%;
 }
 .data-stream .electricalcontainer .part1 .viewBy > div:nth-child(1) > div > div span:nth-child(4) {
-  width: 40px;
+  width: 40%;
 }
 .data-stream .electricalcontainer .part1 .viewBy > div:nth-child(1) > div > div span:nth-child(5) {
-  width: 25px;
+  width: 25%;
 }
 .data-stream .electricalcontainer .part1 .viewBy > div:nth-child(1) > div > div span:nth-child(6) {
-  width: 46px;
+  width: 46%;
 }
 .data-stream .electricalcontainer .part1 .viewBy > div:nth-child(1) > div > div span:nth-child(7) {
-  width: 40px;
+  width: 40%;
 }
 .data-stream .electricalcontainer .part1 .viewBy > div:nth-child(1) > div > div span:nth-child(8) {
-  width: 35px;
+  width: 35%;
 }
 .data-stream .electricalcontainer .part1 .viewBy > div:nth-child(1) > div > div span:nth-child(9) {
-  width: 40px;
+  width: 40%;
 }
 .data-stream .electricalcontainer .part1 .viewBy > div:nth-child(1) > div > div span:nth-child(10) {
-  width: 25px;
+  width: 25%;
 }
 .data-stream .electricalcontainer .part1 .viewBy > div:nth-child(2) > div:nth-of-type(1) {
   display: flex;
@@ -1605,13 +1617,13 @@ button.logout span:nth-child(2) {
 .data-stream .electricalcontainer .part1 .viewBy .contnentBorder {
   background: #FFFFFF;
   border: 1px solid #E3E7ED;
-  border-radius: 18px;
+  border-radius: 10px;
   padding-left: 10px;
-  width: 120px;
+  width: 100%;
   padding-top: 10px;
   padding-bottom: 10px;
   position: relative;
-  margin-top: 15px;
+  margin-top: 16px;
 }
 .data-stream .electricalcontainer .part1 .viewBy .contnentBorder > a {
   display: flex;
@@ -1652,9 +1664,10 @@ button.logout span:nth-child(2) {
   display: flex;
   justify-content: space-around;
   margin-top: 15px;
+  padding: 0 25px;
 }
 .data-stream .electricalcontainer .part2 .first-section {
-  margin-left: 25%;
+  margin-left: 30%;
 }
 .data-stream .electricalcontainer .part2 .downFlow {
   display: flex;
@@ -1774,18 +1787,19 @@ button.logout span:nth-child(2) {
 }
 .data-stream .electricalcontainer .part3 {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+  padding-right: 22px;
 }
 .data-stream .electricalcontainer .part3 .first-sec {
   background: #FFFFFF;
   border: 1px solid #E3E7ED;
   box-sizing: border-box;
-  border-radius: 18px;
-  width: 120px;
+  border-radius: 10px;
+  width: 177px;
   position: relative;
   padding: 10px 0;
   padding-bottom: 0;
-  margin-left: 130px;
+  /* margin-left: 159px; */
 }
 .data-stream .electricalcontainer .part3 .first-sec > div:nth-of-type(1) {
   border: 2px solid #0D1758;
@@ -1820,6 +1834,7 @@ button.logout span:nth-child(2) {
   right: 10px;
   margin: auto;
   width: 100%;
+  text-align: center;
 }
 .data-stream .electricalcontainer .part3 .first-sec > div:nth-of-type(2) img {
   width: 100%;
@@ -1830,10 +1845,11 @@ button.logout span:nth-child(2) {
 .data-stream .electricalcontainer .part3 .first-sec > a {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   position: relative;
-  top: -10px;
+  top: 0;
   padding-top: 6px;
+  padding: 10px 11px;
 }
 .data-stream .electricalcontainer .part3 .first-sec > a::after {
   content: "";
@@ -1847,10 +1863,10 @@ button.logout span:nth-child(2) {
   margin: auto;
 }
 .data-stream .electricalcontainer .part3 .second-section {
-  width: 120px;
+  width: 177px;
   border: 1px solid #E3E7ED;
-  border-radius: 18px;
-  margin-left: auto;
+  border-radius: 10px;
+  margin-left: 15px;
   margin-right: 25px;
 }
 .data-stream .electricalcontainer .part3 .second-section .charts {
@@ -1862,19 +1878,22 @@ button.logout span:nth-child(2) {
 .data-stream .electricalcontainer .part3 .second-section a {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   padding-top: 10px;
   border-top: 1px solid #E3E7ED;
-  width: 80%;
+  width: 100%;
   margin: auto;
+  padding: 10px 11px;
 }
 .data-stream .electricalcontainer .part3 .second-section .firstcolumn, .data-stream .electricalcontainer .part3 .second-section .secondcolumn, .data-stream .electricalcontainer .part3 .second-section .thirdcolumn {
   display: flex;
   background-color: #E6E9EF;
   align-items: flex-end;
   position: relative;
-  width: 25%;
-  height: 90px;
+  width: 30%;
+  height: 98px;
+  text-align: center;
+  padding-left: 11px;
 }
 .data-stream .electricalcontainer .part3 .second-section .firstcolumn svg, .data-stream .electricalcontainer .part3 .second-section .secondcolumn svg, .data-stream .electricalcontainer .part3 .second-section .thirdcolumn svg {
   position: absolute;
@@ -1914,7 +1933,7 @@ button.logout span:nth-child(2) {
   margin-bottom: 15px;
 }
 .data-stream .NaturalGas .NaturalGascontainer {
-  width: 470px;
+  width: 100%;
   max-width: 100%;
   border-radius: 18px;
   background-color: #fff;
@@ -1927,8 +1946,8 @@ button.logout span:nth-child(2) {
   align-items: center;
   justify-content: space-between;
   position: relative;
-  top: 40px;
-  left: 46px;
+  top: 10px;
+  left: 9px;
 }
 .data-stream .NaturalGas .NaturalGascontainer .offline {
   display: flex;
@@ -1939,7 +1958,7 @@ button.logout span:nth-child(2) {
   justify-content: center;
   padding: 3px 0;
   position: absolute;
-  top: 10px;
+  top: 25px;
   right: 20px;
 }
 .data-stream .NaturalGas .NaturalGascontainer .offline span {
@@ -1956,12 +1975,13 @@ button.logout span:nth-child(2) {
 .data-stream .NaturalGas .NaturalGascontainer .line-flow {
   display: flex;
   align-items: flex-end;
+  padding-left: 10px;
 }
 .data-stream .NaturalGas .NaturalGascontainer .line-flow .rest-flow {
   margin-left: 25px;
   display: flex;
   justify-content: space-between;
-  width: 140px;
+  width: 73px;
   align-items: center;
 }
 .data-stream .NaturalGas .NaturalGascontainer .line-flow .rest-flow svg {
@@ -2077,7 +2097,7 @@ button.logout span:nth-child(2) {
 }
 .data-stream .NaturalGas .NaturalGascontainer .flow2 {
   display: flex;
-  margin-left: 105px;
+  margin-left: 107px;
   width: 45px;
   justify-content: space-between;
 }
@@ -2138,7 +2158,7 @@ button.logout span:nth-child(2) {
   margin: 25px 0;
 }
 .data-stream .NaturalGas .watercontainer {
-  width: 470px;
+  width: 100%;
   max-width: 100%;
   border-radius: 18px;
   background-color: #fff;
@@ -2156,7 +2176,7 @@ button.logout span:nth-child(2) {
   justify-content: center;
   padding: 3px 0;
   position: absolute;
-  top: 10px;
+  top: 25px;
   right: 20px;
 }
 .data-stream .NaturalGas .watercontainer .offline span {
@@ -2176,14 +2196,15 @@ button.logout span:nth-child(2) {
   align-items: center;
   justify-content: space-between;
   position: relative;
-  top: 40px;
-  left: 46px;
-  margin-bottom: 50px;
+  top: 10px;
+  left: 10px;
+  margin-bottom: 4px;
 }
 .data-stream .NaturalGas .watercontainer .water-flow {
   display: flex;
   align-items: flex-end;
   justify-content: space-around;
+  padding-left: 10px;
 }
 .data-stream .NaturalGas .watercontainer .water-flow .flow1 {
   display: flex;
@@ -2289,7 +2310,19 @@ button.logout span:nth-child(2) {
   position: relative;
   top: 5px;
 }
+.electrical {
+  width: 49%;
+}
 
+.NaturalGas {
+  width: 49%;
+}
+.data-stream .electricalcontainer .part1 .viewBy div {
+  width: 48%;
+}
+.measure {
+  text-align: center;
+}
 @keyframes effect1 {
   0% {
     opacity: 1;
@@ -2339,9 +2372,55 @@ button.logout span:nth-child(2) {
   }
 }
 .data-stream-content{
-  width: calc(100% - 250px)
+  width: calc(100% - 250px);
+  padding-left: 30px;
+  padding-right: 30px;
 }
 /*responsive*/
+
+@media (max-width:1600px){
+
+  .data-stream .datastream-container {
+   max-width: 100%;
+    height: calc(100vh - 204px);
+    overflow-y: scroll;
+    border-right: 10px solid #F5F5F5;
+    border-top: 10px solid #f5f5f5;
+    border-bottom: 10px solid #f5f5f5;
+}
+
+}
+
+@media (max-width:1366px){
+
+.data-stream .electricalcontainer .part3 {
+    padding-right: 0px;
+}
+.data-stream .electricalcontainer .part3 .first-sec {
+  width: 130px;
+}
+.data-stream .electricalcontainer .part3 .second-section {
+  width: 140px;
+}
+.electrical {
+  width: 53%;
+}
+.NaturalGas {
+  width: 45%;
+}
+.data-stream .electricalcontainer .part1 .viewBy {
+  width: 80%;
+  align-items: flex-start;
+  padding: 15px 18px;
+  background-color: #F8FAFE;
+  margin-left: 5%;
+  border-radius: 18px;
+  display: flex;
+  justify-content: space-between;
+}
+
+}
+
 
 @media only screen and (max-width: 1300px) {
   .datastream-container {
