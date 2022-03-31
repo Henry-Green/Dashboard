@@ -2779,8 +2779,8 @@ def historicalusage(building_id):
         if(current_user.is_authenticated and current_user.is_admin()):
             mydb = mysql.connector.connect(
               host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
-              user="admin",
-              password="rvqb2JymBB5CaNn",
+              user="readOnly",
+              password="JSfB55vpSL",
               database="db_mysql_sustainergy_alldata"
             )
             mycursor = mydb.cursor()
@@ -2813,7 +2813,7 @@ def historicalusage(building_id):
                 n = 5
                 userdate = userdate[n:]
                 userdate = userdate.split(' ')
-                months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",]
+                months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
                 for i in range(0,len(months)):
                     if userdate[1] == months[i]:
                         if i < 10:
@@ -2925,8 +2925,8 @@ def historicalusage(building_id):
                     watertotal += usage[i]
                 if(categories[i] == "other"):
                     othertotal += usage[i]
+            executionTime = (time.time() - startTime)
             
-            colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
             panelchart = historicalusage.groupby(["Panel Names"]).sum()['Usage'].tolist()
 
             numpanels = len(np.unique(panels))
@@ -2950,7 +2950,6 @@ def historicalusage(building_id):
             categorytotals =[lighttotal, equipmenttotal,hvactotal,plugtotal,watertotal,othertotal]
             for i in range(0,len(panelchart)):
                 panelchart[i] = float("{:.2f}".format(((panelchart[i]/1000) / totalUsage) * 100))
-            print(categorytotals)
             categoriesdf = pd.DataFrame({'Category Names': categorynames, "Total": categorytotals, "Colors": colours, "Back End": backendnames})
             categoriesdf = categoriesdf.sort_values(by=['Total'], ascending=False)
             panelcolours = []
@@ -2990,7 +2989,7 @@ def historicalusage(building_id):
                     for item in datalist:
                         floatlist.append(float(item))
                 except:
-                    print('whoops1')
+                    whoops = 0
                 for k in range(int(starthours) - 1, int(endhours) + 1):
                     totalset[k] += float(datalist[k])
                 for k in range(0, len(datalist)):
@@ -3021,7 +3020,7 @@ def historicalusage(building_id):
                 try:
                     predicted_line.update(weekly_predicted_line(channel_dict, last_week_cd))
                 except:
-                    print('nan')
+                    whoops = 0
                 last_week_full.update(last_week_cd)
             weeklabels = ['M']
             weeklabels += ([''] * 23)
@@ -3087,7 +3086,7 @@ def historicalusage(building_id):
                     "period": period[i]
                 }
                 jsondictionarylist.append(jsondictionary)
-            with open('static/scripts/data.json', 'w') as f:
+            with open('benchmarking_tool/static/scripts/data.json', 'w') as f:
                 json.dump(jsondictionarylist, f)
             chart_colours = ['#E6E9EF'] * 24
 
@@ -3106,8 +3105,7 @@ def historicalusage(building_id):
 
             for i in range(int(starthours), int(endhours)):
                 chart_colours[i] = '#FFFFFF'
-            print(daysDifference)
-            print('--------------')
+
             return render_template('historicalusage.html',daysDifference = daysDifference,  chart_colours = chart_colours,endhours = endhours,last_week_cd=last_week_full,predicted_line=predicted_line,schedule = scheduledata,timeloads = timeloads,panelsdf = panelsdf,categoriesdf = categoriesdf, onHours = onHours,offHours = offHours,alwaysOn = alwaysOn,weeklabels = weeklabels, panelchart = panelchart,lighttotal = lighttotal, equipmenttotal=  equipmenttotal, hvactotal = hvactotal, plugtotal = plugtotal, watertotal= watertotal, othertotal = othertotal, correctdate=correctdate,totalEmmissions = totalEmmissions, totalPrice =  totalPrice, totalUsage = totalUsage,categorynames = categorynames,strippedNames=strippedNames,strippedPanels=strippedPanels,panelnames=panelnames ,colours = colours, numpanels = numpanels, numcircuits = len(channel_names), categories = categories, panels = panels, percent = percent, price = price, usage = usage, channel_names = channel_names, building_id = building_id, buidling_description = buidling_description, building_address = building_address, form = form)
         else:
             abort(403)
