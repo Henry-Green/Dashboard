@@ -27,7 +27,16 @@ function createColumns(periodArray, section,data) {
     if (x.period === `${section.className}`) {
       const column = document.createElement("div");
       column.classList.add("column");
-      column.style.height = x.value + "px";
+      if(x.value < 30){
+
+        column.style.height = (x.value + 80) + "px";
+      }
+      else if (x.value > 200){
+        column.style.height ="150px";
+      }
+      else{
+        column.style.height = x.value + "px";
+      }
       if (section.classList.contains(`${x.period}`)) {
         section.appendChild(column);
       }
@@ -144,7 +153,6 @@ fetch(jsonUrl)
 const setIconPosition = (allArrays) => {
   const maxValue = Math.max(...allArrays);
   const iconSvg = document.querySelectorAll(".icon-svg-day");
-  console.log(maxValue);
 
   iconSvg.forEach((item) => {
     if (maxValue*20 < 50) {
