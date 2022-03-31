@@ -2925,7 +2925,7 @@ def historicalusage(building_id):
                     watertotal += usage[i]
                 if(categories[i] == "other"):
                     othertotal += usage[i]
-            
+                                
             panelchart = historicalusage.groupby(["Panel Names"]).sum()['Usage'].tolist()
 
             numpanels = len(np.unique(panels))
@@ -3085,7 +3085,7 @@ def historicalusage(building_id):
                     "period": period[i]
                 }
                 jsondictionarylist.append(jsondictionary)
-            with open('benchmarking_tool/static/scripts/data.json', 'w') as f:
+            with open('static/scripts/data.json', 'w') as f:
                 json.dump(jsondictionarylist, f)
             chart_colours = ['#E6E9EF'] * 24
 
