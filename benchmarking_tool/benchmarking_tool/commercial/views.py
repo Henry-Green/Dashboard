@@ -2747,7 +2747,7 @@ def utilities(building_id):
 
     return render_template('utilities.html',building_address = building_address, buidling_description = buidling_description, building_id = building_id,form = form, electricaldata = electricaldata, gasdata= gasdata)
 
-@@commercial.route('/historicalusage/<building_id>', methods=['GET', 'POST'])
+@commercial.route('/historicalusage/<building_id>', methods=['GET', 'POST'])
 @login_required
 def historicalusage(building_id):
         building_id = building_id
