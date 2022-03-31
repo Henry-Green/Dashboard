@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Electrical-Histroy</title>
 
-    <link rel="stylesheet" type="text/css" href="./Electrical-Histroy_files/electricalgraph.css">
-    <link rel="stylesheet" type="text/css" href="./Electrical-Histroy_files/styleguide.css">
-    <link rel="stylesheet" type="text/css" href="./Electrical-Histroy_files/globals.css">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/electricalgraph.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/styleguide.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
 
 
   </head>
@@ -115,7 +115,7 @@
               </button></a>
               <div class="ads__box">
                 <div class="img">
-                  <img style="width: 134px; height: 134px;" src="./Electrical-Histroy_files/48ast65s.png" alt="">
+                  <img style = 'width: 134px; height: 134px; position: relative;'src="{{url_for('static',filename='img/' + building_id + '.png')}}" alt="">
                 </div>
                 <h2>Edgerton Public Library</h2>
                      <p>5037 50 Ave, Edgerton, AB T0B 1K0</p>
@@ -276,7 +276,7 @@
                     <div class="compareBx_rw">
                       <div class="compareBx_col border-right">
                         <div class="compareBx_col_1">
-                         <img src="./Electrical-Histroy_files/clock_bill.jpg" alt="">
+                         <img src="{{url_for('static',filename='img/clock_bill.jpg')}}" alt="">
                          <h4>past bills</h4> 
                         </div>
                         <div class="compareBx_col_2">
@@ -292,7 +292,7 @@
 
                       <div class="compareBx_col">
                         <div class="compareBx_col_1">
-                        <img src="./Electrical-Histroy_files/facilities.jpg" alt="">
+                        <img src="{{url_for('static',filename='img/facilities.jpg')}}" alt="">
                          <h4>other facilities</h4> 
                         </div>
                         <div class="compareBx_col_2">
