@@ -465,10 +465,10 @@
                     <div class = 'total-box'style = 'margin-right: 60px;'><span id = 'circuitemission-whole'></span><span class = 'decimal-span' id = 'circuitemission-decimal' style = 'font-size: 9px;'></span><span class = 'kwh-total'>kg/CO2</span><div class = total-box-line>Emissions</div></div>
                 </div>
                     <img class="rectangle-3269-L7BXHD" id="todayrectangle" src="./48ast65s_files/rectangle-3269@2x.svg" style="top: 256px; left: 525px">
-                    <form onsubmit="setTimeout(function(){window.location.reload();},10);" method="POST" enctype="multipart/form-data">
+                    <form onsubmit="" method="POST" enctype="multipart/form-data">
                     {{ form.hidden_tag() }}
                     <div class="group-7286-L7BXHD" style="top: 270px; left: 535px;">
-                      <input onchange="submit(); getTotal();" name="date" id="today3" type="date" class="march-18th-2021-tkyWp6" value="2022-03-06">
+                      <input onchange="submit();" name="date" id="today3" type="date" class="march-18th-2021-tkyWp6" value="2022-03-06">
                       <div id="total" style="color: transparent;"></div>
                       <div id="totalprice" style="color: transparent;"></div>
                       <div id="percentage" style="color: transparent;">100</div>
@@ -860,7 +860,7 @@
     </div>
     <script src="{{url_for('static',filename='scripts/code.js', version= correctdate)}}"></script>
         <img class="rectangle-3269-L7BXHD" id = 'todayrectangle' src="{{url_for('static',filename='img/rectangle-3269@2x.svg')}}" />
-        <form onsubmit="setTimeout(function(){window.location.reload();},10);" method="POST" enctype="multipart/form-data">
+        <form onsubmit="" method="POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <div class="group-7286-L7BXHD">
             <!-- <input onchange="submit(); getTotal();" name="date" id="today2" type="date" class="march-18th-2021-tkyWp6" value="2022-03-06">-->
@@ -869,7 +869,7 @@
            
             <article class="date-carousel">
                 <button class="prev-day btn btn-outline-secondary"><i class="fa fa-angle-left" aria-hidden='true'></i></button>
-                <input onchange= "submit(); getTotal();" type='text' id='datepicker' name='datepicker'>
+                <input onchange= "submit();" type='text' id='datepicker' name='datepicker'>
                 <button class='next-day btn btn-outline-secondary'><i class='fa fa-angle-right' aria-hidden='true'></i></button>
             </article>
             <!-- modifications started -->
