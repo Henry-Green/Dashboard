@@ -1331,7 +1331,7 @@ def electricalgraph(building_id):
 
         mydb.commit()
 
-    return render_template('electricalgraph.html',building_address = building_address, buidling_description = buidling_description, building_id=building_id,form = form, electricaldata = electricaldata, gasdata= gasdata)
+    return render_template('Electrical-Histroy.html',building_address = building_address, buidling_description = buidling_description, building_id=building_id,form = form, electricaldata = electricaldata, gasdata= gasdata)
 
 
 
