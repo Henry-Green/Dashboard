@@ -2925,7 +2925,6 @@ def historicalusage(building_id):
                     watertotal += usage[i]
                 if(categories[i] == "other"):
                     othertotal += usage[i]
-            executionTime = (time.time() - startTime)
             
             panelchart = historicalusage.groupby(["Panel Names"]).sum()['Usage'].tolist()
 
