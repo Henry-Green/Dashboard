@@ -2747,7 +2747,7 @@ def utilities(building_id):
 
     return render_template('utilities.html',building_address = building_address, buidling_description = buidling_description, building_id = building_id,form = form, electricaldata = electricaldata, gasdata= gasdata)
 
-@commercial.route('/historicalusage/<building_id>', methods=['GET', 'POST'])
+@@commercial.route('/historicalusage/<building_id>', methods=['GET', 'POST'])
 @login_required
 def historicalusage(building_id):
         building_id = building_id
@@ -2925,7 +2925,8 @@ def historicalusage(building_id):
                     watertotal += usage[i]
                 if(categories[i] == "other"):
                     othertotal += usage[i]
-                                
+            
+            colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
             panelchart = historicalusage.groupby(["Panel Names"]).sum()['Usage'].tolist()
 
             numpanels = len(np.unique(panels))
@@ -3085,7 +3086,7 @@ def historicalusage(building_id):
                     "period": period[i]
                 }
                 jsondictionarylist.append(jsondictionary)
-            with open('static/scripts/data.json', 'w') as f:
+            with open('benchmarking_tool/static/scripts/data.json', 'w') as f:
                 json.dump(jsondictionarylist, f)
             chart_colours = ['#E6E9EF'] * 24
 
@@ -3104,7 +3105,6 @@ def historicalusage(building_id):
 
             for i in range(int(starthours), int(endhours)):
                 chart_colours[i] = '#FFFFFF'
-
             return render_template('historicalusage.html',daysDifference = daysDifference,  chart_colours = chart_colours,endhours = endhours,last_week_cd=last_week_full,predicted_line=predicted_line,schedule = scheduledata,timeloads = timeloads,panelsdf = panelsdf,categoriesdf = categoriesdf, onHours = onHours,offHours = offHours,alwaysOn = alwaysOn,weeklabels = weeklabels, panelchart = panelchart,lighttotal = lighttotal, equipmenttotal=  equipmenttotal, hvactotal = hvactotal, plugtotal = plugtotal, watertotal= watertotal, othertotal = othertotal, correctdate=correctdate,totalEmmissions = totalEmmissions, totalPrice =  totalPrice, totalUsage = totalUsage,categorynames = categorynames,strippedNames=strippedNames,strippedPanels=strippedPanels,panelnames=panelnames ,colours = colours, numpanels = numpanels, numcircuits = len(channel_names), categories = categories, panels = panels, percent = percent, price = price, usage = usage, channel_names = channel_names, building_id = building_id, buidling_description = buidling_description, building_address = building_address, form = form)
         else:
             abort(403)
