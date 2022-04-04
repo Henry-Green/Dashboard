@@ -83,7 +83,7 @@
 .Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .braek-carbon {
   margin-top: 60px;
   display: flex;
-  justify-content: flex-end;
+  width: 52%;
   margin-right: 25px;
 }
 .Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .braek-carbon .break-title {
@@ -161,14 +161,14 @@
   margin-top: 10px;
 }
 .Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .braek-carbon .breakdownArea {
-  width: 207px;
+  width: 60%;
   border: 1px solid #EAEDF1;
   border-radius: 10px;
   padding-bottom: 20px;
 }
 .Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .braek-carbon .carbon-div {
   margin-left: 20px;
-  width: 132px;
+  width: 40%;
   border: 1px solid #EAEDF1;
   border-radius: 10px;
   padding: 20px 0;
@@ -418,7 +418,7 @@ body {
 }
 .Electrical-history .inventory__components__container .views-sections .views-month-year .year-view .top-part > div > p .usdsign {
   position: relative;
-  left: 12px;
+  left: 0;
 }
 .Electrical-history .inventory__components__container .views-sections .views-month-year .year-view .top-part > div > span {
   color: #7F7F7F;
@@ -579,8 +579,11 @@ body {
 }
 .Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month {
   display: flex;
-  margin-top: 250px;
+ 
   justify-content: center;
+  max-width: 500px;
+  margin: 0 auto;
+  margin-top: 77px;
 }
 .Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month .bar {
   height: 36px;
@@ -592,12 +595,17 @@ body {
   display: block;
   height: 100%;
 }
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month .bar.barfirst:nth-child(1) {
+  width: 589px;
+  border-radius: 18px;
+}
 .Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month .bar:nth-child(1) {
-  width: 189px;
+  width: 589px;
   border-radius: 18px 0px 0px 18px;
 }
 .Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month .bar:nth-child(1) span {
   width: 100%;
+  
 }
 .Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month .bar:nth-child(2) {
   width: 188px;
@@ -996,7 +1004,12 @@ button.logout span:nth-child(2) {
 .billbreakdownChart.inventory .column .col4{background: #3649a8; width: 100%;}
 .billbreakdownChart.inventory .column .col5{background: #7f7f7f; width: 100%;}
 
+.chartdv {width: 100%;display: block;margin-top: 12px;}
 
+.chartdv .apexcharts-canvas {margin: 0 auto;}
+.apexcharts-canvas path {
+  stroke-width: 0px;
+}
 .dflex {
   display: flex;
   justify-content: space-between;
@@ -1044,6 +1057,318 @@ button.logout span:nth-child(2) {
   text-align: center;
 }
 
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .chart-electricty {
+  margin-top: 84px;
+}
+
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view  .chart-electricty .utility-chart {
+  width: 97%;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  align-items: flex-end;
+  max-width: 654px;
+  padding: 0 58px;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view  .chart-electricty .utility-chart * {
+  box-sizing: border-box;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view  .chart-electricty .utility-chart .title {
+  font-family: var(--font-family-averta_cy-bold);
+  color: #7f7f7f;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  bottom: -26px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view  .chart-electricty .utility-chart .column {
+  width: 12px;
+  background-color: #c3c3c3;
+  border-radius: 10px;
+  position: relative;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view  .chart-electricty .utility-chart .column.active {
+  background-color: #ffc90e;
+ 
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view  .chart-electricty .utility-chart .column span {
+  display: block;
+  width: 100%;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view  .chart-electricty .utility-chart .column span:first-of-type {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view  .chart-electricty .utility-chart .column span:last-of-type {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view  .chart-electricty .utility-chart .column:nth-of-type(1) {
+  height: 267px;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view  .chart-electricty .utility-chart .column:nth-of-type(2) {
+  height: 247px;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view  .chart-electricty .utility-chart .column:nth-of-type(3) {
+  height: 214px;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view  .chart-electricty .utility-chart .column:nth-of-type(4) {
+  height: 152px;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view  .chart-electricty .utility-chart .column:nth-of-type(5) {
+  height: 68px;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view  .chart-electricty .utility-chart .column:nth-of-type(6) {
+  height: 36px;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view  .chart-electricty .utility-chart .column:nth-of-type(7) {
+  height: 19px;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view  .chart-electricty .utility-chart .column:nth-of-type(8) {
+  height: 68px;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view  .chart-electricty .utility-chart .column:nth-of-type(9) {
+  height: 113px;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view  .chart-electricty .utility-chart .column:nth-of-type(10) {
+  height: 152px;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view  .chart-electricty .utility-chart .column:nth-of-type(11) {
+  height: 224px;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view  .chart-electricty .utility-chart .column:nth-of-type(12) {
+  height: 267px;
+}
+
+
+.Electrical-history .inventory__components__container .Bill-Breakdown.inventory p.billbreakdown-side {width: 100%; margin-top:0}
+
+.Electrical-history .inventory__components__container .Bill-Breakdown.inventory p.billbreakdown-side a svg {transform: rotate(180deg);}
+
+
+.greybx {background: #f5f7fb;padding: 12px;margin: 0 22px;margin-top: 21px;border-radius: 10px;}
+
+.greybx h4 {margin: 0;border-bottom: 1px solid #ececec;padding-bottom: 6px;margin-bottom: 16px;}
+.greybxWhite .d-flex {    display: flex;
+  color: #777;
+  font-size: 14px;
+}
+.greybxWhite .price {width: 100%;  text-align: right;}
+.greybxWhite .d-flex .name {flex: 1;}
+
+.greybxWhite .d-flex .check {width: 24px;}
+
+.greybxWhite .price span {font-size: 26px;}
+
+.greybxWhite .price sub {position: relative;bottom: 5px;font-size: 15px;}
+.greybxWhite {
+  background: #fff;
+  padding: 9px 14px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.greybxWhite .d-flex .check svg {
+  width: 15px;
+  margin-top: 3px;
+}
+.blue-text{color:#3649a8}
+.red-text{color:#ee5937}
+.skyblue-text{color:#3bcdee}
+.orange-text{color:#ee8f37}
+.yellow-text{color:#fec754}
+
+
+
+.month-view.mt-80 {
+  padding-top: 146px;
+}
+
+.chart-billbreakdown {
+    padding: 0 14px;
+}
+.chart-billbreakdown .billbreakdownChart .column {
+  width:21px;
+  text-align: center;
+  position: relative;
+  border-radius: 10px;
+}
+.chart-billbreakdown .billbreakdownChart .column p.title {
+  position: absolute;
+  bottom: -31px;
+  margin: 0;
+  text-align: center;
+  left: 2px;
+  font-size: 20px;
+  font-family: var(--font-family-averta_cy-bold);
+  color: #7f7f7f;
+}
+.chart-billbreakdown  .billbreakdownChart .column:nth-child(1) .borderRadius{ height: 270px;  border-radius: 10px;  overflow: hidden;}
+.chart-billbreakdown  .billbreakdownChart .column:nth-child(2) .borderRadius{height: 247px; border-radius: 10px; overflow: hidden;}
+.chart-billbreakdown  .billbreakdownChart .column:nth-child(3) .borderRadius{height: 215px; border-radius: 10px; overflow: hidden;}
+.chart-billbreakdown  .billbreakdownChart .column:nth-child(4) .borderRadius{height: 152px; border-radius: 10px; overflow: hidden;}
+.chart-billbreakdown  .billbreakdownChart .column:nth-child(5) .borderRadius{height: 87px; border-radius: 10px; overflow: hidden;}
+.chart-billbreakdown  .billbreakdownChart .column:nth-child(6) .borderRadius{height: 80px; border-radius: 10px; overflow: hidden;}
+
+.chart-billbreakdown  .billbreakdownChart .column:nth-child(7) .borderRadius{ height: 52px;  border-radius: 10px;  overflow: hidden;}
+.chart-billbreakdown  .billbreakdownChart .column:nth-child(8) .borderRadius{height: 82px; border-radius: 10px; overflow: hidden;}
+.chart-billbreakdown  .billbreakdownChart .column:nth-child(9) .borderRadius{height: 112px; border-radius: 10px; overflow: hidden;}
+.chart-billbreakdown  .billbreakdownChart .column:nth-child(10) .borderRadius{height: 154px; border-radius: 10px; overflow: hidden;}
+.chart-billbreakdown  .billbreakdownChart .column:nth-child(11) .borderRadius{height: 225px; border-radius: 10px; overflow: hidden;}
+.chart-billbreakdown  .billbreakdownChart .column:nth-child(12) .borderRadius{height: 265px; border-radius: 10px; overflow: hidden;}
+
+
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownfee{ width:578px; margin: 0 auto; margin-top:80px}
+
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownfee .bar:nth-child(1) {
+  width: 241x;
+  border-radius: 18px 0px 0px 18px;
+}
+
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownfee .bar:nth-child(2) {
+  width: 59px;
+  margin: 0 5px;
+  border-radius: 0px;
+}
+
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownfee .bar:nth-child(3) {
+  width: 105px;
+  border-radius: 0px;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownfee .bar:nth-child(4) {
+  width: 100px;
+  margin: 0 5px;
+  border-radius: 0px;
+}
+
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownfee .bar:nth-child(5) {
+  width: 43px;
+  border-radius: 0px 18px 18px 0px;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownfee .bar:nth-child(1) span {
+  background-color: #3649a8;
+  display: block;
+  height: 100%;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownfee .bar:nth-child(2) span {
+  background-color: #ee5937;
+  display: block;
+  height: 100%;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownfee .bar:nth-child(3) span {
+  background-color: #ee5937;
+  display: block;
+  height: 100%;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownfee .bar:nth-child(4) span {
+  background-color: #ee8f37;
+  display: block;
+  height: 100%;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownfee .bar:nth-child(5) span {
+  background-color: #fec754;
+  display: block;
+  height: 100%;
+}
+
+
+
+
+
+
+/* Natural Gas */
+.Electrical-history .inventory__components__container .views-sections .views-month-year .year-view .chart-electricty .utility-chart.natural-gas .column {
+  width: 21px;
+  background-color: #FF7F27;
+  border-radius: 10px;
+  position: relative;
+}
+.Electrical-history.NaturalGas .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month{display: flex;
+  justify-content: center;
+  max-width: 80%;
+  margin: 0 auto;
+  margin-top: 77px;}
+
+  .Electrical-history.NaturalGas .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month .bar:nth-child(1){width:33.33%}
+  .Electrical-history.NaturalGas .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month .bar:nth-child(2){width:33.33%}
+  .Electrical-history.NaturalGas .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month .bar:nth-child(3){width:33.33%}
+  .Electrical-history.NaturalGas .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month .bar span {
+    background-color: #FF7F27;
+    display: block;
+    height: 100%;
+}
+
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownInventory{ max-width:573px; margin: 0 auto; margin-top:80px}
+
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownInventory .bar:nth-child(1) {
+  width: 241x;
+  border-radius: 18px 0px 0px 18px;
+}
+
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownInventory .bar:nth-child(2) {
+  width: 59px;
+  margin: 0 5px;
+  border-radius: 0px;
+}
+
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownInventory .bar:nth-child(3) {
+  width: 93px;
+  border-radius: 0px;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownInventory .bar:nth-child(4) {
+  width: 44px;
+  margin: 0 5px;
+  border-radius: 0px;
+}
+
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownInventory .bar:nth-child(5) {
+  width: 44px;
+  border-radius: 0px;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownInventory .bar:nth-child(6) {
+  width: 65px;
+  margin: 0 5px;
+ 
+  border-radius: 0px 18px 18px 0px;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownInventory .bar:nth-child(1) span {
+  background-color: #7f7f7f;
+  display: block;
+  height: 100%;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownInventory .bar:nth-child(2) span {
+  background-color: #3649a8;
+  display: block;
+  height: 100%;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownInventory .bar:nth-child(3) span {
+  background-color: #3bcdee;
+  display: block;
+  height: 100%;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownInventory .bar:nth-child(4) span {
+  background-color: #ee5937;
+  display: block;
+  height: 100%;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownInventory .bar:nth-child(5) span {
+  background-color: #ee8f37;
+  display: block;
+  height: 100%;
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .month-view .progress-bar-month.breakdownInventory .bar:nth-child(6) span {
+  background-color: #fec754;
+  display: block;
+  height: 100%;
+}
 
 @media (max-width:1600px){
   .Electrical-history .inventory__components__container .views-sections {
@@ -1065,6 +1390,28 @@ button.logout span:nth-child(2) {
   padding: 20px 15px;
   display: flex;
   justify-content: space-between;
+}
+
+}
+
+
+@media (max-width:1440px){
+
+  .Electrical-history .inventory__components__container .views-sections .views-month-year .year-view .chart-electricty .utility-chart {
+    width: 87%;
+    max-width: 100%;
+    margin: auto;
+ }
+.Electrical-history .inventory__components__container .views-sections .views-month-year .year-view .chart-electricty .utility-chart .title {
+  font-size: 18px;
+  bottom: -32px;
+
+}
+.Electrical-history .inventory__components__container .views-sections .views-month-year .year-view .chart-electricty {
+  margin-top: 27px;
+}
+.Electrical-history .inventory__components__container .views-sections {
+  width: 62%;
 }
 
 }
