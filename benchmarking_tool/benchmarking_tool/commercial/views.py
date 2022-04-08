@@ -731,7 +731,7 @@ def liveusage(building_id):
         data = json.loads(weather_list[0])
         now = datetime.datetime.now()
         temp = data['forecast']['forecastday'][0]['hour'][now.hour]["temp_c"]
-        return render_template('liveusage.html',temp = temp,building_address = building_address, buidling_description = buidling_description, building_id = building_id)
+        return render_template('liveUsage.html',temp = temp,building_address = building_address, buidling_description = buidling_description, building_id = building_id)
     else:
         abort(403)
 @commercial.route('/energymanagement/<building_id>', methods=['GET', 'POST'])
