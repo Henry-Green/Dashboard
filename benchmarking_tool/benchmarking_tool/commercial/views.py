@@ -91,22 +91,13 @@ from calendar import monthrange
 import calendar
 from random import randint
 import urllib.request
-import pdfkit
+
 
 #for photo upload
 commercial = Blueprint('commercial',__name__,template_folder='templates')
 app_root = Path(__file__).parents[1]
 root_path = os.path.dirname(os.path.abspath(__file__))
 
-@commercial.route('/testapi', methods=['GET', 'POST'])
-@login_required
-def testapi():
-    if(current_user.is_authenticated and current_user.is_admin()):
-        pdfkit.from_url('http://google.com', 'out.pdf')
-
-        return render_template('testapi.html')
-    else:
-        abort(403)
 
 @commercial.route('/usageweek', methods=['GET', 'POST'])
 def usageweek():
