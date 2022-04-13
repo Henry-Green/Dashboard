@@ -99,6 +99,134 @@ app_root = Path(__file__).parents[1]
 root_path = os.path.dirname(os.path.abspath(__file__))
 
 
+@commercial.route('/uploadpanels/<building_id>', methods=['GET', 'POST'])
+@login_required
+def uploadpanels(building_id):
+    if(current_user.is_authenticated and current_user.is_admin()):
+        form = UtilityForm()
+        mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="admin",
+          password="rvqb2JymBB5CaNn",
+          database="db_mysql_sustainergy_alldata"
+        )
+        mycursor = mydb.cursor()
+        building_id = building_id
+        
+        if request.method == "POST":
+            file = request.files['file']
+            filename = secure_filename(file.filename)
+            print(filename)
+            file.save(filename)
+            xl_file = pd.ExcelFile(filename)
+            dfs = {sheet_name: xl_file.parse(sheet_name) for sheet_name in xl_file.sheet_names}
+            panels = list(dfs.keys())
+            print(panels)
+            print("------------------------")
+            for panel in panels:
+                panelid = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
+                sql = "INSERT INTO panel_data (panel_id, building_id, panel_name) VALUES (%s, %s, %s)"
+                val = (panelid, building_id, panel)
+                mycursor.execute(sql, val)
+
+
+            mydb.commit()
+
+            for panel in panels:
+                sql = "SELECT panel_id FROM panel_data WHERE panel_name = %s AND building_id = %s"
+                mycursor.execute(sql,(panel,building_id))
+                myresult = mycursor.fetchall()
+                try:
+                    result = str(myresult[0])
+                except:
+                    continue
+                result = result.replace('(','')
+                result = result.replace(')','')
+                result = result.replace(',','')
+                result = result.replace("'",'')
+
+                print(list(dfs[panel]['Unnamed: 1']))
+                try:
+                    row_number = list(dfs[panel]['Unnamed: 0'])
+                except:
+                    print(dfs[panel].keys())
+                    row_number = list(dfs[panel][panel])
+                circuit_name = list(dfs[panel]['Unnamed: 1'])
+                circuit_category = list(dfs[panel]['Unnamed: 2'])
+                circuit_amps = list(dfs[panel]['Unnamed: 3'])
+                try:
+                    row_number.remove('row_number ')
+                    circuit_name.remove('Circuit Name ')
+                    circuit_category.remove('Circuit Category ')
+                    circuit_amps.remove('Circuit Amps ')
+                except:
+                    error = 1
+                for i in range(0,len(circuit_name)):
+                    if str(circuit_name[i]) == 'nan' and str(circuit_category[i]) == 'nan' and str(circuit_amps[i]) == 'nan' and str(row_number[i]) == 'nan':
+                        error = True
+                    else:
+                        circuitid = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
+                        sql = "INSERT INTO circuit_data (id, panel_id, circuit_name, circuit_category, circuit_amps, row_numbers) VALUES (%s, %s, %s, %s, %s, %s)"
+                        val = (circuitid, str(result), str(circuit_name[i]), str(circuit_category[i]),str(circuit_amps[i]), str(row_number[i]))
+                        mycursor.execute(sql, val)
+            mydb.commit()
+
+        return render_template('uploadpanels.html', form = form)
+    else:
+        abort(403)
+
+
+@commercial.route('/clientlist', methods=['GET', 'POST'])
+@login_required
+def clientlist():
+    form = OperatingHoursForm()
+    if(current_user.is_authenticated and current_user.is_admin()):
+
+        mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="readOnly",
+          password="JSfB55vpSL",
+          database="db_mysql_sustainergy_alldata"
+        )
+        mycursor = mydb.cursor()
+        sql = "SELECT name, clientID FROM client"
+                
+        mycursor.execute(sql)
+        myresult = mycursor.fetchall()
+        clients = []
+        clientids = []
+        for result in myresult:
+            clients.append(result[0])
+            clientids.append(result[1])
+
+        return render_template('clientlist.html',clients=clients,clientids=clientids, len = len(clients))
+    else:
+        abort(403)
+
+
+@commercial.route('/building_list/<client_id>', methods=['GET', 'POST'])
+def building_list(client_id):
+    client_id = client_id
+
+    mydb = mysql.connector.connect(
+          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+          user="readOnly",
+          password="JSfB55vpSL",
+          database="db_mysql_sustainergy_alldata"
+        )
+    mycursor = mydb.cursor()
+    sql = "SELECT description, idbuildings FROM buildings WHERE client_id = %s"
+    mycursor.execute(sql,(client_id,))
+    myresult = mycursor.fetchall()
+    building_ids = []
+    descriptions = []
+    for result in myresult:
+        descriptions.append(result[0])
+        building_ids.append(result[1])
+
+    return render_template('building_list.html',building_ids=building_ids,descriptions=descriptions, len = len(descriptions))
+
+
 @commercial.route('/usageweek', methods=['GET', 'POST'])
 def usageweek():
     if(1 == 1):
