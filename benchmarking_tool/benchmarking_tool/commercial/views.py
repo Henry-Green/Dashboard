@@ -145,9 +145,7 @@ def uploadpanels(building_id):
                 result = result.replace(')','')
                 result = result.replace(',','')
                 result = result.replace("'",'')
-
-                print(list(dfs[panel]['Unnamed: 1']))
-                strip_dict(dfs[panel])
+                
                 try:
                     row_number = list(dfs[panel]['Unnamed: 0'])
                 except:
