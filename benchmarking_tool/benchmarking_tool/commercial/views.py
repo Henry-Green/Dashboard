@@ -148,9 +148,13 @@ def uploadpanels(building_id):
                 print(list(dfs[panel]['Unnamed: 1']))
                 try:
                     row_number = list(dfs[panel]['Unnamed: 0'])
-                except:
+                except FirstException:
                     print(dfs[panel].keys())
                     row_number = list(dfs[panel][panel])
+
+                except SecondException:
+                    row_number = list(dfs[panel][panel + ' '])
+                    
                 circuit_name = list(dfs[panel]['Unnamed: 1'])
                 circuit_category = list(dfs[panel]['Unnamed: 2'])
                 circuit_amps = list(dfs[panel]['Unnamed: 3'])
