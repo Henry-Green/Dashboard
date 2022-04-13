@@ -146,14 +146,12 @@ def uploadpanels(building_id):
                 result = result.replace("'",'')
 
                 print(list(dfs[panel]['Unnamed: 1']))
+                strip_dict(dfs)
                 try:
                     row_number = list(dfs[panel]['Unnamed: 0'])
-                except FirstException:
+                except:
                     print(dfs[panel].keys())
                     row_number = list(dfs[panel][panel])
-
-                except SecondException:
-                    row_number = list(dfs[panel][panel + ' '])
                     
                 circuit_name = list(dfs[panel]['Unnamed: 1'])
                 circuit_category = list(dfs[panel]['Unnamed: 2'])
@@ -179,6 +177,11 @@ def uploadpanels(building_id):
     else:
         abort(403)
 
+def strip_dict(d):
+    """
+    Strip all leading and trailing whitespace in dictionary keys and values.
+    """
+    return dict((k.strip(), v.strip()) for k, v in d.items())
 
 @commercial.route('/clientlist', methods=['GET', 'POST'])
 @login_required
