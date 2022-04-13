@@ -112,6 +112,7 @@ def uploadpanels(building_id):
         )
         mycursor = mydb.cursor()
         building_id = building_id
+        error = False
         
         if request.method == "POST":
             file = request.files['file']
@@ -150,8 +151,13 @@ def uploadpanels(building_id):
                 try:
                     row_number = list(dfs[panel]['Unnamed: 0'])
                 except:
-                    print(dfs[panel].keys())
-                    row_number = list(dfs[panel][panel])
+                    error = True
+                if error:
+                    try:
+                        print(dfs[panel].keys())
+                        row_number = list(dfs[panel][panel])
+                    except:
+                        row_number = list(dfs[panel][panel + " "])
                     
                 circuit_name = list(dfs[panel]['Unnamed: 1'])
                 circuit_category = list(dfs[panel]['Unnamed: 2'])
