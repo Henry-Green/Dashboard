@@ -103,7 +103,7 @@ root_path = os.path.dirname(os.path.abspath(__file__))
 @login_required
 def testapi():
     if(current_user.is_authenticated and current_user.is_admin()):
-        HTML('http://localhost:5000/commercial/generatereport/507779ca').write_pdf('/tmp/weasyprint-website.pdf')
+        HTML('http://opti-mized.com/generatereport/507779ca').write_pdf('/tmp/weasyprint-website.pdf')
 
 
         return render_template('testapi.html')
