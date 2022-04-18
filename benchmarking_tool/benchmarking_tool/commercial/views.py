@@ -91,7 +91,7 @@ from calendar import monthrange
 import calendar
 from random import randint
 import urllib.request
-
+from weasyprint import HTML
 
 #for photo upload
 commercial = Blueprint('commercial',__name__,template_folder='templates')
