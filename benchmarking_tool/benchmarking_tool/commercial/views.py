@@ -113,6 +113,7 @@ def testapi():
         abort(403)
 
 
+
 @commercial.route('/uploadpanels/<building_id>', methods=['GET', 'POST'])
 @login_required
 def uploadpanels(building_id):
