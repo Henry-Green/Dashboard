@@ -2857,320 +2857,351 @@ def utilities(building_id):
     return render_template('utilities.html',building_address = building_address, buidling_description = buidling_description, building_id = building_id,form = form, electricaldata = electricaldata, gasdata= gasdata)
 
 @commercial.route('/generatereport/<building_id>', methods=['GET', 'POST'])
-@login_required
 def generatereport(building_id):
     form = OperatingHoursForm()
-    if(current_user.is_authenticated and current_user.is_admin()):
-        building_id = building_id
-        building_ids = 12
-        year = 2021
-        days_per_week = 5
-        start_hour = 8
-        end_hour = 17
+    building_id = building_id
+    building_ids = 12
+    year = 2021
+    days_per_week = 5
+    start_hour = 8
+    end_hour = 17
+    starthours = []
+    endhours = []
+    startam = []
+    endam = []
+    startminutes = []
+    endminutes = []
+    month = 10
+    changed = ''
+    mydb = mysql.connector.connect(
+      host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+      user="readOnly",
+      password="JSfB55vpSL",
+      database="db_mysql_sustainergy_alldata"
+    )
+    mycursor = mydb.cursor()
+    sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+            
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        building_address = result[0]
+        buidling_description = result[1]
+
+    # calendar_init(building_id, year, days_per_week, start_hour, end_hour)
+    if request.method == "POST":
+        month = request.form['month']
         starthours = []
         endhours = []
         startam = []
         endam = []
-        startminutes = []
-        endminutes = []
-        month = 10
-        changed = ''
-        mydb = mysql.connector.connect(
-          host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
-          user="readOnly",
-          password="JSfB55vpSL",
-          database="db_mysql_sustainergy_alldata"
-        )
-        mycursor = mydb.cursor()
-        sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
-                
-        mycursor.execute(sql,(building_id,))
-        myresult = mycursor.fetchall()
-        for result in myresult:
-            building_address = result[0]
-            buidling_description = result[1]
-
-        # calendar_init(building_id, year, days_per_week, start_hour, end_hour)
-        if request.method == "POST":
-            month = request.form['month']
-            starthours = []
-            endhours = []
-            startam = []
-            endam = []
-            changed = request.form.get('changed')
-            datenumber = request.form.get('datenumber')
-            bulk = request.form.get('bulk')
+        changed = request.form.get('changed')
+        datenumber = request.form.get('datenumber')
+        bulk = request.form.get('bulk')
 
 
-        month = int(month)
-        cal_month = month + 1
-        cal_db = calendar_pull(building_ids,year, cal_month)
-        if changed == "true":
-            if bulk == "single":
-                newstart = request.form.get('newstart')
-                newend = request.form.get('newend')
-                datenumber = int(datenumber)
-                startmins = request.form.get('startmins')
-                endmins = request.form.get('endmins')
-                starttime = newstart + ':' + startmins
-                endtime = newend + ':' + endmins
-                datechange = datetime.date(year,cal_month,datenumber)
-                cal_db = calendar_edit(cal_db,datechange,starttime,endtime)
-                calendar_update(building_ids, year,cal_db)
-            if bulk == "weekday":
-                newstart = request.form.get('newstart')
-                newend = request.form.get('newend')
-                datenumber = int(datenumber)
-                startmins = request.form.get('startmins')
-                endmins = request.form.get('endmins')
-                starttime = newstart + ':' + startmins
-                endtime = newend + ':' + endmins
-                datechange = datetime.datetime(year,cal_month,datenumber)
-                datechange = datechange.weekday()
-                cal_db = edit_weekday_calendar(cal_db,datechange,starttime,endtime)
+    month = int(month)
+    cal_month = month + 1
+    cal_db = calendar_pull(building_ids,year, cal_month)
+    if changed == "true":
+        if bulk == "single":
+            newstart = request.form.get('newstart')
+            newend = request.form.get('newend')
+            datenumber = int(datenumber)
+            startmins = request.form.get('startmins')
+            endmins = request.form.get('endmins')
+            starttime = newstart + ':' + startmins
+            endtime = newend + ':' + endmins
+            datechange = datetime.date(year,cal_month,datenumber)
+            cal_db = calendar_edit(cal_db,datechange,starttime,endtime)
+            calendar_update(building_ids, year,cal_db)
+        if bulk == "weekday":
+            newstart = request.form.get('newstart')
+            newend = request.form.get('newend')
+            datenumber = int(datenumber)
+            startmins = request.form.get('startmins')
+            endmins = request.form.get('endmins')
+            starttime = newstart + ':' + startmins
+            endtime = newend + ':' + endmins
+            datechange = datetime.datetime(year,cal_month,datenumber)
+            datechange = datechange.weekday()
+            cal_db = edit_weekday_calendar(cal_db,datechange,starttime,endtime)
+            calendar_update(building_ids, year,cal_db)
+
+        if bulk == "everyday":
+            newstart = request.form.get('newstart')
+            newend = request.form.get('newend')
+            datenumber = int(datenumber)
+            startmins = request.form.get('startmins')
+            endmins = request.form.get('endmins')
+            starttime = newstart + ':' + startmins
+            endtime = newend + ':' + endmins
+            for i in range(0,6):
+                cal_db = edit_weekday_calendar(cal_db,i,starttime,endtime)
                 calendar_update(building_ids, year,cal_db)
 
-            if bulk == "everyday":
-                newstart = request.form.get('newstart')
-                newend = request.form.get('newend')
-                datenumber = int(datenumber)
-                startmins = request.form.get('startmins')
-                endmins = request.form.get('endmins')
-                starttime = newstart + ':' + startmins
-                endtime = newend + ':' + endmins
-                for i in range(0,6):
-                    cal_db = edit_weekday_calendar(cal_db,i,starttime,endtime)
-                    calendar_update(building_ids, year,cal_db)
+        if bulk == "everyweekday":
+            newstart = request.form.get('newstart')
+            newend = request.form.get('newend')
+            datenumber = int(datenumber)
+            startmins = request.form.get('startmins')
+            endmins = request.form.get('endmins')
+            starttime = newstart + ':' + startmins
+            endtime = newend + ':' + endmins
+            for i in range(0,5):
+                cal_db = edit_weekday_calendar(cal_db,i,starttime,endtime)
+                calendar_update(building_ids, year,cal_db)
+    for date in cal_db:
+        string = date
+        starthours.append(string['start_hours'])
+        endhours.append(string['end_hours'])
+    d = datetime.datetime(2021, cal_month, 1)
+    offset = d.weekday()
+    offset += 1
+    starthours = rotate(starthours,offset)
+    endhours = rotate(endhours,offset)
 
-            if bulk == "everyweekday":
-                newstart = request.form.get('newstart')
-                newend = request.form.get('newend')
-                datenumber = int(datenumber)
-                startmins = request.form.get('startmins')
-                endmins = request.form.get('endmins')
-                starttime = newstart + ':' + startmins
-                endtime = newend + ':' + endmins
-                for i in range(0,5):
-                    cal_db = edit_weekday_calendar(cal_db,i,starttime,endtime)
-                    calendar_update(building_ids, year,cal_db)
-        for date in cal_db:
-            string = date
-            starthours.append(string['start_hours'])
-            endhours.append(string['end_hours'])
-        d = datetime.datetime(2021, cal_month, 1)
-        offset = d.weekday()
-        offset += 1
-        starthours = rotate(starthours,offset)
-        endhours = rotate(endhours,offset)
+    i = 0
+    for hour in starthours:
+        if type(hour) == str and hour[1] == ':':
+            starthours[i] = hour[0]
+            starthours[i] = int(starthours[i])
+            startminutes.append(hour[2] + hour[3])
+        elif type(hour) == str and hour[1] != ':':
+            starthours[i] = hour[0] + hour[1]
+            starthours[i] = int(starthours[i])
+            startminutes.append(hour[3] + hour[4])
+        else:
+            startminutes.append('00')
+        i += 1
 
-        i = 0
-        for hour in starthours:
-            if type(hour) == str and hour[1] == ':':
-                starthours[i] = hour[0]
-                starthours[i] = int(starthours[i])
-                startminutes.append(hour[2] + hour[3])
-            elif type(hour) == str and hour[1] != ':':
-                starthours[i] = hour[0] + hour[1]
-                starthours[i] = int(starthours[i])
-                startminutes.append(hour[3] + hour[4])
-            else:
-                startminutes.append('00')
-            i += 1
+    i = 0
+    for hour in endhours:
+        if type(hour) == str and hour[1] == ':':
+            endhours[i] = hour[0]
+            endhours[i] = int(endhours[i])
+            endminutes.append(hour[2] + hour[3])
+        elif type(hour) == str and hour[1] != ':':
+            endhours[i] = hour[0] + hour[1]
+            endhours[i] = int(endhours[i])
+            endminutes.append(hour[3] + hour[4])
+        else:
+            endminutes.append('00')
+        i += 1 
 
-        i = 0
-        for hour in endhours:
-            if type(hour) == str and hour[1] == ':':
-                endhours[i] = hour[0]
-                endhours[i] = int(endhours[i])
-                endminutes.append(hour[2] + hour[3])
-            elif type(hour) == str and hour[1] != ':':
-                endhours[i] = hour[0] + hour[1]
-                endhours[i] = int(endhours[i])
-                endminutes.append(hour[3] + hour[4])
-            else:
-                endminutes.append('00')
-            i += 1 
+    for i in range(len(starthours)):
+        if starthours[i] is not None and starthours[i] < 13:
+            startam.append("am")
+        if starthours[i] is not None and starthours[i] >= 13:
+            startam.append("pm")
+            starthours[i] = starthours[i] - 12
+        if starthours[i] is None:
+            startam.append(endhours[i])
 
-        for i in range(len(starthours)):
-            if starthours[i] is not None and starthours[i] < 13:
-                startam.append("am")
-            if starthours[i] is not None and starthours[i] >= 13:
-                startam.append("pm")
-                starthours[i] = starthours[i] - 12
-            if starthours[i] is None:
-                startam.append(endhours[i])
+        if endhours[i] is not None and endhours[i] < 13:
+            endam.append("am")
+        if endhours[i] is not None and endhours[i] >= 13:
+            endam.append("pm")
+            endhours[i] = endhours[i] - 12
+        if endhours[i] is None:
+            endam.append(endhours[i])
 
-            if endhours[i] is not None and endhours[i] < 13:
-                endam.append("am")
-            if endhours[i] is not None and endhours[i] >= 13:
-                endam.append("pm")
-                endhours[i] = endhours[i] - 12
-            if endhours[i] is None:
-                endam.append(endhours[i])
+    sql = "SELECT yearlyGas FROM utilities WHERE year = 2017"
+    
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        tempstring = ','.join(x)
+    gasdata = tempstring.split(',')
 
-        sql = "SELECT yearlyGas FROM utilities WHERE year = 2017"
+    mycursor = mydb.cursor()
+    sql = "SELECT yearlyElectrical FROM utilities WHERE year = 2017"
         
-        mycursor.execute(sql)
-        myresult = mycursor.fetchall()
-        for x in myresult:
-            tempstring = ','.join(x)
-        gasdata = tempstring.split(',')
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        tempstring = ','.join(x)
+    electricaldata = tempstring.split(',')
 
-        mycursor = mydb.cursor()
-        sql = "SELECT yearlyElectrical FROM utilities WHERE year = 2017"
+    electrialusage = float(electricaldata[month])
+    electricalrate = 0.071
+    electricalcost = "{:.2f}".format(electrialusage * electricalrate)
+    electrialusage = "{:.2f}".format(electrialusage)
+
+    gasuage = float(gasdata[month])
+    gasrate = 4.35
+    gascost = "{:.2f}".format(gasuage * gasrate)
+    gasuage = "{:.2f}".format(gasuage)
+    months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+
+    monthname = months[month]
+
+    sql = "SELECT panel_id, panel_name, panel_voltage,panel_type FROM panel_data WHERE building_id = %s"
             
-        mycursor.execute(sql)
-        myresult = mycursor.fetchall()
-        for x in myresult:
-            tempstring = ','.join(x)
-        electricaldata = tempstring.split(',')
+    mycursor.execute(sql,(building_id,))
+    myresult = mycursor.fetchall()
 
-        electrialusage = float(electricaldata[month])
-        electricalrate = 0.071
-        electricalcost = "{:.2f}".format(electrialusage * electricalrate)
-        electrialusage = "{:.2f}".format(electrialusage)
+    panel_name_list = []
+    voltage_list = []
+    type_list = []
+    circuit_name_list = []
+    panel_name_ids = []
+    category_list = []
+    lighting_count = []
+    hvac_count = []
+    dhw_count = []
+    plug_count = []
+    other_count = []
+    boiler_count = []
+    spare_count = []
+    energy_meter_cost = '449.50'
+    misc_cost = '94.55'
+    lead_cost = '45.66'
+    circuit_cost = '15.78'
+    electrical_cost = '94.55'
+    comissioning_cost = '94.55'
+    cost_list = []
+    panel_cost_list = []
+    panel_mains_cost_list = []
 
-        gasuage = float(gasdata[month])
-        gasrate = 4.35
-        gascost = "{:.2f}".format(gasuage * gasrate)
-        gasuage = "{:.2f}".format(gasuage)
-        months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
 
-        monthname = months[month]
+    sql = "SELECT meter_price, misc_price, lead_price, circuit_price, electrical_price, commission_price FROM panel_price WHERE building_id = %s"            
+    mycursor.execute(sql,(building_id,))
+    prices = mycursor.fetchall()
 
-        sql = "SELECT panel_id, panel_name, panel_voltage,panel_type FROM panel_data WHERE building_id = %s"
+    for price in prices:
+        if price[0] == '':
+            nochange = True
+        else:
+            energy_meter_cost = price[0]
+            misc_cost = price[1]
+            lead_cost = price[2]
+            circuit_cost = price[3]
+            electrical_cost = price[4]
+            comissioning_cost = price[5]
+
+
+
+    for result in myresult:
+        panel_id = result[0]
+        panel_name = result[1]
+        panel_voltage = result[2]
+        panel_type = result[3]
+
+        sql = "SELECT circuit_name, circuit_category FROM circuit_data WHERE panel_id = %s"
                 
-        mycursor.execute(sql,(building_id,))
-        myresult = mycursor.fetchall()
+        mycursor.execute(sql,(panel_id,))
+        circuitresult = mycursor.fetchall()
+        circuitlist = []
+        circuit_category = []
+        for circuit in circuitresult:
+            circuitlist.append(circuit[0])
+            circuit_category.append(circuit[1])
 
-        panel_name_list = []
-        voltage_list = []
-        type_list = []
-        circuit_name_list = []
-        panel_name_ids = []
-        category_list = []
-        lighting_count = []
-        hvac_count = []
-        dhw_count = []
-        plug_count = []
-        other_count = []
-        boiler_count = []
-        spare_count = []
-        energy_meter_cost = '449.50'
-        misc_cost = '94.55'
-        lead_cost = '45.66'
-        circuit_cost = '15.78'
-        electrical_cost = '94.55'
-        comissioning_cost = '94.55'
-        cost_list = []
-        panel_cost_list = []
-        panel_mains_cost_list = []
-
-
-        sql = "SELECT meter_price, misc_price, lead_price, circuit_price, electrical_price, commission_price FROM panel_price WHERE building_id = %s"            
-        mycursor.execute(sql,(building_id,))
-        prices = mycursor.fetchall()
-
-        for price in prices:
-            if price[0] == '':
-                nochange = True
+        category_list.append(circuit_category)
+        
+        lighting = 0
+        hvac = 0
+        dhw = 0
+        plugload = 0
+        other = 0
+        spare = 0
+        boiler = 0
+        for category in circuit_category:
+            if category == 'Lighting' or category == 'Lighting ':
+                lighting += 1
+            elif category == 'HVAC' or category == 'HVAC ':
+                hvac += 1
+            elif category == 'DHW':
+                dhw += 1
+            elif category == 'Plug-Load' or category == 'Plug-Load ':
+                plugload += 1
+            elif category == 'Spare/Inactive' or category == 'Space' or category == 'Spare/ In-active' or category == 'nan'  or category == 'Spare/in-active '  or category == 'Spare/in-active':
+                spare += 1
+            elif category == 'Boiler / DHW':
+                boiler += 1
             else:
-                energy_meter_cost = price[0]
-                misc_cost = price[1]
-                lead_cost = price[2]
-                circuit_cost = price[3]
-                electrical_cost = price[4]
-                comissioning_cost = price[5]
+                other += 1
 
+        num_circuits = len(circuit_category)
 
+        
 
-        for result in myresult:
-            panel_id = result[0]
-            panel_name = result[1]
-            panel_voltage = result[2]
-            panel_type = result[3]
+        if num_circuits == 0:
+            current_panel_cost = 0
+            current_mains_cost = 0
 
-            sql = "SELECT circuit_name, circuit_category FROM circuit_data WHERE panel_id = %s"
-                    
-            mycursor.execute(sql,(panel_id,))
-            circuitresult = mycursor.fetchall()
-            circuitlist = []
-            circuit_category = []
-            for circuit in circuitresult:
-                circuitlist.append(circuit[0])
-                circuit_category.append(circuit[1])
-            category_list.append(circuit_category)
-            num_circuits = len(circuit_category)
-
-            num_energy_meters = (num_circuits + 3) / 14
-
-            current_panel_cost = (float(num_energy_meters) * float(energy_meter_cost)) + float(misc_cost) + (float(lead_cost) * 3) + (float(circuit_cost) * float(num_circuits)) + float(electrical_cost) + float(comissioning_cost)
+        else:
+            num_energy_meters = int(math.ceil((num_circuits + 3)) / 14)
+            print(num_energy_meters)  
+            current_panel_cost = (float(num_energy_meters) * float(energy_meter_cost)) + float(misc_cost) + (float(lead_cost) * 3) + (float(circuit_cost) * float(num_circuits)) + (float(electrical_cost) * 2) + float(comissioning_cost)
             current_mains_cost = (float(num_energy_meters) * float(energy_meter_cost)) + float(misc_cost) + (float(lead_cost) * 3) + float(electrical_cost) + float(comissioning_cost)
-            panel_cost_list.append("{:.2f}".format(current_panel_cost))
-            panel_mains_cost_list.append("{:.2f}".format(current_mains_cost))
+            
+        panel_cost_list.append("{:.2f}".format(current_panel_cost))
+        panel_mains_cost_list.append("{:.2f}".format(current_mains_cost))
 
-            lighting = 0
-            hvac = 0
-            dhw = 0
-            plugload = 0
-            other = 0
-            spare = 0
-            boiler = 0
-            for category in circuit_category:
-                if category == 'Lighting':
-                    lighting += 1
-                elif category == 'Lighting ':
-                    lighting += 1
-                elif category == 'HVAC':
-                    hvac += 1
-                elif category == 'DHW':
-                    dhw += 1
-                elif category == 'Plug-Load':
-                    plugload += 1
-                elif category == 'Spare/Inactive':
-                    spare += 1
-                elif category == 'Spare/ In-active':
-                    spare += 1
-                elif category == 'Boiler / DHW':
-                    boiler += 1
-                else:
-                    other += 1
 
-            lighting_count.append(lighting)
-            hvac_count.append(hvac)
-            dhw_count.append(dhw)
-            plug_count.append(plugload)
-            other_count.append(other)
-            spare_count.append(spare)
-            boiler_count.append(boiler)
-            panel_name_list.append(panel_name)
-            voltage_list.append(panel_voltage)
-            type_list.append(panel_type)
-            circuit_name_list.append(circuitlist)
+        lighting_count.append(lighting)
+        hvac_count.append(hvac)
+        dhw_count.append(dhw)
+        plug_count.append(plugload)
+        other_count.append(other)
+        spare_count.append(spare)
+        boiler_count.append(boiler)
+        panel_name_list.append(panel_name)
+        voltage_list.append(panel_voltage)
+        type_list.append(panel_type)
+        circuit_name_list.append(circuitlist)
 
-        for panelname in panel_name_list:
-            panelname = panelname.replace(' ','_')
-            panel_name_ids.append(panelname)
+    for panelname in panel_name_list:
+        panelname = panelname.replace(' ','_')
+        panel_name_ids.append(panelname)
 
-        mains_total = 0
-        for panel in panel_mains_cost_list:
+    mains_total = 0
+    mcc_mains_total = 0
+    i = 0
+    for panel in panel_mains_cost_list:
+        if type_list[i] != 'MCC Unit':
             mains_total += float(panel)
+        elif type_list[i] == 'MCC Unit':
+            mcc_mains_total += float(panel)
+        i += 1
 
-        circuits_total = 0
-        for panel in panel_cost_list:
+    circuits_total = 0
+    mcc_circuits_total = 0
+    i = 0
+    for panel in panel_cost_list:
+        if type_list[i] != 'MCC Unit':
             circuits_total += float(panel)
+        elif type_list[i] == 'MCC Unit':
+            mcc_circuits_total += float(panel)
+        i += 1
 
-        num_panels = len(panel_name_list)
-        total_num_circuits = 0
-        for i in range(0,len(circuit_name_list)):
-            total_num_circuits += len(circuit_name_list[i])
 
-        mains_total = "{:.2f}".format(mains_total)
-        circuits_total = "{:.2f}".format(circuits_total)
-        print(type_list)
-        return render_template('generatereport.html',type_list=type_list,energy_meter_cost=energy_meter_cost,misc_cost=misc_cost,lead_cost=lead_cost,circuit_cost=circuit_cost,electrical_cost=electrical_cost,comissioning_cost=comissioning_cost,num_panels=num_panels,total_num_circuits=total_num_circuits,circuits_total=circuits_total,mains_total=mains_total,panel_mains_cost_list=panel_mains_cost_list,panel_cost_list = panel_cost_list, boiler_count=boiler_count,spare_count=spare_count,sorted_categories = [],category_list=category_list,other_count=other_count,plug_count=plug_count,dhw_count=dhw_count,hvac_count=hvac_count,lighting_count=lighting_count,panel_name_ids=panel_name_ids,circuit_name_list = circuit_name_list, voltage_list = voltage_list, panel_name_list = panel_name_list,panel_voltage = panel_voltage, len = len(panel_name_list), panel_name = panel_name, circuitlist = circuitlist,monthname=monthname,gascost = gascost, gasrate = gasrate, gasuage = gasuage, electricalcost = electricalcost, electricalrate = electricalrate, electrialusage = electrialusage, building_address = building_address, buidling_description = buidling_description,building_id = building_id,startminutes = startminutes, endminutes = endminutes, form = form,month = month,starthours = starthours, endhours = endhours, startam = startam, endam = endam)
-    else:
-        abort(403)
+    num_panels = len(panel_name_list)
+    total_num_circuits_panels = 0
+    total_num_circuits_mcc = 0
+    for i in range(0,len(circuit_name_list)):
+        if type_list[i] != 'MCC Unit':
+            total_num_circuits_panels += len(circuit_name_list[i])
+        elif type_list[i] == 'MCC Unit':
+            total_num_circuits_mcc += len(circuit_name_list[i])
+
+    mains_total = "{:.2f}".format(mains_total)
+    circuits_total = "{:.2f}".format(circuits_total)
+    mcc_circuits_total = "{:.2f}".format(mcc_circuits_total)
+    mcc_mains_total = "{:.2f}".format(mcc_mains_total)
+
+
+    num_standard_panels = 0
+    num_mcc_panels = 0
+    for i in range(0,len(panel_name_list)):
+        if type_list[i] != 'MCC Unit':
+            num_standard_panels += 1
+        elif type_list[i] == 'MCC Unit':
+            num_mcc_panels += 1
+    print(type_list)
+    return render_template('generatereport.html',num_mcc_panels=num_mcc_panels,num_standard_panels=num_standard_panels,mcc_mains_total=mcc_mains_total,mcc_circuits_total=mcc_circuits_total,type_list=type_list,energy_meter_cost=energy_meter_cost,misc_cost=misc_cost,lead_cost=lead_cost,circuit_cost=circuit_cost,electrical_cost=electrical_cost,comissioning_cost=comissioning_cost,num_panels=num_panels,total_num_circuits_mcc = total_num_circuits_mcc, total_num_circuits_panels=total_num_circuits_panels,circuits_total=circuits_total,mains_total=mains_total,panel_mains_cost_list=panel_mains_cost_list,panel_cost_list = panel_cost_list, boiler_count=boiler_count,spare_count=spare_count,sorted_categories = [],category_list=category_list,other_count=other_count,plug_count=plug_count,dhw_count=dhw_count,hvac_count=hvac_count,lighting_count=lighting_count,panel_name_ids=panel_name_ids,circuit_name_list = circuit_name_list, voltage_list = voltage_list, panel_name_list = panel_name_list,panel_voltage = panel_voltage, len = len(panel_name_list), panel_name = panel_name, circuitlist = circuitlist,monthname=monthname,gascost = gascost, gasrate = gasrate, gasuage = gasuage, electricalcost = electricalcost, electricalrate = electricalrate, electrialusage = electrialusage, building_address = building_address, buidling_description = buidling_description,building_id = building_id,startminutes = startminutes, endminutes = endminutes, form = form,month = month,starthours = starthours, endhours = endhours, startam = startam, endam = endam)
 
 
 
