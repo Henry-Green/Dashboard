@@ -7,10 +7,10 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/generatereport.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/styleguide.css')}}" />
   </head>
-  <body onload = 'print()'> 
+  <body> 
     <div class="firstPage"> 
       <div class="print-container">
-        <div class="logo"> <img  style = 'width: 580px; height: 280px;' src="{{url_for('static',filename='img/Drayton.jpg')}}"></div>
+        <div class="logo"> <img  style = 'width: 580px; height: 280px;' src="{{url_for('static',filename='img/city-of-stalbert.png')}}"></div>
         <div class="main-header"> 
           <h1 class="av-bold maincolor size-28" style = 'font-size: 70px;'>Energy Report </h1><br>
           <h2 class="av-bold maincolor size-25" style = 'font-size: 50px;'>{{monthname}} 2021</h2>
@@ -1250,7 +1250,23 @@
     <script src="{{url_for('static',filename='scripts/comparereport.js')}}"></script>
 
   <div class="pagebreak"> </div>
- 
+  
+  <div class="firstPage"> 
+      <div class="print-container">
+        <div class="logo"> <img  style = 'width: 580px; height: 280px;' src="{{url_for('static',filename='img/city-of-stalbert.png')}}"></div>
+        <div class="main-header"> 
+          <h1 class="av-bold maincolor size-28" style = 'font-size: 50px; width: 100%; position: relative; left: 50px;'>Electrical Panel Costs Breakdown</h1><br>
+        </div>
+        <div class="home-print" style = 'width: 380px; height: 280px;'> <img style = 'width: 580px; height: 580px; position: relative; left: 120px; top: 50px;' src="{{url_for('static',filename='img/Panel-Shecdule.png')}}"></div>
+        <div class="address av-bold grey" style = 'position: relative; top: 480px;'> 
+          <h3 class="av-bold maincolor size-{{endminutes[1]}}" style = 'font-size: 30px;'>{{buidling_description}}</h3><br>
+          <h4 style ='width: 120px; font-size: 20px;'>{{building_address}}</h4>
+        </div>
+        <img style ='position: relative; left: 75%; top: 380px;'; src="{{url_for('static',filename='img/optimizedlogo.png')}}">
+      </div>
+      </div>
+    </div>
+<div class="pagebreak"> </div>
     
 
     <div class="material-section" style="position: relative;top: 50px;"> 
@@ -1341,16 +1357,19 @@
     <div class="pagebreak"> </div>
 
 
-<div class="panel-price" style = 'position: relative; bottom: 50px;'>
+
+
+
+<div class="panel-price" style = 'position: relative; bottom: 10px; '>
       <div class="panel-container">
         <div class="top-header"> 
-          <h2 class="av-bold size-32 maincolor">Panel Pricing</h2>
+          <h2 class="av-bold size-32 maincolor" style="font-size: 50px;">Panel Pricing</h2>
         </div>
         <div class="first-section" style  = 'height: 160px;'> 
           <div class="img"><img src="{{url_for('static',filename='img/Panel-Shecdule.png')}}"></div>
           <div class="data av-bold"> 
-            <p> <span class="maincolor size-28 ">{{num_panels}}</span><span class="d-grey size-14">Panels </span></p>
-            <p> <span class="green size-32">{{total_num_circuits}}</span><span class="d-grey size-14">Circuits</span></p>
+            <p> <span class="maincolor size-28 ">{{num_standard_panels}}</span><span class="d-grey size-14">Panels </span></p>
+            <p> <span class="green size-32">{{total_num_circuits_panels}}</span><span class="d-grey size-14">Circuits</span></p>
           </div>
           <div class="show-data" style = 'height: 140px;'> 
             <div class="first-row av-bold maincolor">
@@ -1368,12 +1387,14 @@
             <h2 class="av-bold maincolor size-32">Panel breakdown</h2>
             <div class="rows-data"> 
 
-              {% for i in range(0,len) %}
+              {% for i in range(0,35) %}
+              {% if type_list[i] != 'MCC Unit' %}
               <div class="row-data av-bold grey"style = 'height: 20px;'> 
                 <p class="maincolor" style = 'width: 80px;'>{{panel_name_list[i]}}</p>
                 <p style = 'width: 80px;'>{{voltage_list[i]}}</p>
                 <P>{{circuit_name_list[i] | length}} Circuits</P>
               </div>
+              {% endif %}
               {% endfor %}
             </div>
           </div>
@@ -1381,16 +1402,20 @@
             <div class="firstcolumn"> 
               <h3 class="av-bold maincolor size-20"><span>Panel </span><span>Leads Only</span></h3>
               <ul>
-                {% for i in range(0,len) %}
+                {% for i in range(0,35) %}
+                {% if type_list[i] != 'MCC Unit' %}
                 <li class="av-bold maincolor " style = 'height: 20px;'>${{panel_mains_cost_list[i]}}</li>
+                {% endif %}
                 {% endfor %}
               </ul>
             </div>
             <div class="secondcolumn"> 
               <h3 class="av-bold maincolor size-20"><span>All indiivdual </span><span>Circuits</span></h3>
               <ul>
-                {% for i in range(0,len) %}
+                {% for i in range(0,35) %}
+                {% if type_list[i] != 'MCC Unit' %}
                 <li class="av-bold maincolor "style = 'height: 20px;'>${{panel_cost_list[i]}}</li>
+                {% endif %}
                 {% endfor %}
               </ul>
             </div>
@@ -1407,27 +1432,80 @@
   <div class="pagebreak"> </div>
 
 
+  <div class="panel-price" style = 'position: relative; bottom: 10px;'>
+      <div class="panel-container">
+        <div class="top-header"> 
+          <h2 class="av-bold size-32 maincolor" style=" font-size: 50px;">Panel Pricing</h2>
+        </div>
+        <div class="first-section" style  = 'height: 160px;'> 
+          <div class="img"><img src="{{url_for('static',filename='img/Panel-Shecdule.png')}}"></div>
+          <div class="data av-bold"> 
+            <p> <span class="maincolor size-28 ">{{num_standard_panels}}</span><span class="d-grey size-14">Panels </span></p>
+            <p> <span class="green size-32">{{total_num_circuits_panels}}</span><span class="d-grey size-14">Circuits</span></p>
+          </div>
+          <div class="show-data" style = 'height: 140px;'> 
+            <div class="first-row av-bold maincolor">
+              <p> <span>Panel</span><span>Mains Only</span></p>
+              <p> <span>$</span><span class="size-26 numsupValue">{{mains_total}}</span></p>
+            </div>
+            <div class="first-row av-bold maincolor">
+              <p> <span>all individual</span><span>circuits</span></p>
+              <p> <span>$</span><span class="size-26 numsupValue">{{circuits_total}}</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="second-section">
+          <div class="part1"> 
+            <h2 class="av-bold maincolor size-32">Panel breakdown</h2>
+            <div class="rows-data"> 
 
- <div class="firstPage"> 
-      <div class="print-container">
-        <div class="logo"> <img  style = 'width: 580px; height: 280px;' src="{{url_for('static',filename='img/Drayton.jpg')}}"></div>
-        <div class="main-header"> 
-          <h1 class="av-bold maincolor size-28" style = 'font-size: 60px; width: 100%'>Electrical Panel Schedules </h1><br>
+              {% for i in range(35,len) %}
+              {% if type_list[i] != 'MCC Unit' %}
+              <div class="row-data av-bold grey"style = 'height: 20px;'> 
+                <p class="maincolor" style = 'width: 80px;'>{{panel_name_list[i]}}</p>
+                <p style = 'width: 80px;'>{{voltage_list[i]}}</p>
+                <P>{{circuit_name_list[i] | length}} Circuits</P>
+              </div>
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+          <div class="part2"> 
+            <div class="firstcolumn"> 
+              <h3 class="av-bold maincolor size-20"><span>Panel </span><span>Leads Only</span></h3>
+              <ul>
+                {% for i in range(35,len) %}
+                {% if type_list[i] != 'MCC Unit' %}
+                <li class="av-bold maincolor " style = 'height: 20px;'>${{panel_mains_cost_list[i]}}</li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="secondcolumn"> 
+              <h3 class="av-bold maincolor size-20"><span>All indiivdual </span><span>Circuits</span></h3>
+              <ul>
+                {% for i in range(35,len) %}
+                {% if type_list[i] != 'MCC Unit' %}
+                <li class="av-bold maincolor "style = 'height: 20px;'>${{panel_cost_list[i]}}</li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
         </div>
-        <div class="home-print" style = 'width: 380px; height: 280px;'> <img style = 'width: 580px; height: 580px; position: relative; left: 120px; top: 50px;' src="{{url_for('static',filename='img/Panel-Shecdule.png')}}"></div>
-        <div class="address av-bold grey" style = 'position: relative; top: 480px;'> 
-          <h3 class="av-bold maincolor size-{{endminutes[1]}}" style = 'font-size: 30px;'>{{buidling_description}}</h3><br>
-          <h4 style ='width: 120px; font-size: 20px;'>{{building_address}}</h4>
-        </div>
-        <img style ='position: relative; left: 75%; top: 380px;'; src="{{url_for('static',filename='img/optimizedlogo.png')}}">
-      </div>
       </div>
     </div>
-<div class="pagebreak"> </div>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-circle-progress/1.2.2/circle-progress.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script src="{{url_for('static',filename='scripts/panel-price.js')}}"></script>
+  
+
+  <div class="pagebreak"> </div>
 
 
 {% for i in range(0,len) %}
-{% if type_list[i] == 'Standard Panel' %}
+{% if type_list[i] != 'MCC Unit' %}
 <div style ='display: none;'>
                 {% set sorted_categories = [] %} 
                 {{sorted_categories.append([lighting_count[i], 'Lighting'])}}
@@ -1527,9 +1605,9 @@
 
  <div class="firstPage"> 
       <div class="print-container">
-        <div class="logo"> <img  style = 'width: 580px; height: 280px;' src="{{url_for('static',filename='img/Drayton.jpg')}}"></div>
+        <div class="logo"> <img  style = 'width: 580px; height: 280px;' src="{{url_for('static',filename='img/city-of-stalbert.png')}}"></div>
         <div class="main-header"> 
-          <h1 class="av-bold maincolor size-28" style = 'font-size: 60px; width: 100%'>MCC Schedules </h1><br>
+          <h1 class="av-bold maincolor size-28" style = 'font-size: 60px; width: 100%; position: relative; left: 100px;' >MCC Costs Breakdown </h1><br>
         </div>
         <div class="home-print" style = 'width: 380px; height: 280px;'> <img style = 'width: 580px; height: 580px; position: relative; left: 120px; top: 50px;' src="{{url_for('static',filename='img/Mcc.png')}}"></div>
         <div class="address av-bold grey" style = 'position: relative; top: 480px;'> 
@@ -1541,6 +1619,80 @@
       </div>
     </div>
 <div class="pagebreak"> </div>
+
+
+<div class="panel-price" style = 'position: relative; bottom: 20px;'>
+      <div class="panel-container">
+        <div class="top-header"> 
+          <h2 class="av-bold size-32 maincolor" style = 'font-size: 50px;'>Metering MCC Unit</h2>
+        </div>
+        <div class="first-section" style  = 'height: 160px;'> 
+          <div class="img"><img src="{{url_for('static',filename='img/Mcc.png')}}"></div>
+          <div class="data av-bold"> 
+            <p> <span class="maincolor size-28 ">{{num_mcc_panels}}</span><span class="d-grey size-14">Panels </span></p>
+            <p> <span class="green size-32">{{total_num_circuits_mcc}}</span><span class="d-grey size-14">Circuits</span></p>
+          </div>
+          <div class="show-data"> 
+            <div class="first-row av-bold maincolor">
+              <p> <span>all individual</span><span>circuits</span></p>
+              <p> <span>$</span><span class="size-26 numsupValue">{{mcc_circuits_total}}</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="second-section">
+          <div class="part1"> 
+            <h2 class="av-bold maincolor size-32">MCC breakdown</h2>
+            <div class="fist-column-list">
+              <h2 class="av-bold maincolor size-18">Details</h2>
+              <ul class="av-bold d-grey size-15">
+                <li>
+                  3 Ct clamps or coils per circuit
+                </li>
+                <li>
+                  30 channels per meter, or 10 circuits per meter
+
+                </li>
+                <li>
+                  Multiple meters will be required for MMC units over 10 circuits
+
+                </li>
+              </ul>
+            </div>
+            </div>
+            <div class="rows-data2" > 
+
+              {% for i in range(0,len) %}
+              {% if type_list[i] == 'MCC Unit' %}
+              <div class="row-data2 av-bold grey"style = 'height: 20px;'> 
+                <p class="maincolor" style = 'width: 80px;'>{{panel_name_list[i]}}</p>
+                <P>{{circuit_name_list[i] | length}} Circuits</P>
+              </div>
+              {% endif %}
+              {% endfor %}
+            </div>
+          
+          <div class="part2 part22"> 
+            <div class="secondcolumn"> 
+              <h3 class="av-bold maincolor size-20"><span>All indiivdual </span><span>Circuits</span></h3>
+              <ul>
+                {% for i in range(0,len) %}
+                {% if type_list[i] == 'MCC Unit' %}
+                <li class="av-bold maincolor "style = 'height: 20px;'>${{panel_cost_list[i]}}</li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-circle-progress/1.2.2/circle-progress.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script src="{{url_for('static',filename='scripts/panel-price.js')}}"></script>
+  
+
+  <div class="pagebreak"> </div>
 
 {% for i in range(0,len) %}
 {% if type_list[i] == 'MCC Unit' %}
@@ -1647,7 +1799,7 @@
     <div class="bottom-line"> <span> </span><span> </span><span> </span><span> </span></div>
         <div class="footer-bottom d-flex">
           <p class="av-bold maincolor">Panel Schedule</p>
-          <p class="av-bold maincolor">2</p>
+          <p class="av-bold maincolor"></p>
           <p class="av-bold maincolor">Powered by Opti-mized</p>
         </footer>
 
