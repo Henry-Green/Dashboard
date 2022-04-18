@@ -102,8 +102,8 @@ root_path = os.path.dirname(os.path.abspath(__file__))
 @commercial.route('/testapi', methods=['GET', 'POST'])
 @login_required
 def testapi():
-    HTML('http://opti-mized.com/generatereport/507779ca').write_pdf('/tmp/weasyprint-website.pdf')
-    path = "/tmp/weasyprint-website.pdf"
+    HTML('http://opti-mized.com/generatereport/507779ca').write_pdf('/weasyprint-website.pdf')
+    path = "/weasyprint-website.pdf"
     return send_file(path, as_attachment=True)
 
 
