@@ -104,8 +104,8 @@ root_path = os.path.dirname(os.path.abspath(__file__))
 def testapi():
     if(current_user.is_authenticated and current_user.is_admin()):
         HTML('http://opti-mized.com/generatereport/507779ca').write_pdf('/tmp/weasyprint-website.pdf')
-        path = "/tmp/weasyprint-website.pdf"
-        return send_file(path, as_attachment=True)
+        # path = "/tmp/weasyprint-website.pdf"
+        # return send_file(path, as_attachment=True)
 
 
         return render_template('testapi.html')
