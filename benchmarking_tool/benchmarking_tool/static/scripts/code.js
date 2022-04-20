@@ -22,6 +22,7 @@ const afterNoonSection = document.querySelector(".afternoon");
 const nightSection = document.querySelector(".night");
 
 function createColumns(periodArray, section,data) {
+  var i = 0;
   for (const x of periodArray) {
     //Create Morning Data
     if (x.period === `${section.className}`) {
@@ -51,7 +52,7 @@ function createColumns(periodArray, section,data) {
         <p>
         ${
           x.hours
-        }${x.period === "morning" || x.period === "night" ? "AM" : "PM"}
+        }${i < 11 || i > 22 ? "AM" : "PM"}
         </p>
        
  
@@ -65,7 +66,7 @@ function createColumns(periodArray, section,data) {
         <div class="top-part">
         ${x.period === "morning" || x.period === "night" ? svgSrcMorining : svgAfternoon} <p>${
           x.hours
-        }${x.period === "morning" || x.period === "night" ? "AM" : "PM"}</p>
+        }${i < 11 || i > 22 ? "AM" : "PM"}</p>
        
  
         </div>
@@ -85,7 +86,7 @@ function createColumns(periodArray, section,data) {
         <p>
         ${
           x.hours
-        }${x.period === "morning" || x.period === "night" ? "AM" : "PM"}
+        }${i < 11 || i > 22 ? "AM" : "PM"}
         </p>
        
  
@@ -99,7 +100,7 @@ function createColumns(periodArray, section,data) {
         <div class="top-part">
         ${x.period === "morning" || x.period === "night" ? svgSrcMorining : svgAfternoon} <p>${
           x.hours
-        }${x.period === "morning" || x.period === "night" ? "AM" : "PM"}</p>
+        }${i < 11 || i > 22 ? "AM" : "PM"}</p>
        
  
         </div>
@@ -110,6 +111,7 @@ function createColumns(periodArray, section,data) {
       }
     }
     }
+    i += 1
     }
 }
 //fetch the data
