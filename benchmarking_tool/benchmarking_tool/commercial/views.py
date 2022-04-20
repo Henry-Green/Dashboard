@@ -3543,7 +3543,7 @@ def historicalusage(building_id):
                     "period": period[i]
                 }
                 jsondictionarylist.append(jsondictionary)
-            with open('benchmarking_tool/static/scripts/data.json', 'w') as f:
+            with open('static/scripts/data.json', 'w') as f:
                 json.dump(jsondictionarylist, f)
             chart_colours = ['#E6E9EF'] * 24
 
