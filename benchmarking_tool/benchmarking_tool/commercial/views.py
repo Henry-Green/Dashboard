@@ -3289,6 +3289,7 @@ def historicalusage(building_id):
                     day = str(userdate)[8] + str(userdate)[9]
                     year = datetime.datetime.now().year
                     error = 'Cannot select future dates'
+                    daysDifference = 1
                 userdate = userdate + '%'
 
             i = 1
@@ -3302,6 +3303,7 @@ def historicalusage(building_id):
                     day = str(userdate)[8] + str(userdate)[9]
                     year = datetime.datetime.now().year
                     error = 'No data for selected date'
+                    daysDifference = 1
                     number = serial_list[0]
                     sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"    
                     mycursor.execute(sql, (userdate, number))
@@ -3541,7 +3543,7 @@ def historicalusage(building_id):
                     "period": period[i]
                 }
                 jsondictionarylist.append(jsondictionary)
-            with open('static/scripts/data.json', 'w') as f:
+            with open('benchmarking_tool/static/scripts/data.json', 'w') as f:
                 json.dump(jsondictionarylist, f)
             chart_colours = ['#E6E9EF'] * 24
 
@@ -3560,7 +3562,7 @@ def historicalusage(building_id):
 
             for i in range(int(starthours), int(endhours)):
                 chart_colours[i] = '#FFFFFF'
-            return render_template('historicalusage.html',daysDifference = daysDifference,  chart_colours = chart_colours,endhours = endhours,last_week_cd=last_week_full,predicted_line=predicted_line,schedule = scheduledata,timeloads = timeloads,panelsdf = panelsdf,categoriesdf = categoriesdf, onHours = onHours,offHours = offHours,alwaysOn = alwaysOn,weeklabels = weeklabels, panelchart = panelchart,lighttotal = lighttotal, equipmenttotal=  equipmenttotal, hvactotal = hvactotal, plugtotal = plugtotal, watertotal= watertotal, othertotal = othertotal, correctdate=correctdate,totalEmmissions = totalEmmissions, totalPrice =  totalPrice, totalUsage = totalUsage,categorynames = categorynames,strippedNames=strippedNames,strippedPanels=strippedPanels,panelnames=panelnames ,colours = colours, numpanels = numpanels, numcircuits = len(channel_names), categories = categories, panels = panels, percent = percent, price = price, usage = usage, channel_names = channel_names, building_id = building_id, buidling_description = buidling_description, building_address = building_address, form = form)
+            return render_template('historicalusage.html',error = error,daysDifference = daysDifference,  chart_colours = chart_colours,endhours = endhours,last_week_cd=last_week_full,predicted_line=predicted_line,schedule = scheduledata,timeloads = timeloads,panelsdf = panelsdf,categoriesdf = categoriesdf, onHours = onHours,offHours = offHours,alwaysOn = alwaysOn,weeklabels = weeklabels, panelchart = panelchart,lighttotal = lighttotal, equipmenttotal=  equipmenttotal, hvactotal = hvactotal, plugtotal = plugtotal, watertotal= watertotal, othertotal = othertotal, correctdate=correctdate,totalEmmissions = totalEmmissions, totalPrice =  totalPrice, totalUsage = totalUsage,categorynames = categorynames,strippedNames=strippedNames,strippedPanels=strippedPanels,panelnames=panelnames ,colours = colours, numpanels = numpanels, numcircuits = len(channel_names), categories = categories, panels = panels, percent = percent, price = price, usage = usage, channel_names = channel_names, building_id = building_id, buidling_description = buidling_description, building_address = building_address, form = form)
         else:
             abort(403)
 
