@@ -6,8 +6,9 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/login-page.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/styleguide.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
+    <link rel="manifest" href="{{url_for('static',filename='scripts/manifest.webmanifest')}}" />
   </head>
-  <body style="margin: 0; background: #f7f9fe">
+  <body style="margin: 0; background: #f7f9fe" onload="registerSW();">
     <input type="hidden" id="anPageName" name="page" value="login-page" />
     <div class="container-center-horizontal">
       <div class="login-page screen">
@@ -45,3 +46,17 @@
     </div>
   </body>
 </html>
+
+
+<script>
+async function registerSW() {
+  if ('serviceWorker' in navigator) {
+    // try {
+      await navigator.serviceWorker.register("{{url_for('static',filename='scripts/sw.js')}}");
+    // } catch (e) {
+    //   console.log(`SW registration failed`);
+    // }
+  }
+}
+
+</script>
