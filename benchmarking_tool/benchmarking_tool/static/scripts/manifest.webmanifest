@@ -1,0 +1,21 @@
+{
+    "name": "Demo Flask Progressive Web App (PWA)",
+    "short_name": "Flask PWA",
+    "theme_color": "#34A5DA",
+    "background_color": "#FFFFFF",
+    "icons": [
+        {
+          "src": "/static/img/logosmall.png",
+          "type": "image/png",
+          "sizes": "91x91"
+        },
+        {
+          "src": "/static/img/logo%402x.svg",
+          "type": "image/png",
+          "sizes": "129x58"
+        }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait"
+}
