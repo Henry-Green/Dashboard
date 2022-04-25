@@ -1,65 +1,48 @@
-// Files to cahce
-const CACHE_NAME = 'static-cache';
-var appRequest = new Request('/overview', { credentials: 'include' });
-const FILES_TO_CACHE = [
-appRequest,
-  '/accounts/offline.html',
-
+const cacheName = 'mobilehistorical';
+const staticAssets = [
+  './',
+  './commercial/templates/mobilehistorical.html',
+  './css/styles.css',
+  './scripts/code.js',
 ];
 
-// Installation
-self.addEventListener('install', (evt) => {
-  console.log('[ServiceWorker] Install');
-  evt.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log('[ServiceWorker] Pre-caching offline page');
-      return cache.addAll(FILES_TO_CACHE);
-    })
-  );
 
-  self.skipWaiting();
+
+self.addEventListener('install', async e => {
+  const cache = await caches.open(cacheName);
+  await cache.addAll(staticAssets);
+  return self.skipWaiting();
 });
 
-// Activation
-self.addEventListener('activate', (evt) => {
-  console.log('[ServiceWorker] Activate');
-  evt.waitUntil(
-    caches.keys().then((keyList) => {
-      return Promise.all(keyList.map((key) => {
-        if (key !== CACHE_NAME) {
-          console.log('[ServiceWorker] Removing old cache', key);
-          return caches.delete(key);
-        }
-      }));
-    })
-  );
+self.addEventListener('activate', e => {
   self.clients.claim();
 });
 
-// Fetch
-self.addEventListener('fetch', function(event) {
-  event.respondWith(fetch(event.request));
-});
+self.addEventListener('fetch', async e => {
+  const req = e.request;
+  const url = new URL(req.url);
 
-// Network only with offline page
-self.addEventListener('fetch', (evt) => {
-  if (evt.request.mode !== 'navigate') {
-    return;
+  if (url.origin === location.origin) {
+    e.respondWith(cacheFirst(req));
+  } else {
+    e.respondWith(networkAndCache(req));
   }
-  evt.respondWith(fetch(evt.request).catch(() => {
-      return caches.open(CACHE_NAME).then((cache) => {
-        return cache.match('offline.html');
-      });
-    })
-  );
-})
-
-
-// Network falling back to cache
-self.addEventListener('fetch', function(event) {
-  event.respondWith(
-    fetch(event.request).catch(function() {
-      return caches.match(event.request);
-    })
-  );
 });
+
+async function cacheFirst(req) {
+  const cache = await caches.open(cacheName);
+  const cached = await cache.match(req);
+  return cached || fetch(req);
+}
+
+async function networkAndCache(req) {
+  const cache = await caches.open(cacheName);
+  try {
+    const fresh = await fetch(req);
+    await cache.put(req, fresh.clone());
+    return fresh;
+  } catch (e) {
+    const cached = await cache.match(req);
+    return cached;
+  }
+}
