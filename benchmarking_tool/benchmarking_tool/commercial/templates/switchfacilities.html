@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/inventory.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/styleguide.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/globals.css')}}" />
+    <link rel="manifest" href="{{url_for('static',filename='scripts/manifest.json')}}" />
   </head>
   <body>
     <div class="inventory-page">
@@ -317,3 +318,17 @@
     <script src="file.js"></script>
   </body>
 </html>
+<script>
+if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register("/sw.js", { scope: '/' })
+        .then(function(registration) {
+          // Registration was successful
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function(err) {
+          // registration failed :(
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      });
+    } 
+</script>
