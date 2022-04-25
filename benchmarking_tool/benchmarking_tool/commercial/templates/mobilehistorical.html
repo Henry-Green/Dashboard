@@ -755,7 +755,7 @@ util.qsa('.date-carousel').forEach(function(el){ new DateCarousel(el) });
          <script>
 if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
-        navigator.serviceWorker.register("/sw.js", { scope: '/mobilehistorical' })
+        navigator.serviceWorker.register("/sw.js", { scope: '/' })
         .then(function(registration) {
           // Registration was successful
           console.log('ServiceWorker registration successful with scope: ', registration.scope);
