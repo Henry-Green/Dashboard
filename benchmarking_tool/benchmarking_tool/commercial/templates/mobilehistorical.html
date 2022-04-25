@@ -28,7 +28,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <title>Opti -mized</title>
   </head>
-  <body onload = 'getTotal(); createBarChart("energy");'>
+  <body onload = 'getTotal(); createBarChart("energy"); openCategorySidebar();'>
     <main>
       <nav>
           <div class="arrowLeft">
@@ -432,10 +432,6 @@ function openPanelSidebar(){
 
 }
 function openCategorySidebar(){
-    document.getElementById('rightcategory').style.width = '400px';
-    document.getElementById('rightpanel').style.width = '0px';
-    document.getElementById('righttimeloads').style.width = '0px';
-    document.getElementById('title').innerHTML = 'Inventory';
 
     var colours = {{colours | tojson}};
        var x = 6;
