@@ -92,7 +92,7 @@ import calendar
 from random import randint
 import urllib.request
 from weasyprint import HTML
-
+from flask import make_response, send_from_directory
 #for photo upload
 commercial = Blueprint('commercial',__name__,template_folder='templates')
 app_root = Path(__file__).parents[1]
@@ -107,7 +107,13 @@ def testapi():
     return send_file(path, as_attachment=True)
 
 
-
+@commercial.route('/sw.js')
+def sw():
+    response=make_response(
+                     send_from_directory('static',filename='sw.js'))
+    #change the content header file. Can also omit; flask will handle correctly.
+    response.headers['Content-Type'] = 'application/javascript'
+    return response
 
 
 
@@ -3565,6 +3571,370 @@ def historicalusage(building_id):
             return render_template('historicalusage.html',error = error,daysDifference = daysDifference,  chart_colours = chart_colours,endhours = endhours,last_week_cd=last_week_full,predicted_line=predicted_line,schedule = scheduledata,timeloads = timeloads,panelsdf = panelsdf,categoriesdf = categoriesdf, onHours = onHours,offHours = offHours,alwaysOn = alwaysOn,weeklabels = weeklabels, panelchart = panelchart,lighttotal = lighttotal, equipmenttotal=  equipmenttotal, hvactotal = hvactotal, plugtotal = plugtotal, watertotal= watertotal, othertotal = othertotal, correctdate=correctdate,totalEmmissions = totalEmmissions, totalPrice =  totalPrice, totalUsage = totalUsage,categorynames = categorynames,strippedNames=strippedNames,strippedPanels=strippedPanels,panelnames=panelnames ,colours = colours, numpanels = numpanels, numcircuits = len(channel_names), categories = categories, panels = panels, percent = percent, price = price, usage = usage, channel_names = channel_names, building_id = building_id, buidling_description = buidling_description, building_address = building_address, form = form)
         else:
             abort(403)
+@commercial.route('/mobilehistorical/<building_id>', methods=['GET', 'POST'])
+@login_required
+def mobilehistorical(building_id):
+        building_id = building_id
+        usage = []
+        price = []
+        percent = []
+        channel_names = []
+        panels = []
+        categories = []
+        strippedPanels = []
+        strippedNames = []
+        scheduledata = []
+        day = datetime.datetime.now().day
+        cal_month = datetime.datetime.now().month
+        year = datetime.datetime.now().year
+        totalUsage = 0
+        totalPrice = 0
+        error = None
+        building_ids = 12
+        lighttotal = 0
+        equipmenttotal = 0
+        hvactotal = 0
+        plugtotal = 0
+        watertotal = 0
+        othertotal =0
+        daysDifference = 1
+        form = HistoricalUsageForm()
+
+        if(current_user.is_authenticated and current_user.is_admin()):
+            mydb = mysql.connector.connect(
+              host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
+              user="readOnly",
+              password="JSfB55vpSL",
+              database="db_mysql_sustainergy_alldata"
+            )
+            mycursor = mydb.cursor()
+
+            sql = "SELECT address, description FROM buildings WHERE idbuildings = %s"
+                    
+            mycursor.execute(sql,(building_id,))
+            myresult = mycursor.fetchall()
+
+            for result in myresult:
+                building_address = result[0]
+                buidling_description = result[1]
+
+            today = date.today()
+            userdate = (today - timedelta(days = 1)).strftime('%Y-%m-%d') + '%'
+            correctdate = 'Mon, 21 Mar 2022'
+            client_id = current_user.phone_number
+            panel_building_id = building_id
+
+            sql = "SELECT emporia_meter_sn_1 FROM electrical_panel WHERE panel_client_id = %s AND building_id = %s"
+            mycursor.execute(sql,(client_id,panel_building_id))
+            myresult = mycursor.fetchall()
+            for x in myresult:
+                serial_numbers = ','.join(x)
+            serial_list = serial_numbers.split()
+
+            if request.method == "POST":
+                correctdate = request.form['datepicker']
+                userdate = request.form['datepicker']
+                n = 5
+                userdate = userdate[n:]
+                userdate = userdate.split(' ')
+                months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+                for i in range(0,len(months)):
+                    if userdate[1] == months[i]:
+                        if i < 10:
+                            userdate[1] = '0' + str(i + 1)
+                        else:
+                            userdate[1] = str(i + 1)
+                if int(userdate[0]) < 10:
+                    userdate[0] = '0' + userdate[0]
+                userdate = userdate[2] + '-' + userdate[1] + '-' + userdate[0]
+
+                cal_month = str(userdate)[5] + str(userdate)[6]
+                day = str(userdate)[8] + str(userdate)[9]
+                daysDifference = (datetime.datetime.today() - datetime.datetime.strptime(userdate, '%Y-%m-%d')).days
+
+                if datetime.datetime.strptime(userdate, '%Y-%m-%d') >= datetime.datetime.today():
+                    userdate = (today - timedelta(days = 1)).strftime('%Y-%m-%d') + '%'
+                    cal_month = str(userdate)[5] + str(userdate)[6]
+                    day = str(userdate)[8] + str(userdate)[9]
+                    year = datetime.datetime.now().year
+                    error = 'Cannot select future dates'
+                    daysDifference = 1
+                userdate = userdate + '%'
+
+            i = 1
+            for number in serial_list:
+                sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"    
+                mycursor.execute(sql, (userdate, number))
+                myresult = mycursor.fetchall()
+                if myresult == []:
+                    userdate = (today - timedelta(days = 1)).strftime('%Y-%m-%d') + '%'
+                    cal_month = str(userdate)[5] + str(userdate)[6]
+                    day = str(userdate)[8] + str(userdate)[9]
+                    year = datetime.datetime.now().year
+                    error = 'No data for selected date'
+                    daysDifference = 1
+                    number = serial_list[0]
+                    sql = "SELECT channel4_name, channel4_usage,channel5_name, channel5_usage,channel6_name, channel6_usage,channel7_name, channel7_usage,channel8_name, channel8_usage,channel9_name, channel9_usage,channel10_name, channel10_usage,channel11_name, channel11_usage,channel12_name, channel12_usage,channel13_name, channel13_usage,channel14_name, channel14_usage,channel15_name, channel15_usage,channel16_name, channel16_usage,channel17_name, channel17_usage,channel18_name, channel18_usage,channel19_name, channel19_usage FROM emporia_data WHERE date LIKE %s AND serial_number = %s"    
+                    mycursor.execute(sql, (userdate, number))
+                    myresult = mycursor.fetchall()
+                for x in myresult:
+                    tempstring = ','.join(x)
+
+                stringlist = tempstring.split(',')
+                for k in range(0,int(len(stringlist)/2)):
+                    channel_names.append(stringlist[::2][k])
+                    usage.append(float(stringlist[1::2][k]))
+                for k in range(0, int(len(stringlist)/2)):
+                    panels.append('Panel ' + str(i))
+                i += 1
+
+            for name in channel_names:
+                name_l = name.lower()
+                if 'light' in name_l or 'lights' in name_l or 'lighting' in name_l:
+                    categories.append('lighting')
+
+                elif 'hot water' in name_l or 'dhw' in name_l or 'water' in name_l or 'water heater' in name_l:
+                    categories.append('dhw')
+
+                elif 'fan' in name_l or 'heat' in name_l or 'hvac' in name_l or 'cooling' in name_l:
+                    categories.append('hvac')
+
+                elif 'motor' in name_l or 'pump' in name_l or 'compressor' in name_l or 'vacuum' in name_l or 'dryer' in name_l:
+                    categories.append('equipment')
+                
+                elif 'plug' in name_l or 'plugs' in name_l or 'receptacle' in name_l or 'receptacle' in name_l:
+                    categories.append('plugload')
+                
+                else:
+                    categories.append('other')
+
+            for energy in usage:
+                price.append(energy * 0.09)
+                percent.append((energy / sum(usage)) * 100)
+
+            for serialNumber in serial_list:
+                string = ''
+                sql = "SELECT channel4_schedule, channel5_schedule, channel6_schedule, channel7_schedule, channel8_schedule, channel9_schedule, channel10_schedule, channel11_schedule, channel12_schedule, channel13_schedule, channel14_schedule, channel15_schedule, channel16_schedule, channel17_schedule, channel18_schedule, channel19_schedule FROM emporia_data WHERE date LIKE %s AND serial_number = %s"   
+                mycursor.execute(sql, (userdate, serialNumber))
+                myresult = mycursor.fetchall()
+                for x in myresult:
+                    string = "'".join(x)
+                scheduledata.extend(string.split("'"))
+
+            historicalusage = pd.DataFrame({'Channel Names': channel_names, "Usage": usage, "Price":price, "Percent":percent, "Panel Names": panels, "Category": categories,"Schedule": scheduledata})
+            historicalusage = historicalusage.sort_values(by=['Usage'], ascending=False)
+            channel_names = historicalusage['Channel Names'].tolist()
+            usage = historicalusage['Usage'].tolist()
+            price = historicalusage['Price'].tolist()
+            panels = historicalusage['Panel Names'].tolist()
+            percent = historicalusage['Percent'].tolist()
+            categories = historicalusage['Category'].tolist()
+            scheduledata = historicalusage['Schedule'].tolist()
+
+            for i in range(0, len(usage)):
+                usage[i] = float("{:.2f}".format(usage[i]/1000))
+                price[i] = float("{:.2f}".format(price[i]/1000))
+                percent[i] = float("{:.2f}".format(percent[i]))
+                strippedPanels.append(panels[i].replace(" ",""))
+                totalUsage += usage[i]
+                totalPrice += price[i]
+
+                if(categories[i] == "lighting"):
+                    lighttotal += usage[i]
+                if(categories[i] == "equipment"):
+                    equipmenttotal += usage[i]
+                if(categories[i] == "hvac"):
+                    hvactotal += usage[i]
+                if(categories[i] == "plugload"):
+                    plugtotal += usage[i]
+                if(categories[i] == "dhw"):
+                    watertotal += usage[i]
+                if(categories[i] == "other"):
+                    othertotal += usage[i]
+            
+            colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
+            panelchart = historicalusage.groupby(["Panel Names"]).sum()['Usage'].tolist()
+
+            numpanels = len(np.unique(panels))
+            panelnames = np.unique(panels).tolist()
+            categorynames = ['Lighting', 'Equipment', 'HVAC','Plug Load','DHW','Other']
+            backendnames = ['lighting', 'equipment', 'hvac','plugload','dhw','other']
+            for panel in panelnames:
+                strippedNames.append(panel.replace(" ",""))
+
+            totalUsage = float("{:.2f}".format(totalUsage))
+            totalPrice = float("{:.2f}".format(totalPrice))
+            totalEmmissions = float("{:.2f}".format(totalUsage * 0.82))
+
+            lighttotal = float("{:.2f}".format(((lighttotal) / (totalUsage)) * 100))
+            equipmenttotal = float("{:.2f}".format(((equipmenttotal) / (totalUsage)) * 100))
+            hvactotal = float("{:.2f}".format(((hvactotal) / (totalUsage)) * 100))
+            plugtotal = float("{:.2f}".format(((plugtotal) / (totalUsage)) * 100))
+            watertotal = float("{:.2f}".format(((watertotal) / (totalUsage)) * 100))
+            othertotal = float("{:.2f}".format(((othertotal) / (totalUsage)) * 100))
+
+            categorytotals =[lighttotal, equipmenttotal,hvactotal,plugtotal,watertotal,othertotal]
+            for i in range(0,len(panelchart)):
+                panelchart[i] = float("{:.2f}".format(((panelchart[i]/1000) / totalUsage) * 100))
+            categoriesdf = pd.DataFrame({'Category Names': categorynames, "Total": categorytotals, "Colors": colours, "Back End": backendnames})
+            categoriesdf = categoriesdf.sort_values(by=['Total'], ascending=False)
+            panelcolours = []
+            for i in range(0,numpanels):
+                panelcolours.append(colours[i])
+
+            panelsdf = pd.DataFrame({'Panel Names': panelnames, "Total": panelchart, "Colors": panelcolours})
+
+            cal_db = calendar_pull(building_ids,2021, int(cal_month))
+            hours = cal_db[int(day) - 1]
+            starthours = hours['start_hours']
+            endhours = hours['end_hours']
+            starthours = str(starthours).split(':')
+            starthours = starthours[0]
+            endhours = str(endhours).split(':')
+            endhours = endhours[0]
+
+            if starthours == 'None':
+                starthours = 24
+                endhours = 0
+
+            data = scheduledata
+            totalset = []
+            string = data[0]
+            string = string.replace('[', '')
+            string = string.replace(']', '')
+            datalist = string.split(",")
+            totalset = [0] * len(datalist);
+            offhours = [0] * len(datalist)
+            for i in range(0, len(datalist)):
+                string = data[i]
+                string = string.replace('[', '')
+                string = string.replace(']', '')
+                datalist = string.split(",")
+                floatlist = []
+                try:
+                    for item in datalist:
+                        floatlist.append(float(item))
+                except:
+                    whoops = 0
+                for k in range(int(starthours) - 1, int(endhours) + 1):
+                    totalset[k] += float(datalist[k])
+                for k in range(0, len(datalist)):
+                    if ((k >= int(starthours) and k <= int(endhours)) == False):
+                        offhours[k] += float(datalist[k])
+            for i in range(0,len(offhours)):
+                if(str(offhours[i]) == 'nan'):
+                    offhours[i] = 0
+            for i in range(0,len(totalset)):
+                if(str(totalset[i]) == 'nan'):
+                    totalset[i] = 0
+            onHours = float("{:.2f}".format(((sum(totalset)) / (totalUsage * 1000) * 100)))
+            offHours = float("{:.2f}".format(((sum(offhours)) / (totalUsage * 1000) * 100)))
+            alwaysOn = "{:.2f}".format(100 - (onHours + offHours))
+            if float(alwaysOn) < 0:
+                alwaysOn = 0
+
+            timeloads = {'Name':['On-Hours','Off-Hours','Always-On'], 'Percents':[onHours,offHours,alwaysOn],'Colors':['#22B14C','#7F7F7F','#EE8F37']}
+            timeloads = pd.DataFrame(data = timeloads)
+            timeloadscolours = ['#22B14C','#7F7F7F','#EE8F37']
+
+            predicted_line = {}
+            last_week_full = {}
+            for i in range(0,len(serial_list)):
+                data = get_weekly_data(serial_list[i],30)
+                channel_dict, dates = weekday_organization(data)
+                last_week_cd, last_week_dp = last_week_usage(data)
+                try:
+                    predicted_line.update(weekly_predicted_line(channel_dict, last_week_cd))
+                except:
+                    whoops = 0
+                last_week_full.update(last_week_cd)
+            weeklabels = ['M']
+            weeklabels += ([''] * 23)
+            weeklabels.append('T')
+            weeklabels += ([''] * 23)
+            weeklabels.append('W')
+            weeklabels += ([''] * 23)
+            weeklabels.append('T')
+            weeklabels += ([''] * 23)
+            weeklabels.append('F')
+            weeklabels += ([''] * 23)
+            weeklabels.append('S')
+            weeklabels += ([''] * 23)
+            weeklabels.append('S')
+            weeklabels += ([''] * 23)
+            kwhgraph = []
+            data = scheduledata
+            string = data[0]
+            string = string.replace('[', '')
+            string = string.replace(']', '')
+            kwhgraphlist = string.split(",")
+            kwhgraph = [0] * len(kwhgraphlist)
+            for i in range(0,len(kwhgraphlist)):
+                string = data[i];
+                string = string.replace('[', '')
+                string = string.replace(']', '')
+                kwhgraphlist = string.split(",")
+                for k in range(0,len(kwhgraphlist)):
+                    kwhgraph[k] += float(kwhgraphlist[k])
+
+            pricegraph = []
+            for i in range(0,len(kwhgraph)):
+                pricegraph.append(round((kwhgraph[i]/1000) * 0.09,2))
+                kwhgraph[i] = round((kwhgraph[i] / 1000),2)
+            hourslist = [1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12]
+            
+            period = []
+            typegraph = []
+            jsondictionary = {}
+
+            for i in range(0,24):
+                if i < int(starthours):
+                    typegraph.append('off-hrs')
+                    period.append('morning')
+                elif i > int(endhours):
+                    typegraph.append('off-hrs')
+                    period.append('night')
+                else:
+                    typegraph.append('on-hrs')
+                    period.append('afternoon')
+            jsondictionarylist = []
+
+            for i in range(0,24):
+                if str(kwhgraph[i]) == 'nan':
+                    kwhgraph[i] = 0
+                if str(pricegraph[i]) == 'nan':
+                    pricegraph[i] = 0
+                jsondictionary = {
+                    "value": kwhgraph[i],
+                    "hours": hourslist[i],
+                    "price": pricegraph[i],
+                    "type": typegraph[i],
+                    "period": period[i]
+                }
+                jsondictionarylist.append(jsondictionary)
+            with open('benchmarking_tool/static/scripts/data.json', 'w') as f:
+                json.dump(jsondictionarylist, f)
+            chart_colours = ['#E6E9EF'] * 24
+
+            cal_db = calendar_pull(building_ids,2021, int(cal_month))
+            hours = cal_db[int(day) - 1]
+            starthours = hours['start_hours']
+            endhours = hours['end_hours']
+            starthours = str(starthours).split(':')
+            starthours = starthours[0]
+            endhours = str(endhours).split(':')
+            endhours = endhours[0]
+
+            if starthours == 'None':
+                starthours = 24
+                endhours = 0
+
+            for i in range(int(starthours), int(endhours)):
+                chart_colours[i] = '#FFFFFF'
+            return render_template('mobilehistorical.html',error = error,daysDifference = daysDifference,  chart_colours = chart_colours,endhours = endhours,last_week_cd=last_week_full,predicted_line=predicted_line,schedule = scheduledata,timeloads = timeloads,panelsdf = panelsdf,categoriesdf = categoriesdf, onHours = onHours,offHours = offHours,alwaysOn = alwaysOn,weeklabels = weeklabels, panelchart = panelchart,lighttotal = lighttotal, equipmenttotal=  equipmenttotal, hvactotal = hvactotal, plugtotal = plugtotal, watertotal= watertotal, othertotal = othertotal, correctdate=correctdate,totalEmmissions = totalEmmissions, totalPrice =  totalPrice, totalUsage = totalUsage,categorynames = categorynames,strippedNames=strippedNames,strippedPanels=strippedPanels,panelnames=panelnames ,colours = colours, numpanels = numpanels, numcircuits = len(channel_names), categories = categories, panels = panels, percent = percent, price = price, usage = usage, channel_names = channel_names, building_id = building_id, buidling_description = buidling_description, building_address = building_address, form = form)
+        else:
+            abort(403)
+
 
 @commercial.route('/historicalusageline', methods=['GET', 'POST'])
 @login_required
