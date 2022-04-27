@@ -3,139 +3,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1360, maximum-scale=1.0" />
     <link rel="manifest" href="{{url_for('static',filename='scripts/manifest.json')}}" />
-  </head>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/download.css')}}" />
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/styleguide.css')}}" />
 	<body>
 		<button id = 'installButton'>Download</button>
+		<div id = 'promp' class="oneAndOnlyDiv avertacy-bold-gulf-blue-18px" style="font-size: 25px;">To Download the App on Iphone press the <img style = 'width: 15px; height: 20px;'src="{{url_for('static',filename='img/share.png')}}" /> icon and click<br> "Add To Home Screen"</div>
 	</body>
 </html>
-<script>function()</script>
 
-<script>(function(){
-	if (document.cookie.match(/ADD_HOME_TOUCH=1/)) return;
-	document.addEventListener('DOMContentLoaded', function() {
-		if (navigator.userAgent.match(/iphone|ipod/i)) {
-			// create & inject css
-			var parent = document.body;
-			var arrowHeight = 56;
-			var bubbleHeight = 130;
-			var divHeight = bubbleHeight+arrowHeight+36; // padding
-			var divWidth  = 280;
 
-			var slideDuration = .2;
-			var pauseDuration = 10000;
-			var delay = 3;
-			var css = 
-					'	#clayio-bookmarkMe {	' +
-					'		height: '+divHeight+'px;	' +
-					'		position: fixed;	' +
-					'		width: '+divWidth+'px;	' +
-					'		left: 50%;	' +
-					'		top: 100%;	' +
-					'		margin-top: 0;	' +
-					'		margin-left: -'+divWidth/2+'px;	' +
-					'		-webkit-animation-delay: 0;	' +
-					'		-webkit-animation-duration: '+(pauseDuration+slideDuration)+'s;	' +
-					'		-webkit-animation-name: slideup;	' +
-					'		-webkit-animation-iteration-count: 2;	' +
-					'		-webkit-animation-direction: alternate;	' +
-					'		background: transparent;	' +
-					'	}	' +
-					'	@-webkit-keyframes slideup {	' +
-					'		from { margin-top: 0; }	' +
-					'		'+Math.round(slideDuration/(pauseDuration/2+slideDuration)*100)+'%  { margin-top: -'+divHeight+'px; }	' +
-					'		to   { margin-top: -'+divHeight+'px; }	' +
-					'	}	' +
-					'	#clayio-bookmarkMe .rect {	' +
-					'		background: rgba(255, 255, 255, .6);	' +
-					'		border: 8px solid rgba(255, 255, 255, .8);	' +
-					'		border-radius: 20px;	' +
-					'		height: '+bubbleHeight+'px;	' +
-					'		color: #333;	' +
-					'		font-family: "HelveticaNeueMedium", "HelveticaNeue-Medium", "Helvetica Neue Medium", "HelveticaNeue", "Helvetica Neue", "TeXGyreHerosRegular", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif; font-weight:500; font-stretch:normal;	' +
-					'		padding: 10px;	' +
-					'		position: relative;	' +
-					'		box-shadow: 0 3px 40px rgba(0,0,0,.2);	' +
-					'	}	' +
-					'	#clayio-bookmarkMe .rect .right {	' +
-					'		position: absolute;	' +
-					'		right: 20px;	' +
-					'		top: 0;	' +
-					'		bottom: 0;	' +
-					'		width: '+(divWidth-20-114)+'px;	' +
-					'	}	' +
-					'	#clayio-bookmarkMe .rect .right p {	' +
-					'		display: table-cell;	' +
-					'		vertical-align: middle;	' +
-					'		height: '+(bubbleHeight+20)+'px;	' +
-					'		font-size: 16px;	' +
-					'		margin: 0;	' +
-					'		padding: 0;	' +
-					'	}	' +
-					'	#clayio-bookmarkMe .rect .left {	' +
-					'		position: absolute;	' +
-					'		left: 10px;	' +
-					'		top: 8px;	' +
-					'		bottom: 0;	' +
-					'		width: 90px;	' +
-					'		height: 90px;	' +
-					'	}	' +
-					'	#clayio-bookmarkMe .rect .left .img {	' +
-					'		width: 57px;	' +
-					'		height: 57px;	' +
-					'		border: 8px solid #fff;	' +
-					'		border-radius: 14px;	' +
-					'		box-shadow: 0px 2px 8px #999;	' +
-					'		background-size: 57px 57px;	' +
-					'	}	' +
-					'	#clayio-bookmarkMe .triangle {	' +
-					'		width: 0;	' +
-					'		height: 0;	' +
-					'		position: absolute;	' +
-					'		left: 50%;	' +
-					'		margin-left: -56px;	' +
-					'		border-left: 56px solid transparent;	' +
-					'		border-right: 56px solid transparent;	' +
-					'		border-top: 56px solid #fff;	' +
-					'	}	' +
-					'';
-			var style = document.createElement('style');
-			style.type = 'text/css';
-			style.innerHTML = css;
-			document.head.appendChild(style);
-			// find icon image
-			var links = document.getElementsByTagName('link');
-			var link = null;
-			for (var i = 0; i < links.length; i++) {
-				if (links[i].rel && links[i].rel.match(/apple-touch-icon/)) {
-					link = links[i];
-					break;
-				}
-			}
-			var url = (link) ? link.href : "{{url_for('static',filename='img/share.png')}}";
-			// create & display a div
-			var div = document.createElement('div');
-			div.id = 'clayio-bookmarkMe';
-			var img = '<div class="img" style="background-image:url('+url+');"></div>';
-			div.innerHTML = '<div class="rect"><div class="left">'+ '</div><div class="right"><p>Hey! We '+
-					'noticed you\'re using an iOS device. You can add Opti-Mized to your home page by '+
-					'tapping the' +img+ 'icon below and then pressing "Add To Homescreen"</p></div></div><div class="triangle"></div>';
-			window.setTimeout(function(){ 
-				parent.appendChild(div);
-				window.scrollTo(1,1);
-				div.style.paddingTop = window.scrollY+'px';  }, delay*1000);
-			var hide = function() { div.style.display = 'none'; };
-			var addCookie = function() { document.cookie = 'ADD_HOME_TOUCH=1'; };
-			var hideAddCookie = function() { hide(); addCookie(); };
-			div.addEventListener('click', hideAddCookie);
-			div.addEventListener('touchstart', hideAddCookie);
-			// hide afterwards just in case animation fails
-			window.setTimeout(hide, ((slideDuration+pauseDuration)*2.8+delay)*1000); 
-		}
-	});
-})();</script>
 
 <script>
-
 	let installButton = document.getElementById('installButton');
 
 let prompt;
@@ -167,6 +45,7 @@ if ('serviceWorker' in navigator) {
 
 
     // Detects if device is on iOS 
+    var prompt = document.getElementById('prompt');
 const isIos = () => {
   const userAgent = window.navigator.userAgent.toLowerCase();
   return /iphone|ipad|ipod/.test( userAgent );
@@ -176,6 +55,6 @@ const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.n
 
 // Checks if should display install popup notification:
 if (isIos() && !isInStandaloneMode()) {
-  this.setState({ showInstallMessage: true });
+  prompt.style.display ='block'
 }
 </script>
