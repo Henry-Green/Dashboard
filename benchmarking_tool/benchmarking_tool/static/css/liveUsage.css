@@ -237,11 +237,13 @@ body {
 .liveUsage-page .liveUsage__components__container .Bill-Breakdown {
 	flex-grow: 1;
 	margin-left: 40px;
-	bottom: 90px;
+	bottom: 800px;
 	padding-top: 25px;
 	position: relative;
+	float: right;
 	height: 98vh;
 	border-left: 1px solid #ECE9F1;
+	right: -400px;
 }
 
 .liveUsage-page .liveUsage__components__container .Bill-Breakdown p.billbreakdown-side {
@@ -1897,3 +1899,38 @@ img.imgwidth {
 		width: 51px;
 	}
 }
+
+
+.rectangle-30242-l6cqYc {
+    border-radius: 1px;
+    height: 10px;
+    mix-blend-mode: normal;
+    position: relative;
+    width: 10px;
+    margin-right:15px;
+    border-radius: 50%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+  }
+
+  .rectangle-30242-l6cqYc:checked {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-radius: 1px;
+    height: 10px;
+    mix-blend-mode: normal;
+    position: relative;
+    width: 10px;
+    margin-right:15px;
+    border-radius: 50%;
+  }
+
+  .rectangle-30242-l6cqYc:checked:after {
+    content: '\2714';
+    font-size: 8px;
+    position: absolute;
+    bottom: .2px;
+    left: 2px;
+    color: white;
+  }
