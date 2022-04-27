@@ -100,6 +100,12 @@ commercial = Blueprint('commercial',__name__,template_folder='templates')
 app_root = Path(__file__).parents[1]
 root_path = os.path.dirname(os.path.abspath(__file__))
 
+@commercial.route('/download', methods=['GET', 'POST'])
+@login_required
+def download():
+
+    
+    return render_template('download.html')
 
 @commercial.route('/testapi', methods=['GET', 'POST'])
 @login_required
