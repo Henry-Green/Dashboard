@@ -1934,3 +1934,76 @@ img.imgwidth {
     left: 2px;
     color: white;
   }
+
+
+  .Lighting{
+background-color: #3649A8
+}
+.Plug-Load{
+background-color: #EE8F37
+}
+
+.HVAC{
+background-color: #3BCDEE
+}
+
+.DHW{
+background-color: #EE5937
+}
+
+.Other{
+  background-color: #FEC754
+}
+
+.Panel\/Sub-Panel{
+  background-color: #FEC754
+}
+
+.Sub- {
+  background-color: #FEC754
+}
+
+.nan{
+  background-color: #7F7F7C
+}
+
+
+.Pumps{
+  background-color: #FEC754
+}
+.Motors{
+  background-color: #FEC754
+}
+
+
+.None{
+  background-color: #FEC754
+}
+
+.In-active{
+  background-color: #7F7F7C
+}
+
+.Spare{
+  background-color: #7F7F7C
+}
+
+.Spare\/in-active{
+  background-color: #7F7F7C
+}
+
+.Spare\/Inactive{
+  background-color: #7F7F7C
+}
+
+.DHW{
+  background-color: #EC5A38
+}
+
+.Boiler{
+  background-color: #EC5A38
+}
+
+.Boiler\/DHW{
+  background-color: #EC5A38
+}
