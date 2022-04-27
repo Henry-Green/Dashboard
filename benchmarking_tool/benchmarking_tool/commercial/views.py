@@ -628,14 +628,13 @@ def get_seconds(minute, channel_names,serial_number):
 @login_required
 def facilityoverview(building_id):
     if(current_user.is_authenticated and current_user.is_admin()):
-        channel_name = ['Dryer', 'Dryer', 'washer', 'car wash GFI Receptacle', 'Exterior receptacle' , 'Tube Heaters', 'Carwash GFI Receptacle', 'exterior receptacle' , 'SAPRE to car wash', 'wash bay door and heat' , 'wash bay door and heat' , 'wash bay door and heat' , 'wash bay receptacle' , 'car wash exhaust fan', 'exterior receptacle' , 'wash bay receptacle','paint booth lights', 'paint booth air dryers', 'paint booth air dryers', 'counter receptacle', 'counter receptacle', 'microwave' , 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'vacuum', 'water heater' , 'mezzanine receptacle' , 'water softener and DHW', 'lunch room lights' ]
         client_id = current_user.phone_number
         building_id = building_id
 
         mydb = mysql.connector.connect(
           host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
-          user="admin",
-          password="rvqb2JymBB5CaNn",
+          user="readOnly",
+          password="JSfB55vpSL",
           database="db_mysql_sustainergy_alldata"
         )
         mycursor = mydb.cursor()
@@ -647,171 +646,259 @@ def facilityoverview(building_id):
             building_address = result[0]
             buidling_description = result[1]
 
-        mycursor = mydb.cursor()
-        sql = "SELECT emporia_meter_sn_1 FROM electrical_panel WHERE panel_client_id = %s AND building_id = %s"
-        mycursor.execute(sql,(client_id,building_id))
-        myresult = mycursor.fetchall()
-        for x in myresult:
-            serial_numbers = ','.join(x)
+        # mycursor = mydb.cursor()
+        # sql = "SELECT emporia_meter_sn_1 FROM electrical_panel WHERE panel_client_id = %s AND building_id = %s"
+        # mycursor.execute(sql,(client_id,building_id))
+        # myresult = mycursor.fetchall()
+        # for x in myresult:
+        #     serial_numbers = ','.join(x)
 
-        total = 0
-        totalprice = 0
-        last = []
-        pricelast = []
-        paneltotal = []
-        panelpercent = []
-        circuitcount = []
-        panelcircuits =  pd.DataFrame()
+        # total = 0
+        # totalprice = 0
+        # last = []
+        # pricelast = []
+        # paneltotal = []
+        # panelpercent = []
+        # circuitcount = []
+        # panelcircuits =  pd.DataFrame()
 
-        serial_list = serial_numbers.split()
-        d = 1
-        customer = Emporia_Customer(serial_list[0])
-        customer.get_data(days= d)
-        customer.get_schedule()
-        customer.get_price_per_channel_hour(0.09)
-        price = customer.channel_cost_hour
-        h1, cat1, dat1 = customer.hour_category_usage()
-        price['panel name'] = 'Panel 1-A'
-        paneltotal.append(price['price per hour'].sum())
-        panelcircuits['Panel 1'] = price['circuit name']
-        circuitcount.append(len(price.index))
+        # serial_list = serial_numbers.split()
+        # d = 1
+        # customer = Emporia_Customer(serial_list[0])
+        # customer.get_data(days= d)
+        # customer.get_schedule()
+        # customer.get_price_per_channel_hour(0.09)
+        # price = customer.channel_cost_hour
+        # h1, cat1, dat1 = customer.hour_category_usage()
+        # price['panel name'] = 'Panel 1-A'
+        # paneltotal.append(price['price per hour'].sum())
+        # panelcircuits['Panel 1'] = price['circuit name']
+        # circuitcount.append(len(price.index))
 
-        if(len(serial_list) > 1):    
-            for i in range(1, len(serial_list)): 
-                serial_number = serial_list[i]
-                customer = Emporia_Customer(serial_list[i])
-                customer.get_data(days= d)
-                customer.get_schedule()
-                customer.get_price_per_channel_hour(0.09)
-                h2, cat2, dat2 = customer.hour_category_usage()
-                appendprice = customer.channel_cost_hour
-                appendprice['panel name'] = 'Panel 1-B'
-                panelcircuits['Panel 2'] = appendprice['circuit name']
-                paneltotal.append(appendprice['price per hour'].sum())
-                price = price.append(appendprice, ignore_index = True)
-                circuitcount.append(len(appendprice.index))
-        price = price.sort_values(by=['price per hour'], ascending=False)
-        home_upgrades = price.copy()
-        home_upgrades['price per hour'] = home_upgrades['price per hour']/(0.09*60*0.000017)
-        for i in range(len(paneltotal)):
-            paneltotal[i] = paneltotal[i]/(0.09*60*0.000017)
+        # if(len(serial_list) > 1):    
+        #     for i in range(1, len(serial_list)): 
+        #         serial_number = serial_list[i]
+        #         customer = Emporia_Customer(serial_list[i])
+        #         customer.get_data(days= d)
+        #         customer.get_schedule()
+        #         customer.get_price_per_channel_hour(0.09)
+        #         h2, cat2, dat2 = customer.hour_category_usage()
+        #         appendprice = customer.channel_cost_hour
+        #         appendprice['panel name'] = 'Panel 1-B'
+        #         panelcircuits['Panel 2'] = appendprice['circuit name']
+        #         paneltotal.append(appendprice['price per hour'].sum())
+        #         price = price.append(appendprice, ignore_index = True)
+        #         circuitcount.append(len(appendprice.index))
+        # price = price.sort_values(by=['price per hour'], ascending=False)
+        # home_upgrades = price.copy()
+        # home_upgrades['price per hour'] = home_upgrades['price per hour']/(0.09*60*0.000017)
+        # for i in range(len(paneltotal)):
+        #     paneltotal[i] = paneltotal[i]/(0.09*60*0.000017)
         
-        h1 = Counter(h1)
-        h2 = Counter(h2)
-        categoryusage = h1 + h2
-        channel_names = home_upgrades['circuit name']
-        categories = []
-        for name in channel_names:
+        # h1 = Counter(h1)
+        # h2 = Counter(h2)
+        # categoryusage = h1 + h2
+        # channel_names = home_upgrades['circuit name']
+        # categories = []
+        # for name in channel_names:
             
-            # make everything lowercase 
-            name_l = name.lower()
-            if 'light' in name_l or 'lights' in name_l or 'lighting' in name_l:
-                categories.append('lighting')
+        #     # make everything lowercase 
+        #     name_l = name.lower()
+        #     if 'light' in name_l or 'lights' in name_l or 'lighting' in name_l:
+        #         categories.append('lighting')
 
-            elif 'hot water' in name_l or 'dhw' in name_l or 'water' in name_l or 'water heater' in name_l:
-                categories.append('hotwater')
+        #     elif 'hot water' in name_l or 'dhw' in name_l or 'water' in name_l or 'water heater' in name_l:
+        #         categories.append('hotwater')
 
-            elif 'fan' in name_l or 'heat' in name_l or 'hvac' in name_l or 'cooling' in name_l:
-                categories.append('hvac')
+        #     elif 'fan' in name_l or 'heat' in name_l or 'hvac' in name_l or 'cooling' in name_l:
+        #         categories.append('hvac')
 
-            elif 'motor' in name_l or 'pump' in name_l or 'compressor' in name_l or 'vacuum' in name_l or 'dryer' in name_l:
-                categories.append('equipment')
+        #     elif 'motor' in name_l or 'pump' in name_l or 'compressor' in name_l or 'vacuum' in name_l or 'dryer' in name_l:
+        #         categories.append('equipment')
             
-            elif 'plug' in name_l or 'plugs' in name_l or 'receptacle' in name_l or 'receptacle' in name_l:
-                categories.append('plugload')
+        #     elif 'plug' in name_l or 'plugs' in name_l or 'receptacle' in name_l or 'receptacle' in name_l:
+        #         categories.append('plugload')
             
-            else:
-                categories.append('other')
-        home_upgrades['Category'] = categories
-        price["Category"] = categories
-        lighttotal = 0
-        watertotal = 0
-        hvactotal = 0
-        equipmenttotal = 0
-        plugtotal = 0
-        othertotal = 0
-        lightprice = 0
-        waterprice = 0
-        hvacprice = 0
-        equipmentprice = 0
-        plugprice = 0
-        otherprice = 0
-        home_upgrades['price per hour'] = home_upgrades['price per hour'].round(2)
-        categorytotals = home_upgrades.copy()
-        pricecategorytotals = price.copy()
-        for i in range(0,len(categorytotals.index)):
+        #     else:
+        #         categories.append('other')
+        # home_upgrades['Category'] = categories
+        # price["Category"] = categories
+        # lighttotal = 0
+        # watertotal = 0
+        # hvactotal = 0
+        # equipmenttotal = 0
+        # plugtotal = 0
+        # othertotal = 0
+        # lightprice = 0
+        # waterprice = 0
+        # hvacprice = 0
+        # equipmentprice = 0
+        # plugprice = 0
+        # otherprice = 0
+        # home_upgrades['price per hour'] = home_upgrades['price per hour'].round(2)
+        # categorytotals = home_upgrades.copy()
+        # pricecategorytotals = price.copy()
+        # for i in range(0,len(categorytotals.index)):
             
-            # make everything lowercase 
-            name_l = name.lower()
-            if categorytotals.iloc[i][5] == 'lighting':
-                lighttotal += categorytotals.iloc[i][2]
+        #     # make everything lowercase 
+        #     name_l = name.lower()
+        #     if categorytotals.iloc[i][5] == 'lighting':
+        #         lighttotal += categorytotals.iloc[i][2]
 
-            elif categorytotals.iloc[i][5] == 'hotwater':
-                watertotal += categorytotals.iloc[i][2]
+        #     elif categorytotals.iloc[i][5] == 'hotwater':
+        #         watertotal += categorytotals.iloc[i][2]
 
-            elif categorytotals.iloc[i][5] == 'hvac':
-                hvactotal += categorytotals.iloc[i][2]
+        #     elif categorytotals.iloc[i][5] == 'hvac':
+        #         hvactotal += categorytotals.iloc[i][2]
 
-            elif categorytotals.iloc[i][5] == 'equipment':
-                equipmenttotal += categorytotals.iloc[i][2]
+        #     elif categorytotals.iloc[i][5] == 'equipment':
+        #         equipmenttotal += categorytotals.iloc[i][2]
             
-            elif categorytotals.iloc[i][5] == 'plugload':
-                plugtotal += categorytotals.iloc[i][2]
+        #     elif categorytotals.iloc[i][5] == 'plugload':
+        #         plugtotal += categorytotals.iloc[i][2]
             
-            else:
-                othertotal += categorytotals.iloc[i][2]
+        #     else:
+        #         othertotal += categorytotals.iloc[i][2]
 
-        for i in range(0,len(pricecategorytotals.index)):
+        # for i in range(0,len(pricecategorytotals.index)):
             
-            # make everything lowercase 
-            name_l = name.lower()
-            if pricecategorytotals.iloc[i][5] == 'lighting':
-                lightprice += pricecategorytotals.iloc[i][2]
+        #     # make everything lowercase 
+        #     name_l = name.lower()
+        #     if pricecategorytotals.iloc[i][5] == 'lighting':
+        #         lightprice += pricecategorytotals.iloc[i][2]
 
-            elif pricecategorytotals.iloc[i][5] == 'hotwater':
-                waterprice += pricecategorytotals.iloc[i][2]
+        #     elif pricecategorytotals.iloc[i][5] == 'hotwater':
+        #         waterprice += pricecategorytotals.iloc[i][2]
 
-            elif pricecategorytotals.iloc[i][5] == 'hvac':
-                hvacprice += pricecategorytotals.iloc[i][2]
+        #     elif pricecategorytotals.iloc[i][5] == 'hvac':
+        #         hvacprice += pricecategorytotals.iloc[i][2]
 
-            elif pricecategorytotals.iloc[i][5] == 'equipment':
-                equipmentprice += pricecategorytotals.iloc[i][2]
+        #     elif pricecategorytotals.iloc[i][5] == 'equipment':
+        #         equipmentprice += pricecategorytotals.iloc[i][2]
             
-            elif pricecategorytotals.iloc[i][5] == 'plugload':
-                plugprice += pricecategorytotals.iloc[i][2]
+        #     elif pricecategorytotals.iloc[i][5] == 'plugload':
+        #         plugprice += pricecategorytotals.iloc[i][2]
             
-            else:
-                otherprice += pricecategorytotals.iloc[i][2]
+        #     else:
+        #         otherprice += pricecategorytotals.iloc[i][2]
 
 
-        for total in paneltotal:
-            num = (total/sum(paneltotal)) * 100
-            num = round(num, 2)
-            panelpercent.append(num)
+        # for total in paneltotal:
+        #     num = (total/sum(paneltotal)) * 100
+        #     num = round(num, 2)
+        #     panelpercent.append(num)
 
 
-        percenttotal = home_upgrades['price per hour'].sum()
-        lightpercent = (lighttotal/percenttotal) * 100
-        waterpercent = (watertotal/percenttotal) * 100
-        hvacpercent = (hvactotal/percenttotal) * 100
-        equipmentpercent = (equipmenttotal/percenttotal) * 100
-        plugpercent = (plugtotal/percenttotal) * 100
-        otherpercent = (othertotal/percenttotal) * 100
-        total = home_upgrades['price per hour'].sum()
-        totalprice = price['price per hour'].sum()
-        colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
-        numpanels = home_upgrades['panel name'].nunique()
-        panelnames = home_upgrades['panel name'].unique()
-        panelnames = sorted(panelnames)
-        categoriesdf = {'Name':['Lighting','Hot Water','HVAC','Equipment','Plug Load','Other'],'Totals':[lighttotal,watertotal,hvactotal,equipmenttotal,plugtotal,othertotal], 'Colors':['#3649A8','#A6D06D','#EE5937','#3BCDEE','#EE8F37','#DBE2F3'], 'Prices':[lightprice,waterprice,hvacprice,equipmentprice,plugprice,otherprice], 'Charts':['chartLight','chartWater','chartHVAC','chartEquipment','chartPlug','chartOther']}
-        categoriesdf = pd.DataFrame(data=categoriesdf)
-        categoriesdf = categoriesdf.sort_values(by=['Totals'], ascending=False)
-        categoriesdf = categoriesdf.round(2)
-        for i in range(len(paneltotal)):
-           paneltotal[i] = round(paneltotal[i],2)
-           panelpercent[i] = round(panelpercent[i],2)
-        print(home_upgrades)
-        return render_template('liveUsage.html',building_address = building_address, buidling_description = buidling_description, building_id = building_id,categoriesdf = categoriesdf,panelpercent = panelpercent, panelcircuits = panelcircuits,circuitcount = circuitcount,paneltotal = paneltotal,panelnames = panelnames,numpanels = numpanels,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,categoryusage = categoryusage, pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last, len = len(home_upgrades.index), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
+        # percenttotal = home_upgrades['price per hour'].sum()
+        # lightpercent = (lighttotal/percenttotal) * 100
+        # waterpercent = (watertotal/percenttotal) * 100
+        # hvacpercent = (hvactotal/percenttotal) * 100
+        # equipmentpercent = (equipmenttotal/percenttotal) * 100
+        # plugpercent = (plugtotal/percenttotal) * 100
+        # otherpercent = (othertotal/percenttotal) * 100
+        # total = home_upgrades['price per hour'].sum()
+        # totalprice = price['price per hour'].sum()
+        # colours = ['#3649A8','#3BCDEE','#EE5937', '#EE8F37','#90C449','#DBE2F3']
+        # numpanels = home_upgrades['panel name'].nunique()
+        # panelnames = home_upgrades['panel name'].unique()
+        # panelnames = sorted(panelnames)
+        # categoriesdf = {'Name':['Lighting','Hot Water','HVAC','Equipment','Plug Load','Other'],'Totals':[lighttotal,watertotal,hvactotal,equipmenttotal,plugtotal,othertotal], 'Colors':['#3649A8','#A6D06D','#EE5937','#3BCDEE','#EE8F37','#DBE2F3'], 'Prices':[lightprice,waterprice,hvacprice,equipmentprice,plugprice,otherprice], 'Charts':['chartLight','chartWater','chartHVAC','chartEquipment','chartPlug','chartOther']}
+        # categoriesdf = pd.DataFrame(data=categoriesdf)
+        # categoriesdf = categoriesdf.sort_values(by=['Totals'], ascending=False)
+        # categoriesdf = categoriesdf.round(2)
+        # for i in range(len(paneltotal)):
+        #    paneltotal[i] = round(paneltotal[i],2)
+        #    panelpercent[i] = round(panelpercent[i],2)
+        # print(home_upgrades)
+
+        panel_ids = []
+        panel_names = []
+        circuit_names = []
+        circuit_categories = []
+        circuit_name_groups = []
+        circuit_category_groups =[]
+        panel_name_ids =[]
+
+        sql = "SELECT panel_id, panel_name FROM panel_data WHERE building_id = %s"
+        mycursor.execute(sql,(building_id,))
+        myresult = mycursor.fetchall()
+        for result in myresult:
+            panel_ids.append(result[0])
+            panel_names.append(result[1])
+
+        for panel in panel_ids:
+            sql = "SELECT circuit_name, circuit_category FROM circuit_data WHERE panel_id = %s"
+            mycursor.execute(sql,(panel,))
+            myresult = mycursor.fetchall()
+            current_panel = []
+            for result in myresult:
+                circuit_names.append(result[0])
+                current_panel.append(result[0])
+                circuit_categories.append(result[1])
+
+            circuit_name_groups.append(current_panel)
+            circuit_category_groups.append(circuit_categories)
+
+
+        bucket = "trialset"
+        org = "33fb425a6047cad9"
+        token = "UUH6z-JPugsamGgl6DvZm4W-7Gr3GGABGFulHKdPI-AbObSQVNta_FRlqFswKP7zPkWB5xboRznsaSJqGf5C0A=="
+        # Store the URL of your InfluxDB instance
+        url="https://us-east-1-1.aws.cloud2.influxdata.com"
+        client = influxdb_client.InfluxDBClient(
+           url=url,
+           token=token,
+           org=org
+        )
+        query_api = client.query_api()
+        query = ' from(bucket:"trialset")\
+            |> range(start: -7d)\
+            |> sort(columns: ["_time"])\
+            |> top(n:1)\
+            |> filter(fn:(r) => r._measurement == "power")\
+            |> filter(fn: (r) => r._field == "value")'
+        result = query_api.query(org=org, query=query)
+        results = []
+        for table in result:
+          for record in table.records:
+            results.append(record.get_value())
+
+        query_api = client.query_api()
+        query = ' from(bucket:"trialset")\
+            |> range(start: -7d)\
+            |> sort(columns: ["_time"])\
+            |> top(n:1)\
+            |> filter(fn:(r) => r._measurement == "power1")\
+            |> filter(fn: (r) => r._field == "value")'
+        result = query_api.query(org=org, query=query)
+        for table in result:
+          for record in table.records:
+            results.append(record.get_value())
+
+        query_api = client.query_api()
+        query = ' from(bucket:"trialset")\
+            |> range(start: -7d)\
+            |> sort(columns: ["_time"])\
+            |> top(n:1)\
+            |> filter(fn:(r) => r._measurement == "power2")\
+            |> filter(fn: (r) => r._field == "value")'
+        result = query_api.query(org=org, query=query)
+        for table in result:
+          for record in table.records:
+            results.append(record.get_value())
+
+        names = ['power', 'power1', 'power2']
+        total = sum(results)
+
+        for panel in panel_names:
+            newpanel = panel
+            newpanel = newpanel.replace(' ', '')
+            newpanel = newpanel.replace('"', '')
+            newpanel = newpanel.replace("'", '')
+            newpanel = newpanel.replace("(", '')
+            newpanel = newpanel.replace(")", '')
+            panel_name_ids.append(newpanel)
+        return render_template('facilityoverview.html',panel_name_ids=panel_name_ids,circuit_name_groups=circuit_name_groups,circuit_category_groups=circuit_category_groups,circuit_categories=circuit_categories,circuit_names=circuit_names,panel_names=panel_names,total = total,results=results,names=names,building_address = building_address, buidling_description = buidling_description, building_id = building_id) #,categoriesdf = categoriesdf,panelpercent = panelpercent, panelcircuits = panelcircuits,circuitcount = circuitcount,paneltotal = paneltotal,panelnames = panelnames,numpanels = numpanels,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,categoryusage = categoryusage, pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last, len = len(home_upgrades.index), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
     else:
         abort(403)
      
