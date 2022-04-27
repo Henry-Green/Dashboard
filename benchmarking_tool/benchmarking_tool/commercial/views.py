@@ -103,9 +103,14 @@ root_path = os.path.dirname(os.path.abspath(__file__))
 @commercial.route('/download', methods=['GET', 'POST'])
 @login_required
 def download():
+    user_agent = request.headers.get('User-Agent')
+    user_agent = user_agent.lower()
 
+    if "iphone" in user_agent:
+        return render_template('downloadmobile.html')
     
-    return render_template('download.html')
+    else:
+        return render_template('download.html')
 
 @commercial.route('/testapi', methods=['GET', 'POST'])
 @login_required
