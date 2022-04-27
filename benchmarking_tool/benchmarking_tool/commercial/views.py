@@ -1404,6 +1404,15 @@ def switchfacilities():
         buildingIds.append(result[0])
         buildingAddresses.append(result[1])
         buildingDescriptions.append(result[2])
+        
+    sql = "SELECT idbuildings, address, description FROM buildings WHERE client_id = %s"
+        
+    mycursor.execute(sql,('f165de5b',))
+    myresult = mycursor.fetchall()
+    for result in myresult:
+        buildingIds.append(result[0])
+        buildingAddresses.append(result[1])
+        buildingDescriptions.append(result[2])
 
     return render_template('switchfacilities.html', buildingIds = buildingIds, buildingAddresses = buildingAddresses, buildingDescriptions = buildingDescriptions, numBuildings = len(buildingIds))
 
