@@ -93,6 +93,8 @@ from random import randint
 import urllib.request
 from weasyprint import HTML
 from flask import make_response, send_from_directory
+import influxdb_client
+from influxdb_client.client.write_api import SYNCHRONOUS
 #for photo upload
 commercial = Blueprint('commercial',__name__,template_folder='templates')
 app_root = Path(__file__).parents[1]
