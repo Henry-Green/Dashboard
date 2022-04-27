@@ -10,7 +10,6 @@
   color: #0D1758;
   border-radius: 15px;
   text-align: center;
-  display: none;
 }
 .oneAndOnlyDiv:before {
   content: "";
