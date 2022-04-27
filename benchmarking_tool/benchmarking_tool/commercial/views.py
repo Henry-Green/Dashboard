@@ -833,6 +833,7 @@ def facilityoverview(building_id):
             mycursor.execute(sql,(panel,))
             myresult = mycursor.fetchall()
             current_panel = []
+            current_category = []
             for result in myresult:
                 circuit_names.append(result[0])
                 current_panel.append(result[0])
@@ -841,6 +842,7 @@ def facilityoverview(building_id):
 
             circuit_name_groups.append(current_panel)
             circuit_category_groups.append(current_category)
+
 
 
         bucket = "trialset"
