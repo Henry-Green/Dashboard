@@ -837,9 +837,10 @@ def facilityoverview(building_id):
                 circuit_names.append(result[0])
                 current_panel.append(result[0])
                 circuit_categories.append(result[1])
+                current_category.append(result[1])
 
             circuit_name_groups.append(current_panel)
-            circuit_category_groups.append(circuit_categories)
+            circuit_category_groups.append(current_category)
 
 
         bucket = "trialset"
