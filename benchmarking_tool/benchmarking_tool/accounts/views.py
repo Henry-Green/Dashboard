@@ -114,6 +114,7 @@ def commerciallogin():
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
+        next_url = request.form["next"]
         form = LoginForm(
             email=email,
             password=password
@@ -125,9 +126,8 @@ def commerciallogin():
                 login_user(user)
                 next_page = request.args.get('next')
                 flash(f"Welcome {email}", 'success')
-                if role_user == 'User':
-                    customer = user.customer
-                    survey = customer.survey
+                if next_url:
+                    return redirect(next_url)
                 else:
                     return redirect(url_for('commercial.switchfacilities'))
             else:
