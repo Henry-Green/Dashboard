@@ -45,18 +45,11 @@
       </div>
     </div>
   </body>
+  <input
+    type="hidden"
+    name="next"
+    value="{{ request.args.get('next', '') }}"
+/>
 </html>
 
 
-<script>
-async function registerSW() {
-  if ('serviceWorker' in navigator) {
-    // try {
-      await navigator.serviceWorker.register("{{url_for('static',filename='scripts/sw.js')}}");
-    // } catch (e) {
-    //   console.log(`SW registration failed`);
-    // }
-  }
-}
-
-</script>
