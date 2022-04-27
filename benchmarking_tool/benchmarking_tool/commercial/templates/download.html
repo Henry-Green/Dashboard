@@ -111,14 +111,14 @@
 					break;
 				}
 			}
-			var url = (link) ? link.href : '';
+			var url = (link) ? link.href : "{{url_for('static',filename='img/share.png')}}";
 			// create & display a div
 			var div = document.createElement('div');
 			div.id = 'clayio-bookmarkMe';
 			var img = '<div class="img" style="background-image:url('+url+');"></div>';
-			div.innerHTML = '<div class="rect"><div class="left">'+img+'</div><div class="right"><p>Hey! We '+
+			div.innerHTML = '<div class="rect"><div class="left">'+ '</div><div class="right"><p>Hey! We '+
 					'noticed you\'re using an iOS device. You can add Opti-Mized to your home page by '+
-					'tapping the icon below:</p></div></div><div class="triangle"></div>';
+					'tapping the' +img+ 'icon below and then pressing "Add To Homescreen"</p></div></div><div class="triangle"></div>';
 			window.setTimeout(function(){ 
 				parent.appendChild(div);
 				window.scrollTo(1,1);
