@@ -175,7 +175,7 @@
         <ul class="footerLinks">
            
             <li>
-               <a href="#">
+               <a href="{{url_for('commercial.facilityoverview', building_id=buildingIds[i])}}" class="active">
                 <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M18.5 1L11.5 9.5L7.5 5L1.5 11" stroke="#AFB8CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -183,7 +183,7 @@
               </a>
             </li>
             <li>
-              <a href="#" class="active">
+              <a href="{{url_for('commercial.historicalusage', building_id=buildingIds[i])}}">
                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10.9998 1.00024V5.00024M10.9998 17.0001V21.0001M3.93004 3.92993L6.76004 6.75993M15.2403 15.2402L18.0703 18.0702M0.999512 11.0001H4.99951M16.9998 11.0001H20.9998M3.93004 18.0702L6.76004 15.2402M15.2403 6.75993L18.0703 3.92993" stroke="#AFB8CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -199,7 +199,7 @@
               </a>  
             </li>
             <li>
-              <a href="#"> 
+              <a href="{{url_for('commercial.switchfacilities')}}"> 
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M13.25 19.25V13.525H14.75V16.75C15.8167 15.8833 16.6667 14.8667 17.3 13.7C17.9333 12.5333 18.25 11.3 18.25 9.99999C18.25 7.79999 17.5833 5.92082 16.25 4.36249C14.9167 2.80415 13.25 1.87499 11.25 1.57499V0.0499878C13.6833 0.349988 15.7083 1.42499 17.325 3.27499C18.9417 5.12499 19.75 7.36665 19.75 9.99999C19.75 11.4667 19.4042 12.8667 18.7125 14.2C18.0208 15.5333 17.0917 16.7167 15.925 17.75H18.975V19.25H13.25ZM8.75 19.95C7.55 19.8 6.42917 19.4417 5.3875 18.875C4.34583 18.3083 3.44583 17.5875 2.6875 16.7125C1.92917 15.8375 1.33333 14.8292 0.9 13.6875C0.466667 12.5458 0.25 11.3167 0.25 9.99999C0.25 8.53332 0.595833 7.13332 1.2875 5.79999C1.97917 4.46665 2.90833 3.28332 4.075 2.24999H1.025V0.749988H6.75V6.47499H5.25V3.24999C4.18333 4.09999 3.33333 5.11249 2.7 6.28749C2.06667 7.46249 1.75 8.69999 1.75 9.99999C1.75 12.2 2.41667 14.0792 3.75 15.6375C5.08333 17.1958 6.75 18.125 8.75 18.425V19.95Z" fill="#AFB8CC"/>
                 </svg>
