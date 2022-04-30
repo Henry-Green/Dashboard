@@ -1410,21 +1410,20 @@ def switchfacilities():
     buildingDescriptions = []
     mydb = mysql.connector.connect(
           host="db-building-storage.cfo00s1jgsd6.us-east-2.rds.amazonaws.com",
-          user="admin",
-          password="rvqb2JymBB5CaNn",
+          user="readOnly",
+          password="JSfB55vpSL",
           database="db_mysql_sustainergy_alldata"
         )
 
     mycursor = mydb.cursor()
-    sql = "SELECT idbuildings, address, description FROM buildings WHERE client_id = %s"
+    # sql = "SELECT idbuildings, address, description FROM buildings WHERE client_id = %s"
         
-    mycursor.execute(sql,(client_id,))
-    myresult = mycursor.fetchall()
-    for result in myresult:
-        buildingIds.append(result[0])
-        buildingAddresses.append(result[1])
-        buildingDescriptions.append(result[2])
-        
+    # mycursor.execute(sql,(client_id,))
+    # myresult = mycursor.fetchall()
+    # for result in myresult:
+    #     buildingIds.append(result[0])
+    #     buildingAddresses.append(result[1])
+    #     buildingDescriptions.append(result[2])
     sql = "SELECT idbuildings, address, description FROM buildings WHERE client_id = %s"
         
     mycursor.execute(sql,('f165de5b',))
@@ -1433,7 +1432,6 @@ def switchfacilities():
         buildingIds.append(result[0])
         buildingAddresses.append(result[1])
         buildingDescriptions.append(result[2])
-
     user_agent = request.headers.get('User-Agent')
     user_agent = user_agent.lower()
     if "iphone" in user_agent or "android" in user_agent:
