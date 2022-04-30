@@ -914,10 +914,14 @@ def facilityoverview(building_id):
             newpanel = newpanel.replace("(", '')
             newpanel = newpanel.replace(")", '')
             panel_name_ids.append(newpanel)
-        return render_template('facilityoverview.html',panel_name_ids=panel_name_ids,circuit_name_groups=circuit_name_groups,circuit_category_groups=circuit_category_groups,circuit_categories=circuit_categories,circuit_names=circuit_names,panel_names=panel_names,total = total,results=results,names=names,building_address = building_address, buidling_description = buidling_description, building_id = building_id) #,categoriesdf = categoriesdf,panelpercent = panelpercent, panelcircuits = panelcircuits,circuitcount = circuitcount,paneltotal = paneltotal,panelnames = panelnames,numpanels = numpanels,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,categoryusage = categoryusage, pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last, len = len(home_upgrades.index), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
+        user_agent = request.headers.get('User-Agent')
+        user_agent = user_agent.lower()
+        if "iphone" in user_agent or "android" in user_agent:
+            return render_template('facilityoverviewmobile.html',panel_name_ids=panel_name_ids,circuit_name_groups=circuit_name_groups,circuit_category_groups=circuit_category_groups,circuit_categories=circuit_categories,circuit_names=circuit_names,panel_names=panel_names,total = total,results=results,names=names,building_address = building_address, buidling_description = buidling_description, building_id = building_id) #,categoriesdf = categoriesdf,panelpercent = panelpercent, panelcircuits = panelcircuits,circuitcount = circuitcount,paneltotal = paneltotal,panelnames = panelnames,numpanels = numpanels,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,categoryusage = categoryusage, pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last, len = len(home_upgrades.index), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
+        else:
+            return render_template('facilityoverview.html',panel_name_ids=panel_name_ids,circuit_name_groups=circuit_name_groups,circuit_category_groups=circuit_category_groups,circuit_categories=circuit_categories,circuit_names=circuit_names,panel_names=panel_names,total = total,results=results,names=names,building_address = building_address, buidling_description = buidling_description, building_id = building_id) #,categoriesdf = categoriesdf,panelpercent = panelpercent, panelcircuits = panelcircuits,circuitcount = circuitcount,paneltotal = paneltotal,panelnames = panelnames,numpanels = numpanels,colours = colours,lightpercent = lightpercent,waterpercent = waterpercent,hvacpercent = hvacpercent,equipmentpercent = equipmentpercent,plugpercent = plugpercent,otherpercent = otherpercent,lightprice = lightprice,waterprice = waterprice,hvacprice = hvacprice,equipmentprice = equipmentprice,plugprice = plugprice,otherprice = otherprice,lighttotal = lighttotal,watertotal = watertotal,hvactotal = hvactotal,equipmenttotal = equipmenttotal,plugtotal = plugtotal,othertotal = othertotal,categoryusage = categoryusage, pricelength = len(price.index),totalprice = totalprice, price = price,channellength = len(channel_name), lasts = len(last),last = last, len = len(home_upgrades.index), home_upgrades = home_upgrades,channel_name = channel_name,total = total)
     else:
         abort(403)
-     
 @commercial.route('/liveusage/<building_id>', methods=['GET', 'POST'])
 @login_required
 def liveusage(building_id):
@@ -1430,7 +1434,12 @@ def switchfacilities():
         buildingAddresses.append(result[1])
         buildingDescriptions.append(result[2])
 
-    return render_template('switchfacilities.html', buildingIds = buildingIds, buildingAddresses = buildingAddresses, buildingDescriptions = buildingDescriptions, numBuildings = len(buildingIds))
+    user_agent = request.headers.get('User-Agent')
+    user_agent = user_agent.lower()
+    if "iphone" in user_agent or "android" in user_agent:
+        return render_template('switchfacilitiesmobile.html', buildingIds = buildingIds, buildingAddresses = buildingAddresses, buildingDescriptions = buildingDescriptions, numBuildings = len(buildingIds))
+    else:
+        return render_template('switchfacilities.html', buildingIds = buildingIds, buildingAddresses = buildingAddresses, buildingDescriptions = buildingDescriptions, numBuildings = len(buildingIds))
 
 @commercial.route('/gaspage/<building_id>', methods=['GET', 'POST'])
 @login_required
@@ -3681,10 +3690,100 @@ def historicalusage(building_id):
             for i in range(int(starthours), int(endhours)):
                 chart_colours[i] = '#FFFFFF'
                 
-            user_agent = request.headers.get('User-Agent')
-            user_agent = user_agent.lower()
+            panel_ids = []
+            panel_names = []
+            circuit_names = []
+            circuit_categories = []
+            circuit_name_groups = []
+            circuit_category_groups =[]
+            panel_name_ids =[]
+
+            sql = "SELECT panel_id, panel_name FROM panel_data WHERE building_id = %s"
+            mycursor.execute(sql,(building_id,))
+            myresult = mycursor.fetchall()
+            for result in myresult:
+                panel_ids.append(result[0])
+                panel_names.append(result[1])
+
+            for panel in panel_ids:
+                sql = "SELECT circuit_name, circuit_category FROM circuit_data WHERE panel_id = %s"
+                mycursor.execute(sql,(panel,))
+                myresult = mycursor.fetchall()
+                current_panel = []
+                current_category = []
+                for result in myresult:
+                    circuit_names.append(result[0])
+                    current_panel.append(result[0])
+                    circuit_categories.append(result[1])
+                    current_category.append(result[1])
+
+                circuit_name_groups.append(current_panel)
+                circuit_category_groups.append(current_category)
+
+
+            bucket = "trialset"
+            org = "33fb425a6047cad9"
+            token = "UUH6z-JPugsamGgl6DvZm4W-7Gr3GGABGFulHKdPI-AbObSQVNta_FRlqFswKP7zPkWB5xboRznsaSJqGf5C0A=="
+            # Store the URL of your InfluxDB instance
+            url="https://us-east-1-1.aws.cloud2.influxdata.com"
+            client = influxdb_client.InfluxDBClient(
+               url=url,
+               token=token,
+               org=org
+            )
+            query_api = client.query_api()
+            query = ' from(bucket:"trialset")\
+                |> range(start: -7d)\
+                |> sort(columns: ["_time"])\
+                |> top(n:1)\
+                |> filter(fn:(r) => r._measurement == "power")\
+                |> filter(fn: (r) => r._field == "value")'
+            result = query_api.query(org=org, query=query)
+            results = []
+            for table in result:
+              for record in table.records:
+                results.append(record.get_value())
+
+            query_api = client.query_api()
+            query = ' from(bucket:"trialset")\
+                |> range(start: -7d)\
+                |> sort(columns: ["_time"])\
+                |> top(n:1)\
+                |> filter(fn:(r) => r._measurement == "power1")\
+                |> filter(fn: (r) => r._field == "value")'
+            result = query_api.query(org=org, query=query)
+            for table in result:
+              for record in table.records:
+                results.append(record.get_value())
+
+            query_api = client.query_api()
+            query = ' from(bucket:"trialset")\
+                |> range(start: -7d)\
+                |> sort(columns: ["_time"])\
+                |> top(n:1)\
+                |> filter(fn:(r) => r._measurement == "power2")\
+                |> filter(fn: (r) => r._field == "value")'
+            result = query_api.query(org=org, query=query)
+            for table in result:
+              for record in table.records:
+                results.append(record.get_value())
+
+            names = ['power', 'power1', 'power2']
+            total = sum(results)
+
+            for panel in panel_names:
+                newpanel = panel
+                newpanel = newpanel.replace(' ', '')
+                newpanel = newpanel.replace('"', '')
+                newpanel = newpanel.replace("'", '')
+                newpanel = newpanel.replace("(", '')
+                newpanel = newpanel.replace(")", '')
+                panel_name_ids.append(newpanel)
+                user_agent = request.headers.get('User-Agent')
+                user_agent = user_agent.lower()
+
             if "iphone" in user_agent or "android" in user_agent:
-                return render_template('mobilehistorical.html',error = error,daysDifference = daysDifference,  chart_colours = chart_colours,endhours = endhours,last_week_cd=last_week_full,predicted_line=predicted_line,schedule = scheduledata,timeloads = timeloads,panelsdf = panelsdf,categoriesdf = categoriesdf, onHours = onHours,offHours = offHours,alwaysOn = alwaysOn,weeklabels = weeklabels, panelchart = panelchart,lighttotal = lighttotal, equipmenttotal=  equipmenttotal, hvactotal = hvactotal, plugtotal = plugtotal, watertotal= watertotal, othertotal = othertotal, correctdate=correctdate,totalEmmissions = totalEmmissions, totalPrice =  totalPrice, totalUsage = totalUsage,categorynames = categorynames,strippedNames=strippedNames,strippedPanels=strippedPanels,panelnames=panelnames ,colours = colours, numpanels = numpanels, numcircuits = len(channel_names), categories = categories, panels = panels, percent = percent, price = price, usage = usage, channel_names = channel_names, building_id = building_id, buidling_description = buidling_description, building_address = building_address, form = form)
+                return render_template('mobilehistorical.html',panel_name_ids=panel_name_ids,circuit_name_groups=circuit_name_groups,circuit_category_groups=circuit_category_groups,circuit_categories=circuit_categories,circuit_names=circuit_names,panel_names=panel_names,total = total,results=results,names=names,error = error,daysDifference = daysDifference,  chart_colours = chart_colours,endhours = endhours,last_week_cd=last_week_full,predicted_line=predicted_line,schedule = scheduledata,timeloads = timeloads,panelsdf = panelsdf,categoriesdf = categoriesdf, onHours = onHours,offHours = offHours,alwaysOn = alwaysOn,weeklabels = weeklabels, panelchart = panelchart,lighttotal = lighttotal, equipmenttotal=  equipmenttotal, hvactotal = hvactotal, plugtotal = plugtotal, watertotal= watertotal, othertotal = othertotal, correctdate=correctdate,totalEmmissions = totalEmmissions, totalPrice =  totalPrice, totalUsage = totalUsage,categorynames = categorynames,strippedNames=strippedNames,strippedPanels=strippedPanels,panelnames=panelnames ,colours = colours, numpanels = numpanels, numcircuits = len(channel_names), categories = categories, panels = panels, percent = percent, price = price, usage = usage, channel_names = channel_names, building_id = building_id, buidling_description = buidling_description, building_address = building_address, form = form)
             else:
                 return render_template('historicalusage.html',error = error,daysDifference = daysDifference,  chart_colours = chart_colours,endhours = endhours,last_week_cd=last_week_full,predicted_line=predicted_line,schedule = scheduledata,timeloads = timeloads,panelsdf = panelsdf,categoriesdf = categoriesdf, onHours = onHours,offHours = offHours,alwaysOn = alwaysOn,weeklabels = weeklabels, panelchart = panelchart,lighttotal = lighttotal, equipmenttotal=  equipmenttotal, hvactotal = hvactotal, plugtotal = plugtotal, watertotal= watertotal, othertotal = othertotal, correctdate=correctdate,totalEmmissions = totalEmmissions, totalPrice =  totalPrice, totalUsage = totalUsage,categorynames = categorynames,strippedNames=strippedNames,strippedPanels=strippedPanels,panelnames=panelnames ,colours = colours, numpanels = numpanels, numcircuits = len(channel_names), categories = categories, panels = panels, percent = percent, price = price, usage = usage, channel_names = channel_names, building_id = building_id, buidling_description = buidling_description, building_address = building_address, form = form)
         else:
