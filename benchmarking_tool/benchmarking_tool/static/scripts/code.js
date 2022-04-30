@@ -79,7 +79,7 @@ function createColumns(periodArray, section,data) {
 
     if(data == 'energy'){
         if (x.type === "on-hrs") {
-        column.innerHTML = `<div class="columnpopup on-hrs">
+        column.innerHTML = `<div class="columnpopup on-hrs" style = 'left: 0;'>
         <div class="top-part">
         
         ${x.period === "morning" || x.period === "night" ? svgSrcMorining : svgAfternoon} 
@@ -96,7 +96,8 @@ function createColumns(periodArray, section,data) {
         
         </div>`;
       } else if (x.type === "off-hrs") {
-        column.innerHTML = `<div class="columnpopup off-hrs">
+        if(x.period === "morning"){
+        column.innerHTML = `<div class="columnpopup off-hrs" style = 'left: 0;'>
         <div class="top-part">
         ${x.period === "morning" || x.period === "night" ? svgSrcMorining : svgAfternoon} <p>${
           x.hours
@@ -107,7 +108,20 @@ function createColumns(periodArray, section,data) {
         <p>Off-Hours</p>
         <p class="price">${x.value.toFixed(2)} kWh</p>
         
-        </div>`;
+        </div>`;}
+        else{
+        column.innerHTML = `<div class="columnpopup off-hrs" style = 'right: 0;'>
+        <div class="top-part">
+        ${x.period === "morning" || x.period === "night" ? svgSrcMorining : svgAfternoon} <p>${
+          x.hours
+        }${i < 11 || i > 22 ? "AM" : "PM"}</p>
+       
+ 
+        </div>
+        <p>Off-Hours</p>
+        <p class="price">${x.value.toFixed(2)} kWh</p>
+        
+        </div>`;}
       }
     }
     }
@@ -158,9 +172,9 @@ const setIconPosition = (allArrays) => {
 
   iconSvg.forEach((item) => {
     if (maxValue*20 < 50) {
-      item.style.bottom = 70 + "%";
+      item.style.marginTop  = 10 + "px"
     } else {
-      item.style.bottom = maxValue*2 + 2.5 + "%";
+      item.style.marginTop  = 10 + "px";
     }
   });
 
