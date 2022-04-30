@@ -3779,8 +3779,8 @@ def historicalusage(building_id):
                 newpanel = newpanel.replace("(", '')
                 newpanel = newpanel.replace(")", '')
                 panel_name_ids.append(newpanel)
-                user_agent = request.headers.get('User-Agent')
-                user_agent = user_agent.lower()
+            user_agent = request.headers.get('User-Agent')
+            user_agent = user_agent.lower()
 
             if "iphone" in user_agent or "android" in user_agent:
                 return render_template('mobilehistorical.html',panel_name_ids=panel_name_ids,circuit_name_groups=circuit_name_groups,circuit_category_groups=circuit_category_groups,circuit_categories=circuit_categories,circuit_names=circuit_names,panel_names=panel_names,total = total,results=results,names=names,error = error,daysDifference = daysDifference,  chart_colours = chart_colours,endhours = endhours,last_week_cd=last_week_full,predicted_line=predicted_line,schedule = scheduledata,timeloads = timeloads,panelsdf = panelsdf,categoriesdf = categoriesdf, onHours = onHours,offHours = offHours,alwaysOn = alwaysOn,weeklabels = weeklabels, panelchart = panelchart,lighttotal = lighttotal, equipmenttotal=  equipmenttotal, hvactotal = hvactotal, plugtotal = plugtotal, watertotal= watertotal, othertotal = othertotal, correctdate=correctdate,totalEmmissions = totalEmmissions, totalPrice =  totalPrice, totalUsage = totalUsage,categorynames = categorynames,strippedNames=strippedNames,strippedPanels=strippedPanels,panelnames=panelnames ,colours = colours, numpanels = numpanels, numcircuits = len(channel_names), categories = categories, panels = panels, percent = percent, price = price, usage = usage, channel_names = channel_names, building_id = building_id, buidling_description = buidling_description, building_address = building_address, form = form)
