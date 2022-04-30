@@ -28,10 +28,10 @@
     <meta name="theme-color" content="#db4938">
     <title>Opti -mized</title>
   </head>
-  <body>
-    <main>
+  <body onload = 'getTotal(); createBarChart("energy");' style = 'overflow: hidden;'>
+    <main style = 'overflow: hidden;'>
         <div class="offerBar">
-            Civic Center
+            {{buidling_description}}
         </div>
      
         <div class="titleSpc">
@@ -52,11 +52,11 @@
     
 
         <div class="total-block">    
-          <div class="total-box"><span>$</span><span class="totalwhole">12</span><span class="decimal-span" id="totalprice-decimal">.82</span><div class="total-box-line">Costs</div></div>
+          <div class="total-box"><span>$</span><span class="totalwhole" id = 'totalprice-whole'>>12</span><span class="decimal-span" id="totalprice-decimal">.82</span><div class="total-box-line">Costs</div></div>
 
-          <div class="total-box"><span class="totalwhole">13</span><span class="decimal-span" id="total-decimal">.44</span><span class="kwh-total">kWh</span><div class="total-box-line">Usage</div></div>
+          <div class="total-box"><span class="totalwhole" id = 'total-whole'>13</span><span class="decimal-span" id="total-decimal">.44</span><span class="kwh-total">kWh</span><div class="total-box-line">Usage</div></div>
 
-          <div class="total-box"><span class="totalwhole">6</span><span class="decimal-span" id="emission-decimal">.09</span><span class="kwh-total">kg/CO2</span><div class="total-box-line">Emissions</div>
+          <div class="total-box"><span class="totalwhole" id = 'emission-whole'>6</span><span class="decimal-span" id="emission-decimal">.09</span><span class="kwh-total">kg/CO2</span><div class="total-box-line">Emissions</div>
                 <div class="overlay">
                     <form onsubmit="" method="POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
@@ -121,7 +121,7 @@
              <div class="blockRw" style="overflow: scroll;">
               
                 <div class="white-row align-items-center blockRW-wrapper" onclick = 'toggleCircuits("{{panel_name_ids[i]}}")'>
-                    <div class="col">
+                    <div class="col" style = 'width: 100px;'>
                         <div class="greySquare"><div class="circle greenbg"></div></div> {{panel_names[i]}}
                     </div>
                     <div class="col">
@@ -153,7 +153,7 @@
                                <div class="circle {{circuit_category_groups[i][k]}}"></div>{{circuit_name_groups[i][k]}}
                            </div>
                            
-                           <div class="col">
+                           <div class="col disc">
                                Disconnected
                            </div>
                            <div class="col">
@@ -175,7 +175,7 @@
         <ul class="footerLinks">
            
             <li>
-               <a href="{{url_for('commercial.facilityoverview', building_id=building_id)}}" class="active">
+               <a href="{{url_for('commercial.facilityoverview', building_id=building_id)}}">
                 <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M18.5 1L11.5 9.5L7.5 5L1.5 11" stroke="#AFB8CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -183,7 +183,7 @@
               </a>
             </li>
             <li>
-              <a href="{{url_for('commercial.historicalusage', building_id=building_id)}}">
+              <a href="#" class="active">
                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10.9998 1.00024V5.00024M10.9998 17.0001V21.0001M3.93004 3.92993L6.76004 6.75993M15.2403 15.2402L18.0703 18.0702M0.999512 11.0001H4.99951M16.9998 11.0001H20.9998M3.93004 18.0702L6.76004 15.2402M15.2403 6.75993L18.0703 3.92993" stroke="#AFB8CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -209,7 +209,510 @@
         </ul>
     </footer>
     </main>
+<script>
+        function array(newarray){
+        return newarray;
+    }
+      function createChart(name, number, panel, category, percent){
+        var data = {{schedule | tojson}};
+        var panelnames = {{panelnames | tojson}};
+        var paneltotals = {{panelchart | tojson}};
+        var predicted_line = {{predicted_line | safe}};
+        var last_week_cd = {{last_week_cd | safe}};
+        var current_last_week = last_week_cd[name];
+        console.log(last_week_cd)
+        console.log(current_last_week)
+        var monday = current_last_week[0];
+        var tuesday = current_last_week[1];
+        var wednesday = current_last_week[2];
+        var thursday = current_last_week[3];
+        var friday = current_last_week[4];
+        var saturday = current_last_week[5];
+        var sunday = current_last_week[6];
+        var last_week_data =  [];
+        var current_line = predicted_line[name];
+        var current_line_data = current_line['week_line'];
+        var current_line_error = current_line['Error'];
+        var current_line_sum = 0;
+        var string = data[number];
+        string = string.replace('[', '')
+        string = string.replace(']', '')
+        var datalist = string.split(",");
+        chart5.updateSeries([{ 
+            name: name,
+            data: datalist,
+        } 
+        ]); 
 
+        last_week_data = Object.values(monday[0]);
+        last_week_data = last_week_data.concat(tuesday[0])
+        last_week_data = last_week_data.concat(wednesday[0])
+        last_week_data = last_week_data.concat(thursday[0])
+        last_week_data = last_week_data.concat(friday[0])
+        last_week_data = last_week_data.concat(saturday[0])
+        last_week_data = last_week_data.concat(sunday[0])
+        chart01.updateSeries([
+        { 
+            name: 'Predicted',
+            data: current_line_data,
+        },
+        {   
+            name: 'Last Weeks Usage',
+            data: last_week_data,
+        }, 
+        ]); 
+        chart0.updateSeries(100 - current_line_error, current_line_error);
+        var sum = 0;
+        var runtime = 0;
+        for(var i = 0; i < datalist.length; i++){
+            sum += (parseFloat(datalist[i]) / 1000);
+            if(datalist[i] != 0){
+                runtime += 1;
+            }
+        }
+        for(var p = 0; p < current_line_data.length; p++){
+            current_line_sum += current_line_data[p]
+        }
+        sum = Math.round(sum * 100) / 100;
+        cost = sum * 0.09;
+        cost = Math.round(cost * 100) / 100;
+        sumSplit = String(sum).split('.')
+        costSplit = String(cost).split('.')
+        emission = (sum * 0.82).toFixed(2);
+        emissionSplit = String(emission).split('.')
+        var totallevyspent = ((((sum * 0.82) * 30) * 365)/1000) + ((((sum * 0.82) * 40) * 365)/1000) +((((sum * 0.82) * 50) * 365)/1000) +((((sum * 0.82) * 65) * 365)/1000) +((((sum * 0.82) * 80) * 365)/1000) +((((sum * 0.82) * 95) * 365)/1000) +((((sum * 0.82) * 110) * 365)/1000) +((((sum * 0.82) * 125) * 365)/1000) +((((sum * 0.82) * 140) * 365)/1000) +((((sum * 0.82) * 155) * 365)/1000) +((((sum * 0.82) * 170) * 365)/1000)
+        if(emissionSplit[1] == undefined){
+            emissionSplit[1] = '00'
+          }
+          if(sumSplit[1] == undefined){
+            sumSplit[1] = '00'
+          }
+          if(costSplit[1] == undefined){
+            costSplit[1] = '00'
+          }
+        document.getElementById("circuitemission-whole").innerHTML = Math.abs(emissionSplit[0]);
+        document.getElementById("circuitemission-decimal").innerHTML = '.' + Math.abs(emissionSplit[1]);
+        document.getElementById('circuit-block').style.width = '744px';
+        document.getElementById('load-predict').style.width = '0px';
+        document.getElementById("circuit-title").innerHTML = name;
+        document.getElementById("overview-title").innerHTML = name;
+        document.getElementById("load-title").innerHTML = name;
+        document.getElementById("levy-title").innerHTML = name;
+        document.getElementById('circuit-block').style.border = 'border: 2px solid #E3E7ED';
+        document.getElementById('circuit-whole').textContent = sumSplit[0];
+        document.getElementById('circuit-decimal').textContent = '.' + sumSplit[1];
+        document.getElementById('cost-whole').textContent = costSplit[0];
+        document.getElementById('cost-decimal').textContent = '.' + costSplit[1];
+        document.getElementById("general-info-category").innerHTML = category;
+        document.getElementById("general-info-panel").innerHTML = panel;
+        document.getElementById("on-hours-circuit").innerHTML = {{timeloads.iloc[0][1]}} + '%';
+        document.getElementById("off-hours-circuit").innerHTML = {{timeloads.iloc[1][1]}} + '%';
+        document.getElementById('time-on-circle').style.backgroundColor = '{{timeloads.iloc[0][2]}}';
+        document.getElementById('time-off-circle').style.backgroundColor = '{{timeloads.iloc[1][2]}}';
+        document.getElementById("run-times-time").innerHTML = runtime + 'h';
+        document.getElementById("monthly-avg-kwh").innerHTML = (sum * 30).toFixed(2) + ' kWh';
+        document.getElementById("monthly-avg-cost").innerHTML = '$' + (cost * 30).toFixed(2);
+        document.getElementById("yearly-avg-kwh").innerHTML = (sum * 365).toFixed(2) + ' kWh';
+        document.getElementById("yearly-avg-cost").innerHTML = '$' + (cost * 365).toFixed(2);
+        document.getElementById("avg-circuit-total-percent").innerHTML = (percent * 1).toFixed(2) + '%';
+        document.getElementById("carbon-levy-kg").innerHTML = (sum * 0.82).toFixed(2);
+        document.getElementById("carbon-levy-kg").innerHTML = (sum * 0.82).toFixed(2);
+        document.getElementById("carbon-levy-annual").innerHTML = (((sum * 0.82) * 365)/1000).toFixed(2);
+        document.getElementById("carbon-levy-total").innerHTML = ((((sum * 0.82) * 365)/1000) * 11).toFixed(2);
+        document.getElementById("carbon-cost-annual").innerHTML = '$' + totallevyspent.toFixed(2);
+        document.getElementById("estimate1").innerHTML = '$' + ((((sum * 0.82) * 30) * 365)/1000).toFixed(2);
+        document.getElementById("estimate2").innerHTML = '$' + ((((sum * 0.82) * 40) * 365)/1000).toFixed(2);
+        document.getElementById("estimate3").innerHTML = '$' + ((((sum * 0.82) * 50) * 365)/1000).toFixed(2);
+        document.getElementById("estimate4").innerHTML = '$' + ((((sum * 0.82) * 65) * 365)/1000).toFixed(2);
+        document.getElementById("estimate5").innerHTML = '$' + ((((sum * 0.82) * 80) * 365)/1000).toFixed(2);
+        document.getElementById("estimate6").innerHTML = '$' + ((((sum * 0.82) * 95) * 365)/1000).toFixed(2);
+        document.getElementById("estimate7").innerHTML = '$' + ((((sum * 0.82) * 110) * 365)/1000).toFixed(2);
+        document.getElementById("estimate8").innerHTML = '$' + ((((sum * 0.82) * 125) * 365)/1000).toFixed(2);
+        document.getElementById("estimate9").innerHTML = '$' + ((((sum * 0.82) * 140) * 365)/1000).toFixed(2);
+        document.getElementById("estimate10").innerHTML = '$' + ((((sum * 0.82) * 155) * 365)/1000).toFixed(2);
+        document.getElementById("estimate11").innerHTML = '$' + ((((sum * 0.82) * 170) * 365)/1000).toFixed(2);
+        document.getElementById("circuit-block").style.boxShadow  = "0 0 0 10000px rgba(0,0,0,.50)";
+        document.getElementById("typical-load").innerHTML = (sum - 2).toFixed(2) + 'kWh' + '-' + (sum + 2).toFixed() + 'kWh';
+        document.getElementById("load-fluctuation").innerHTML = (percent - 2).toFixed(2) + '%' + ' - ' + (percent - -1).toFixed(2) + "%";
+        document.getElementById('score-percent').innerHTML = (100 - (current_line_error * 100)).toFixed(2) + "<span style = 'font-size: 14px;'>%</span>";
+        document.getElementById('highnumber').innerHTML = (Math.max( ...current_line_data) * 1000).toFixed(0) + "<span style = 'font-size: 14px;'>w</span>";
+        document.getElementById('lownumber').innerHTML = (Math.min( ...current_line_data) * 1000).toFixed(0) + "<span style = 'font-size: 14px;'>w</span>";
+        document.getElementById('averagenumber').innerHTML = ((current_line_sum / current_line_data.length) * 1000).toFixed(0) + "<span style = 'font-size: 14px;'>w</span>";
+
+
+    if(category == 'lighting'){
+        document.getElementById('category-circle-color').style.backgroundColor = '#3649A8';
+    }
+    if(category == 'plugload'){
+        document.getElementById('category-circle-color').style.backgroundColor = '#EE8F37';
+    }
+    if(category == 'hvac'){
+        document.getElementById('category-circle-color').style.backgroundColor = '#EE5937';
+    }
+    if(category == 'equipment'){
+        document.getElementById('category-circle-color').style.backgroundColor = '#3BCDEE';
+    }
+    if(category == 'hotwater'){
+        document.getElementById('category-circle-color').style.backgroundColor = '#90C449';
+    }
+    if(category == 'other'){
+        document.getElementById('category-circle-color').style.backgroundColor = '#DBE2F3';
+    }
+
+    for(var i = 0; i < panelnames.length; i++){
+        if(panel == panelnames[i]){
+            document.getElementById('panel-circle-color').style.backgroundColor = panelcolours[i];
+            document.getElementById("avg-circuit-panel-percent").innerHTML = (((sum * 1000) / paneltotals[i]) * 100).toFixed(2) + '%';
+        }
+    }
+    }
+</script>
+  <script>
+    var price = {{price | tojson }};
+    var energy = {{usage | tojson }};
+    var Cost = true;
+    var totalUsage = {{totalUsage}};
+    var totalPrice = {{totalPrice}};
+    var totalEmmissions = {{totalEmmissions}};
+
+function changeUnits(){
+    var usage = document.getElementsByClassName('x345-L7BXHD');
+
+    if(Cost){
+    for(var i = 0; i < usage.length; i++){
+      usage[i].innerHTML = '$ ' + price[i];
+      Cost = false;
+    }
+  }
+
+  else{
+    for(var i = 0; i < usage.length; i++){
+      usage[i].innerHTML = energy[i] + ' kWh';
+      Cost = true;
+    }
+  }
+}
+
+function openPanelSidebar(){
+    document.getElementById('rightpanel').style.width = '400px';
+    document.getElementById('rightcategory').style.width = '0px';
+    document.getElementById('righttimeloads').style.width = '0px';
+    document.getElementById('title').innerHTML = 'Electrical Panels';
+
+    var colours = {{colours | tojson}};
+       var x = {{numpanels}};
+       var panelnames = {{strippedPanels | tojson}};
+       var i;
+       for(i = 0; i < x; i++){
+         var j = document.getElementsByClassName(panelnames[i] + 'colour');
+         var k = document.getElementsByClassName(panelnames[i]);
+         for(var l = 0; l < j.length; l++){
+             j[l].style.backgroundColor = colours[i];
+         }
+         for(var l = 0; l < k.length; l++){
+             k[l].style.color = colours[i];
+         }
+       }
+
+}
+function openCategorySidebar(){
+    document.getElementById('rightcategory').style.width = '400px';
+    document.getElementById('rightpanel').style.width = '0px';
+    document.getElementById('righttimeloads').style.width = '0px';
+    document.getElementById('title').innerHTML = 'Inventory';
+
+    var colours = {{colours | tojson}};
+       var x = 6;
+       var categorynames = ['lighting','equipment','hvac','plugload','hotwater','other'];
+       var i;
+       for(i = 0; i < x; i++){
+         var j = document.getElementsByClassName(categorynames[i] + 'colour');
+         var k = document.getElementsByClassName(categorynames[i]);
+         for(var l = 0; l < j.length; l++){
+             j[l].style.backgroundColor = colours[i];
+         }
+         for(var l = 0; l < k.length; l++){
+             k[l].style.color = colours[i];
+         }
+       }
+}
+function openTimeSidebar(){
+    document.getElementById('rightcategory').style.width = '0px';
+    document.getElementById('rightpanel').style.width = '0px';
+    document.getElementById('righttimeloads').style.width = '400px';
+    document.getElementById('title').innerHTML = 'Time Loads';
+}
+
+
+function toggleCategories(category){
+  var circuits = document.getElementsByClassName(category + 'rectangle');
+  var circuitvalues = document.getElementsByClassName(category + 'value');
+
+  for (var i = 0; i < circuits.length; i++) {
+    if(!(circuits[i].classList.contains('panelhidden'))){
+      if(circuits[i].style.display === "none") {
+        circuits[i].style.display = "block";
+        circuits[i].classList.remove("categoryhidden");
+        if(Cost){
+          var value = circuitvalues[i].innerHTML.split(' ')[0]
+          totalPrice += parseFloat(value * 0.09);
+          totalUsage += parseFloat(value)
+        }
+        else{
+          var value = circuitvalues[i].innerHTML.split(' ')[1]
+          totalPrice += parseFloat(value);
+          totalUsage += parseFloat(value/0.09)
+        }
+      } 
+      else {
+        circuits[i].style.display = "none";
+        circuits[i].classList.add("categoryhidden");
+        if(Cost){
+          var value = circuitvalues[i].innerHTML.split(' ')[0]
+          totalPrice -= parseFloat(value * 0.09);
+          totalUsage -= parseFloat(value)
+        }
+        else{
+          var value = circuitvalues[i].innerHTML.split(' ')[1]
+          totalPrice -= parseFloat(value);
+          totalUsage -= parseFloat(value/0.09)
+        }
+
+      }
+    }
+    else{
+    if((circuits[i].classList.contains('categoryhidden'))) {
+        circuits[i].classList.remove("categoryhidden");
+
+      } 
+      else {
+        circuits[i].classList.add("categoryhidden");
+      }
+    }
+  }
+  totalEmmissions = totalUsage * 0.82;
+  getTotal();
+}
+
+function togglePanels(panels){
+  var circuits = document.getElementsByClassName(panels + 'rectangle');
+  var circuitvalues = document.getElementsByClassName(panels + 'value');
+
+  for (var i = 0; i < circuits.length; i++) {
+    if(!(circuits[i].classList.contains('categoryhidden'))){
+      if(circuits[i].style.display === "none") {
+        circuits[i].style.display = "block";
+        circuits[i].classList.remove("panelhidden");
+        if(Cost){
+          var value = circuitvalues[i].innerHTML.split(' ')[0]
+          totalPrice += parseFloat(value * 0.09);
+          totalUsage += parseFloat(value)
+        }
+        else{
+          var value = circuitvalues[i].innerHTML.split(' ')[1]
+          totalPrice += parseFloat(value);
+          totalUsage += parseFloat(value/0.09)
+        }
+      } 
+      else {
+        circuits[i].style.display = "none";
+        circuits[i].classList.add("panelhidden");
+        if(Cost){
+          var value = circuitvalues[i].innerHTML.split(' ')[0]
+          totalPrice -= parseFloat(value * 0.09);
+          totalUsage -= parseFloat(value)
+        }
+        else{
+          var value = circuitvalues[i].innerHTML.split(' ')[1]
+          totalPrice -= parseFloat(value);
+          totalUsage -= parseFloat(value/0.09)
+        }
+      }
+    }
+    else{
+      if((circuits[i].classList.contains('panelhidden'))) {
+        circuits[i].classList.remove("panelhidden");
+      } 
+      else {
+        circuits[i].classList.add("panelhidden");
+      }
+    }
+  }
+  totalEmmissions = totalUsage * 0.82;
+  getTotal();
+}
+
+
+function getTotal() {
+  if(totalUsage < 0){
+    totalUsage = 0
+  }
+  if(totalPrice < 0){
+    totalPrice = 0
+  }
+  if(totalEmmissions < 0){
+    totalEmmissions = 0
+  }
+  totalSplit = String(totalUsage.toFixed(2)).split('.')
+  priceSplit = String(totalPrice.toFixed(2)).split('.')
+  emissionSplit = String(totalEmmissions.toFixed(2)).split('.')
+
+
+  if(totalSplit[1] == undefined){
+      totalSplit[1] = '00'
+  }
+  if(emissionSplit[1] == undefined){
+      emissionSplit[1] = '00'
+  }
+  if(priceSplit[1] == undefined){
+      priceSplit[1] = '00'
+  }
+  document.getElementById("total-whole").innerHTML = totalSplit[0];
+  document.getElementById("total-decimal").innerHTML = '.' + totalSplit[1];
+  document.getElementById("emission-whole").innerHTML = (emissionSplit[0]);
+  document.getElementById("emission-decimal").innerHTML = '.' + (emissionSplit[1]);
+  document.getElementById("totalprice-whole").innerHTML = priceSplit[0];
+  document.getElementById("totalprice-decimal").innerHTML = '.' + priceSplit[1];
+}
+function exploreCircuit(circuitname){
+        var x = document.getElementsByClassName('rectangle-3165-L7BXHD');
+        var y = document.getElementsByClassName('explore-image-box');
+        var lighting = document.getElementsByClassName('lighting');
+        var equipment = document.getElementsByClassName('equipment');
+        var hvac = document.getElementsByClassName('hvac');
+        var plugload = document.getElementsByClassName('plugload');
+        var hotwater = document.getElementsByClassName('hotwater');
+        var other = document.getElementsByClassName('other');
+        for(var i = 0; i < x.length; i++){
+            x[i].style.backgroundColor = 'white';
+            y[i].style.display = 'none';
+
+        }
+        console.log(circuitname)
+        document.getElementById(circuitname).style.backgroundColor = '#0D1758';
+        document.getElementById(circuitname + 'image').style.display = 'block';
+    }
+
+function closeCircuitBlock(){
+    document.getElementById('circuit-block').style.width = '0px';
+    document.getElementById('circuit-block').style.border = "2px solid transparent";
+    document.getElementById('overview').style.width = '0px';
+    document.getElementById('load-predict').style.width = '0px';
+    document.getElementById('carbon-levy').style.width = '0px';
+    document.getElementById("circuit-block").style.boxShadow  = "0 0 0 0px rgba(0,0,0,.50)";
+}
+
+  </script>
+<script>
+
+      var end = {{endhours}};
+  var afternoon = document.getElementById('afternoon')
+  var night = document.getElementById('night')
+  if(end == 0){
+    night.style.overflow = 'hidden'
+    afternoon.style.overflow = 'hidden'
+  }
+         function openOverview(){
+        document.getElementById('overview').style.width = '744px';
+        document.getElementById('load-predict').style.width = '0px'
+        document.getElementById('carbon-levy').style.width = '0px'
+       }
+       function closeOverview(){
+        document.getElementById('overview').style.width = '0px';
+       }
+       function closeLoadPredict(){
+        document.getElementById('load-predict').style.width = '0px';
+       }
+
+       function openLoadPredict(){
+        document.getElementById('load-predict').style.width = '744px';
+        document.getElementById('overview').style.width = '0px'
+        document.getElementById('carbon-levy').style.width = '0px'
+       }
+       function openCarbonLevy(){
+        document.getElementById('load-predict').style.width = '0px';
+        document.getElementById('overview').style.width = '0px'
+        document.getElementById('carbon-levy').style.width = '744px'
+       }
+       function closeCarbonLevy(){
+        document.getElementById('carbon-levy').style.width = '0px';
+       }
+
+
+       function checkIf0(){
+        var lighting = document.getElementById('lightingcheck')
+        var hvac = document.getElementById('hvaccheck')
+        var dhw = document.getElementById('dhwcheck')
+        var equipment = document.getElementById('equipmentcheck')
+        var plugload = document.getElementById('plugloadcheck')
+        var other = document.getElementById('othercheck')
+
+        if(!(lighting.checked)){
+          if(!(hvac.checked)){
+            if(!(dhw.checked)){
+              if(!(equipment.checked)){
+                if(!(plugload.checked)){
+                  if(!(other.checked)){
+                        document.getElementById("total-whole").innerHTML = '0';
+                        document.getElementById("total-decimal").innerHTML = '.' + '00';
+                        document.getElementById("emission-whole").innerHTML = '0';
+                        document.getElementById("emission-decimal").innerHTML = '.' + '00';
+                        document.getElementById("totalprice-whole").innerHTML = '0';
+                        document.getElementById("totalprice-decimal").innerHTML = '.' + '00';
+                      }
+                    }
+                  }
+                }
+              }
+        }
+
+
+       }
+
+</script>
+<svg id="SvgjsSvg1383" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;"><defs id="SvgjsDefs1384"></defs><polyline id="SvgjsPolyline1385" points="0,0"></polyline><path id="SvgjsPath1386" d="M0 0 "></path></svg>
+
+
+
+
+<script>
+  var util = {
+  qs(sel, ctx){ 
+    return (ctx || document).querySelector(sel);
+  },
+  qsa(sel, ctx){
+    return Array.from((ctx || document).querySelectorAll(sel));
+  }
+};
+
+class DateCarousel {
+  constructor(el) {
+    this.element = el;
+    this.prevButton = util.qs(".date-carousel-prev", el);
+    this.input = util.qs(".date-carousel-input",el);
+    this.nextButton = util.qs(".date-carousel-next",el);
+    this.input.valueAsDate = new Date();
+    this.prevButton.addEventListener("click",this.prev.bind(this));
+    this.nextButton.addEventListener("click",this.next.bind(this));
+  }
+  
+  prev(){
+    console.log('------------- prev', this.input.name);
+    this.input.stepDown();
+    
+  }
+  
+  next() {
+    console.log('------------- next', this.input.name);
+    this.input.stepUp();
+  }
+}
+
+util.qsa('.date-carousel').forEach(function(el){ new DateCarousel(el) });
+
+
+
+    </script>
     <script>
       $(document).ready(function(){
       $('#datepicker').val(moment().subtract({{daysDifference}}, 'days').format('ddd, D MMM yy'));

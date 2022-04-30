@@ -44,7 +44,7 @@
              <div class="blockRw" style="overflow: scroll;">
               
                 <div class="white-row align-items-center blockRW-wrapper" onclick = 'toggleCircuits("{{panel_name_ids[i]}}")'>
-                    <div class="col">
+                    <div class="col"style = 'width: 100px;'>
                         <div class="greySquare"><div class="circle greenbg"></div></div> {{panel_names[i]}}
                     </div>
                     <div class="col">
@@ -72,11 +72,11 @@
                 {% for k in range(0, circuit_name_groups[i] | length) %}
                     <div class="moreInfo {{panel_name_ids[i]}}">
                         <div class="white-row" >
-                           <div class="col">
+                           <div class="col" >
                                <div class="circle {{circuit_category_groups[i][k]}}"></div>{{circuit_name_groups[i][k]}}
                            </div>
                            
-                           <div class="col">
+                           <div class="col disc">
                                Disconnected
                            </div>
                            <div class="col">
