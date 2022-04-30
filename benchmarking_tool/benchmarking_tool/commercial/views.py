@@ -101,7 +101,6 @@ app_root = Path(__file__).parents[1]
 root_path = os.path.dirname(os.path.abspath(__file__))
 
 @commercial.route('/download', methods=['GET', 'POST'])
-@login_required
 def download():
     user_agent = request.headers.get('User-Agent')
     user_agent = user_agent.lower()
