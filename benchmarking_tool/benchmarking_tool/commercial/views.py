@@ -3382,8 +3382,8 @@ def historicalusage(building_id):
             client_id = current_user.phone_number
             panel_building_id = building_id
 
-            sql = "SELECT emporia_meter_sn_1 FROM electrical_panel WHERE panel_client_id = %s AND building_id = %s"
-            mycursor.execute(sql,(client_id,panel_building_id))
+            sql = "SELECT emporia_meter_sn_1 FROM electrical_panel WHERE building_id = %s"
+            mycursor.execute(sql,(panel_building_id,))
             myresult = mycursor.fetchall()
             for x in myresult:
                 serial_numbers = ','.join(x)
