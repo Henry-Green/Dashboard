@@ -168,104 +168,215 @@ nav h2 {
 }
 
 .chart-figma {
-  font-family: "Averta CY-Bold";
-  display: flex;
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
+    font-family: var(--font-family-averta_cy-bold);
+    display: flex;
+    position: relative;
+    bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    }
+  .chart-figma * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .chart-figma__container {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    height: 120px;
+  }
+  .chart-figma__container .chart-yaxis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 90%;
+    align-self: flex-end;
+    width: 50px;
+  }
+  .chart-figma__container .chart-yaxis .num-y {
+    color: #AFB8CC;
+    font-size: 12.33px;
+  }
+  .chart-figma__container .chart-xaxis {
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+  }
+  .chart-figma__container .chart-xaxis .icon-svg-day {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top:-26px !important;
+    margin: auto;
+    display: block;
+    z-index: 999;
+    bottom: auto !important;
+    width: 18px;
+  }
+  .chart-figma__container .chart-xaxis .morning div.column:last-child {
+    margin-right: 0;
+  }
+  .chart-figma__container .chart-xaxis .morning::after {
+    content: "";
+    position: absolute;
+    top: -15%;
+    left: 0;
+    height: 15%;
+    width: 100%;
+    background-color: #E6E9EF;
+  }
+  .chart-figma__container .chart-xaxis .afternoon p.title {
+    right: 0;
+    left: 0;
+    margin: auto;
+    text-align: center;
+  }
+  .chart-figma__container .chart-xaxis .afternoon::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0.880734px;
+    width: 100%;
+    background-color: #E6E9EF;
+  }
+  .chart-figma__container .chart-xaxis .afternoon::before {
+    content: "";
+    position: absolute;
+    top: 40%;
+    left: 0;
+    height: 0.880734px;
+    width: 100%;
+    background-color: #E6E9EF;
+  }
+  .chart-figma__container .chart-xaxis .night {
+    padding-left: 0;
+  }
+  .chart-figma__container .chart-xaxis .night p.title {
+    right: 0;
+  }
+  .chart-figma__container .chart-xaxis .night div.column:first-child {
+    margin-left: 0;
+  }
+  .chart-figma__container .chart-xaxis .night::after {
+    content: "";
+    position: absolute;
+    top: -15%;
+    left: 0;
+    height: 15%;
+    width: 100%;
+    background-color: #E6E9EF;
+  }
+  .chart-figma__container .chart-xaxis .morning, .chart-figma__container .chart-xaxis .night {
+    background-color: #E6E9EF;
+  }
+  .chart-figma__container .chart-xaxis .morning, .chart-figma__container .chart-xaxis .afternoon, .chart-figma__container .chart-xaxis .night {
+    max-width: 100%;
+    height: 90%;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+  }
+  .chart-figma__container .chart-xaxis .morning p.title, .chart-figma__container .chart-xaxis .afternoon p.title, .chart-figma__container .chart-xaxis .night p.title {
+    position: absolute;
+    bottom: -25px;
+    color: #AFB8CC;
+    font-size: 12.33px;
+  }
+  .chart-figma__container .chart-xaxis .morning div.column, .chart-figma__container .chart-xaxis .afternoon div.column, .chart-figma__container .chart-xaxis .night div.column {
+    display: inline-block;
+    width: 7px;
+    height: 50%;
+    background-color: #0D1758;
+    border-radius: 22px;
+    align-self: flex-end;
+    margin: 0 4px 6px;
+    position: relative;
+    max-height: 70px;
+  }
+  .apexcharts-canvas {
+    transform: scale(0.8);
 }
+  .chart-figma__container .chart-xaxis .morning div.column:hover .columnpopup, .chart-figma__container .chart-xaxis .afternoon div.column:hover .columnpopup, .chart-figma__container .chart-xaxis .night div.column:hover .columnpopup {
+    opacity: 1;
+  }
+  .chart-figma__container .chart-xaxis .morning div.column .columnpopup, .chart-figma__container .chart-xaxis .afternoon div.column .columnpopup, .chart-figma__container .chart-xaxis .night div.column .columnpopup {
+    bottom: 120px;
+    position: absolute;
+    min-width: 98px;
+    background-color: #fff;
+    z-index: 9999;
+    border: 2px solid #0D1758;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    align-items: center;
+    padding-top: 10px;
+    font-weight: 600;
+    padding-bottom: 8px;
+    z-index: 100;
+    font-size: 13px;
+    pointer-events: none
+  }
+  .chart-figma__container .chart-xaxis .morning div.column .columnpopup.on-hrs, .chart-figma__container .chart-xaxis .afternoon div.column .columnpopup.on-hrs, .chart-figma__container .chart-xaxis .night div.column .columnpopup.on-hrs {
+    background-color: #fff;
+  }
+  .chart-figma__container .chart-xaxis .morning div.column .columnpopup.on-hrs *, .chart-figma__container .chart-xaxis .afternoon div.column .columnpopup.on-hrs *, .chart-figma__container .chart-xaxis .night div.column .columnpopup.on-hrs * {
+    color: #0D1758;
+  }
+  .chart-figma__container .chart-xaxis .morning div.column .columnpopup.on-hrs .top-part, .chart-figma__container .chart-xaxis .afternoon div.column .columnpopup.on-hrs .top-part, .chart-figma__container .chart-xaxis .night div.column .columnpopup.on-hrs .top-part {
+    border-bottom: 1px solid #ccc;
+  }
+  .chart-figma__container .chart-xaxis .morning div.column .columnpopup.on-hrs .on-hrs-p, .chart-figma__container .chart-xaxis .afternoon div.column .columnpopup.on-hrs .on-hrs-p, .chart-figma__container .chart-xaxis .night div.column .columnpopup.on-hrs .on-hrs-p {
+    color: #22B14C;
+  }
+  .chart-figma__container .chart-xaxis .morning div.column .columnpopup.off-hrs, .chart-figma__container .chart-xaxis .afternoon div.column .columnpopup.off-hrs, .chart-figma__container .chart-xaxis .night div.column .columnpopup.off-hrs {
+    background-color: #E6E9EF;
+  }
+  .chart-figma__container .chart-xaxis .morning div.column .columnpopup.off-hrs .top-part, .chart-figma__container .chart-xaxis .afternoon div.column .columnpopup.off-hrs .top-part, .chart-figma__container .chart-xaxis .night div.column .columnpopup.off-hrs .top-part {
+    border-bottom: 2px solid #ccc;
+  }
+  .chart-figma__container .chart-xaxis .morning div.column .columnpopup .top-part, .chart-figma__container .chart-xaxis .afternoon div.column .columnpopup .top-part, .chart-figma__container .chart-xaxis .night div.column .columnpopup .top-part {
+    display: flex;
+    justify-content: space-around;
+    width: 75%;
+    padding-bottom: 8px;
+    margin-bottom: 5px;
+    align-items: center;
+  }
+  .chart-figma__container .chart-xaxis .morning div.column .columnpopup .top-part svg, .chart-figma__container .chart-xaxis .afternoon div.column .columnpopup .top-part svg, .chart-figma__container .chart-xaxis .night div.column .columnpopup .top-part svg {
+    position: static;
+    margin: 0;
+  }
+  .chart-figma__container .chart-xaxis .morning div.column .columnpopup span, .chart-figma__container .chart-xaxis .afternoon div.column .columnpopup span, .chart-figma__container .chart-xaxis .night div.column .columnpopup span {
+    color: #0D1758;
+    font-family: var(--font-family-averta_cy-bold);
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  .chart-figma__container .chart-xaxis .morning div.column .columnpopup .onhours, .chart-figma__container .chart-xaxis .afternoon div.column .columnpopup .onhours, .chart-figma__container .chart-xaxis .night div.column .columnpopup .onhours {
+    color: #22B14C;
+  }
+  .chart-figma__container .chart-xaxis .morning div.column .columnpopup .imgsvg, .chart-figma__container .chart-xaxis .afternoon div.column .columnpopup .imgsvg, .chart-figma__container .chart-xaxis .night div.column .columnpopup .imgsvg {
+    display: inline-block;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #ECE9F1;
+    margin-bottom: 5px;
+  }
+  .chart-figma__container .chart-xaxis .morning div.column .columnpopup .imgsvg svg, .chart-figma__container .chart-xaxis .afternoon div.column .columnpopup .imgsvg svg, .chart-figma__container .chart-xaxis .night div.column .columnpopup .imgsvg svg {
+    position: static;
+    margin: 0;
+  }
+  .chart-figma__container .chart-xaxis .morning div.column .columnpopup .spanHours, .chart-figma__container .chart-xaxis .afternoon div.column .columnpopup .spanHours, .chart-figma__container .chart-xaxis .night div.column .columnpopup .spanHours {
+    position: absolute;
+    right: 80px;
+    color: #22B14C;
+  }
 
-.chart-figma__container {
-  max-width: 100%;
-  height: 135px;
-  width: 100%;
-}
-
-.chart-figma__container .chart-xaxis {
-  height: 100%;
-  display: flex;
-  align-items: flex-end;
-}
-
-.chart-figma__container .chart-xaxis .morning,
-.chart-figma__container .chart-xaxis .night {
-  background-color: #E6E9EF;
-}
-
-.chart-figma__container .chart-xaxis .morning,
-.chart-figma__container .chart-xaxis .afternoon,
-.chart-figma__container .chart-xaxis .night {
-  max-width: 100%;
-  max-width: 100%;
-  height: 90%;
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-  width: 33%;
-  overflow: hidden;
-}
-
-.chart-figma__container .chart-xaxis .morning div.column,
-.chart-figma__container .chart-xaxis .afternoon div.column,
-.chart-figma__container .chart-xaxis .night div.column {
-  display: inline-block;
-  width: 12.5px;
-  height: 50%;
-  background-color: #0D1758;
-  border-radius: 22px;
-  align-self: flex-end;
-  margin: 0 2px 6px;
-  position: relative;
-}
-
-.chart-figma__container .chart-xaxis .icon-svg-day {
-  position: absolute;
-  right: 0;
-  left: 0;
-  top: 4px !important;
-  margin: auto;
-  display: block;
-  z-index: 999;
-  bottom: auto !important;
-  width: 14px;
-}
-
-.columnpopup p,
-.columnpopup p.price {
-  font-size: 10px;
-}
-
-.chart-figma__container .chart-xaxis .morning p.title,
-.chart-figma__container .chart-xaxis .afternoon p.title,
-.chart-figma__container .chart-xaxis .night p.title {
-  position: absolute;
-  bottom: -17px;
-  color: #AFB8CC;
-  font-size: 10.33px;
-}
-
-.chart-figma__container .chart-xaxis .morning div.column .columnpopup,
-.chart-figma__container .chart-xaxis .afternoon div.column .columnpopup,
-.chart-figma__container .chart-xaxis .night div.column .columnpopup {
-  bottom: 120px;
-  position: absolute;
-  min-width: 12px;
-  background-color: #fff;
-  z-index: 9999;
-  border: 2px solid #0D1758;
-  opacity: 0;
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
-  align-items: center;
-  padding-top: 10px;
-  font-weight: 600;
-  padding-bottom: 8px;
-  z-index: 100;
-  font-size: 13px;
-  width: 61px;
-}
 
 .card {
   display: flex;
@@ -756,4 +867,7 @@ background-color: #EE5937
 
 .ui-datepicker .ui-datepicker-title {
     font-size: 14px;
+}
+.disc {
+  color: #777;
 }
